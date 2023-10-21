@@ -1,0 +1,89 @@
+@import "../../utils/variables";
+
+.dialog-popup {
+  position: fixed;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  display: flex;
+  opacity: 0;
+  align-items: center;
+  justify-content: center;
+  transition: visibility 1s linear, opacity 1s linear;
+  z-index: 5;
+    visibility: hidden;
+  &__container {
+    display: flex;
+    flex-direction: column;
+    // background-color: #fff;
+    width: 480px;
+    height: 366px;
+    // color: #000;
+    max-width: 480px;
+    border-radius: 16px;
+    padding: 24px;
+    &_day {
+      background-color: $main-bg-day;
+      color: $font-day;
+    }
+    &_night {
+      background-color: $main-bg-night;
+      color: $font-night;
+    }
+  }
+  &__title {
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+  }
+  &__close {
+    width: 32px;
+    height: 32px;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    &_day {
+      background-image: url("../../img/icons/menu-day/close.png");
+    }
+    &_night {
+      background-image: url("../../img/icons/menu-night/close-night.png");
+    }
+  }
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  &__btn {
+    margin-bottom: 12px;
+    padding: 16px 0px;
+    border-radius: 16px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      background-color: $hover;
+    }
+    &_day {
+      background-color: $bars-day;
+      color: $font-day;
+    }
+    &_night {
+      background-color: $bars-night;
+      color: $font-night;
+    }
+  }
+  &_opened {
+    visibility: visible;
+    opacity: 1;
+  }
+}

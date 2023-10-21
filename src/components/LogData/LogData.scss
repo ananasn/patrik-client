@@ -1,0 +1,48 @@
+@import "../../utils/variables";
+
+.logs__item {
+  display: flex;
+  gap: 15px;
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+
+.logs__date {
+  font-size: 20px;
+  margin: 0px;
+  padding: 0px;
+  white-space: nowrap;
+
+  &--day {
+    color: rgba(16, 20, 32, 0.50);
+  }
+
+  &--night {
+    color: rgba(255, 255, 255, 0.50);
+  }
+}
+
+.logs__text {
+  font-size: 20px;
+  margin: 0px;
+  padding: 0px;
+  text-align: left;
+
+  &--day {
+    color: $font-day;
+  }
+
+  &--night {
+    color: $font-night;
+  }
+}
+
+@media(max-width:600px) {
+  .logs__item {
+    flex-direction: column;
+  }
+  .logs__date {
+    text-align: left;
+    white-space: wrap;
+  }
+}

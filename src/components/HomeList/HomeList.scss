@@ -1,0 +1,81 @@
+@import "../../utils/variables";
+
+.home-list {
+  margin: 46px 24px 0;
+  border-radius: 24px;
+  width: 348px;
+  height: 287px;
+  overflow: hidden;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 32px);
+    // padding: 32px 0;
+    margin: 0 auto;
+  }
+  &_day {
+    background: $main-bg-day;
+  }
+  &_night {
+    background: $main-bg-night;
+  }
+  &__title {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+    margin: 16px 0 8px 0;
+  }
+  &__list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    // padding: 16px;
+    padding: 0;
+    margin: 0;
+  }
+  &__item {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+    align-items: center;
+    width: 296px;
+    height: 35px;
+    border-radius: 8px;
+    padding: 5px 8px 6px 16px;
+    justify-content: space-between;
+    &_day {
+      background: $bars-day;
+    }
+    &_night {
+      background: $bars-night;
+    }
+  }
+  &__text {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 240px;
+    text-align: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &__btn {
+    background: transparent;
+    border: none;
+    width: 24px;
+    height: 24px;
+    margin-left: 3px;
+    cursor: pointer;
+    &_day {
+      background-image: url('../../img/icons/menu-day/ion_play.svg');
+    }
+    &_night {
+      background-image: url('../../img/icons/menu-night/ion_play-night.svg');
+    }
+  }
+}

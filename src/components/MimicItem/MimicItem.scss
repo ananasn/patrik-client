@@ -1,0 +1,406 @@
+@import "../../utils/variables";
+
+.mimicitem {
+  position: relative;
+  margin: 0px;
+  //padding: 0px;
+  display: flex;
+  flex-direction: column;
+  max-width: 976px;
+  border-radius: 24px;
+  padding: 32px 40px 58px;
+  margin-top: 25px;
+  transition: 0.5s all;
+  box-sizing: border-box;
+  width: 100%;
+  list-style: none;
+  overflow: hidden;
+
+  &--show {
+    max-height: 2000px;
+  }
+
+  &--hide {
+    max-height: 30px;
+  }
+
+  &--day {
+    background-color: $bars-day;
+  }
+
+  &--night {
+    background-color: $bars-night;
+  }
+
+  &__body-item {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 12px;
+
+    label {
+      cursor: pointer;
+    }
+  }
+
+  &__input {
+    background-color: transparent;
+    border: 0px;
+    outline: none;
+    max-width: 100px;
+
+    &--day {
+      color: $font-day;
+    }
+
+    &--night {
+      color: $font-night;
+    }
+  }
+
+  &__btns {
+    position: static;
+    //display: flex;
+    //align-items: center;
+    //justify-items: center;
+    gap: 5px;
+  }
+
+  &__btn {
+    background-color: transparent;
+    border: 0px;
+    outline: none;
+    cursor: pointer;
+
+    img {
+      transition: 0.5s all;
+    }
+  }
+
+  &__btn-show--open {
+    transform: rotate(0deg);
+  }
+
+  &__btn-show--close {
+    transform: rotate(180deg);
+  }
+
+  &__head {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+  }
+  &__controls {
+    display: flex;
+    flex-direction: row;
+   justify-content: space-around;
+  }
+
+  &__controller {
+    gap: 25px;
+    display: flex;
+    flex-direction: column;
+    input {
+      width: 256px;
+      //width: 100%;
+    }
+    .controler__value {
+      width: 64px;
+    }
+  }
+
+  &__face {
+    max-width: 240px;
+    max-height: 126px;
+    padding: 14px;
+    border-radius: 7px;
+    margin-right: 32px;
+      &--day {
+        background-color: $robot-day;
+      }
+
+      &--night {
+        background-color: $robot-move-night;
+      }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: row;
+    // position: relative;
+    // align-items: center;
+    justify-content: center;
+  }
+
+  &__breast {
+    display: flex;
+    flex-direction: column;
+    max-width: 166px;
+    max-height: 367px;
+    align-items: center;
+  }
+
+  &__control {
+    width: 100%;
+  }
+
+  &__add-row {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+  }
+
+  &-add__btn {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    padding: 24px 20px;
+    text-align: center;
+    border: 0px;
+    outline: none;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: 0.3s all;
+    &:hover {
+      transform: scale(1.05);
+    }
+    &--day {
+      background-color: $bars-day;
+      color: $btns-day;
+    }
+    &--night {
+      background-color: $bars-night;
+      color: $btns-night;
+    }
+    img {
+      max-width: 32px;
+      max-height: 32px;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 40px;
+    align-items: center;
+  }
+}
+
+.mimicitem__face-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 24px;
+
+  @media(max-width: 1120px) {
+    flex-wrap: wrap;
+  }
+}
+
+.face__items-container {
+  display: flex;
+  //align-items: center;
+  //justify-content: center;
+  padding: 8px 16px 8px 8px;
+  border-radius: 8px;
+  gap: 12px;
+  margin-bottom: 24px;
+  &--day {
+    background-color: $robot-day;
+  }
+
+  &--night {
+    background-color: $robot-night;
+  }
+}
+
+.face__item-title {
+  display: flex;
+  width: 144px;
+  padding: 14px 0px 15px 0px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  &--day {
+    background-color: #e8ecf7;
+  }
+
+  &--night {
+    background-color: $robot-night;
+  }
+
+}
+
+.active {
+  &--day {
+  background-color: $btns-day;
+  color: white;
+
+  img {
+    svg {
+      rect {
+        fill: #1E85FF;
+        fill-opacity: 1;
+      }
+      path {
+        stroke: white;
+      }
+    }
+  }
+  }
+  &--night {
+    background-color: $btns-night;
+  }
+
+
+}
+
+.face__item-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 144px;
+  border-radius: 8px;
+  &--day {
+    background-color: #e8ecf7;
+
+  }
+
+  &--night {
+    background-color: $robot-night;
+  }
+
+    .line {
+      width: 54px;
+      height: 6px;
+      border-radius: 19px;
+      &--day {
+        background-color: $main-bg-night;
+      }
+  }
+
+}
+
+
+@media(max-width: 1320px) {
+  .mimicitem {
+    padding: 24px;
+  }
+}
+
+
+@media(max-width: 1285px) {
+  .mimicitem {
+    &__body-item {
+      flex-direction: column;
+    }
+
+    &--hide {
+      max-height: 100px;
+    }
+    &__controls {
+      flex-direction: column;
+     justify-content: flex-start;
+    }
+
+    &__control {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__btns {
+      position: absolute;
+      right: 24px;
+      bottom: 104px;
+      gap: 5px;
+    }
+  }
+}
+
+@media(max-width: 1120px) {
+  .mimicitem {
+    &__btns {
+      position: absolute;
+      right: 24px;
+      bottom: 184px;
+      gap: 5px;
+    }
+  }
+}
+
+@media(max-width: 1285px) {
+  .mimicitem {
+    &__control {
+      &-name {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+@media(max-width:515px) {
+  .mimicitem {
+
+    &__face {
+      max-width: 280px;
+      max-height: 168px;
+    }
+
+    &--hide {
+      max-height: 80px;
+    }
+
+    &__btn {
+      max-width: 24px;
+      max-height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        max-width: 24px;
+        max-height: 24px;
+      }
+    }
+
+    &__form {
+      input {
+        font-size: 24px;
+      }
+
+      label {
+        max-width: 24px;
+        max-height: 24px;
+
+        img {
+          max-width: 24px;
+          max-height: 24px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+@import "../../utils/variables";
+.robot {
+  &__form {
+    margin-top: 63px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  &__input-day {
+    width: 100%;
+    margin: 0 40px;
+    border: 0px;
+    padding: 20px 55px 20px 32px;
+    border-radius: 32px;
+    font-size: 16px;
+    background: $bars-day;
+    color: $font-day;
+    &:focus {
+      outline: none;
+    }
+  }
+  &__input-night {
+    width: 100%;
+    margin: 0 40px;
+    border: 0px;
+    padding: 20px 55px 20px 32px;
+    border-radius: 32px;
+    font-size: 16px;
+    color: $font-night;
+    background: $bars-night;
+    &:focus {
+      outline: none;
+    }
+  }
+  &__send {
+    position: absolute;
+    right: 60px;
+    top: 14px;
+    z-index: 99;
+    background-color: transparent;
+    border: 0px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}

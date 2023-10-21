@@ -1,0 +1,14 @@
+@import "../../utils/variables";
+
+.main {
+    flex: 2;
+    &_day {
+        background-color: $main-bg-day;
+    }
+    &_night {
+        background-color: $main-bg-night;
+    }
+    &__content {
+        // padding: 32px;
+    }
+}

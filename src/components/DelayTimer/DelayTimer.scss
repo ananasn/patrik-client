@@ -1,0 +1,131 @@
+@import "../../utils/variables";
+
+.delaytimer {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 13px;
+  border-radius: 24px;
+  padding: 16px 0px;
+  list-style: none;
+
+  &--day {
+    background-color: $bars-day;
+  }
+
+  &--night {
+    background-color: $bars-night;
+  }
+
+  &__input {
+    max-width: 100px;
+
+    &--day {
+      color: $font-day;
+    }
+
+    &--night {
+      color: $font-night;
+    }
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-grow: 2;
+  }
+
+  &__word {
+    font-size: 28px;
+    color: $btns-day;
+    margin-left: 12px;
+    margin-right: 12px;
+
+    &--day {
+      color: $font-day;
+    }
+
+    &--night {
+      color: $font-night;
+    }
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    border: 0px;
+    outline: none;
+    background-color: transparent;
+    max-width: 80px;
+    padding: 0px;
+  }
+
+  &__ms {
+    margin-right: 12px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+
+  &__button {
+    background-color: transparent;
+    border: 0px;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  & label {
+    cursor: pointer;
+  }
+}
+
+@media(max-width: 500px) {
+  .delaytimer {
+    padding: 16px 5px;
+
+    &__word {
+      display: none;
+    }
+
+    &__info {
+      flex-grow: 0;
+      justify-content: flex-start;
+
+      & img {
+        max-width: 24px;
+        max-height: 24px;
+      }
+    }
+
+    &__buttons {
+      flex-grow: 0;
+      justify-content: end;
+    }
+
+    & label {
+      img {
+        max-width: 24px;
+        max-height: 24px;
+      }
+    }
+
+    &__button {
+      img {
+        max-width: 24px;
+        max-height: 24px;
+      }
+    }
+  }
+}

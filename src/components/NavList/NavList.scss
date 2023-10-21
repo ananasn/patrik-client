@@ -1,0 +1,89 @@
+@import "../../utils/variables";
+
+.navlist {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  list-style-type: none;
+  padding: 0;
+  margin: 40px 0 0 56px;
+
+  & li {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+
+    max-width: fit-content;
+
+    &:hover {
+      background-color: $hover;
+    }
+
+    & a {
+      text-decoration: none;
+      display: flex;
+      flex-direction: row;
+
+      & p {
+        margin: 0;
+        font-size: 28px;
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 400;
+        line-height: 34px;
+        text-decoration: none;
+      }
+
+      & img {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  &__link {
+    &_day {
+      color: $font-day;
+    }
+
+    &_night {
+      color: $font-night;
+    }
+  }
+}
+
+@media(max-width:850px) {
+  .navlist {
+    margin: 0;
+    flex-direction: row;
+    justify-content: space-between;
+
+    & li {
+      & a {
+        flex-direction: column;
+        align-items: center;
+
+        & p {
+          font-size: 20px;
+        }
+
+        & img {
+          max-width: 32px;
+          max-height: 32px;
+          width: 100%;
+          height: 100%;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+@media(max-width:650px) {
+  .navlist {
+    & a {
+      & p {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+@import "../../utils/variables";
+
+.robotaddsmt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  width: 90%;
+  gap: 10px;
+  cursor: pointer;
+  border: 0px;
+  outline: none;
+  border-radius: 12px;
+  padding: 16px 0px;
+  overflow: hidden;
+  transition: 0.3s all;
+
+  &--active {
+    align-items: flex-start;
+    justify-content: stretch;
+    flex-direction: column;
+    padding: 16px 32px;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &__img--active {
+    position: absolute;
+    top: 100%;
+    transform: translateY(100%);
+  }
+
+  img {
+    max-width: 48px;
+    transition: 0.3s all;
+    max-height: 48px;
+  }
+
+  &__text {
+    font-size: 32px;
+    font-weight: 500;
+    margin: 0px;
+    transition: 0.3s all;
+
+    &--day {
+      color: $btns-day;
+    }
+
+    &--night {
+      color: $btns-night;
+    }
+  }
+  &__form {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+  }
+  &__input {
+    padding: 16px 32px;
+    font-size: 16px;
+    border-radius: 32px;
+    border: 0px;
+    outline: none;
+    color: rgba(16, 20, 32, 1);
+    flex-grow: 1;
+    &--day {
+      background-color: $robot-day;
+    }
+
+    &--night {
+      background-color: $robot-night;
+    }
+  }
+}
+
+.robotaddsmt--day {
+  background-color: $move-add-smt-day;
+}
+
+.robotaddsmt--night {
+  background-color: $move-add-smt-night;
+}
+
+@media(max-width:900px) {
+  .robotaddsmt {
+    &__text {
+      font-size: 24px;
+    }
+
+    img {
+      max-width: 32px;
+      max-height: 32px;
+    }
+  }
+}

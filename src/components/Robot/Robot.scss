@@ -1,0 +1,205 @@
+.robot {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    &__head {
+        margin-top: 48px;
+        display: flex;
+        flex-direction: column;
+        // justify-content: center;
+        align-items: center;
+    }
+
+    &__face {
+        max-width: 259px;
+    }
+
+    &__neck {
+        max-width: 148px;
+        margin: 8px 0;
+        transition: 0.5s all;
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: row;
+        // position: relative;
+        // align-items: center;
+        justify-content: center;
+
+    }
+
+    &__torso {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        align-items: center;
+
+    }
+
+    &__logo {
+        top: 58px;
+        left: 42px;
+        position: absolute;
+
+    }
+
+    &__breast {
+        display: flex;
+        flex-direction: column;
+        max-width: 257px;
+        align-items: center;
+
+    }
+
+    &__left-shoulder {
+        display: flex;
+        flex-direction: column;
+        max-width: 129px;
+        align-items: center;
+        position: absolute;
+        left: -42px;
+
+    }
+
+    &__right-shoulder {
+        display: flex;
+        flex-direction: column;
+        max-width: 129px;
+        align-items: center;
+        position: absolute;
+        right: -42px;
+
+    }
+
+    &__arm {
+        display: flex;
+        flex-direction: column;
+        margin-left: 56px;
+        margin-right: 56px;
+    }
+
+    &__arm-item {
+        margin-bottom: 8px;
+        transition: 0.5s all;
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+    }
+}
+
+@media(max-width:950px) {
+    .robot {
+        &__face {
+            max-width: 204px;
+            max-height: 156px;
+        }
+
+        &__neck {
+            max-width: 116px;
+            max-height: 27px;
+        }
+
+        &__torso {
+            max-width: 202px;
+        }
+
+        &__logo {
+            top: 43px;
+            left: 15px;
+        }
+
+        &__breast {
+            max-width: 204px;
+            max-height: 450px;
+        }
+
+        &__left-shoulder {
+            max-width: 100px;
+            left: -42px;
+        }
+
+        &__right-shoulder {
+            max-width: 100px;
+            right: -42px;
+        }
+
+        &__arm {
+            display: flex;
+            flex-direction: column;
+            margin-left: 56px;
+            margin-right: 56px;
+        }
+
+        &__arm-item {
+            max-width: 60px;
+            max-height: 86px;
+        }
+    }
+}
+
+@media(max-width:650px) {
+    .robot {
+        &__face {
+            max-width: 130px;
+            max-height: 100px;
+        }
+
+        &__neck {
+            max-width: 74px;
+            max-height: 17px;
+        }
+
+        &__torso {
+            max-width: 130px;
+            max-height: 288px;
+        }
+
+        &__logo {
+            top: 26px;
+            left: 20px;
+            max-width: 90px;
+            max-height: 82px;
+        }
+
+        &__breast {
+            max-width: 130px;
+            max-height: 288px;
+        }
+
+        &__left-shoulder {
+            max-width: 65px;
+            max-height: 50px;
+            left: -42px;
+        }
+
+        &__right-shoulder {
+            max-width: 65px;
+            max-height: 50px;
+            right: -42px;
+        }
+
+        &__arm:first-child {
+            margin-left: 0px;
+            margin-right: 45px;
+        }
+
+        &__arm:last-child {
+            margin-left: 45px;
+            margin-right: 0px;
+        }
+
+        &__arm-item {
+            max-width: 38px;
+            max-height: 50px;
+            margin-bottom: 4px;
+        }
+    }
+}

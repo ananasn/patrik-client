@@ -1,0 +1,36 @@
+@import "../../utils/variables";
+
+.robot {
+  &__modal-control {
+    position: relative;
+    transition: 0.5s all;
+    visibility: hidden;
+    opacity: 0;
+    background-color: $bars-day;
+    bottom: 125px;
+    max-width: 400px;
+    margin: 0 auto;
+    right: 0px;
+    padding: 65px 30px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-items: center;
+    gap: 40px;
+    border-radius: 32px 32px 32px 32px;
+  }
+
+  &__modal-control--active {
+    visibility: visible;
+    opacity: 1;
+  }
+  &__modal-control--night {
+    background-color: $bars-night;
+  }
+  &__modal-line {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 15px;
+  }
+}
