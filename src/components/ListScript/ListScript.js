@@ -52,6 +52,7 @@ const ListScript = ({
                 script__btn_power_day: isDay,
                 script__btn_power_night: !isDay,
                 script__btn_power_disabled: active == false,
+                script__btn_power_disabled_night: !isDay & active == false,
               })}
             ></button>
             <button

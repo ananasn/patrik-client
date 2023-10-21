@@ -1,0 +1,142 @@
+@import "../../utils/variables";
+
+.modal-script {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s all;
+
+  &--open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+    height: 40vw;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 24px;
+    padding: 24px 32px;
+
+    &--day {
+      background-color: $main-bg-day;
+    }
+
+    &--night {
+      background-color: $main-bg-night;
+    }
+  }
+
+  &__header {
+    &-top {
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__title {
+    margin: 0px;
+    padding: 0px;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  &__body {
+    margin-top: 16px;
+  }
+
+  &__close {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__list {
+    margin: 0px;
+    padding: 0px;
+    overflow-y: auto;
+  }
+
+  &__item {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-bottom: 16px;
+    align-items: center;
+    // width: 296px;
+    height: 35px;
+    border-radius: 8px;
+    padding: 16px 32px 16px 32px;
+    justify-content: flex-start;
+    cursor: pointer;
+
+    &--day {
+      background: $bars-day;
+
+      &:hover {
+        background: darken($bars-day, 2);
+      }
+    }
+
+    &--night {
+      background: $bars-night;
+      &:hover {
+        background: lighten($bars-night, 2);
+      }
+    }
+  }
+}
+@media(max-width:1180px) {
+  .modal-script {
+    &__inner {
+      overflow-y: scroll;
+    }
+  }
+}
+
+@media(max-width:860px) {
+  .modal-script {
+    &__inner {
+      width: 60%;
+      height: 60%;
+    }
+  }
+}
+
+@media(max-width:640px) {
+  .modal-script {
+    &__inner {
+      width: 90%;
+      height: 90%;
+    }
+  }
+}
+
+@media(max-width:430px) {
+  .modal-script {
+    &__item {
+      font-size: 16px;
+    }
+  }
+
+}

@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import NavList from "../components/NavList/NavList";
-import { toggleIsModalOpen, setIsMove } from "../store/actions";
+import { toggleIsModalScriptOpen, setIsMove } from "../store/actions";
+import ModalScript from "../components/ModalScript/ModalScript";
+import ModalScriptAddMove from "../components/ModalScriptAddMove/ModalScriptAddMove";
 import ScriptItem from "../components/ScriptItem/ScriptItem";
 //import DelayTimer from "../components/DelayTimer/DelayTimer";
 
@@ -25,14 +27,15 @@ import plusNight from "../img/plus-night.svg";
 //import importNight from "../img/import/import-night.svg";
 
 import "./RobotScript.scss";
-import Modal from "../components/Modal/Modal";
+
 // страница создания и редактирования мимик; где карточки
 const RobotScript = () => {
   const isDay = useSelector((state) => state.isDay);
   const { scriptId } = useParams();
   const { request, loading, error, clearError } = useHttp();
-  const [inputValue, setInputValue] = useState(/*"Новый сценарий"*/);
-  //const [thisScript, setThisScript] = useState();
+  const [inputValue, setInputValue] = useState();
+  const [isModalScriptOpen, setIsModalScriptOpen] = useState(false);
+  const [isModalScriptAddMoveOpen, setIsModalScriptAddMoveOpen] = useState(false);
   const [items, setItems] = useState([]);
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
@@ -108,6 +111,21 @@ const RobotScript = () => {
         JSON.stringify(item));
       }
     })
+  }
+
+  const addScriptItemHandler = () => {
+    setIsModalScriptOpen(true);
+  }
+  const addScriptMoveHandler = () => {
+    setIsModalScriptAddMoveOpen(true);
+  }
+
+  const onScriptChange = (script) => {
+    console.log(script);
+  }
+  const onModalScriptClose = () => {
+    setIsModalScriptOpen(false);
+    setIsModalScriptAddMoveOpen(false);
   }
 
 /*  const deleteScriptItem = async (scriptItemId) => {
@@ -200,9 +218,9 @@ const RobotScript = () => {
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,
-              "robot-script__btn--night": !isDay,
+              "robot-script-add__btn--night": !isDay,
             })}
-                //onClick={addMimicItemHandler}
+            onClick={addScriptItemHandler}
           >
             <img src={isDay ? plus : plusNight} alt="Plus" /> Добавить условие
           </button>
@@ -214,9 +232,9 @@ const RobotScript = () => {
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,
-              "robot-script__btn--night": !isDay,
+              "robot-script-add__btn--night": !isDay,
             })}
-                //onClick={addMimicItemHandler}
+            onClick={addScriptMoveHandler}
           >
             <img src={isDay ? plus : plusNight} alt="Plus" /> Добавить действие
           </button>
@@ -235,7 +253,16 @@ const RobotScript = () => {
           )}
         </>
       ) : null}
-      <Modal></Modal>
+      <ModalScript
+          onScriptChange={onScriptChange}
+          isOpen={isModalScriptOpen}
+          onClose={onModalScriptClose}
+      ></ModalScript>
+      <ModalScriptAddMove
+          onScriptChange={onScriptChange}
+          isOpen={isModalScriptAddMoveOpen}
+          onClose={onModalScriptClose}
+      ></ModalScriptAddMove>
     </div>
   );
 };

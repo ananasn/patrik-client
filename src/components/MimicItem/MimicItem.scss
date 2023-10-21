@@ -21,7 +21,7 @@
   }
 
   &--hide {
-    max-height: 30px;
+    max-height: 105px;
   }
 
   &--day {
@@ -119,6 +119,7 @@
   }
 
   &__face {
+    position: relative;
     max-width: 240px;
     max-height: 126px;
     padding: 14px;
@@ -317,13 +318,28 @@
     &__body-item {
       flex-direction: column;
     }
+    &--show {
+      .mimicitem__btns {
+        position: absolute;
+        right: 24px;
+        bottom: 104px;
+        gap: 5px;
+      }
+    }
 
     &--hide {
       max-height: 100px;
+
+      .mimicitem__btns {
+        position: absolute;
+        right: 24px;
+        top: 24px;
+        gap: 5px;
+      }
     }
     &__controls {
       flex-direction: column;
-     justify-content: flex-start;
+      justify-content: flex-start;
     }
 
     &__control {
@@ -331,24 +347,20 @@
       flex-direction: column;
       align-items: center;
     }
-
-    &__btns {
-      position: absolute;
-      right: 24px;
-      bottom: 104px;
-      gap: 5px;
-    }
   }
 }
 
 @media(max-width: 1120px) {
   .mimicitem {
-    &__btns {
-      position: absolute;
-      right: 24px;
-      bottom: 184px;
-      gap: 5px;
+    &--show {
+      .mimicitem__btns {
+        position: absolute;
+        right: 24px;
+        bottom: 184px;
+        gap: 5px;
+      }
     }
+
   }
 }
 

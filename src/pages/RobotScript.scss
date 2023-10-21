@@ -106,7 +106,7 @@
   &__add-col {
     margin-top: 15px;
     margin-left: 48px;
-    width: 320px;
+    max-width: 320px;
 
     height: 190px;
   }
@@ -123,8 +123,7 @@
     font-size: 24px;
     padding: 16px 26px;
     text-align: center;
-    border: 2px dashed $btns-day;
-    background: rgba(30, 133, 255, 0.10);
+
     outline: none;
     border-radius: 8px;
     cursor: pointer;
@@ -133,11 +132,14 @@
       transform: scale(1.05);
     }
     &--day {
-      background-color: $bars-day;
+      border: 2px dashed $btns-day;
+      background: rgba(30, 133, 255, 0.10);
+      //background-color: $bars-day;
       color: $btns-day;
     }
     &--night {
-      background-color: $bars-night;
+      border: 2px dashed $btns-night;
+      background-color: rgba(222, 248, 252, 0.10);
       color: $btns-night;
     }
     img {
@@ -145,6 +147,19 @@
       max-height: 32px;
     }
   }
+}
+
+@media(max-width: 1280px) {
+  .robot-script {
+    &__control {
+      gap: 86px;
+    }
+    &-add__btn {
+      font-size: 20px;
+      padding: 12px 20px;
+    }
+  }
+
 }
 
 @media(max-width:1015px) {
@@ -161,8 +176,11 @@
       & p {
         font-size: 24px;
       }
-
       gap: 0px;
+    }
+
+    &__control {
+      gap: 64px;
     }
   }
 }
@@ -184,6 +202,18 @@
     &__input {
       font-size: 18px;
       max-width: 150px;
+    }
+    &__add-col {
+      height: 120px;
+    }
+    &__control {
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+    &-add__btn {
+      font-size: 24px;
+      padding: 16px 26px;
     }
   }
 }

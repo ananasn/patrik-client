@@ -37,6 +37,11 @@ export const toggleIsModalAnimationOpen = () => ({
   type: "TOGGLE_IS_MODAL_ANIMATION_OPEN",
 });
 
+export const toggleIsModalScriptOpen = () => ({
+  type: "TOGGLE_IS_MODAL_SCRIPT_OPEN",
+});
+
+
 export const setRobotPart = (payload) => {
   return {
     type: "ACTIVE_ROBOT_PART",

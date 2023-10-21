@@ -171,4 +171,64 @@
   .active-content {
     display: block;
   }
+  .mobile-controls-tabs {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+
+    &--day {
+      background: $robot-day;
+
+      .mobile-controls__item-title {
+        flex-grow: 1;
+        padding: 12px;
+        border-radius: 8px;
+        text-align: center;
+        font-family: Inter;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        cursor: pointer;
+        background-color: #f4f6fb;
+      }
+      .active {
+        background-color: $btns-day;
+        color: white;
+      }
+    }
+    &--night {
+      background: $robot-move-night;
+
+      .mobile-controls__item-title {
+        flex-grow: 1;
+        padding: 12px;
+        border-radius: 8px;
+        text-align: center;
+        font-family: Inter;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        cursor: pointer;
+        background-color: $robot-night;
+      }
+      .active {
+        background-color: $btns-night;
+        color: $main-bg-night;
+      }
+    }
+    &--show {
+      display: flex;
+    }
+    &--hide {
+      display: none;
+    }
+  }
+
+  .mimicitem__controller--hide {
+    display: none;
+  }
 }

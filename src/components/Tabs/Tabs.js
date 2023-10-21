@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
+import { useMediaQuery } from "react-responsive";
 import ControlerMimic from "../ControlerMimic/ControlerMimic";
 import {ReactComponent as Down} from "../../img/robot-mimic/down.svg";
 import {ReactComponent as Up} from "../../img/robot-mimic/up.svg";
@@ -46,6 +47,12 @@ const Tabs = ({
   const toggleTab = (index) => {
     setToggleState(index);
   }
+  const isMobile = useMediaQuery({
+    query: "(max-width: 650px)",
+  });
+  // табы контролерров при мобильном разрешении
+  const [toggleMobileControlsTab, setToggleMobileControlsTab] = useState("x");
+
   const [xLeftEye, setXLeftEye] = useState(xLeftEyeStart);
   const [yLeftEye, setYLeftEye] = useState(yLeftEyeStart);
   const [wLeftEye, setWLeftEye] = useState(wLeftEyeStart);
@@ -203,9 +210,44 @@ const Tabs = ({
           </div>
         </div>
       </div>
-      <div className={toggleState === 1 ? "content active-content" : "content"}>
+      <div className={toggleState === 1 ? "content controls-content active-content" : "content"}>
+        <div className={classNames("mobile-controls-tabs", {
+          "mobile-controls-tabs--day": isDay,
+          "mobile-controls-tabs--night": !isDay,
+          "mobile-controls-tabs--hide": !isMobile,
+          "mobile-controls-tabs--show": isMobile,
+        })}>
+          <div
+            className={toggleMobileControlsTab === "x" ? "mobile-controls__item-title active" : "mobile-controls__item-title"}
+            onClick={() => setToggleMobileControlsTab("x")}
+            data-target="mobile-tab-x"
+          >
+            X
+          </div>
+          <div
+            className={toggleMobileControlsTab === "y" ? "mobile-controls__item-title active" : "mobile-controls__item-title"}
+            onClick={() => setToggleMobileControlsTab("y")}
+            data-target="mobile-tab-y"
+          >
+            Y
+          </div>
+          <div
+            className={toggleMobileControlsTab === "w" ? "mobile-controls__item-title active" : "mobile-controls__item-title"}
+            onClick={() => setToggleMobileControlsTab("w")}
+            data-target="mobile-tab-w"
+          >
+            W
+          </div>
+          <div
+            className={toggleMobileControlsTab === "h" ? "mobile-controls__item-title active" : "mobile-controls__item-title"}
+            onClick={() => setToggleMobileControlsTab("h")}
+            data-target="mobile-tab-h"
+          >
+            H
+          </div>
+        </div>
         <div className="controls-item">
-          <div className="mimicitem__controller">
+          <div className={!isMobile ? "mimicitem__controller" : toggleMobileControlsTab === "x" ? "mimicitem__controller" : "mimicitem__controller--hide"}>
             <ControlerMimic
               maxValue={3000}
               text="X"
@@ -214,7 +256,7 @@ const Tabs = ({
               onChange={(e) => setXLeftEye(e)}
             ></ControlerMimic>
           </div>
-          <div className="mimicitem__controller">
+          <div className={!isMobile ? "mimicitem__controller" : toggleMobileControlsTab === "y" ? "mimicitem__controller" : "mimicitem__controller--hide"}>
             <ControlerMimic
               maxValue={3000}
               text="Y"
@@ -225,7 +267,7 @@ const Tabs = ({
           </div>
         </div>
         <div className="controls-item">
-          <div className="mimicitem__controller">
+          <div className={!isMobile ? "mimicitem__controller" : toggleMobileControlsTab === "w" ? "mimicitem__controller" : "mimicitem__controller--hide"}>
             <ControlerMimic
               maxValue={3000}
               text="W"
@@ -234,7 +276,7 @@ const Tabs = ({
               onChange={(e) => setWLeftEye(e)}
             ></ControlerMimic>
           </div>
-          <div className="mimicitem__controller">
+          <div className={!isMobile ? "mimicitem__controller" : toggleMobileControlsTab === "h" ? "mimicitem__controller" : "mimicitem__controller--hide"}>
             <ControlerMimic
               maxValue={3000}
               text="H"
@@ -245,9 +287,44 @@ const Tabs = ({
           </div>
         </div>
       </div>
-      <div className={toggleState === 2 ? "content active-content" : "content"}>
+      <div className={toggleState === 2 ? "content controls-content active-content" : "content"}>
+        <div className={classNames("mobile-controls-tabs", {
+            "mobile-controls-tabs--day": isDay,
+            "mobile-controls-tabs--night": !isDay,
+            "mobile-controls-tabs--hide": !isMobile,
+            "mobile-controls-tabs--show": isMobile,
+          })}>
+          <div
+            className={toggleMobileControlsTab === "x" ? "mobile-controls__item-title active" : "mobile-controls__item-title"}
+            onClick={() => setToggleMobileControlsTab("x")}
+            data-target="mobile-tab-x"
+          >
+            X
+          </div>
+          <div
+            className={toggleMobileControlsTab === "y" ? "mobile-controls__item-title active" : "mobile-controls__item-title"}
+            onClick={() => setToggleMobileControlsTab("y")}
+            data-target="mobile-tab-y"
+          >
+            Y
+          </div>
+          <div
+            className={toggleMobileControlsTab === "w" ? "mobile-controls__item-title active" : "mobile-controls__item-title"}
+            onClick={() => setToggleMobileControlsTab("w")}
+            data-target="mobile-tab-w"
+          >
+            W
+          </div>
+          <div
+            className={toggleMobileControlsTab === "h" ? "mobile-controls__item-title active" : "mobile-controls__item-title"}
+            onClick={() => setToggleMobileControlsTab("h")}
+            data-target="mobile-tab-h"
+          >
+            H
+          </div>
+        </div>
         <div className="controls-item">
-          <div className="mimicitem__controller">
+          <div className={!isMobile ? "mimicitem__controller" : toggleMobileControlsTab === "x" ? "mimicitem__controller" : "mimicitem__controller--hide"}>
             <ControlerMimic
               maxValue={3000}
               text="X"
@@ -256,7 +333,7 @@ const Tabs = ({
               onChange={(e) => setXMouth(e)}
             ></ControlerMimic>
           </div>
-          <div className="mimicitem__controller">
+          <div className={!isMobile ? "mimicitem__controller" : toggleMobileControlsTab === "y" ? "mimicitem__controller" : "mimicitem__controller--hide"}>
             <ControlerMimic
               maxValue={3000}
               text="Y"
@@ -267,7 +344,7 @@ const Tabs = ({
           </div>
         </div>
         <div className="controls-item">
-          <div className="mimicitem__controller">
+          <div className={!isMobile ? "mimicitem__controller" : toggleMobileControlsTab === "w" ? "mimicitem__controller" : "mimicitem__controller--hide"}>
             <ControlerMimic
               maxValue={3000}
               text="W"
@@ -276,7 +353,7 @@ const Tabs = ({
               onChange={(e) => setWMouth(e)}
             ></ControlerMimic>
           </div>
-          <div className="mimicitem__controller">
+          <div className={!isMobile ? "mimicitem__controller" : toggleMobileControlsTab === "h" ? "mimicitem__controller" : "mimicitem__controller--hide"}>
             <ControlerMimic
               maxValue={3000}
               text="H"
@@ -287,9 +364,44 @@ const Tabs = ({
           </div>
         </div>
       </div>
-      <div className={toggleState === 3 ? "content active-content" : "content"}>
+      <div className={toggleState === 3 ? "content controls-content active-content" : "content"}>
+        <div className={classNames("mobile-controls-tabs", {
+            "mobile-controls-tabs--day": isDay,
+            "mobile-controls-tabs--night": !isDay,
+            "mobile-controls-tabs--hide": !isMobile,
+            "mobile-controls-tabs--show": isMobile,
+          })}>
+          <div
+            className={toggleMobileControlsTab === "x" ? "mobile-controls__item-title active" : "mobile-controls__item-title"}
+            onClick={() => setToggleMobileControlsTab("x")}
+            data-target="mobile-tab-x"
+          >
+            X
+          </div>
+          <div
+            className={toggleMobileControlsTab === "y" ? "mobile-controls__item-title active" : "mobile-controls__item-title"}
+            onClick={() => setToggleMobileControlsTab("y")}
+            data-target="mobile-tab-y"
+          >
+            Y
+          </div>
+          <div
+            className={toggleMobileControlsTab === "w" ? "mobile-controls__item-title active" : "mobile-controls__item-title"}
+            onClick={() => setToggleMobileControlsTab("w")}
+            data-target="mobile-tab-w"
+          >
+            W
+          </div>
+          <div
+            className={toggleMobileControlsTab === "h" ? "mobile-controls__item-title active" : "mobile-controls__item-title"}
+            onClick={() => setToggleMobileControlsTab("h")}
+            data-target="mobile-tab-h"
+          >
+            H
+          </div>
+        </div>
         <div className="controls-item">
-          <div className="mimicitem__controller">
+          <div className={!isMobile ? "mimicitem__controller" : toggleMobileControlsTab === "x" ? "mimicitem__controller" : "mimicitem__controller--hide"}>
             <ControlerMimic
               maxValue={3000}
               text="X"
@@ -298,7 +410,7 @@ const Tabs = ({
               onChange={(e) => setXRightEye(e)}
             ></ControlerMimic>
           </div>
-          <div className="mimicitem__controller">
+          <div className={!isMobile ? "mimicitem__controller" : toggleMobileControlsTab === "y" ? "mimicitem__controller" : "mimicitem__controller--hide"}>
             <ControlerMimic
               maxValue={3000}
               text="Y"
@@ -309,7 +421,7 @@ const Tabs = ({
           </div>
         </div>
         <div className="controls-item">
-          <div className="mimicitem__controller">
+          <div className={!isMobile ? "mimicitem__controller" : toggleMobileControlsTab === "w" ? "mimicitem__controller" : "mimicitem__controller--hide"}>
             <ControlerMimic
               maxValue={3000}
               text="W"
@@ -318,7 +430,7 @@ const Tabs = ({
               onChange={(e) => setWRightEye(e)}
             ></ControlerMimic>
           </div>
-          <div className="mimicitem__controller">
+          <div className={!isMobile ? "mimicitem__controller" : toggleMobileControlsTab === "h" ? "mimicitem__controller" : "mimicitem__controller--hide"}>
             <ControlerMimic
               maxValue={3000}
               text="H"

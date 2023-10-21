@@ -13,6 +13,7 @@ const initialState = {
   isDialogPopupOpen: false,
   isModalOpen: false,
   isModalAnimationOpen: false,
+  isModalScriptOpen: false,
   isMove: true,
   moves: [],
   activePoseList: [],
@@ -61,6 +62,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         isModalAnimationOpen: !state.isModalAnimationOpen,
+      };
+    case "TOGGLE_IS_MODAL_SCRIPT_OPEN":
+      return {
+        ...state,
+        isModalScriptOpen: !state.isModalScriptOpen,
       };
     case "SET_MOVES":
       return {
