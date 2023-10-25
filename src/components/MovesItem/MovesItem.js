@@ -43,6 +43,7 @@ import robotArmNightActive from "../../img/robot-moves-night/robot-arm-night-act
 import robotHandNightActive from "../../img/robot-moves-night/robot-hand-night-active.svg";
 
 import "./MovesItem.scss";
+import { Draggable } from "react-beautiful-dnd";
 
 const MovesItem = ({
   card,
@@ -63,6 +64,7 @@ const MovesItem = ({
   saveFunc,
   moveId,
   order,
+  index
 }) => {
   const [l1Deg, setL1] = useState(l1);
   const [l2Deg, setL2] = useState(l2);
@@ -161,7 +163,7 @@ const MovesItem = ({
     e.preventDefault();
     setShowItem(!showItem);
   };
-  const dragStartHandler = (e, card) => {
+  /*const dragStartHandler = (e, card) => {
     e.preventDefault();
     console.log(card);
   };
@@ -173,7 +175,7 @@ const MovesItem = ({
   const dropHandler = (e, card) => {
     e.preventDefault();
     console.log(card);
-  };
+  };*/
   const changeControlState = (robotPart, e) => {
     if (robotPart === "r1") {
       setR1(e);
@@ -217,420 +219,428 @@ const MovesItem = ({
     });
   };
   return (
-    <li
-      className={classnames("movesitem", {
-        "movesitem--day": isDay,
-        "movesitem--night": !isDay,
-        "movesitem--show": showItem,
-        "movesitem--hide": !showItem,
-      })}
-    >
-      <div className="movesitem__header">
-        <div className="movesitem__name">
-          <form
-            onSubmit={(e) => handleFormSubmit(e)}
-            className="movesitem__form"
-          >
-            <input
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              readOnly={isReadOnly}
-              type="text"
-              name="movename"
-              className={classnames("movesitem__input", {
-                "movesitem__input--day": isDay,
-                "movesitem__input--night": !isDay,
-              })}
-              ref={inputRef}
-            />
-            <label onClick={(e) => handlePenClick(e)} htmlFor="movename">
-              <img src={isDay ? pen : penNight} alt="Pen" />
-            </label>
-          </form>
-        </div>
-        <div className="movesitem__btns">
-          <button onClick={(e) => handleItemOpen(e)} className="movesitem__btn">
-            <img
-              className={classnames({
-                "movesitem__btn-show--close": !showItem,
-                "movesitem__btn-show--open": showItem,
-              })}
-              src={isDay ? open : openNight}
-              alt="Open"
-            />
-          </button>
-          <button
-            draggable={true}
-            onDragStart={(e) => dragStartHandler(e, card)}
-            onDragLeave={(e) => dragLeaveHandler(e)}
-            onDragEnd={(e) => dragEndHandler(e)}
-            onDragOver={(e) => dragOverHandler(e)}
-            onDrop={(e) => dropHandler(e, card)}
-            className="movesitem__btn"
-          >
-            <img src={isDay ? dots : dotsNight} alt="More" />
-          </button>
-          <button className="movesitem__btn">
-            <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
-          </button>
-        </div>
-      </div>
-      <div className="movesitem__body-item">
-        <div
-          className={classnames("movesitem-robot", {
-            robot_day: isDay,
-            robot_night: !isDay,
-          })}
-        >
-          {isDay ? (
-            <>
-              <div className="movesitem__head">
-                <img
-                  alt="лицо робота"
-                  className="movesitem__face"
-                  src={robotFace}
-                />
-                <img
-                  alt="шея робота"
-                  className="movesitem__neck"
-                  src={
-                    activeRobotPart === "neck" ? robotNeckDayActive : robotNeck
-                  }
-                  onClick={() => handleRobotPartChoice("neck")}
-                />
-              </div>
-              <div className="movesitem__body">
-                <div className="movesitem__arm">
-                  <img
-                    alt="левое предплечье робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "l1" ? robotArmDayActive : robotArm
-                    }
-                    onClick={() => handleRobotPartChoice("l1")}
-                  />
-                  <img
-                    alt="левое предплечье робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "l2" ? robotArmDayActive : robotArm
-                    }
-                    onClick={() => handleRobotPartChoice("l2")}
-                  />
-                  <img
-                    alt="левое предплечье робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "l3" ? robotArmDayActive : robotArm
-                    }
-                    onClick={() => handleRobotPartChoice("l3")}
-                  />
-                  <img
-                    alt="левая рука робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "l4" ? robotHandDayActive : robotHand
-                    }
-                    onClick={() => handleRobotPartChoice("l4")}
-                  />
-                </div>
-                <div className="movesitem__torso">
-                  <img
-                    alt="логотип робота"
-                    className="movesitem__logo"
-                    src={robotLogo}
-                  />
-                  <img
-                    alt="тело робота"
-                    className="movesitem__breast"
-                    src={robotBody}
-                  />
-                  <img
-                    alt="левое плечо робота"
-                    className="movesitem__left-shoulder"
-                    src={robotLeftShoulder}
-                  />
-                  <img
-                    alt="правое плечо робота"
-                    className="movesitem__right-shoulder"
-                    src={robotRightShoulder}
-                  />
-                </div>
-                <div className="movesitem__arm">
-                  <img
-                    alt="правое предплечье робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "r1" ? robotArmDayActive : robotArm
-                    }
-                    onClick={() => handleRobotPartChoice("r1")}
-                  />
-                  <img
-                    alt="правое предплечье робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "r2" ? robotArmDayActive : robotArm
-                    }
-                    onClick={() => handleRobotPartChoice("r2")}
-                  />
-                  <img
-                    alt="правое предплечье робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "r3" ? robotArmDayActive : robotArm
-                    }
-                    onClick={() => handleRobotPartChoice("r3")}
-                  />
-                  <img
-                    alt="правая рука робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "r4" ? robotHandDayActive : robotHand
-                    }
-                    onClick={() => handleRobotPartChoice("r4")}
-                  />
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="movesitem__head">
-                <img
-                  alt="лицо робота"
-                  className="movesitem__face"
-                  src={robotFaceNight}
-                />
-                <img
-                  alt="шея робота"
-                  className="movesitem__neck"
-                  src={
-                    activeRobotPart === "neck"
-                      ? robotNeckNightActive
-                      : robotNeckNight
-                  }
-                  onClick={() => handleRobotPartChoice("neck")}
-                />
-              </div>
-              <div className="movesitem__body">
-                <div className="movesitem__arm">
-                  <img
-                    alt="левое предплечье робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "l1"
-                        ? robotArmNightActive
-                        : robotArmNight
-                    }
-                    onClick={() => handleRobotPartChoice("l1")}
-                  />
-                  <img
-                    alt="левое предплечье робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "l2"
-                        ? robotArmNightActive
-                        : robotArmNight
-                    }
-                    onClick={() => handleRobotPartChoice("l2")}
-                  />
-                  <img
-                    alt="левое предплечье робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "l3"
-                        ? robotArmNightActive
-                        : robotArmNight
-                    }
-                    onClick={() => handleRobotPartChoice("l3")}
-                  />
-                  <img
-                    alt="левая рука робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "l4"
-                        ? robotHandNightActive
-                        : robotHandNight
-                    }
-                    onClick={() => handleRobotPartChoice("l4")}
-                  />
-                </div>
-                <div className="movesitem__torso">
-                  <img
-                    alt="логотип робота"
-                    className="movesitem__logo"
-                    src={robotLogo}
-                  />
-                  <img
-                    alt="тело робота"
-                    className="movesitem__breast"
-                    src={robotBodyNight}
-                  />
-                  <img
-                    alt="левое плечо робота"
-                    className="movesitem__left-shoulder"
-                    src={robotLeftShoulderNight}
-                  />
-                  <img
-                    alt="правое плечо робота"
-                    className="movesitem__right-shoulder"
-                    src={robotRightShoulderNight}
-                  />
-                </div>
-                <div className="movesitem__arm">
-                  <img
-                    alt="правое предплечье робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "r1"
-                        ? robotArmNightActive
-                        : robotArmNight
-                    }
-                    onClick={() => handleRobotPartChoice("r1")}
-                  />
-                  <img
-                    alt="правое предплечье робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "r2"
-                        ? robotArmNightActive
-                        : robotArmNight
-                    }
-                    onClick={() => handleRobotPartChoice("r2")}
-                  />
-                  <img
-                    alt="правое предплечье робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "r3"
-                        ? robotArmNightActive
-                        : robotArmNight
-                    }
-                    onClick={() => handleRobotPartChoice("r3")}
-                  />
-                  <img
-                    alt="правая рука робота"
-                    className="movesitem__arm-item"
-                    src={
-                      activeRobotPart === "r4"
-                        ? robotHandNightActive
-                        : robotHandNight
-                    }
-                    onClick={() => handleRobotPartChoice("r4")}
-                  />
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-        <div className="movesitem__control">
-          <h2 className="movesitem__control-name">
-            {activeRobotPartName
-              ? `Позиция ${activeRobotPartName}`
-              : "Выберите часть робота"}
-          </h2>
-          <div className="movesitem__controller">
-            {activeRobotPart === "r1" ? (
-              <Controler
-                maxValue={360}
-                imgSrc={isDay ? rightLeft : rightLeftNight}
-                initialValue={r1Deg}
-                id={"horizontal"}
-                onChange={(e) => changeControlState("r1", e)}
-              ></Controler>
-            ) : null}
-            {activeRobotPart === "r2" ? (
-              <Controler
-                maxValue={360}
-                imgSrc={isDay ? rightLeft : rightLeftNight}
-                initialValue={r2Deg}
-                id={"horizontal"}
-                onChange={(e) => changeControlState("r2", e)}
-              ></Controler>
-            ) : null}
-            {activeRobotPart === "r3" ? (
-              <Controler
-                maxValue={360}
-                imgSrc={isDay ? rightLeft : rightLeftNight}
-                initialValue={r3Deg}
-                id={"horizontal"}
-                onChange={(e) => changeControlState("r3", e)}
-              ></Controler>
-            ) : null}
-            {activeRobotPart === "r4" ? (
-              <Controler
-                maxValue={360}
-                imgSrc={isDay ? rightLeft : rightLeftNight}
-                initialValue={r4Deg}
-                id={"horizontal"}
-                onChange={(e) => changeControlState("r4", e)}
-              ></Controler>
-            ) : null}
-            {activeRobotPart === "l1" ? (
-              <Controler
-                maxValue={360}
-                imgSrc={isDay ? rightLeft : rightLeftNight}
-                initialValue={l1Deg}
-                id={"horizontal"}
-                onChange={(e) => changeControlState("l1", e)}
-              ></Controler>
-            ) : null}
-            {activeRobotPart === "l2" ? (
-              <Controler
-                maxValue={360}
-                imgSrc={isDay ? rightLeft : rightLeftNight}
-                initialValue={l2Deg}
-                id={"horizontal"}
-                onChange={(e) => changeControlState("l2", e)}
-              ></Controler>
-            ) : null}
-            {activeRobotPart === "l3" ? (
-              <Controler
-                maxValue={360}
-                imgSrc={isDay ? rightLeft : rightLeftNight}
-                initialValue={l3Deg}
-                id={"horizontal"}
-                onChange={(e) => changeControlState("l3", e)}
-              ></Controler>
-            ) : null}
-            {activeRobotPart === "l4" ? (
-              <Controler
-                maxValue={360}
-                imgSrc={isDay ? rightLeft : rightLeftNight}
-                initialValue={l4Deg}
-                id={"horizontal"}
-                onChange={(e) => changeControlState("l4", e)}
-              ></Controler>
-            ) : null}
-            {activeRobotPart === "neck" ? (
-              <>
-                <Controler
-                  maxValue={360}
-                  imgSrc={isDay ? rightLeft : rightLeftNight}
-                  initialValue={neckDeg}
-                  id={"horizontal"}
-                  onChange={(e) => changeControlState("neck", e)}
-                ></Controler>
-                <Controler
-                  maxValue={360}
-                  imgSrc={isDay ? rightLeft : rightLeftNight}
-                  initialValue={headDeg}
-                  id={"vertical"}
-                  onChange={(e) => changeControlState("head", e)}
-                ></Controler>
-              </>
-            ) : null}
+    <Draggable draggableId={order.toString()} index={index}>
+      {(provided) => (
+        <li
+         ref={provided.innerRef}
+         {...provided.dragHandleProps}
+         {...provided.draggableProps}
+        className={classnames("movesitem", {
+          "movesitem--day": isDay,
+          "movesitem--night": !isDay,
+          "movesitem--show": showItem,
+          "movesitem--hide": !showItem,
+        })}
+      >
+        <div className="movesitem__header">
+          <div className="movesitem__name">
+            <form
+              onSubmit={(e) => handleFormSubmit(e)}
+              className="movesitem__form"
+            >
+              <input
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                readOnly={isReadOnly}
+                type="text"
+                name="movename"
+                className={classnames("movesitem__input", {
+                  "movesitem__input--day": isDay,
+                  "movesitem__input--night": !isDay,
+                })}
+                ref={inputRef}
+              />
+              <label onClick={(e) => handlePenClick(e)} htmlFor="movename">
+                <img src={isDay ? pen : penNight} alt="Pen" />
+              </label>
+            </form>
+          </div>
+          <div className="movesitem__btns">
+            <button onClick={(e) => handleItemOpen(e)} className="movesitem__btn">
+              <img
+                className={classnames({
+                  "movesitem__btn-show--close": !showItem,
+                  "movesitem__btn-show--open": showItem,
+                })}
+                src={isDay ? open : openNight}
+                alt="Open"
+              />
+            </button>
+            <div
+              draggable={true}
+              //onDragStart={(e) => dragStartHandler(e, card)}
+              //onDragLeave={(e) => dragLeaveHandler(e)}
+              //onDragEnd={(e) => dragEndHandler(e)}
+              //onDragOver={(e) => dragOverHandler(e)}
+              //onDrop={(e) => dropHandler(e, card)}
+              className="movesitem__btn-draggable"
+            >
+              <img src={isDay ? dots : dotsNight} alt="More" />
+            </div>
+            <button className="movesitem__btn">
+              <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
+            </button>
           </div>
         </div>
-      </div>
-      <div className="movesitem__footer">
-        <RobotAddSmt word={"мимику"}></RobotAddSmt>
-        <RobotAddSmt
-          pharsa={phraseData}
-          handlePhrasaChange={handlePhrasaChange}
-          word={"фразу"}
-        ></RobotAddSmt>
-      </div>
-    </li>
+        <div className="movesitem__body-item">
+          <div
+            className={classnames("movesitem-robot", {
+              robot_day: isDay,
+              robot_night: !isDay,
+            })}
+          >
+            {isDay ? (
+              <>
+                <div className="movesitem__head">
+                  <img
+                    alt="лицо робота"
+                    className="movesitem__face"
+                    src={robotFace}
+                  />
+                  <img
+                    alt="шея робота"
+                    className="movesitem__neck"
+                    src={
+                      activeRobotPart === "neck" ? robotNeckDayActive : robotNeck
+                    }
+                    onClick={() => handleRobotPartChoice("neck")}
+                  />
+                </div>
+                <div className="movesitem__body">
+                  <div className="movesitem__arm">
+                    <img
+                      alt="левое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "l1" ? robotArmDayActive : robotArm
+                      }
+                      onClick={() => handleRobotPartChoice("l1")}
+                    />
+                    <img
+                      alt="левое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "l2" ? robotArmDayActive : robotArm
+                      }
+                      onClick={() => handleRobotPartChoice("l2")}
+                    />
+                    <img
+                      alt="левое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "l3" ? robotArmDayActive : robotArm
+                      }
+                      onClick={() => handleRobotPartChoice("l3")}
+                    />
+                    <img
+                      alt="левая рука робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "l4" ? robotHandDayActive : robotHand
+                      }
+                      onClick={() => handleRobotPartChoice("l4")}
+                    />
+                  </div>
+                  <div className="movesitem__torso">
+                    <img
+                      alt="логотип робота"
+                      className="movesitem__logo"
+                      src={robotLogo}
+                    />
+                    <img
+                      alt="тело робота"
+                      className="movesitem__breast"
+                      src={robotBody}
+                    />
+                    <img
+                      alt="левое плечо робота"
+                      className="movesitem__left-shoulder"
+                      src={robotLeftShoulder}
+                    />
+                    <img
+                      alt="правое плечо робота"
+                      className="movesitem__right-shoulder"
+                      src={robotRightShoulder}
+                    />
+                  </div>
+                  <div className="movesitem__arm">
+                    <img
+                      alt="правое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "r1" ? robotArmDayActive : robotArm
+                      }
+                      onClick={() => handleRobotPartChoice("r1")}
+                    />
+                    <img
+                      alt="правое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "r2" ? robotArmDayActive : robotArm
+                      }
+                      onClick={() => handleRobotPartChoice("r2")}
+                    />
+                    <img
+                      alt="правое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "r3" ? robotArmDayActive : robotArm
+                      }
+                      onClick={() => handleRobotPartChoice("r3")}
+                    />
+                    <img
+                      alt="правая рука робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "r4" ? robotHandDayActive : robotHand
+                      }
+                      onClick={() => handleRobotPartChoice("r4")}
+                    />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="movesitem__head">
+                  <img
+                    alt="лицо робота"
+                    className="movesitem__face"
+                    src={robotFaceNight}
+                  />
+                  <img
+                    alt="шея робота"
+                    className="movesitem__neck"
+                    src={
+                      activeRobotPart === "neck"
+                        ? robotNeckNightActive
+                        : robotNeckNight
+                    }
+                    onClick={() => handleRobotPartChoice("neck")}
+                  />
+                </div>
+                <div className="movesitem__body">
+                  <div className="movesitem__arm">
+                    <img
+                      alt="левое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "l1"
+                          ? robotArmNightActive
+                          : robotArmNight
+                      }
+                      onClick={() => handleRobotPartChoice("l1")}
+                    />
+                    <img
+                      alt="левое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "l2"
+                          ? robotArmNightActive
+                          : robotArmNight
+                      }
+                      onClick={() => handleRobotPartChoice("l2")}
+                    />
+                    <img
+                      alt="левое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "l3"
+                          ? robotArmNightActive
+                          : robotArmNight
+                      }
+                      onClick={() => handleRobotPartChoice("l3")}
+                    />
+                    <img
+                      alt="левая рука робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "l4"
+                          ? robotHandNightActive
+                          : robotHandNight
+                      }
+                      onClick={() => handleRobotPartChoice("l4")}
+                    />
+                  </div>
+                  <div className="movesitem__torso">
+                    <img
+                      alt="логотип робота"
+                      className="movesitem__logo"
+                      src={robotLogo}
+                    />
+                    <img
+                      alt="тело робота"
+                      className="movesitem__breast"
+                      src={robotBodyNight}
+                    />
+                    <img
+                      alt="левое плечо робота"
+                      className="movesitem__left-shoulder"
+                      src={robotLeftShoulderNight}
+                    />
+                    <img
+                      alt="правое плечо робота"
+                      className="movesitem__right-shoulder"
+                      src={robotRightShoulderNight}
+                    />
+                  </div>
+                  <div className="movesitem__arm">
+                    <img
+                      alt="правое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "r1"
+                          ? robotArmNightActive
+                          : robotArmNight
+                      }
+                      onClick={() => handleRobotPartChoice("r1")}
+                    />
+                    <img
+                      alt="правое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "r2"
+                          ? robotArmNightActive
+                          : robotArmNight
+                      }
+                      onClick={() => handleRobotPartChoice("r2")}
+                    />
+                    <img
+                      alt="правое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "r3"
+                          ? robotArmNightActive
+                          : robotArmNight
+                      }
+                      onClick={() => handleRobotPartChoice("r3")}
+                    />
+                    <img
+                      alt="правая рука робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "r4"
+                          ? robotHandNightActive
+                          : robotHandNight
+                      }
+                      onClick={() => handleRobotPartChoice("r4")}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+          <div className="movesitem__control">
+            <h2 className="movesitem__control-name">
+              {activeRobotPartName
+                ? `Позиция ${activeRobotPartName}`
+                : "Выберите часть робота"}
+            </h2>
+            <div className="movesitem__controller">
+              {activeRobotPart === "r1" ? (
+                <Controler
+                  maxValue={360}
+                  imgSrc={isDay ? rightLeft : rightLeftNight}
+                  initialValue={r1Deg}
+                  id={"horizontal"}
+                  onChange={(e) => changeControlState("r1", e)}
+                ></Controler>
+              ) : null}
+              {activeRobotPart === "r2" ? (
+                <Controler
+                  maxValue={360}
+                  imgSrc={isDay ? rightLeft : rightLeftNight}
+                  initialValue={r2Deg}
+                  id={"horizontal"}
+                  onChange={(e) => changeControlState("r2", e)}
+                ></Controler>
+              ) : null}
+              {activeRobotPart === "r3" ? (
+                <Controler
+                  maxValue={360}
+                  imgSrc={isDay ? rightLeft : rightLeftNight}
+                  initialValue={r3Deg}
+                  id={"horizontal"}
+                  onChange={(e) => changeControlState("r3", e)}
+                ></Controler>
+              ) : null}
+              {activeRobotPart === "r4" ? (
+                <Controler
+                  maxValue={360}
+                  imgSrc={isDay ? rightLeft : rightLeftNight}
+                  initialValue={r4Deg}
+                  id={"horizontal"}
+                  onChange={(e) => changeControlState("r4", e)}
+                ></Controler>
+              ) : null}
+              {activeRobotPart === "l1" ? (
+                <Controler
+                  maxValue={360}
+                  imgSrc={isDay ? rightLeft : rightLeftNight}
+                  initialValue={l1Deg}
+                  id={"horizontal"}
+                  onChange={(e) => changeControlState("l1", e)}
+                ></Controler>
+              ) : null}
+              {activeRobotPart === "l2" ? (
+                <Controler
+                  maxValue={360}
+                  imgSrc={isDay ? rightLeft : rightLeftNight}
+                  initialValue={l2Deg}
+                  id={"horizontal"}
+                  onChange={(e) => changeControlState("l2", e)}
+                ></Controler>
+              ) : null}
+              {activeRobotPart === "l3" ? (
+                <Controler
+                  maxValue={360}
+                  imgSrc={isDay ? rightLeft : rightLeftNight}
+                  initialValue={l3Deg}
+                  id={"horizontal"}
+                  onChange={(e) => changeControlState("l3", e)}
+                ></Controler>
+              ) : null}
+              {activeRobotPart === "l4" ? (
+                <Controler
+                  maxValue={360}
+                  imgSrc={isDay ? rightLeft : rightLeftNight}
+                  initialValue={l4Deg}
+                  id={"horizontal"}
+                  onChange={(e) => changeControlState("l4", e)}
+                ></Controler>
+              ) : null}
+              {activeRobotPart === "neck" ? (
+                <>
+                  <Controler
+                    maxValue={360}
+                    imgSrc={isDay ? rightLeft : rightLeftNight}
+                    initialValue={neckDeg}
+                    id={"horizontal"}
+                    onChange={(e) => changeControlState("neck", e)}
+                  ></Controler>
+                  <Controler
+                    maxValue={360}
+                    imgSrc={isDay ? rightLeft : rightLeftNight}
+                    initialValue={headDeg}
+                    id={"vertical"}
+                    onChange={(e) => changeControlState("head", e)}
+                  ></Controler>
+                </>
+              ) : null}
+            </div>
+          </div>
+        </div>
+        <div className="movesitem__footer">
+          <RobotAddSmt word={"мимику"}></RobotAddSmt>
+          <RobotAddSmt
+            pharsa={phraseData}
+            handlePhrasaChange={handlePhrasaChange}
+            word={"фразу"}
+          ></RobotAddSmt>
+        </div>
+      </li>
+      )}
+
+    </Draggable>
   );
 };
 
