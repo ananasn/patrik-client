@@ -126,8 +126,8 @@ const RobotEmotion = () => {
       "mimic": mimicId,
     }])
   }
-  const saveHandler = () => {
-    items.forEach(async(item) => {
+  const saveHandler = async () => {
+    /*items.forEach(async(item) => {
       // если есть id то редактирование
       if (item.id) {
         const itemId = item.id;
@@ -143,7 +143,15 @@ const RobotEmotion = () => {
         //console.log(res);
         alert("Запрос завершился");
       }
-    })
+    })*/
+    const res = await request("http://localhost:8000/api/save_mimic_item/", "post", JSON.stringify(
+      {
+        mimic_name: inputValue,
+        mimic_items: items
+      }
+      ));
+    console.log(res);
+    alert("Запрос завершился");
   }
 
   const deleteMimicItem = async (mimicItemId) => {
@@ -175,9 +183,10 @@ const RobotEmotion = () => {
       }
       // создание
       else {
-        const res = await request("http://localhost:8000/api/mimic/", "post",
+        const res = await request("http://localhost:8000/api/save_mimic_item/", "post",
           JSON.stringify({
-            name: inputValue
+            name: inputValue,
+            mimic_items: items
           }));
         console.log(res);
         navigate(`/emotion/${res.id}`);
