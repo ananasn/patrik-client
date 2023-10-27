@@ -1,14 +1,14 @@
 import { useState, useRef, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useHttp } from "../hooks/http.hook";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import NavList from "../components/NavList/NavList";
-import { toggleIsModalOpen, setIsMove } from "../store/actions";
+//import { toggleIsModalOpen, setIsMove } from "../store/actions";
 import MimicItem from "../components/MimicItem/MimicItem";
-import { setMimics } from "../store/actions";
 
 import back from "../img/icons/menu-day/back-day.svg";
 import backNight from "../img/icons/menu-night/back-night.svg";
@@ -21,27 +21,21 @@ import save from "../img/save-day.svg";
 import saveNight from "../img/save-night.svg";
 import plus from "../img/plus-day.svg";
 import plusNight from "../img/plus-night.svg";
-//import importDay from "../img/import/import-day.svg";
-//import importNight from "../img/import/import-night.svg";
 
 import "./RobotEmotion.scss";
 
 // страница создания и редактирования мимик; где карточки
 const RobotEmotion = () => {
   const isDay = useSelector((state) => state.isDay);
-  const dispatch = useDispatch();
-
-  const mimics = useSelector((state) => state.mimics);
+  //const dispatch = useDispatch();
   const { mimicId } = useParams();
-  const navigate = useNavigate();
-  //const [mimicName, setMimicName] = useState(null);
-  // получаем мимику
+  const [inputValue, setInputValue] = useState("");
+
+  // получаем имя мимики и id
   useEffect(() => {
     const fetchData = async () => {
       const response = await request(`http://localhost:8000/api/mimic/${mimicId}`);
       const data = await response;
-      console.log(data);
-      //setMimicName(data.name);
       setInputValue(data.name);
     };
     // при редактировании мимики так делать
@@ -52,25 +46,23 @@ const RobotEmotion = () => {
     }
   }, []);
 
-  // if (mimicId) {
-  //   mimicName = mimics.length > 0 ? mimics.filter((item) => item.id == mimicId)[0].name : null;
-  // }
-
-
-  //console.log(mimicName) //mimicThis[0].name
-
   const { request, loading, error, clearError } = useHttp();
-  const [inputValue, setInputValue] = useState("");
   const [items, setItems] = useState([]);
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
+  //получаем массив всех мимик,
+  //фильтреум - находим карточки у которых id мимики совпадает с параметром,
+  //создаем новый массив отфильтрованных карточек
+  // todo создать запрос на получение мимики с масивом всех карточек по id чтобы избавиться от фильтрации на фронте
   useEffect(() => {
     const fetchData = async () => {
       const response = await request("http://localhost:8000/api/mimic_item/");
       const data = await response;
+      console.log(data)
       const result = await data.filter((item) => item.mimic == mimicId );
       setItems(result);
+      console.log(result)
     };
     fetchData();
   }, []);
@@ -87,10 +79,10 @@ const RobotEmotion = () => {
     inputRef.current.readOnly = false;
     inputRef.current.focus();
   };
-  const handleImport = () => {
+  /*const handleImport = () => {
     dispatch(setIsMove(true));
     dispatch(toggleIsModalOpen());
-  };
+  };*/
   // срабатывает каждый раз при изменении ползунков (из MimicItem)
   const saveFunc = (obj) => {
     const res = items.map((item) => {
@@ -122,37 +114,8 @@ const RobotEmotion = () => {
       "h_mouth": 0,
       "delay": 0,
       "easing": "spring"
-      //"order": items.length + 1,
-      //"mimic": mimicId,
     }])
   }
-  /*const saveHandler = async () => {
-    /*items.forEach(async(item) => {
-      // если есть id то редактирование
-      if (item.id) {
-        const itemId = item.id;
-        delete item.id;
-        const res = await request(`http://localhost:8000/api/mimic_item/${itemId}/`, "put", JSON.stringify(item));
-        //console.log(res);
-        // что отправляет в запросе?
-        alert("Запрос завершился");
-      }
-      // создание
-      else {
-        const res = await request("http://localhost:8000/api/mimic_item/", "post", JSON.stringify(item));
-        //console.log(res);
-        alert("Запрос завершился");
-      }
-    })
-    const res = await request("http://localhost:8000/api/save_mimic_items/", "post", JSON.stringify(
-      {
-        mimic_name: inputValue,
-        mimic_items: items
-      }
-      ));
-    console.log(res);
-    alert("Запрос завершился");
-  }*/
 
   const deleteMimicItem = async (mimicItemId) => {
     await fetch(`http://localhost:8000/api/mimic_item/${mimicItemId}/`, {method:"DELETE"});
@@ -160,7 +123,6 @@ const RobotEmotion = () => {
     const fetchData = async () => {
       const response = await request("http://localhost:8000/api/mimic_item/");
       const data = await response;
-      //console.log(data)
       const result = await data.filter((item) => item.mimic == mimicId );
       setItems(result);
     };
@@ -172,37 +134,20 @@ const RobotEmotion = () => {
     console.log(mimicId, "run");
   }
 
+//запрос на сохранение/перезапись имени и всех карточек мимики
+  const handleSaveMimic = async () => {
+    console.log(items)
+    const res = await request("http://localhost:8000/api/save_mimic_items/", "post",
+      JSON.stringify({
+        name: inputValue,
+        mimic_items: items
+      }));
+    console.log(res);
+  }
 
-    const handleSaveMimic = async () => {
-      // если есть id то редактирование
-      /*if (mimicId) {
-        await request(`http://localhost:8000/api/mimic/${mimicId}/`, "put",
-        JSON.stringify({
-          name: inputValue
-        }));
-      }
-      // создание
-      else {*/
-      console.log(items)
-        const res = await request("http://localhost:8000/api/save_mimic_items/", "post",
-          JSON.stringify({
-            name: inputValue,
-            mimic_items: items
-          }));
-        console.log(res);
-        //navigate(`/emotion/${res.id}`);
-          /*  после создания новой мимики -- получаем все мимики еще раз
-          const fetchData = async () => {
-            const response = await request("http://localhost:8000/api/mimic/");
-            const data = await response;
-            // console.log(data);
-            dispatch(setMimics(data));
-          };
-          fetchData();*/
-          //перейти на страницу с новым созданным и полученным id
-      //}
-    }
-
+  const handleDragDrop = (results) => {
+    console.log("drag drop event accured", results);
+  }
 
   return (
     <div className="robotemotion">
@@ -255,46 +200,52 @@ const RobotEmotion = () => {
         </div>
       </div>
       <div className="robotemotion__list">
-      <ul className="robotemotion__reorder">
-          {items &&
-            items.map((item, index) => {
-              return (
-                <MimicItem
-                  card={item}
-                  mimicId={item.mimic}
-                  key={item.id}
-                  mimicItemId={item.id} // id карточки mimic_item
-                  // object={item.object}
-                  // style={item.style}
-                  delayStart={item.delay}
-                  easing={item.easing}
-                  mimic={item.mimic}
-                  order={item.order}
-                  saveFunc={saveFunc}
-                  deleteMimicItem={deleteMimicItem}
-                  xLeftEyeStart={item.x_left_eye}
-                  yLeftEyeStart={item.y_left_eye}
-                  wLeftEyeStart={item.w_left_eye}
-                  hLeftEyeStart={item.h_left_eye}
+      <DragDropContext
+          onDragEnd={handleDragDrop}>
+          <Droppable droppableId="ROOT1">
+            {(provided) => (
+              <ul className="robotemotion__reorder" {...provided.droppableProps} ref={provided.innerRef}>
+                  {items &&
+                    items.map((item, index) => {
+                      return (
+                        <MimicItem
+                          card={item}
+                          mimicId={item.mimic}
+                          key={item.id}
+                          index={index}
+                          mimicItemId={item.id} // id карточки mimic_item
+                          delayStart={item.delay}
+                          easing={item.easing}
+                          mimic={item.mimic}
+                          order={item.order}
+                          saveFunc={saveFunc}
+                          deleteMimicItem={deleteMimicItem}
+                          xLeftEyeStart={item.x_left_eye}
+                          yLeftEyeStart={item.y_left_eye}
+                          wLeftEyeStart={item.w_left_eye}
+                          hLeftEyeStart={item.h_left_eye}
 
-                  xRightEyeStart={item.x_right_eye}
-                  yRightEyeStart={item.y_right_eye}
-                  wRightEyeStart={item.w_right_eye}
-                  hRightEyeStart={item.h_right_eye}
+                          xRightEyeStart={item.x_right_eye}
+                          yRightEyeStart={item.y_right_eye}
+                          wRightEyeStart={item.w_right_eye}
+                          hRightEyeStart={item.h_right_eye}
 
-                  xMouthStart={item.x_mouth}
-                  yMouthStart={item.y_mouth}
-                  wMouthStart={item.w_mouth}
-                  hMouthStart={item.h_mouth}
+                          xMouthStart={item.x_mouth}
+                          yMouthStart={item.y_mouth}
+                          wMouthStart={item.w_mouth}
+                          hMouthStart={item.h_mouth}
 
-                  leftEyeStart={item.style_left_eye}
-                  mouthStart={item.style_mouth}
-                  rightEyeStart={item.style_right_eye}
-                ></MimicItem>
-              );
-            })}
-        </ul>
-
+                          leftEyeStart={item.style_left_eye}
+                          mouthStart={item.style_mouth}
+                          rightEyeStart={item.style_right_eye}
+                        ></MimicItem>
+                      );
+                    })}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>
         <div className="robotemotion__control">
           <div className="robotemotion__add-row">
             <button
@@ -313,7 +264,7 @@ const RobotEmotion = () => {
               })}
               onClick={handleSaveMimic}
             >
-              <img src={isDay ? save : saveNight} alt="save" /> Сохранить
+              <img src={isDay ? save : saveNight} alt="save" /> Сохранить {/* пост запрос на сохранение всей мимики */}
             </button>
           </div>
         </div>

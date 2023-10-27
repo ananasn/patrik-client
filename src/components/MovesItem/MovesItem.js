@@ -12,9 +12,9 @@ import dots from "../../img/movesItem/dots-day.svg";
 import dotsNight from "../../img/movesItem/dots-night.svg";
 import deleteItem from "../../img/movesItem/delete-day.svg";
 import deleteItemNight from "../../img/movesItem/delete-night.svg";
-import topBottom from "../../img/robot-control-day/top-bottom.svg";
+//import topBottom from "../../img/robot-control-day/top-bottom.svg";
 import rightLeft from "../../img/robot-control-day/right-left.svg";
-import topBottomNight from "../../img/robot-control-night/top-bottom.svg";
+//import topBottomNight from "../../img/robot-control-night/top-bottom.svg";
 import rightLeftNight from "../../img/robot-control-night/right-left.svg";
 
 import robotBody from "../../img/robot-day/robot-body.svg";

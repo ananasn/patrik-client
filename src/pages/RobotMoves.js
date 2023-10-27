@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleIsModalOpen, setIsMove } from "../store/actions";
 import MovesItem from "../components/MovesItem/MovesItem";
-import DelayTimer from "../components/DelayTimer/DelayTimer";
+//import DelayTimer from "../components/DelayTimer/DelayTimer";
 
 import back from "../img/icons/menu-day/back-day.svg";
 import backNight from "../img/icons/menu-night/back-night.svg";
@@ -125,7 +125,7 @@ const RobotMoves = () => {
       <div className="robotmoves__list">
         <DragDropContext
           onDragEnd={handleDragDrop}>
-          <Droppable droppableId="ROOT">
+          <Droppable droppableId="ROOT2">
             {(provided) => (
               <ul className="robotmoves__reorder" {...provided.droppableProps} ref={provided.innerRef}>
                 {items &&
