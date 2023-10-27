@@ -59,10 +59,10 @@ const RobotEmotion = () => {
     const fetchData = async () => {
       const response = await request("http://localhost:8000/api/mimic_item/");
       const data = await response;
-      console.log(data)
+      //console.log(data)
       const result = await data.filter((item) => item.mimic == mimicId );
       setItems(result);
-      console.log(result)
+      //console.log(result)
     };
     fetchData();
   }, []);
@@ -146,7 +146,23 @@ const RobotEmotion = () => {
   }
 
   const handleDragDrop = (results) => {
-    console.log("drag drop event accured", results);
+    //console.log("drag drop event occured", results);
+    const {destination, source/*, draggableId*/} = results;
+    //console.log(destination, source, draggableId);
+    if(!destination) return;
+    if(
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+      )
+      return;
+    const reorderedItems = [...items];
+    const sourceIndex = source.index;
+    const destinationIndex = destination.index;
+
+    const [removedItems] = reorderedItems.splice(sourceIndex, 1);
+    reorderedItems.splice(destinationIndex, 0, removedItems)
+
+    return setItems(reorderedItems);
   }
 
   return (
@@ -240,7 +256,7 @@ const RobotEmotion = () => {
                           rightEyeStart={item.style_right_eye}
                         ></MimicItem>
                       );
-                    })}
+                  })}
                 {provided.placeholder}
               </ul>
             )}
