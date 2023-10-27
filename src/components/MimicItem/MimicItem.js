@@ -27,7 +27,7 @@ const MimicItem = ({
   card,
   mimicItemId,
   object,
-  style,
+  //style,
   xLeftEyeStart,
   yLeftEyeStart,
   wLeftEyeStart,
@@ -48,8 +48,8 @@ const MimicItem = ({
   mimic,
   saveFunc,
   deleteMimicItem,
-  mimicId,
-  order,
+  //mimicId,
+  //order,
 }) => {
 
   const [mimicData, setMimic] = useState(mimic);
@@ -130,8 +130,8 @@ const MimicItem = ({
       style_mouth: parseInt(tabValues.mouthValue),
 
       delay: delayValue,
-      order: order,
-      mimic: mimic,
+      //order: order,
+      //mimic: mimic,
       easing: easingValue,
     });
   },[easingValue, tabValues, delayValue])

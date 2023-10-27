@@ -121,12 +121,12 @@ const RobotEmotion = () => {
       "w_mouth": 0,
       "h_mouth": 0,
       "delay": 0,
-      "easing": "string",
-      "order": 0,
-      "mimic": mimicId,
+      "easing": "spring"
+      //"order": items.length + 1,
+      //"mimic": mimicId,
     }])
   }
-  const saveHandler = async () => {
+  /*const saveHandler = async () => {
     /*items.forEach(async(item) => {
       // если есть id то редактирование
       if (item.id) {
@@ -143,8 +143,8 @@ const RobotEmotion = () => {
         //console.log(res);
         alert("Запрос завершился");
       }
-    })*/
-    const res = await request("http://localhost:8000/api/save_mimic_item/", "post", JSON.stringify(
+    })
+    const res = await request("http://localhost:8000/api/save_mimic_items/", "post", JSON.stringify(
       {
         mimic_name: inputValue,
         mimic_items: items
@@ -152,7 +152,7 @@ const RobotEmotion = () => {
       ));
     console.log(res);
     alert("Запрос завершился");
-  }
+  }*/
 
   const deleteMimicItem = async (mimicItemId) => {
     await fetch(`http://localhost:8000/api/mimic_item/${mimicItemId}/`, {method:"DELETE"});
@@ -175,21 +175,22 @@ const RobotEmotion = () => {
 
     const handleSaveMimic = async () => {
       // если есть id то редактирование
-      if (mimicId) {
+      /*if (mimicId) {
         await request(`http://localhost:8000/api/mimic/${mimicId}/`, "put",
         JSON.stringify({
           name: inputValue
         }));
       }
       // создание
-      else {
-        const res = await request("http://localhost:8000/api/save_mimic_item/", "post",
+      else {*/
+      console.log(items)
+        const res = await request("http://localhost:8000/api/save_mimic_items/", "post",
           JSON.stringify({
             name: inputValue,
             mimic_items: items
           }));
         console.log(res);
-        navigate(`/emotion/${res.id}`);
+        //navigate(`/emotion/${res.id}`);
           /*  после создания новой мимики -- получаем все мимики еще раз
           const fetchData = async () => {
             const response = await request("http://localhost:8000/api/mimic/");
@@ -199,7 +200,7 @@ const RobotEmotion = () => {
           };
           fetchData();*/
           //перейти на страницу с новым созданным и полученным id
-      }
+      //}
     }
 
 
@@ -248,7 +249,7 @@ const RobotEmotion = () => {
           <button className="robotemotion__btn" onClick={handlePlay}>
             <img src={isDay ? run : runNight} alt="Run" />
           </button>
-          <button className="robotemotion__btn" onClick={handleSaveMimic}> {/* пост запрос на сохранение названия мимики и получения id???*/}
+          <button className="robotemotion__btn" onClick={handleSaveMimic}> {/* пост запрос на сохранение всей мимики */}
             <img src={isDay ? save : saveNight} alt="Save" />
           </button>
         </div>
@@ -310,7 +311,7 @@ const RobotEmotion = () => {
                 "robotemotion-add__btn--day": isDay,
                 "robotemotion-add__btn--night": !isDay,
               })}
-              onClick={saveHandler}
+              onClick={handleSaveMimic}
             >
               <img src={isDay ? save : saveNight} alt="save" /> Сохранить
             </button>
