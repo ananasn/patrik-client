@@ -164,7 +164,6 @@ const RobotEmotion = () => {
 
     return setItems(reorderedItems);
   }
-
   return (
     <div className="robotemotion">
       <div

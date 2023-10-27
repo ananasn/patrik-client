@@ -132,7 +132,7 @@ const MimicItem = ({
   },[easingValue, tabValues, delayValue])
 
   return (
-    <Draggable draggableId={index.toString()} index={index}>
+    <Draggable draggableId={mimicItemId.toString()} index={index}>
       {(provided) => (
         <li
           ref={provided.innerRef}
