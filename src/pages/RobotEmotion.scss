@@ -4,6 +4,7 @@
   overflow-y: hidden;
   overflow-x: hidden;
   &__header {
+    position: relative;
     display: flex;
     align-items: center;
     justify-items: center;
@@ -49,7 +50,8 @@
     }
   }
 
-  &__form {
+  &__form-container {
+
     display: flex;
     align-items: center;
     justify-items: center;
@@ -139,6 +141,15 @@
       max-width: 32px;
       max-height: 32px;
     }
+  }
+
+  &__name-helper-text {
+    position: absolute;
+    left: 30px;
+    bottom: 0;
+    font-size: 12px;
+    font-weight: 300;
+    color: red;
   }
 }
 

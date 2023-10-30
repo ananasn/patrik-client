@@ -9,6 +9,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import NavList from "../components/NavList/NavList";
 //import { toggleIsModalOpen, setIsMove } from "../store/actions";
 import MimicItem from "../components/MimicItem/MimicItem";
+import { setMimics } from "../store/actions";
 
 import back from "../img/icons/menu-day/back-day.svg";
 import backNight from "../img/icons/menu-night/back-night.svg";
@@ -27,9 +28,11 @@ import "./RobotEmotion.scss";
 // страница создания и редактирования мимик; где карточки
 const RobotEmotion = () => {
   const isDay = useSelector((state) => state.isDay);
-  //const dispatch = useDispatch();
+  const mimics = useSelector((state) => state.mimics);
+  const dispatch = useDispatch();
   const { mimicId } = useParams();
   const [inputValue, setInputValue] = useState("");
+  const [helperText, setHelperText] = useState("");
 
   // получаем имя мимики и id
   useEffect(() => {
@@ -48,6 +51,8 @@ const RobotEmotion = () => {
 
   const { request, loading, error, clearError } = useHttp();
   const [items, setItems] = useState([]);
+
+  console.log(mimics);
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
@@ -67,9 +72,26 @@ const RobotEmotion = () => {
     fetchData();
   }, []);
   const inputRef = useRef(null);
+
+
+  //отправляем такой же запрос как и на странице emotion
+  //todo пересмотреть логику чтобы отправлять запрос 1 раз
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await request("http://localhost:8000/api/mimic/");
+      const data = await response;
+      // console.log(data);
+      dispatch(setMimics(data));
+    };
+    fetchData();
+  }, []);
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const newValue = inputRef.current.value;
+    const mimicName = mimics.filter((item) => item.name == newValue);
+
+    mimicName.length > 0 ? setHelperText("Такая мимика уже существует") : setHelperText("Вы создали новую мимику");
+
     setInputValue(newValue);
     inputRef.current.value = "";
     inputRef.current.readOnly = true; // Установка readOnly после отправки формы
@@ -187,22 +209,25 @@ const RobotEmotion = () => {
             onSubmit={(e) => handleFormSubmit(e)} // сабмит происходит при нажатии на enter
             className="robotemotion__form"
           >
-            <input
-              className="robotemotion__input"
-              ref={inputRef} // Привязка рефа к инпуту
-              type="text"
-              placeholder={inputValue}
-              name="inputName"
-              id="inputName"
-              //readOnly
-            />
-            <label
-              onClick={(e) => handleLabelClick(e)}
-              htmlFor="inputName"
-              className="robotemotion__edit"
-            >
-              <img src={isDay ? pen : penNight} alt="" />
-            </label>
+            <div className="robotemotion__form-container">
+              <input
+                className="robotemotion__input"
+                ref={inputRef} // Привязка рефа к инпуту
+                type="text"
+                placeholder={inputValue}
+                name="inputName"
+                id="inputName"
+                //readOnly
+              />
+              <label
+                onClick={(e) => handleLabelClick(e)}
+                htmlFor="inputName"
+                className="robotemotion__edit"
+              >
+                <img src={isDay ? pen : penNight} alt="" />
+              </label>
+            </div>
+            <div className="robotemotion__name-helper-text">{helperText}</div>
           </form>
         </div>
         <div className="robotemotion__btns">
