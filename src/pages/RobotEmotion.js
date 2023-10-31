@@ -137,7 +137,7 @@ const RobotEmotion = () => {
       "w_mouth": 0,
       "h_mouth": 0,
       "delay": 0,
-      "easing": "spring"
+      "easing": ""
     }])
     setNewId(codeGenerator(0));
   }
@@ -161,13 +161,27 @@ const RobotEmotion = () => {
 
 //запрос на сохранение/перезапись имени и всех карточек мимики
   const handleSaveMimic = async () => {
-    console.log(items)
+    // console.log(items)
+    let isSuccess = true
+    items.forEach((item) => {
+      if (item.easing) {
+        item.easingError = false
+      } else {
+        item.easingError = true
+        isSuccess = false
+      }
+    })
+    if (!isSuccess) {
+      setItems(items.slice()) // чтобы стейт обновился нужен новый массив
+      return;
+    }
+    items.forEach((item) => delete item.isSuccess)
     const res = await request("http://localhost:8000/api/save_mimic_items/", "post",
       JSON.stringify({
         name: inputValue,
         mimic_items: items
       }));
-    console.log(res);
+    //console.log(res);
   }
 
   const handleDragDrop = async (results) => {
@@ -196,6 +210,13 @@ const RobotEmotion = () => {
     console.log(res);
 
     return setItems(reorderedItems);
+  }
+  const onMimicNameInput = async () => {
+    console.log(inputRef.current.value)
+    const resInput = await request("http://localhost:8000/api/is_mimic_unique/", "post",
+    JSON.stringify({
+      name: inputValue,
+    }));
   }
   return (
     <div className="robotemotion">
@@ -228,6 +249,7 @@ const RobotEmotion = () => {
                 placeholder={inputValue}
                 name="inputName"
                 id="inputName"
+                onInput={onMimicNameInput}
                 //readOnly
               />
               <label
@@ -291,6 +313,7 @@ const RobotEmotion = () => {
                           leftEyeStart={item.style_left_eye}
                           mouthStart={item.style_mouth}
                           rightEyeStart={item.style_right_eye}
+                          easingError={item.easingError}
                         ></MimicItem>
                       );
                   })}
