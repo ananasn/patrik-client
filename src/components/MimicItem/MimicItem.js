@@ -42,6 +42,7 @@ const MimicItem = ({
   mouthStart,
   rightEyeStart,
   easing,
+  easingError,
   delayStart,
   dragId,
   index,
@@ -97,6 +98,7 @@ const MimicItem = ({
     setIsModalAnimationOpen(true);
   }
   const onAnimationChange = (animations) => {
+    console.log(animations[0]);
     setEasingValue(animations[0] && animations[0].value);
   }
   const onModalAnimationClose = () => {
@@ -261,6 +263,7 @@ const MimicItem = ({
                     <img src={isDay ? plus : plusNight} alt="Plus" />
                     {easingValue || 'Добавить анимацию'}
                   </button>
+                  <div className="mimicitem__easingError">{easingError ? "Добавьте анимацию!!!" : ""}</div>
                   { delayView === 0 && <button
                     className={classNames("mimicitem-add__btn", {
                       "mimicitem-add__btn--day": isDay,

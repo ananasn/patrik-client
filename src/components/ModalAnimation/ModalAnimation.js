@@ -74,6 +74,7 @@ const ModalAnimation = ({onAnimationChange, isOpen, onClose, easingStart}) => {
                     key={id}
                     isModal={true}
                     onClick={() => {
+                      console.log("modal animation", 1);
                       // если анимация уже выбрана
                       if (selectedAnimations.includes(item)) {
                         let i = selectedAnimations.indexOf(item);
