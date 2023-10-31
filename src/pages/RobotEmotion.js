@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import {codeGenerator} from "../utils/utils";
 import NavList from "../components/NavList/NavList";
 //import { toggleIsModalOpen, setIsMove } from "../store/actions";
 import MimicItem from "../components/MimicItem/MimicItem";
@@ -33,6 +34,7 @@ const RobotEmotion = () => {
   const { mimicId } = useParams();
   const [inputValue, setInputValue] = useState("");
   const [helperText, setHelperText] = useState("");
+  const [newId, setNewId] = useState(0);
 
   // получаем имя мимики и id
   useEffect(() => {
@@ -137,6 +139,7 @@ const RobotEmotion = () => {
       "delay": 0,
       "easing": "spring"
     }])
+    setNewId(codeGenerator(0));
   }
 
   const deleteMimicItem = async (mimicItemId) => {
@@ -167,7 +170,7 @@ const RobotEmotion = () => {
     console.log(res);
   }
 
-  const handleDragDrop = (results) => {
+  const handleDragDrop = async (results) => {
     //console.log("drag drop event occured", results);
     const {destination, source/*, draggableId*/} = results;
     //console.log(destination, source, draggableId);
@@ -180,9 +183,17 @@ const RobotEmotion = () => {
     const reorderedItems = [...items];
     const sourceIndex = source.index;
     const destinationIndex = destination.index;
+    console.log(sourceIndex, destinationIndex)
 
     const [removedItems] = reorderedItems.splice(sourceIndex, 1);
     reorderedItems.splice(destinationIndex, 0, removedItems)
+    //запрос на бэк
+    const res = await request("http://localhost:8000/api/save_mimic_items/", "post",
+    JSON.stringify({
+      name: inputValue,
+      mimic_items: reorderedItems
+    }));
+    console.log(res);
 
     return setItems(reorderedItems);
   }
@@ -247,12 +258,14 @@ const RobotEmotion = () => {
               <ul className="robotemotion__reorder" {...provided.droppableProps} ref={provided.innerRef}>
                   {items &&
                     items.map((item, index) => {
+                      //const dragId = codeGenerator(0);
                       return (
                         <MimicItem
                           card={item}
                           mimicId={item.mimic}
                           key={item.id}
                           index={index}
+                          dragId={newId}
                           mimicItemId={item.id} // id карточки mimic_item
                           delayStart={item.delay}
                           easing={item.easing}

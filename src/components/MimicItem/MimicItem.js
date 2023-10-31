@@ -2,8 +2,9 @@ import { useState, useEffect, useRef} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames";
 import { Draggable } from "react-beautiful-dnd";
+import {codeGenerator} from "../../utils/utils";
 import Tabs from "../Tabs/Tabs";
-//import {toggleIsModalAnimationOpen} from "../../store/actions";
+
 import ModalAnimation from "../ModalAnimation/ModalAnimation";
 import open from "../../img/movesItem/open-day.svg";
 import openNight from "../../img/movesItem/open-night.svg";
@@ -16,6 +17,8 @@ import plus from "../../img/plus-day.svg";
 import robotFaceNight from "../../img/robot-mimic-night/fase-night.svg";
 import plusNight from "../../img/plus-night.svg";
 import "./MimicItem.scss";
+
+
 
 
 // блок с лицом
@@ -40,7 +43,7 @@ const MimicItem = ({
   rightEyeStart,
   easing,
   delayStart,
-  order,
+  dragId,
   index,
   saveFunc,
   deleteMimicItem
@@ -131,8 +134,14 @@ const MimicItem = ({
     });
   },[easingValue, tabValues, delayValue])
 
+  //const dragId = codeGenerator(0);
+
+  console.log(dragId, dragId.toString())
+  const dragIdNew = mimicItemId ? mimicItemId.toString() : 'card ' + dragId.toString();
+  console.log(dragIdNew);
+
   return (
-    <Draggable draggableId={mimicItemId.toString()} index={index}>
+    <Draggable draggableId={dragIdNew} index={index}>
       {(provided) => (
         <li
           ref={provided.innerRef}
