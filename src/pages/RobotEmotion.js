@@ -54,7 +54,6 @@ const RobotEmotion = () => {
   const { request, loading, error, clearError } = useHttp();
   const [items, setItems] = useState([]);
 
-  console.log(mimics);
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
@@ -87,7 +86,7 @@ const RobotEmotion = () => {
     };
     fetchData();
   }, []);
-  const handleFormSubmit = async (e) => {
+  /*const handleFormSubmit = async (e) => {
     e.preventDefault();
     const newValue = inputRef.current.value;
     const mimicName = mimics.filter((item) => item.name == newValue);
@@ -97,7 +96,7 @@ const RobotEmotion = () => {
     setInputValue(newValue);
     inputRef.current.value = "";
     inputRef.current.readOnly = true; // Установка readOnly после отправки формы
-  };
+  };*/
   const handleLabelClick = (e) => {
     e.preventDefault();
     inputRef.current.readOnly = false;
@@ -212,11 +211,19 @@ const RobotEmotion = () => {
     return setItems(reorderedItems);
   }
   const onMimicNameInput = async () => {
-    console.log(inputRef.current.value)
+    //console.log(inputRef.current.value)
+    //const newValue = inputRef.current.value;
+    //setInputValue(newValue);
     const resInput = await request("http://localhost:8000/api/is_mimic_unique/", "post",
     JSON.stringify({
-      name: inputValue,
+      name: inputRef.current.value,
     }));
+    //console.log(resInput)
+    //console.log(resInput.unique)
+    (resInput.unique == false) ? setHelperText("Такая мимика уже существует") : setHelperText("");
+    setInputValue(inputRef.current.value);
+    //inputRef.current.value = "";
+    //inputRef.current.readOnly = true; // Установка readOnly после отправки формы
   }
   return (
     <div className="robotemotion">
@@ -238,7 +245,7 @@ const RobotEmotion = () => {
             <p>Мимика</p>
           </Link>
           <form
-            onSubmit={(e) => handleFormSubmit(e)} // сабмит происходит при нажатии на enter
+            //onSubmit={(e) => handleFormSubmit(e)} // сабмит происходит при нажатии на enter
             className="robotemotion__form"
           >
             <div className="robotemotion__form-container">

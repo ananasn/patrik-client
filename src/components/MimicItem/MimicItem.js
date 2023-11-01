@@ -19,9 +19,6 @@ import robotFaceNight from "../../img/robot-mimic-night/fase-night.svg";
 import plusNight from "../../img/plus-night.svg";
 import "./MimicItem.scss";
 
-
-
-
 // блок с лицом
 const MimicItem = ({
   //card,
