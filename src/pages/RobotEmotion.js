@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo } from "react";
 import { useParams } from "react-router-dom";
 import { useHttp } from "../hooks/http.hook";
 import classNames from "classnames";
@@ -185,9 +185,9 @@ const RobotEmotion = () => {
   }
 
   const handleDragDrop = async (results) => {
-    //console.log("drag drop event occured", results);
-    const {destination, source/*, draggableId*/} = results;
-    //console.log(destination, source, draggableId);
+    console.log("drag drop event occured", results);
+    const {destination, source, draggableId} = results;
+    console.log(destination, source, draggableId);
     if(!destination) return;
     if(
       source.droppableId === destination.droppableId &&
@@ -202,12 +202,12 @@ const RobotEmotion = () => {
     const [removedItems] = reorderedItems.splice(sourceIndex, 1);
     reorderedItems.splice(destinationIndex, 0, removedItems)
     //запрос на бэк
-    const res = await request("http://localhost:8000/api/save_mimic_items/", "post",
+    /*const res = await request("http://localhost:8000/api/save_mimic_items/", "post",
     JSON.stringify({
       name: inputValue,
       mimic_items: reorderedItems
     }));
-    console.log(res);
+    console.log(res);*/
 
     return setItems(reorderedItems);
   }
@@ -363,4 +363,4 @@ const RobotEmotion = () => {
   );
 };
 
-export default RobotEmotion;
+export default memo(RobotEmotion);
