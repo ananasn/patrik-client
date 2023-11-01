@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef} from "react";
+import { useState, useEffect, useRef, memo} from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames";
 import { Draggable } from "react-beautiful-dnd";
@@ -139,11 +140,11 @@ const MimicItem = ({
   //const dragId = codeGenerator(0);
 
   console.log(dragId, dragId.toString())
-  const dragIdNew = mimicItemId ? mimicItemId.toString() : 'card ' + dragId.toString();
-  console.log(dragIdNew);
+  //const dragIdNew = mimicItemId ? mimicItemId.toString() : 'card ' + dragId.toString();
+  //console.log(dragIdNew);
 
   return (
-    <Draggable draggableId={dragIdNew} index={index}>
+    <Draggable draggableId={mimicItemId ? mimicItemId.toString() : 'card ' + codeGenerator().toString()} index={index}>
       {(provided) => (
         <li
           ref={provided.innerRef}
@@ -304,4 +305,4 @@ const MimicItem = ({
   );
 };
 
-export default MimicItem;
+export default React.memo(MimicItem);
