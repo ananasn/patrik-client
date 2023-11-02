@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, memo } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useHttp } from "../hooks/http.hook";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
@@ -31,6 +31,7 @@ const RobotEmotion = () => {
   const isDay = useSelector((state) => state.isDay);
   const mimics = useSelector((state) => state.mimics);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { mimicId } = useParams();
   const [inputValue, setInputValue] = useState("");
   const [helperText, setHelperText] = useState("");
@@ -181,6 +182,8 @@ const RobotEmotion = () => {
         mimic_items: items
       }));
     //console.log(res);
+    console.log("navigate to /emotion")
+    navigate(-1);
   }
 
   const handleDragDrop = async (results) => {
