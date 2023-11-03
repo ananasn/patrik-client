@@ -137,11 +137,12 @@ const MimicItem = ({
   //const dragId = codeGenerator(0);
 
   console.log(dragId, dragId.toString())
-  //const dragIdNew = mimicItemId ? mimicItemId.toString() : 'card ' + dragId.toString();
-  //console.log(dragIdNew);
+  const dragIdNew = mimicItemId ? mimicItemId.toString() : 'card ' + dragId.toString();
+  console.log(dragIdNew);
+  console.log("сколько раз отрисовали",codeGenerator(0))
 
   return (
-    <Draggable draggableId={mimicItemId ? mimicItemId.toString() : 'card ' + codeGenerator().toString()} index={index}>
+    <Draggable draggableId={dragIdNew} index={index}>
       {(provided) => (
         <li
           ref={provided.innerRef}
