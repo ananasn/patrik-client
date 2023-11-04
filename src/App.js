@@ -42,7 +42,7 @@ function App() {
         <LeftSidebar />
       )}
       <Main />
-      {/* <button onClick={changeTheme} style={{ position: "absolute" }} /> */}
+      <button onClick={changeTheme} style={{ position: "absolute" }} />
       {isTablet ? (
         <>
           {isDay ? (
