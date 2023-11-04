@@ -122,7 +122,6 @@ const Tabs = ({
         className={toggleState === 1 ? "content active-content" : "content"}
         data-target="tab-1"
         > {/*Tab1*/}
-        1
         <div
           className={classNames("face__items-container", {
             "face__items-container--day": isDay,
@@ -153,7 +152,6 @@ const Tabs = ({
         className={toggleState === 2 ? "content active-content" : "content"}
         data-target="tab-2"
       >{/*Tab2*/}
-        2
         <div
           className={classNames("face__items-container", {
             "face__items-container--day": isDay,

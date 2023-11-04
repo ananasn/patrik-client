@@ -4,11 +4,16 @@
   .face__items-container {
     display: flex;
     //align-items: center;
-    //justify-content: center;
-    padding: 8px 16px 8px 8px;
+    justify-content: space-between;
+    padding: 8px;
     border-radius: 8px;
     gap: 12px;
     margin-bottom: 24px;
+
+    @media(max-width: 480px) {
+      width: 270px;
+    }
+
     &--day {
       background-color: $robot-day;
 
@@ -58,6 +63,11 @@
           height: 6px;
           border-radius: 19px;
           background-color: $main-bg-night;
+
+          @media(max-width: 480px) {
+            width: 32px;
+            height: 4px;
+          }
         }
       }
 
@@ -139,6 +149,11 @@
           height: 6px;
           border-radius: 19px;
           background-color: $btns-night;
+
+          @media(max-width: 480px) {
+            width: 32px;
+            height: 4px;
+          }
         }
       }
 
