@@ -64,7 +64,8 @@ input[type=range].controler-input::-webkit-slider-thumb {
   width: 40px;
   height: 40px;
   border-radius: 25%;
-  background: #007cf8;
+  //background: linear-gradient(90deg, #94C5FF 0.36%, #1E85FF 110.25%, #0459BE 110.25%);
+  background: #1E85FF;
   border: none;
   box-shadow: 0 0 2px black;
   margin-top: calc(max((32px - 1px - 1px) * 0.5,0px) - 40px * 0.5);
@@ -72,7 +73,8 @@ input[type=range].controler-input::-webkit-slider-thumb {
 
 input[type=range].controler-input::-webkit-slider-runnable-track {
   height: 32px;
-  border: 1px solid #b2b2b2;
+  border: none;
+  //border: 1px solid #b2b2b2;
   border-radius: 0.5em;
   background: linear-gradient(to right, #EFEFEF, #D1D8EF);
   box-shadow: none;
@@ -84,7 +86,8 @@ input[type=range].controler-input::-webkit-slider-thumb:hover {
 
 input[type=range].controler-input:hover::-webkit-slider-runnable-track {
   background: linear-gradient(to right, #E5E5E5, #D1D8EF);
-  border-color: #9a9a9a;
+  border: none;
+  //border-color: #9a9a9a;
 }
 
 input[type=range].controler-input::-webkit-slider-thumb:active {
@@ -93,19 +96,20 @@ input[type=range].controler-input::-webkit-slider-thumb:active {
 
 input[type=range].controler-input:active::-webkit-slider-runnable-track {
   background: linear-gradient(to right, #F5F5F5, #D1D8EF);
-  border-color: #c1c1c1;
+  border: none;
+  //border-color: #c1c1c1;
 }
 
 input[type=range].controler-input.slider-progress::-webkit-slider-runnable-track {
-  background: linear-gradient(#007cf8,#007cf8) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #EFEFEF, #D1D8EF);
+  background: linear-gradient(to right, #94C5FF 0.36%, #1E85FF 110.25%, #0459BE 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #EFEFEF, #D1D8EF);
 }
 
 input[type=range].controler-input.slider-progress:hover::-webkit-slider-runnable-track {
-  background: linear-gradient(#0061c3,#0061c3) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #E5E5E5, #D1D8EF);
+  background: linear-gradient(to right, #94C5FF 0.36%, #1E85FF 110.25%, #0459BE 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #E5E5E5, #D1D8EF);
 }
 
 input[type=range].controler-input.slider-progress:active::-webkit-slider-runnable-track {
-  background: linear-gradient(#2f98f9,#2f98f9) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #F5F5F5, #D1D8EF);
+  background: linear-gradient(to right, #94C5FF 0.36%, #1E85FF 110.25%, #0459BE 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #F5F5F5, #D1D8EF);
 }
 
 /*mozilla*/
@@ -120,7 +124,8 @@ input[type=range].controler-input::-moz-range-thumb {
 
 input[type=range].controler-input::-moz-range-track {
   height: max(30px,0px);
-  border: 1px solid #b2b2b2;
+  border: none;
+  //border: 1px solid #b2b2b2;
   border-radius: 0.5em;
   background: linear-gradient(to right, #EFEFEF, #D1D8EF);
   box-shadow: none;
@@ -132,7 +137,8 @@ input[type=range].controler-input::-moz-range-thumb:hover {
 
 input[type=range].controler-input:hover::-moz-range-track {
   background: linear-gradient(to right, #E5E5E5, #D1D8EF);
-  border-color: #9a9a9a;
+  border: none;
+  //border-color: #9a9a9a;
 }
 
 input[type=range].controler-input::-moz-range-thumb:active {
@@ -141,7 +147,8 @@ input[type=range].controler-input::-moz-range-thumb:active {
 
 input[type=range].controler-input:active::-moz-range-track {
   background: linear-gradient(to right, #F5F5F5, #D1D8EF);
-  border-color: #c1c1c1;
+  border: none;
+  //border-color: #c1c1c1;
 }
 
 input[type=range].controler-input.slider-progress::-moz-range-track {
@@ -182,7 +189,8 @@ input[type=range].controler-input::-ms-track {
   height: 32px;
   border-radius: 0.5em;
   background: linear-gradient(to right, #EFEFEF, #D1D8EF);
-  border: 1px solid #b2b2b2;
+  border: none;
+  //border: 1px solid #b2b2b2;
   box-shadow: none;
   box-sizing: border-box;
 }
@@ -193,7 +201,8 @@ input[type=range].controler-input::-ms-thumb:hover {
 
 input[type=range].controler-input:hover::-ms-track {
   background: linear-gradient(to right, #E5E5E5, #D1D8EF);
-  border-color: #9a9a9a;
+  border: none;
+  //border-color: #9a9a9a;
 }
 
 input[type=range].controler-input::-ms-thumb:active {
@@ -202,7 +211,8 @@ input[type=range].controler-input::-ms-thumb:active {
 
 input[type=range].controler-input:active::-ms-track {
   background: linear-gradient(to right, #F5F5F5, #D1D8EF);
-  border-color: #c1c1c1;
+  border: none;
+  //border-color: #c1c1c1;
 }
 
 input[type=range].controler-input.slider-progress::-ms-fill-lower {
@@ -210,17 +220,20 @@ input[type=range].controler-input.slider-progress::-ms-fill-lower {
   border-radius: 0.5em 0 0 0.5em;
   margin: -1px 0 -1px -1px;
   background: #007cf8;
-  border: 1px solid #b2b2b2;
+  border: none;
+  //border: 1px solid #b2b2b2;
   border-right-width: 0;
 }
 
 input[type=range].controler-input.slider-progress:hover::-ms-fill-lower {
   background: #0061c3;
-  border-color: #9a9a9a;
+  border: none;
+  //border-color: #9a9a9a;
 }
 
 input[type=range].controler-input.slider-progress:active::-ms-fill-lower {
   background: #2f98f9;
-  border-color: #c1c1c1;
+  border: none;
+  //border-color: #c1c1c1;
 }
 
