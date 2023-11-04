@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, memo } from "react";
+import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useHttp } from "../hooks/http.hook";
 import classNames from "classnames";
@@ -138,8 +139,10 @@ const RobotEmotion = () => {
       "h_mouth": 0,
       "delay": 0,
       "easing": ""
+      //todo вернуть ордер
+      //"fakeId":  codeGenerator(0) или "order":  codeGenerator(0)
     }])
-    setNewId(codeGenerator(0));
+    setNewId(codeGenerator(0)); //после добавления одной карточки нужно сохранить результат, а затем перетаскивать
   }
 
   const deleteMimicItem = async (mimicItemId) => {
@@ -182,7 +185,7 @@ const RobotEmotion = () => {
         mimic_items: items
       }));
     //console.log(res);
-    console.log("navigate to /emotion")
+    //console.log("navigate to /emotion")
     navigate(-1);
   }
 
@@ -356,7 +359,7 @@ const RobotEmotion = () => {
         </div>
       </div>
 
-      {isTablet ? (
+      {/*isTablet ? (
         <>
           {isDay ? (
             <div className="App__bottom">
@@ -368,9 +371,9 @@ const RobotEmotion = () => {
             </div>
           )}
         </>
-      ) : null}
+          ) : null*/}
     </div>
   );
 };
 
-export default memo(RobotEmotion);
+export default React.memo(RobotEmotion);

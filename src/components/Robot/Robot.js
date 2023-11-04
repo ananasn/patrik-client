@@ -154,7 +154,7 @@ const Robot = () => {
           </div>
           <RobotControl></RobotControl>
           {isTablet ? null : <InputBottom></InputBottom>}
-          {isTablet ? (
+          {/*isTablet ? (
             <>
               {isDay ? (
                 <div className="App__bottom">
@@ -166,7 +166,7 @@ const Robot = () => {
                 </div>
               )}
             </>
-          ) : null}
+              ) : null*/}
         </>
       ) : (
         <>
@@ -285,7 +285,7 @@ const Robot = () => {
           </div>
           <RobotControl></RobotControl>
           {isTablet ? null : <InputBottom></InputBottom>}
-          {isTablet ? (
+          {/*isTablet ? (
             <>
               {isDay ? (
                 <div className="App__bottom">
@@ -297,7 +297,7 @@ const Robot = () => {
                 </div>
               )}
             </>
-          ) : null}
+              ) : null*/}
         </>
       )}
     </div>

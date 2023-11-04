@@ -3,7 +3,7 @@ import classnames from "classnames";
 import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import "./App.scss";
-// import NavList from "./components/NavList/NavList";
+import NavList from "./components/NavList/NavList";
 // import RightSidebar from "./components/RightSidebar/RightSidebar";
 import NavMenu from "./components/NavMenu/NavMenu";
 import Profile from "./components/ProfileLink/Profile";
@@ -42,7 +42,20 @@ function App() {
         <LeftSidebar />
       )}
       <Main />
-      {/* <button onClick={changeTheme} style={{ position: "absolute" }} /> */}
+      <button onClick={changeTheme} style={{ position: "absolute" }} />
+      {isTablet ? (
+        <>
+          {isDay ? (
+            <div className="App__bottom">
+              <NavList></NavList>
+            </div>
+          ) : (
+            <div className="App__bottom--night">
+              <NavList></NavList>
+            </div>
+          )}
+        </>
+      ) : null}
     </div>
   );
 }
