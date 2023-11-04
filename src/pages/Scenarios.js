@@ -101,7 +101,7 @@ const Scenarios = () => {
           ))}
         </ul>
       </div>
-      {isTablet ? (
+      {/*isTablet ? (
         <>
           {isDay ? (
             <div className="App__bottom">
@@ -113,7 +113,7 @@ const Scenarios = () => {
             </div>
           )}
         </>
-      ) : null}
+          ) : null*/}
     </div>
   );
 };

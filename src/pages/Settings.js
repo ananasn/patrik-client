@@ -169,7 +169,7 @@ const Settings = () => {
                 ></Controler>
             </div>
           </div>
-          {isTablet ? (
+          {/*isTablet ? (
             <>
               {isDay ? (
                 <div className="App__bottom">
@@ -181,7 +181,7 @@ const Settings = () => {
                 </div>
               )}
             </>
-          ) : null}
+              ) : null*/}
         </div>
       </div>
 

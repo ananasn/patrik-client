@@ -359,7 +359,7 @@ const RobotEmotion = () => {
         </div>
       </div>
 
-      {isTablet ? (
+      {/*isTablet ? (
         <>
           {isDay ? (
             <div className="App__bottom">
@@ -371,7 +371,7 @@ const RobotEmotion = () => {
             </div>
           )}
         </>
-      ) : null}
+          ) : null*/}
     </div>
   );
 };

@@ -102,7 +102,7 @@ const Emotions = () => {
           ))}
         </ul>
       </div>
-      {isTablet ? (
+      {/*isTablet ? (
         <>
           {isDay ? (
             <div className="App__bottom">
@@ -114,7 +114,7 @@ const Emotions = () => {
             </div>
           )}
         </>
-      ) : null}
+          ) : null*/}
     </div>
   );
 };

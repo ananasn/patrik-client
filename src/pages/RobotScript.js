@@ -240,7 +240,7 @@ const RobotScript = () => {
           </button>
         </div>
       </div>
-      {isTablet ? (
+      {/*isTablet ? (
         <>
           {isDay ? (
             <div className="App__bottom">
@@ -252,7 +252,7 @@ const RobotScript = () => {
             </div>
           )}
         </>
-      ) : null}
+          ) : null*/}
       <ModalScript
           onScriptChange={onScriptChange}
           isOpen={isModalScriptOpen}
