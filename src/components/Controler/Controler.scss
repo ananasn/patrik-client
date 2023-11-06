@@ -30,6 +30,15 @@
       color: $font-night;
     }
   }
+  &__title {
+    width: 24px;
+    margin-right: 16px;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
 
 }
 
@@ -55,48 +64,78 @@ input[type=range].controler-input::-webkit-slider-thumb {
   width: 40px;
   height: 40px;
   border-radius: 25%;
-  background: #007cf8;
   border: none;
   box-shadow: 0 0 2px black;
   margin-top: calc(max((32px - 1px - 1px) * 0.5,0px) - 40px * 0.5);
 }
 
+input[type=range].controler-input--day::-webkit-slider-thumb {
+  background: #1E85FF;
+}
+
+input[type=range].controler-input--night::-webkit-slider-thumb {
+  background: #DEF8FC;
+}
+
 input[type=range].controler-input::-webkit-slider-runnable-track {
   height: 32px;
-  border: 1px solid #b2b2b2;
+  border: none;
+  //border: 1px solid #b2b2b2;
   border-radius: 0.5em;
   background: linear-gradient(to right, #EFEFEF, #D1D8EF);
   box-shadow: none;
 }
 
-input[type=range].controler-input::-webkit-slider-thumb:hover {
+input[type=range].controler-input--day::-webkit-slider-thumb:hover {
   background: #0061c3;
+}
+
+input[type=range].controler-input--night::-webkit-slider-thumb:hover {
+  background: #D1D8EF;
 }
 
 input[type=range].controler-input:hover::-webkit-slider-runnable-track {
   background: linear-gradient(to right, #E5E5E5, #D1D8EF);
-  border-color: #9a9a9a;
+  border: none;
+  //border-color: #9a9a9a;
 }
 
-input[type=range].controler-input::-webkit-slider-thumb:active {
+input[type=range].controler-input--day::-webkit-slider-thumb:active {
   background: #2f98f9;
+}
+
+input[type=range].controler-input--night::-webkit-slider-thumb:active {
+  background: #E5E5E5;
 }
 
 input[type=range].controler-input:active::-webkit-slider-runnable-track {
   background: linear-gradient(to right, #F5F5F5, #D1D8EF);
-  border-color: #c1c1c1;
+  border: none;
+  //border-color: #c1c1c1;
 }
 
-input[type=range].controler-input.slider-progress::-webkit-slider-runnable-track {
-  background: linear-gradient(#007cf8,#007cf8) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #EFEFEF, #D1D8EF);
+input[type=range].controler-input.slider-progress--day::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #94C5FF 0.36%, #1E85FF 110.25%, #0459BE 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #EFEFEF, #D1D8EF);
 }
 
-input[type=range].controler-input.slider-progress:hover::-webkit-slider-runnable-track {
-  background: linear-gradient(#0061c3,#0061c3) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #E5E5E5, #D1D8EF);
+input[type=range].controler-input.slider-progress--day:hover::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #94C5FF 0.36%, #1E85FF 110.25%, #0459BE 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #E5E5E5, #D1D8EF);
 }
 
-input[type=range].controler-input.slider-progress:active::-webkit-slider-runnable-track {
-  background: linear-gradient(#2f98f9,#2f98f9) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #F5F5F5, #D1D8EF);
+input[type=range].controler-input.slider-progress--day:active::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #94C5FF 0.36%, #1E85FF 110.25%, #0459BE 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #F5F5F5, #D1D8EF);
+}
+// dark theme
+input[type=range].controler-input.slider-progress--night::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #3B3F4B 0.36%, #DEF8FC 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #484e5c, #3B3F4B);
+}
+
+input[type=range].controler-input.slider-progress--night:hover::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #3B3F4B 0.36%, #DEF8FC 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #484e5c, #3B3F4B);
+}
+
+input[type=range].controler-input.slider-progress--night:active::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #3B3F4B 0.36%, #DEF8FC 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #484e5c, #3B3F4B);
 }
 
 /*mozilla*/
@@ -104,47 +143,78 @@ input[type=range].controler-input::-moz-range-thumb {
   width: 40px;
   height: 40px;
   border-radius: 25%;
-  background: #007cf8;
+  //background: #007cf8;
   border: none;
   box-shadow: 0 0 2px black;
 }
 
+input[type=range].controler-input--day::-moz-range-thumb {
+  background: #007cf8;
+}
+
+input[type=range].controler-input--night::-moz-range-thumb {
+  background: #DEF8FC;
+}
+
 input[type=range].controler-input::-moz-range-track {
   height: max(30px,0px);
-  border: 1px solid #b2b2b2;
+  border: none;
+  //border: 1px solid #b2b2b2;
   border-radius: 0.5em;
   background: linear-gradient(to right, #EFEFEF, #D1D8EF);
   box-shadow: none;
 }
 
-input[type=range].controler-input::-moz-range-thumb:hover {
+input[type=range].controler-input-day::-moz-range-thumb:hover {
   background: #0061c3;
+}
+
+input[type=range].controler-input-night::-moz-range-thumb:hover {
+  background: #D1D8EF;
 }
 
 input[type=range].controler-input:hover::-moz-range-track {
   background: linear-gradient(to right, #E5E5E5, #D1D8EF);
-  border-color: #9a9a9a;
+  border: none;
+  //border-color: #9a9a9a;
 }
 
-input[type=range].controler-input::-moz-range-thumb:active {
+input[type=range].controler-input--day::-moz-range-thumb:active {
   background: #2f98f9;
+}
+
+input[type=range].controler-input--night::-moz-range-thumb:active {
+  background: #F5F5F5;
 }
 
 input[type=range].controler-input:active::-moz-range-track {
   background: linear-gradient(to right, #F5F5F5, #D1D8EF);
-  border-color: #c1c1c1;
+  border: none;
+  //border-color: #c1c1c1;
 }
 
-input[type=range].controler-input.slider-progress::-moz-range-track {
-  background: linear-gradient(#007cf8,#007cf8) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #EFEFEF, #D1D8EF);
+input[type=range].controler-input.slider-progress--day::-moz-range-track {
+  background: linear-gradient(to right, #94C5FF 0.36%, #1E85FF 110.25%, #0459BE 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #EFEFEF, #D1D8EF);
 }
 
-input[type=range].controler-input.slider-progress:hover::-moz-range-track {
-  background: linear-gradient(#0061c3,#0061c3) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #E5E5E5, #D1D8EF);
+input[type=range].controler-input.slider-progress--day:hover::-moz-range-track {
+  background: linear-gradient(to right, #94C5FF 0.36%, #1E85FF 110.25%, #0459BE 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #E5E5E5, #D1D8EF);
 }
 
-input[type=range].controler-input.slider-progress:active::-moz-range-track {
-  background: linear-gradient(#2f98f9,#2f98f9) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #F5F5F5, #D1D8EF);
+input[type=range].controler-input.slider-progress--day:active::-moz-range-track {
+  background: linear-gradient(to right, #94C5FF 0.36%, #1E85FF 110.25%, #0459BE 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #F5F5F5, #D1D8EF);
+}
+
+input[type=range].controler-input.slider-progress--night::-moz-range-track {
+  background: linear-gradient(to right, #3B3F4B 0.36%, #DEF8FC 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #484e5c, #3B3F4B);
+}
+
+input[type=range].controler-input.slider-progress--night:hover::-moz-range-track {
+  background: linear-gradient(to right, #3B3F4B 0.36%, #DEF8FC 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #484e5c, #3B3F4B);
+}
+
+input[type=range].controler-input.slider-progress--night:active::-moz-range-track {
+  background: linear-gradient(to right, #3B3F4B 0.36%, #DEF8FC 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #484e5c, #3B3F4B);
 }
 
 /*ms*/
@@ -162,56 +232,106 @@ input[type=range].controler-input::-ms-thumb {
   width: 40px;
   height: 40px;
   border-radius: 25%;
-  background: #007cf8;
+  //background: #007cf8;
   border: none;
   box-shadow: 0 0 2px black;
   margin-top: 0;
   box-sizing: border-box;
 }
 
+input[type=range].controler-input--day::-ms-thumb {
+  background: #007cf8;
+}
+
+input[type=range].controler-input--night::-ms-thumb {
+  background: #DEF8FC;
+}
+
 input[type=range].controler-input::-ms-track {
   height: 32px;
   border-radius: 0.5em;
   background: linear-gradient(to right, #EFEFEF, #D1D8EF);
-  border: 1px solid #b2b2b2;
+  border: none;
+  //border: 1px solid #b2b2b2;
   box-shadow: none;
   box-sizing: border-box;
 }
 
-input[type=range].controler-input::-ms-thumb:hover {
+input[type=range].controler-input--day::-ms-thumb:hover {
   background: #0061c3;
+}
+
+input[type=range].controler-input--night::-ms-thumb:hover {
+  background: #D1D8EF;
 }
 
 input[type=range].controler-input:hover::-ms-track {
   background: linear-gradient(to right, #E5E5E5, #D1D8EF);
-  border-color: #9a9a9a;
+  border: none;
+  //border-color: #9a9a9a;
 }
 
-input[type=range].controler-input::-ms-thumb:active {
+input[type=range].controler-input--day::-ms-thumb:active {
   background: #2f98f9;
+}
+
+input[type=range].controler-input--night::-ms-thumb:active {
+  background: #F5F5F5;
 }
 
 input[type=range].controler-input:active::-ms-track {
   background: linear-gradient(to right, #F5F5F5, #D1D8EF);
-  border-color: #c1c1c1;
+  border: none;
+  //border-color: #c1c1c1;
 }
 
-input[type=range].controler-input.slider-progress::-ms-fill-lower {
+input[type=range].controler-input.slider-progress--day::-ms-fill-lower {
   height: max(30px, 0px);
   border-radius: 0.5em 0 0 0.5em;
   margin: -1px 0 -1px -1px;
-  background: #007cf8;
-  border: 1px solid #b2b2b2;
+  //background: #007cf8;
+  background: linear-gradient(to right, #94C5FF 0.36%, #1E85FF 110.25%, #0459BE 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #F5F5F5, #D1D8EF);
+  border: none;
+  //border: 1px solid #b2b2b2;
   border-right-width: 0;
 }
 
-input[type=range].controler-input.slider-progress:hover::-ms-fill-lower {
-  background: #0061c3;
-  border-color: #9a9a9a;
+input[type=range].controler-input.slider-progress--day:hover::-ms-fill-lower {
+  //background: #0061c3;
+  background: linear-gradient(to right, #94C5FF 0.36%, #1E85FF 110.25%, #0459BE 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #F5F5F5, #D1D8EF);
+  border: none;
+  //border-color: #9a9a9a;
 }
 
-input[type=range].controler-input.slider-progress:active::-ms-fill-lower {
-  background: #2f98f9;
-  border-color: #c1c1c1;
+input[type=range].controler-input.slider-progress--day:active::-ms-fill-lower {
+  //background: #2f98f9;
+  background: linear-gradient(to right, #94C5FF 0.36%, #1E85FF 110.25%, #0459BE 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #F5F5F5, #D1D8EF);
+  border: none;
+  //border-color: #c1c1c1;
+}
+
+input[type=range].controler-input.slider-progress--night::-ms-fill-lower {
+  height: max(30px, 0px);
+  border-radius: 0.5em 0 0 0.5em;
+  margin: -1px 0 -1px -1px;
+  //background: #007cf8;
+  background: linear-gradient(to right, #3B3F4B 0.36%, #DEF8FC 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #484e5c, #3B3F4B);
+  border: none;
+  //border: 1px solid #b2b2b2;
+  border-right-width: 0;
+}
+
+input[type=range].controler-input.slider-progress--night:hover::-ms-fill-lower {
+  //background: #0061c3;
+  background: linear-gradient(to right, #3B3F4B 0.36%, #DEF8FC 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #484e5c, #3B3F4B);
+  border: none;
+  //border-color: #9a9a9a;
+}
+
+input[type=range].controler-input.slider-progress--night:active::-ms-fill-lower {
+  //background: #2f98f9;
+  background: linear-gradient(to right, #3B3F4B 0.36%, #DEF8FC 110.25%) 0/var(--sx) 100% no-repeat, linear-gradient(to right, #484e5c, #3B3F4B);
+  border: none;
+  //border-color: #c1c1c1;
 }
 
