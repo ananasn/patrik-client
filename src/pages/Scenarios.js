@@ -58,7 +58,7 @@ const Scenarios = () => {
     setFilteredItems(filtered);
   };
   if (loading) {
-    return <h2 style={{ textAlign: "center" }}>Идёт загрузка...</h2>;
+    return <h1 className="loading-text" style={{ textAlign: "center" }}>Идёт загрузка...</h1>;
   }
   return (
     <div className="scenarios">
