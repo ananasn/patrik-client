@@ -51,10 +51,10 @@
     border: none;
     cursor: pointer;
     &_day {
-      background-image: url("../../img/icons/menu-day/close.png");
+      background-image: url("../../img/close-day.svg");
     }
     &_night {
-      background-image: url("../../img/icons/menu-night/close-night.png");
+      background-image: url("../../img/close-night.svg");
     }
   }
   &__wrapper {
