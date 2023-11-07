@@ -75,6 +75,24 @@
   }
 }
 
+@media(max-width:920px) {
+  .scenarios {
+    &__new-move-btn {
+      padding: 12px;
+      font-size: 24px;
+    }
+  }
+}
+
+@media(max-width:850px) {
+  .scenarios {
+    &__new-move-btn {
+      padding: 12px 24px;
+      font-size: 28px;
+    }
+  }
+}
+
 @media(max-width:650px) {
   .scenarios {
     &__new-move-btn {

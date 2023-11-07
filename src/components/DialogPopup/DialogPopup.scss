@@ -87,3 +87,25 @@
     opacity: 1;
   }
 }
+
+@media(max-width:860px) {
+  .dialog-popup {
+    &__container {
+      width: 62%;
+      height: 62%;
+    }
+
+    &__title {
+      text-align: left;
+    }
+  }
+}
+
+@media(max-width:430px) {
+  .dialog-popup {
+    &__container {
+      width: 78%;
+      height: 78%;
+    }
+  }
+}

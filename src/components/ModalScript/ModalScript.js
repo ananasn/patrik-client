@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHttp } from "../../hooks/http.hook";
-import ListItem from "../ListItem/ListItem";
+//import ListItem from "../ListItem/ListItem";
 
 import closeDay from "../../img/movesItem/delete-day.svg";
 import closeNight from "../../img/movesItem/delete-night.svg";

@@ -1,6 +1,6 @@
 @import "../../utils/variables";
 
-.modal-script {
+.modal-script-add-move {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -22,7 +22,8 @@
     display: flex;
     flex-direction: column;
     width: 40vw;
-    height: 40vw;
+    //height: 40vw;
+    height: 226px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -52,8 +53,9 @@
   &__title {
     margin: 0px;
     padding: 0px;
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 700;
+    text-align: left;
   }
 
   &__body {
@@ -92,6 +94,7 @@
 
     &--day {
       background: $bars-day;
+      color: #1E85FF;
 
       &:hover {
         background: darken($bars-day, 2);
@@ -100,42 +103,36 @@
 
     &--night {
       background: $bars-night;
+      color: #DEF8FC;
       &:hover {
         background: lighten($bars-night, 2);
       }
     }
   }
 }
-@media(max-width:1180px) {
-  .modal-script {
-    &__inner {
-      overflow-y: scroll;
-    }
-  }
-}
 
 @media(max-width:860px) {
-  .modal-script {
+  .modal-script-add-move {
     &__inner {
       width: 60%;
-      height: 60%;
     }
   }
 }
 
 @media(max-width:640px) {
-  .modal-script {
+  .modal-script-add-move {
     &__inner {
-      width: 90%;
-      height: 90%;
+      width: 82%;
+      //height: 82%;
+      height: 42%;
     }
   }
 }
 
 @media(max-width:430px) {
-  .modal-script {
-    &__item {
-      font-size: 16px;
+  .modal-script-add-move {
+    &__inner {
+      width: 78%;
     }
   }
 

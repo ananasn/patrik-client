@@ -58,7 +58,7 @@ const Scenarios = () => {
     setFilteredItems(filtered);
   };
   if (loading) {
-    return <h1 style={{ textAlign: "center" }}>Идёт загрузка...</h1>;
+    return <h2 style={{ textAlign: "center" }}>Идёт загрузка...</h2>;
   }
   return (
     <div className="scenarios">
@@ -85,8 +85,8 @@ const Scenarios = () => {
         <Link
           to="/new-script"
           className={classnames("scenarios__new-move-btn", {
-            "emotion__new-move-btn_day": isDay,
-            "emotion__new-move-btn_night": !isDay,
+            "scenarios__new-move-btn_day": isDay,
+            "scenarios__new-move-btn_night": !isDay,
           })}
         >
           Создать сценарий
