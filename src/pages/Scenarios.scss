@@ -44,6 +44,10 @@
     align-items: center;
     border: none;
     border-radius: 8px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
     cursor: pointer;
     text-decoration: none;
     transition: 0.3s all;
@@ -75,29 +79,10 @@
   }
 }
 
-@media(max-width:920px) {
-  .scenarios {
-    &__new-move-btn {
-      padding: 12px;
-      font-size: 24px;
-    }
-  }
-}
-
-@media(max-width:850px) {
-  .scenarios {
-    &__new-move-btn {
-      padding: 12px 24px;
-      font-size: 28px;
-    }
-  }
-}
-
 @media(max-width:650px) {
   .scenarios {
     &__new-move-btn {
       padding: 10px 15px;
-      font-size: 16px;
     }
     &__back-btn {
       font-size: 16px;
@@ -108,7 +93,7 @@
     }
   }
 }
-@media(max-width:340px) {
+@media(max-width:350px) {
   .scenarios {
     &__header {
       flex-direction: column;
