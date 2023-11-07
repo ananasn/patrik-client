@@ -30,7 +30,7 @@ const SearchBar = ({ onSearch }) => {
         "search-bar__input_night": !isDay,
       })}
       type="text"
-      placeholder="Поиск..."
+      placeholder="Введите название"
       value={searchTerm}
       onChange={handleChange}
     />
