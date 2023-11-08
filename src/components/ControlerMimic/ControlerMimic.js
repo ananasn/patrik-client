@@ -10,7 +10,9 @@ const Controler = ({ imgSrc, initialValue, maxValue, text, id, onChange }) => {
     //console.log(e.target.value)
     //(e.target.value =="") ? setValue(0) : setValue(e.target.value);
     setValue(e.target.value);
-    onChange(e.target.value);
+    if(e.target.value >= 0 & e.target.value<= maxValue) {
+      onChange(e.target.value);
+    }
   };
   useEffect(() => {
     const slider = document.querySelector(`#${id}`);
@@ -54,7 +56,7 @@ const Controler = ({ imgSrc, initialValue, maxValue, text, id, onChange }) => {
         type="number"
         onChange={(e) => changeValue(e)}
         value={value}
-        min="0"
+        min={0}
         max={maxValue}
         required
         className={classNames("controler__value", {
