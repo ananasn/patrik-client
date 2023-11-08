@@ -7,6 +7,8 @@ const Controler = ({ imgSrc, initialValue, maxValue, text, id, onChange }) => {
   const [value, setValue] = useState(initialValue);
   const isDay = useSelector((state) => state.isDay);
   const changeValue = (e) => {
+    //console.log(e.target.value)
+    //(e.target.value =="") ? setValue(0) : setValue(e.target.value);
     setValue(e.target.value);
     onChange(e.target.value);
   };
@@ -29,7 +31,7 @@ const Controler = ({ imgSrc, initialValue, maxValue, text, id, onChange }) => {
       }
       <input
         type="range"
-        onChange={(e) => changeValue(e)}
+        onInput={(e) => changeValue(e)}
         value={value}
         min={0}
         max={maxValue}
@@ -54,11 +56,13 @@ const Controler = ({ imgSrc, initialValue, maxValue, text, id, onChange }) => {
         value={value}
         min="0"
         max={maxValue}
+        required
         className={classNames("controler__value", {
           "controler__value--day": isDay,
           "controler__value--night": !isDay,
         })}
       />
+      <span></span>
     </div>
   );
 };
