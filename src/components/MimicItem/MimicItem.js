@@ -45,6 +45,7 @@ const MimicItem = ({
   easingError,
   delayStart,
   dragId,
+  order,
   index,
   saveFunc,
   deleteMimicItem
@@ -106,7 +107,7 @@ const MimicItem = ({
   }
   // подготовка данных к отправке на сервер
   useEffect(() => {
-    console.log(delayValue);
+    //console.log(delayValue);
     saveFunc({
       id: mimicItemId,
 
@@ -138,13 +139,14 @@ const MimicItem = ({
 
   //const dragId = codeGenerator(0);
 
-  console.log(dragId, dragId.toString())
-  const dragIdNew = mimicItemId ? mimicItemId.toString() : 'card ' + dragId.toString();
-  console.log(dragIdNew);
-  console.log("сколько раз отрисовали",codeGenerator(0))
+  //console.log(dragId, dragId.toString())
+  //const dragIdNew = mimicItemId ? mimicItemId.toString() : 'card ' + dragId.toString();
+  //console.log(dragIdNew);
+  //console.log("сколько раз отрисовали",codeGenerator(0))
+  console.log("порядок", order)
 
   return (
-    <Draggable draggableId={dragIdNew} index={index}>
+    <Draggable draggableId={order.toString()} index={index}>
       {(provided) => (
         <li
           ref={provided.innerRef}
