@@ -20,6 +20,10 @@
     font-weight: 500;
     margin-left: 10px;
     min-width: 47px;
+    outline: none;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
 
     &--day {
       background-color: $robot-day;
@@ -41,6 +45,17 @@
   }
 
 }
+
+/*input value*/
+input[type=number].controler__value:focus {
+  outline: none;
+}
+
+input[type=number].controler__value::-webkit-outer-spin-button,
+input[type=number].controler__value::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 
 input[type=range].controler-input {
   height: 2.2em;

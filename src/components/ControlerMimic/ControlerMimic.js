@@ -40,14 +40,25 @@ const Controler = ({ imgSrc, initialValue, maxValue, text, id, onChange }) => {
         //className="controler-input slider-progress"
         id={id}
       />
-      <div
+      {/*<div
         className={classNames("controler__value", {
           "controler__value--day": isDay,
           "controler__value--night": !isDay,
         })}
       >
         {value}
-      </div>
+      </div>*/}
+      <input
+        type="number"
+        onChange={(e) => changeValue(e)}
+        value={value}
+        min="0"
+        max={maxValue}
+        className={classNames("controler__value", {
+          "controler__value--day": isDay,
+          "controler__value--night": !isDay,
+        })}
+      />
     </div>
   );
 };
