@@ -52,8 +52,9 @@
   &__title {
     margin: 0px;
     padding: 0px;
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 700;
+    text-align: left;
   }
 
   &__body {
@@ -92,6 +93,7 @@
 
     &--day {
       background: $bars-day;
+      color: #1E85FF;
 
       &:hover {
         background: darken($bars-day, 2);
@@ -100,6 +102,8 @@
 
     &--night {
       background: $bars-night;
+      color: #DEF8FC;
+
       &:hover {
         background: lighten($bars-night, 2);
       }
@@ -126,16 +130,41 @@
 @media(max-width:640px) {
   .modal-script {
     &__inner {
-      width: 90%;
-      height: 90%;
+      width: 82%;
+      //height: 90%;
     }
   }
 }
 
 @media(max-width:430px) {
   .modal-script {
+    &__inner {
+      width: 78%;
+      height: 78%;
+      padding: 24px;
+    }
+
     &__item {
-      font-size: 16px;
+      gap: 8px;
+      padding: 16px 18px 16px 18px;
+      font-size: 25px;
+    }
+  }
+
+}
+
+@media(max-width:350px) {
+  .modal-script {
+    &__inner {
+      width: 84%;
+      height: 84%;
+      padding: 16px;
+    }
+
+    &__item {
+      gap: 6px;
+      padding: 16px 14px 16px 14px;
+      font-size: 24px;
     }
   }
 

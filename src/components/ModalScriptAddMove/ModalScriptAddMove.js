@@ -17,7 +17,7 @@ import classNames from "classnames";
 
 import "./ModalScriptAddMove.scss";
 
-const ModalScript = ({onScriptChange, isOpen, onClose, easingStart}) => {
+const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart}) => {
   const isDay = useSelector((state) => state.isDay);
 
   const { request, loading } = useHttp();
@@ -59,36 +59,36 @@ const ModalScript = ({onScriptChange, isOpen, onClose, easingStart}) => {
   return (
     <div
       className={classNames("modal", {
-        "modal-script--open": isOpen,
+        "modal-script-add-move--open": isOpen,
       })}
     >
       <div
-        className={classNames("modal-script__inner", {
-          "modal-script__inner--day": isDay,
-          "modal-script__inner--night": !isDay,
+        className={classNames("modal-script-add-move__inner", {
+          "modal-script-add-move__inner--day": isDay,
+          "modal-script-add-move__inner--night": !isDay,
         })}
       >
-        <div className="modal-script__header">
-          <div className="modal-script__header-top">
-            <h2 className="modal-script__title">
+        <div className="modal-script-add-move__header">
+          <div className="modal-script-add-move__header-top">
+            <h2 className="modal-script-add-move__title">
               Добавить действие
             </h2>
-            <button onClick={handleModalClose} className="modal-script__close">
+            <button onClick={handleModalClose} className="modal-script-add-move__close">
               <img src={isDay ? closeDay : closeNight} alt="Close" />
             </button>
           </div>
         </div>
-        <div className="modal-script__body">
-          <ul className="modal-script__list">
+        <div className="modal-script-add-move__body">
+          <ul className="modal-script-add-move__list">
             {loading ? (
               <h2>Идёт загрузка данных</h2>
             ) : (
               filteredItems.map((item, id) => {
                 return (
                   <li
-                    className={classNames("modal-script__item", {
-                      "modal-script__item--day": isDay,
-                      "modal-script__item--night": !isDay,
+                    className={classNames("modal-script-add-move__item", {
+                      "modal-script-add-move__item--day": isDay,
+                      "modal-script-add-move__item--night": !isDay,
                     })}
                     onClick={() => {
                       // если скрипт уже выбран
@@ -118,4 +118,4 @@ const ModalScript = ({onScriptChange, isOpen, onClose, easingStart}) => {
   );
 };
 
-export default ModalScript;
+export default ModalScriptAddMove;

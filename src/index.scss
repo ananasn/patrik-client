@@ -7,6 +7,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.loading-text {
+  font-size: 36px;
+
+  @media(max-width:850px) {
+    font-size: 24px;
+  }
+}
+
 
 
 

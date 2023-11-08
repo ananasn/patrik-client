@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./Profile.scss";
 
-import robot from "../../img/icons/menu-day/robot2.png";
-import robotNight from "../../img/icons/menu-night/robot2.png";
+import robot from "../../img/icons/menu-day/robot2.svg";
+import robotNight from "../../img/icons/menu-night/robot2-night.svg";
 
 const Profile = () => {
   const isDay = useSelector((state) => state.isDay);

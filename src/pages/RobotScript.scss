@@ -229,6 +229,9 @@
       font-size: 16px;
       max-width: 135px;
     }
+    &__add-col {
+      margin-left: 24px;
+    }
   }
 }
 
@@ -236,6 +239,9 @@
   .robot-script {
     &__list {
       padding: 0px;
+    }
+    &-add__btn {
+      padding: 16px 10px 16px 14px;
     }
   }
 }

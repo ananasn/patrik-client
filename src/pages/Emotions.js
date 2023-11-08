@@ -59,7 +59,7 @@ const Emotions = () => {
     setFilteredItems(filtered);
   };
   if (loading) {
-    return <h1 style={{ textAlign: "center" }}>Идёт загрузка...</h1>;
+    return <h1 className="loading-text" style={{ textAlign: "center" }}>Идёт загрузка...</h1>;
   }
   return (
     <div className="emotion">

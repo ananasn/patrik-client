@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import classnames from "classnames";
 
-import searchIcon from '../../img/icons/menu-day/search.png';
-import searchIconNight from '../../img/icons/menu-night/search-night.png';
+import searchIcon from '../../img/icons/menu-day/search.svg';
+import searchIconNight from '../../img/icons/menu-night/search-night.svg';
 
 import "./SearchBar.scss";
 
@@ -30,7 +30,7 @@ const SearchBar = ({ onSearch }) => {
         "search-bar__input_night": !isDay,
       })}
       type="text"
-      placeholder="Поиск..."
+      placeholder="Введите название"
       value={searchTerm}
       onChange={handleChange}
     />
