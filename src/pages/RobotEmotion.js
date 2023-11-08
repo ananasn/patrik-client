@@ -36,7 +36,7 @@ const RobotEmotion = () => {
   const { mimicId } = useParams();
   const [inputValue, setInputValue] = useState("");
   const [helperText, setHelperText] = useState("");
-  const [newId, setNewId] = useState(0);
+  //const [newId, setNewId] = useState(0);
 
   // получаем имя мимики и id
   useEffect(() => {
@@ -121,6 +121,33 @@ const RobotEmotion = () => {
     // console.log(2, obj); //данные для put запроса (mimic)
   };
   const addMimicItemHandler = () => { // для кнопки "создать мимику"
+    const i = codeGenerator() + 1;
+    console.log(i)
+    /*const newItem = {
+      "style_left_eye": 0,
+      "x_left_eye": 0,
+      "y_left_eye": 0,
+      "w_left_eye": 0,
+      "h_left_eye": 0,
+      "style_right_eye": 0,
+      "x_right_eye": 0,
+      "y_right_eye": 0,
+      "w_right_eye": 0,
+      "h_right_eye": 0,
+      "style_mouth": 0,
+      "x_mouth": 0,
+      "y_mouth": 0,
+      "w_mouth": 0,
+      "h_mouth": 0,
+      "delay": 0,
+      "order": i,
+      "easing": ""
+    };
+    console.log(items)
+    //const newItems = items ? items.push(newItem) : [newItem];
+    //setItems(newItems);
+    setItems([...items, newItem]);
+    console.log(items)*/
     setItems([...items, {
       "style_left_eye": 0,
       "x_left_eye": 0,
@@ -138,11 +165,11 @@ const RobotEmotion = () => {
       "w_mouth": 0,
       "h_mouth": 0,
       "delay": 0,
+      "id": i,
       "easing": ""
-      //todo вернуть ордер
-      //"fakeId":  codeGenerator(0) или "order":  codeGenerator(0)
     }])
-    setNewId(codeGenerator(0)); //после добавления одной карточки нужно сохранить результат, а затем перетаскивать
+    console.log(items)
+    //setNewId(codeGenerator(0)); //после добавления одной карточки нужно сохранить результат, а затем перетаскивать
   }
 
   const deleteMimicItem = async (mimicItemId) => {
@@ -181,6 +208,7 @@ const RobotEmotion = () => {
     items.forEach((item) => delete item.isSuccess)
     const res = await request("http://localhost:8000/api/save_mimic_items/", "post",
       JSON.stringify({
+        id: mimicId,
         name: inputValue,
         mimic_items: items
       }));
@@ -294,18 +322,19 @@ const RobotEmotion = () => {
                   {items &&
                     items.map((item, index) => {
                       //const dragId = codeGenerator(0);
+                      console.log("item", item.order)
                       return (
                         <MimicItem
                           card={item}
                           mimicId={item.mimic}
                           key={item.id}
                           index={index}
-                          dragId={newId}
+                          //dragId={newId}
                           mimicItemId={item.id} // id карточки mimic_item
                           delayStart={item.delay}
                           easing={item.easing}
                           mimic={item.mimic}
-                          order={item.order}
+                          order={item.id}
                           saveFunc={saveFunc}
                           deleteMimicItem={deleteMimicItem}
                           xLeftEyeStart={item.x_left_eye}
