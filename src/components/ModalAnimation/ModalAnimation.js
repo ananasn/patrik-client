@@ -16,7 +16,7 @@ const ModalAnimation = ({onAnimationChange, isOpen, onClose, easingStart}) => {
   const { request, loading } = useHttp();
   const [filteredItems, setFilteredItems] = useState([
     {value: "spring", title: "Spring"},
-    {value: "elastic", title: "Elastic"},
+    {value: "linear", title: "Linear"},
     {value: "steps", title: "Steps"},
   ]);
   // выбранные анимации
