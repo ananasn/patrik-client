@@ -16,19 +16,24 @@
   &--open {
     opacity: 1;
     visibility: visible;
+    z-index: 10;
   }
 
   &__inner {
     display: flex;
     flex-direction: column;
-    width: 40vw;
-    height: 40vw;
+    width: 23vw;
+    height: 315px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 24px;
     padding: 16px;
+    @media(max-width: 480px) {
+      width: 23vw;
+      height: 315px;
+    }
 
     &--day {
       background-color: $main-bg-day;

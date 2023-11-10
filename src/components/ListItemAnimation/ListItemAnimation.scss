@@ -1,0 +1,87 @@
+@import "../../utils/variables";
+
+.animation__item {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 16px;
+  align-items: center;
+  height: 35px;
+  border-radius: 8px;
+  padding: 16px 32px 16px 32px;
+  justify-content: flex-start;
+  gap: 8px;
+
+  &_day {
+    background: $bars-day;
+  }
+
+  &_night {
+    background: $bars-night;
+  }
+
+  .animation__btns {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .animation__text {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 240px;
+    text-align: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    &_day {
+      color:  $btns-day;
+    }
+
+    &_night {
+      color: $btns-night;
+    }
+  }
+
+  .animation__btn {
+    background: transparent;
+    border: none;
+    width: 32px;
+    height: 32px;
+    margin-left: 0px;
+    padding: 0px;
+    cursor: pointer;
+    text-decoration: none;
+    background-position: center center;
+    background-size: cover;
+    display: inline-block;
+    transition: 0.3s all;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &_animation_play_day {
+      background-image: url("../../img/animation/animation-play-day.svg");
+    }
+
+    &_animation_play_night {
+      background-image: url("../../img/animation/animation-play-night.svg");
+    }
+  }
+}
+
+@media(max-width:430px) {
+  .animation__item {
+    .animation__text {
+      font-size: 18px;
+    }
+    .animation__btn {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+}
