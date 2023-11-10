@@ -17,6 +17,8 @@ import robotFace from "../../img/robot-mimic/fase.svg";
 import plus from "../../img/plus-day.svg";
 import robotFaceNight from "../../img/robot-mimic-night/fase-night.svg";
 import plusNight from "../../img/plus-night.svg";
+import pen from "../../img/pen-day.svg";
+import penNight from "../../img/pen-night.svg";
 import "./MimicItem.scss";
 
 // блок с лицом
@@ -254,7 +256,7 @@ const MimicItem = ({
               )}
               <div className="mimicitem__control">
                 <div className="mimicitem__add-row">
-                  <button
+                  {!easingValue && <button
                     className={classNames("mimicitem-add__btn", {
                       "mimicitem-add__btn--day": isDay,
                       "mimicitem-add__btn--night": !isDay,
@@ -262,9 +264,13 @@ const MimicItem = ({
                     onClick={addMimicItemHandler}
                   >
                     <img src={isDay ? plus : plusNight} alt="Plus" />
-                    {easingValue || 'Добавить анимацию'}
-                  </button>
+                    Добавить анимацию
+                  </button>}
                   <div className="mimicitem__easingError">{easingError ? "Добавьте анимацию!!!" : ""}</div>
+                  {easingValue === "linear" && <div>
+                    Linear
+                    <img src={isDay ? pen : penNight} alt="" />
+                  </div>}
                   { delayView === 0 && <button
                     className={classNames("mimicitem-add__btn", {
                       "mimicitem-add__btn--day": isDay,

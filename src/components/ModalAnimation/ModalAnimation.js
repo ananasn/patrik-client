@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHttp } from "../../hooks/http.hook";
-import ListItem from "../ListItem/ListItem";
+import ListItemAnimation from "../ListItemAnimation/ListItemAnimation";
 
 import closeDay from "../../img/movesItem/delete-day.svg";
 import closeNight from "../../img/movesItem/delete-night.svg";
@@ -15,9 +15,9 @@ const ModalAnimation = ({onAnimationChange, isOpen, onClose, easingStart}) => {
   // const isModalAnimationOpen = useSelector((state) => state.isModalAnimationOpen);
   const { request, loading } = useHttp();
   const [filteredItems, setFilteredItems] = useState([
-    {value: "spring", title: "Spring"},
-    {value: "elastic", title: "Elastic"},
+    {value: "linear", title: "Linear"},
     {value: "steps", title: "Steps"},
+    {value: "spring", title: "Spring"},
   ]);
   // выбранные анимации
   const [selectedAnimations, setSelectedAnimations] = useState([]);
@@ -57,9 +57,6 @@ const ModalAnimation = ({onAnimationChange, isOpen, onClose, easingStart}) => {
               <img src={isDay ? closeDay : closeNight} alt="Close" />
             </button>
           </div>
-          {/* <div className="modal-animation__header-bottom">
-            <SearchBar onSearch={handleSearch} />
-          </div> */}
         </div>
         <div className="modal-animation__body">
           <ul className="modal-animation__list">
@@ -68,13 +65,12 @@ const ModalAnimation = ({onAnimationChange, isOpen, onClose, easingStart}) => {
             ) : (
               filteredItems.map((item, id) => {
                 return (
-                  <ListItem
+                  <ListItemAnimation
                     text={item.title}
                     id={item.id}
                     key={id}
                     isModal={true}
                     onClick={() => {
-                      console.log("modal animation", 1);
                       // если анимация уже выбрана
                       if (selectedAnimations.includes(item)) {
                         let i = selectedAnimations.indexOf(item);
@@ -88,7 +84,7 @@ const ModalAnimation = ({onAnimationChange, isOpen, onClose, easingStart}) => {
                       // закрыть модальное окно
                       onClose();
                     }}
-                  ></ListItem>
+                  ></ListItemAnimation>
                 );
               })
             )}
