@@ -38,12 +38,12 @@ const ModalAnimation = ({onAnimationChange, isOpen, onClose, easingStart}) => {
   };
   return (
     <div
-      className={classNames("modal", {
+      className={classNames("modal-animation", {
         "modal-animation--open": isOpen,
       })}
     >
       <div
-        className={classNames("modal__inner", {
+        className={classNames("modal-animation__inner", {
           "modal-animation__inner--day": isDay,
           "modal-animation__inner--night": !isDay,
         })}

@@ -22,17 +22,17 @@
   &__inner {
     display: flex;
     flex-direction: column;
-    width: 23vw;
-    height: 315px;
+    width: 480px;
+    height: 345px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 24px;
     padding: 16px;
-    @media(max-width: 480px) {
-      width: 23vw;
-      height: 315px;
+    @media(max-width: 550px) {
+      width: 267px;
+      height: 319px;
     }
 
     &--day {
@@ -57,8 +57,19 @@
   &__title {
     margin: 0px;
     padding: 0px;
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 700;
+    width: 251px;
+    height: 78px;
+    font-family: Inter;
+    font-style: normal;
+    line-height: normal;
+    text-align: start;
+    @media(max-width: 550px) {
+      font-size: 24px;
+      width: 193px;
+      height: 58px;
+    }
   }
 
   &__body {
@@ -73,6 +84,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    img {
+      width: 48px;
+      height: 48px;
+    }
   }
 
   &__list {
