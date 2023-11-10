@@ -24,6 +24,7 @@ const Main = () => {
           <Route path="/" element={<Home />} />
           <Route path="/*" element={<Home />} />
           <Route path="/logs" element={<Logs></Logs>} />
+          <Route path="/update" element={<h1>Update</h1>} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/scenarios" element={<Scenarios></Scenarios>} />
           <Route path="/script/:scriptId" element={<RobotScript></RobotScript>} />
