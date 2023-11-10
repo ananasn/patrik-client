@@ -1,67 +1,87 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import "./NavMenu.scss";
 import { useMediaQuery } from "react-responsive";
+
+import { useHttp } from "../../hooks/http.hook";
+
+import {ReactComponent as LogsIco} from "../../img/icons/menu-day/logs.svg";
+import {ReactComponent as UpdateIco} from "../../img/icons/menu-day/update.svg";
+import {ReactComponent as GearIco} from "../../img/icons/menu-day/gear.svg";
+
+import "./NavMenu.scss";
 
 import wifi from "../../img/icons/menu-day/wifi.svg";
 import ip from "../../img/icons/menu-day/ip.svg";
 import mic from "../../img/icons/menu-day/mic.svg";
-import logs from "../../img/icons/menu-day/logs.svg";
-import gear from "../../img/icons/menu-day/gear.svg";
+//import logs from "../../img/icons/menu-day/logs.svg";
+//import gear from "../../img/icons/menu-day/gear.svg";
 import exit from "../../img/icons/menu-day/exit.svg";
-import update from "../../img/icons/menu-day/update.svg";
+//import update from "../../img/icons/menu-day/update.svg";
 import robot from "../../img/icons/menu-day/robot2.svg";
 import robotNight from "../../img/icons/menu-night/robot2-night.svg";
 import wifiNight from "../../img/icons/menu-night/wifi-night.svg";
 import ipNight from "../../img/icons/menu-night/ip-night.svg";
 import micNight from "../../img/icons/menu-night/mic-night.svg";
-import logsNight from "../../img/icons/menu-night/logs-night.svg";
-import gearNight from "../../img/icons/menu-night/gear-night.svg";
+//import logsNight from "../../img/icons/menu-night/logs-night.svg";
+//import gearNight from "../../img/icons/menu-night/gear-night.svg";
 import exitNight from "../../img/icons/menu-night/exit-night.svg";
-import updateNight from "../../img/icons/menu-night/update-night.svg";
+//import updateNight from "../../img/icons/menu-night/update-night.svg";
 
 const NavMenu = () => {
   const isDay = useSelector((state) => state.isDay);
   const isMobile = useMediaQuery({
     query: "(max-width: 650px)",
   });
+  const [userIp, setUserIp] = useState();
+  const { request, loading, error, clearError } = useHttp();
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await request("http://localhost:8000/api/ip/");
+      const data = await response;
+      // console.log(data);
+      setUserIp(data.ip);
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <ul className="menulist">
-        <li>
-          <Link
+        <li className={`${isDay ? "menulist__item_day" : "menulist__item_night"}`}>
+          <NavLink
             className={`${
               isDay ? "profile__link_day " : "profile__link_night "
             } ${isMobile ? "visible" : "hidden"}`}
             to="/"
           >
             <img alt="иконка меню" src={isDay ? robot : robotNight} />
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link
+          <div
             className={`${
               isDay ? "menulist__link_day" : "menulist__link_night"
             }`}
-            to="/"
+            //to="/"
           >
             <img alt="иконка меню" src={isDay ? wifi : wifiNight} />
             <p>Wi-Fi Home</p>
-          </Link>
+          </div>
         </li>
         <li>
-          <Link
+          <div
             className={`${
               isDay ? "menulist__link_day" : "menulist__link_night"
             }`}
-            to="/ip"
+            //to="/ip"
           >
             <img alt="иконка меню" src={isDay ? ip : ipNight} />
-            <p>255.255.255.255</p>
-          </Link>
+            <p>{userIp}</p>
+          </div>
         </li>
-        <li>
+        <li className={`${isDay ? "menulist__item_day" : "menulist__item_night"}`}>
           <Link
             className={`${
               isDay ? "menulist__link_day" : "menulist__link_night"
@@ -72,40 +92,58 @@ const NavMenu = () => {
             <p>Включен</p>
           </Link>
         </li>
-        <li>
-          <Link
+        <li className={`${isDay ? "menulist__item_day" : "menulist__item_night"}`}>
+          <NavLink
             className={`${
               isDay ? "menulist__link_day" : "menulist__link_night"
             }`}
+            style={({isActive}) => (
+              isDay ?
+                {color: isActive ? '#08458E' : '#101420', fill: isActive ? '#08458E' : '#1E85FF'}
+                :
+                {color: isActive ? '#52EABC' : '#ffffff', fill: isActive ? '#52EABC' : '#DEF8FC'}
+            )}
             to="/logs"
           >
-            <img alt="иконка меню" src={isDay ? logs : logsNight} />
+            <LogsIco className="menulist-link__ico"/>
             <p>Логи</p>
-          </Link>
+          </NavLink>
         </li>
-        <li>
-          <Link
+        <li className={`${isDay ? "menulist__item_day" : "menulist__item_night"}`}>
+          <NavLink
             className={`${
               isDay ? "menulist__link_day" : "menulist__link_night"
             }`}
-            to="/settings"
+            style={({isActive}) => (
+              isDay ?
+                {color: isActive ? '#08458E' : '#101420', fill: isActive ? '#08458E' : '#1E85FF'}
+                :
+                {color: isActive ? '#52EABC' : '#ffffff', fill: isActive ? '#52EABC' : '#DEF8FC'}
+            )}
+            to="/update"
           >
-            <img alt="иконка меню" src={isDay ? update : updateNight} />
+            <UpdateIco className="menulist-link__ico"/>
             <p>Обновления</p>
-          </Link>
+          </NavLink>
         </li>
-        <li>
-          <Link
+        <li className={`${isDay ? "menulist__item_day" : "menulist__item_night"}`}>
+          <NavLink
             className={`${
               isDay ? "menulist__link_day" : "menulist__link_night"
             }`}
+            style={({isActive}) => (
+              isDay ?
+                {color: isActive ? '#08458E' : '#101420', fill: isActive ? '#08458E' : '#1E85FF'}
+                :
+                {color: isActive ? '#52EABC' : '#ffffff', fill: isActive ? '#52EABC' : '#DEF8FC'}
+            )}
             to="/settings"
           >
-            <img alt="иконка меню" src={isDay ? gear : gearNight} />
+            <GearIco className="menulist-link__ico"/>
             <p>Настройки</p>
-          </Link>
+          </NavLink>
         </li>
-        <li>
+        <li className={`${isDay ? "menulist__item_day" : "menulist__item_night"}`}>
           <Link
             className={`${
               isDay ? "menulist__link_day" : "menulist__link_night"
@@ -119,7 +157,7 @@ const NavMenu = () => {
       </ul>
       {isMobile ? (
         <ul className="mobilelist">
-          <li>
+          <li className={`${isDay ? "menulist__item_day" : "menulist__item_night"}`}>
             <Link
               className={`${
                 isDay ? "menulist__link_day" : "menulist__link_night"
@@ -130,7 +168,7 @@ const NavMenu = () => {
               <p className={`${isDay ? "mobilelist__text-day" : "mobilelist__text-night"}`}>Wi-Fi Home</p>
             </Link>
           </li>
-          <li>
+          <li className={`${isDay ? "menulist__item_day" : "menulist__item_night"}`}>
             <Link
               className={`${
                 isDay ? "menulist__link_day" : "menulist__link_night"
@@ -138,7 +176,7 @@ const NavMenu = () => {
               to="/ip"
             >
               <img alt="иконка меню" src={isDay ? ip : ipNight} />
-              <p className={`${isDay ? "mobilelist__text-day" : "mobilelist__text-night"}`}>255.255.255.255</p>
+              <p className={`${isDay ? "mobilelist__text-day" : "mobilelist__text-night"}`}>{userIp}</p>
             </Link>
           </li>
         </ul>

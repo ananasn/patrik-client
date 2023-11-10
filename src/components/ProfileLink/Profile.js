@@ -10,7 +10,7 @@ const Profile = () => {
   const isDay = useSelector((state) => state.isDay);
   return (
     <ul className="profile">
-      <li>
+      <li className={`${isDay ? "profile__item_day" : "profile__item_night"}`}>
         <img alt="иконка меню" src={isDay ? robot : robotNight} />
         <Link
           className={`${isDay ? "profile__link_day" : "profile__link_night"}`}
