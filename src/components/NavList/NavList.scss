@@ -6,7 +6,8 @@
   justify-content: start;
   list-style-type: none;
   padding: 0;
-  margin: 40px 0 0 56px;
+  margin: 10px 0 0 56px;
+  //margin: 40px 0 0 56px;
 
   & li {
     padding: 10px;
@@ -14,10 +15,6 @@
     border-radius: 8px;
 
     max-width: fit-content;
-
-    &:hover {
-      background-color: $hover;
-    }
 
     & a {
       text-decoration: none;
@@ -34,8 +31,21 @@
         text-decoration: none;
       }
 
-      & img {
+      & .nav-link__ico {
         margin-right: 8px;
+      }
+    }
+  }
+
+  &__item {
+    &_day {
+      &:hover {
+        background-color: #d2d9ef;
+      }
+    }
+    &_night {
+      &:hover {
+        background-color: #101420;
       }
     }
   }
@@ -43,10 +53,12 @@
   &__link {
     &_day {
       color: $font-day;
+      //fill: #1E85FF;
     }
 
     &_night {
       color: $font-night;
+      //fill: #DEF8FC;
     }
   }
 }
@@ -66,7 +78,7 @@
           font-size: 20px;
         }
 
-        & img {
+        & .nav-link__ico {
           max-width: 32px;
           max-height: 32px;
           width: 100%;
