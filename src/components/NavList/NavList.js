@@ -1,21 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./NavList.scss";
 
 import { toggleIsDialogPopupOpen } from "../../store/actions";
 
-import scenario from "../../img/icons/menu-day/scenario.svg";
-import dialog from "../../img/icons/menu-day/dialog.svg";
-import recognition from "../../img/icons/menu-day/recognition.svg";
-import motion from "../../img/icons/menu-day/move.svg";
-import emotions from "../../img/icons/menu-day/mim.svg";
+import {ReactComponent as ScenarioIco} from "../../img/icons/menu-day/scenario.svg";
+import {ReactComponent as RecognitionIco} from "../../img/icons/menu-day/recognition.svg";
+import {ReactComponent as MotionIco} from "../../img/icons/menu-day/move.svg";
+import {ReactComponent as EmotionIco} from "../../img/icons/menu-day/mim.svg";
 
-import scenarioNight from "../../img/icons/menu-night/scenario-night.svg";
+import dialog from "../../img/icons/menu-day/dialog.svg";
 import dialogNight from "../../img/icons/menu-night/dialog-night.svg";
-import recognitionNight from "../../img/icons/menu-night/recognition-night.svg";
-import motionNight from "../../img/icons/menu-night/move-night.svg";
-import emotionsNight from "../../img/icons/menu-night/mim-night.svg";
 
 const NavList = () => {
   const isDay = useSelector((state) => state.isDay);
@@ -23,16 +20,22 @@ const NavList = () => {
 
   return (
     <ul className="navlist">
-      <li>
-        <Link
+      <li className={`${isDay ? "navlist__item_day" : "navlist__item_night"}`}>
+        <NavLink
           className={`${isDay ? "navlist__link_day" : "navlist__link_night"}`}
+          style={({isActive}) => (
+            isDay ?
+              {color: isActive ? '#08458E' : '#101420', fill: isActive ? '#08458E' : '#1E85FF'}
+              :
+              {color: isActive ? '#52EABC' : '#ffffff', fill: isActive ? '#52EABC' : '#DEF8FC'}
+          )}
           to="/scenarios"
         >
-          <img alt="иконка меню" src={isDay ? scenario : scenarioNight} />
+          <ScenarioIco className="nav-link__ico"/>
           <p>Сценарии</p>
-        </Link>
+        </NavLink>
       </li>
-      <li>
+      <li className={`${isDay ? "navlist__item_day" : "navlist__item_night"}`}>
         <Link
           className={`${isDay ? "navlist__link_day" : "navlist__link_night"}`}
           to="/dialog"
@@ -42,32 +45,50 @@ const NavList = () => {
           <p>Диалог</p>
         </Link>
       </li>
-      <li>
-        <Link
+      <li className={`${isDay ? "navlist__item_day" : "navlist__item_night"}`}>
+        <NavLink
           className={`${isDay ? "navlist__link_day" : "navlist__link_night"}`}
+          style={({isActive}) => (
+            isDay ?
+              {color: isActive ? '#08458E' : '#101420', fill: isActive ? '#08458E' : '#1E85FF', stroke: isActive ? '#08458E' : '#1E85FF'}
+              :
+              {color: isActive ? '#52EABC' : '#ffffff', fill: isActive ? '#52EABC' : '#DEF8FC', stroke: isActive ? '#52EABC' : '#DEF8FC'}
+          )}
           to="/recognition"
         >
-          <img alt="иконка меню" src={isDay ? recognition : recognitionNight} />
+          <RecognitionIco className="nav-link__ico"/>
           <p>Распознавание</p>
-        </Link>
+        </NavLink>
       </li>
-      <li>
-        <Link
+      <li className={`${isDay ? "navlist__item_day" : "navlist__item_night"}`}>
+        <NavLink
           className={`${isDay ? "navlist__link_day" : "navlist__link_night"}`}
+          style={({isActive}) => (
+            isDay ?
+              {color: isActive ? '#08458E' : '#101420', fill: isActive ? '#08458E' : '#1E85FF', stroke: isActive ? '#08458E' : '#1E85FF'}
+              :
+              {color: isActive ? '#52EABC' : '#ffffff', fill: isActive ? '#52EABC' : '#DEF8FC', stroke: isActive ? '#52EABC' : '#DEF8FC'}
+          )}
           to="/moves"
         >
-          <img alt="иконка меню" src={isDay ? motion : motionNight} />
+          <MotionIco className="nav-link__ico" />
           <p>Движения</p>
-        </Link>
+        </NavLink>
       </li>
-      <li>
-        <Link
+      <li className={`${isDay ? "navlist__item_day" : "navlist__item_night"}`}>
+        <NavLink
           className={`${isDay ? "navlist__link_day" : "navlist__link_night"}`}
+          style={({isActive}) => (
+            isDay ?
+              {color: isActive ? '#08458E' : '#101420', stroke: isActive ? '#08458E' : '#1E85FF'}
+              :
+              {color: isActive ? '#52EABC' : '#ffffff', stroke: isActive ? '#52EABC' : '#DEF8FC'}
+          )}
           to="/emotions"
         >
-          <img alt="иконка меню" src={isDay ? emotions : emotionsNight} />
+          <EmotionIco className="nav-link__ico" />
           <p>Мимика</p>
-        </Link>
+        </NavLink>
       </li>
     </ul>
   );
