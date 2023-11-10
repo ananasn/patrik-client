@@ -66,7 +66,7 @@ const Moves = () => {
           Назад
         </button>
         <Link
-          to="/new-move"
+          to="/moves/new-move"
           className={classnames("moves__new-move-btn", {
             "moves__new-move-btn_day": isDay,
             "moves__new-move-btn_night": !isDay,

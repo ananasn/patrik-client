@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-
 import { useHttp } from "../../hooks/http.hook";
 
 import {ReactComponent as LogsIco} from "../../img/icons/menu-day/logs.svg";
@@ -15,19 +14,13 @@ import "./NavMenu.scss";
 import wifi from "../../img/icons/menu-day/wifi.svg";
 import ip from "../../img/icons/menu-day/ip.svg";
 import mic from "../../img/icons/menu-day/mic.svg";
-//import logs from "../../img/icons/menu-day/logs.svg";
-//import gear from "../../img/icons/menu-day/gear.svg";
 import exit from "../../img/icons/menu-day/exit.svg";
-//import update from "../../img/icons/menu-day/update.svg";
 import robot from "../../img/icons/menu-day/robot2.svg";
 import robotNight from "../../img/icons/menu-night/robot2-night.svg";
 import wifiNight from "../../img/icons/menu-night/wifi-night.svg";
 import ipNight from "../../img/icons/menu-night/ip-night.svg";
 import micNight from "../../img/icons/menu-night/mic-night.svg";
-//import logsNight from "../../img/icons/menu-night/logs-night.svg";
-//import gearNight from "../../img/icons/menu-night/gear-night.svg";
 import exitNight from "../../img/icons/menu-night/exit-night.svg";
-//import updateNight from "../../img/icons/menu-night/update-night.svg";
 
 const NavMenu = () => {
   const isDay = useSelector((state) => state.isDay);
@@ -35,6 +28,7 @@ const NavMenu = () => {
     query: "(max-width: 650px)",
   });
   const [userIp, setUserIp] = useState();
+  const [wiFi, setWiFi] = useState();
   const { request, loading, error, clearError } = useHttp();
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +37,14 @@ const NavMenu = () => {
       // console.log(data);
       setUserIp(data.ip);
     };
+    const fetchWiFi = async () => {  //статус 200, и статус 400 - error
+      const response = await request("http://localhost:8000/api/wifi_ssid/");
+      const data = await response;
+      console.log(data);
+      setWiFi(data.ssid);
+    };
     fetchData();
+    //fetchWiFi();
   }, []);
 
   return (

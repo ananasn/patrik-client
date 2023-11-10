@@ -33,9 +33,9 @@ const Main = () => {
           <Route path="/motion-recognition" element={<h1>motion</h1>} />
           <Route path="/moves" element={<Moves />} />
           <Route path="/emotions" element={<Emotions></Emotions>} />
-          <Route path="/move" element={<RobotMoves></RobotMoves>} />
-          <Route path="/move/:moveId" element={<RobotMoves></RobotMoves>} />
-          <Route path="/new-move" element={<RobotMoves></RobotMoves>} />
+          <Route path="/moves/move" element={<RobotMoves></RobotMoves>} />
+          <Route path="/moves/move/:moveId" element={<RobotMoves></RobotMoves>} />
+          <Route path="/moves/new-move" element={<RobotMoves></RobotMoves>} />
           <Route path="/emotions/emotion" element={<RobotEmotion></RobotEmotion>} />
           <Route path="/emotions/emotion/:mimicId" element={<RobotEmotion></RobotEmotion>} />
           <Route path="/emotions/new-emotion" element={<RobotEmotion></RobotEmotion>} />
