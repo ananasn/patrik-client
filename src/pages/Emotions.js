@@ -84,7 +84,7 @@ const Emotions = () => {
           Мимика
         </button>
         <Link
-          to="/new-emotion"
+          to="/emotions/new-emotion"
           className={classnames("emotion__new-move-btn", {
             "emotion__new-move-btn_day": isDay,
             "emotion__new-move-btn_night": !isDay,

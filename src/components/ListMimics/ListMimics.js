@@ -58,7 +58,7 @@ const ListMimics = ({
                 mimics__btn_settings_day: isDay,
                 mimics__btn_settings_night: !isDay,
               })}
-              to={`/emotion/${id}`}
+              to={`/emotions/emotion/${id}`}
             ></Link>
           </>
         )}
