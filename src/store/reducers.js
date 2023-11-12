@@ -1,9 +1,11 @@
+import { getTheme } from '../utils/utils';
+
 const initialState = {
   activeRobotPart: null,
   calls: [],
   choosedCall: {},
   isCallModalOpen: false,
-  isDay: true,
+  isDay: getTheme(),
   dialog: {
     off: false,
     commandChat: false,

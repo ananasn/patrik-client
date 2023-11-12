@@ -1,4 +1,4 @@
-import { useState, useRef, React } from "react";
+import { useState, useRef, React, useEffect } from "react";
 import NavList from "../components/NavList/NavList";
 import { useSelector, useDispatch } from "react-redux";
 import classnames from "classnames";
@@ -57,8 +57,14 @@ const Settings = () => {
   };
   function changeTheme() {
     dispatch(toggleDay());
+    console.log(isDay)
+    localStorage.setItem('light', isDay)
     setButtonText(isDay ? 'Светлая тема' : 'Темная тема');
   }
+  useEffect(() => {
+    localStorage.setItem('light', isDay)
+  }, [isDay, dispatch]);
+
   return (
     <div className="settings__wrapper">
       <div

@@ -158,27 +158,27 @@ const NavMenu = () => {
       </ul>
       {isMobile ? (
         <ul className="mobilelist">
-          <li className={`${isDay ? "menulist__item_day" : "menulist__item_night"}`}>
-            <Link
+          <li>
+            <div
               className={`${
                 isDay ? "menulist__link_day" : "menulist__link_night"
               }`}
-              to="/"
+              //to="/"
             >
               <img alt="иконка меню" src={isDay ? wifi : wifiNight} />
               <p className={`${isDay ? "mobilelist__text-day" : "mobilelist__text-night"}`}>Wi-Fi Home</p>
-            </Link>
+            </div>
           </li>
-          <li className={`${isDay ? "menulist__item_day" : "menulist__item_night"}`}>
-            <Link
+          <li>
+            <div
               className={`${
                 isDay ? "menulist__link_day" : "menulist__link_night"
               }`}
-              to="/ip"
+              //to="/ip"
             >
               <img alt="иконка меню" src={isDay ? ip : ipNight} />
               <p className={`${isDay ? "mobilelist__text-day" : "mobilelist__text-night"}`}>{userIp}</p>
-            </Link>
+            </div>
           </li>
         </ul>
       ) : null}
