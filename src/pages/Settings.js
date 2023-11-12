@@ -181,7 +181,7 @@ const Settings = () => {
                   initialValue={volume}
                   id={"volume"}
                   onChange={(e) => setVolume(e)}
-                ></Controler>
+              ></Controler>
             </div>
           </div>
           {/*isTablet ? (
