@@ -40,6 +40,10 @@
       padding: 0px;
       cursor: pointer;
       font-size: 32px;
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
       &_day {
         color: $font-day;
       }
@@ -68,16 +72,25 @@
       flex-grow: 1;
 
       &_name {
-        margin: 10px auto 15px 15px;
-        font-size: 28px;
+        margin: 10px auto 15px 40px;
+        font-size: 32px;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
       }
       &_items {
         display: flex;
         flex-direction: column;
         width: 100%;
-        font-size: 28px;
+        gap: 32px;
+        font-size: 32px;
         align-items: flex-start;
-        margin: 0 auto 15px 15px;
+        margin: 0 auto 32px 40px;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
         color: var(--Primary-Day, #1E85FF);
         .button {
           display: flex;
@@ -85,42 +98,74 @@
           background: transparent;
           border: none;
           padding: 0;
+          gap: 16px;
+          font-family: Inter;
+          font-size: 32px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
 
           &_night {
-            color: $font-night;
+            color:  #DEF8FC;
           }
         }
         &_night {
-          color: $font-night;
+          color:  #DEF8FC;
         }
       }
       &_item {
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 16px;
         img {
           width: 32px;
           height: 32px;
         }
       }
       &_dinamic {
-        margin: 10px auto 15px 15px;
-        font-size: 28px;
-      }
-      &_input {
+        margin: 0px auto 15px 40px;
         color: var(--Black-100, #101420);
         font-family: Inter;
-        font-size: 28px;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        display: flex;
+        flex-direction: column;
+        gap: 17px;
+      }
+      &_input {
+        font-family: Inter;
+        font-size: 32px;
         font-style: normal;
         font-weight: 500;
         line-height: normal;
         border: none;
-        margin-left: 10px;
-        max-width: 200px;
+        margin-left: 8px;
+        font-family: Inter;
+        &_day {
+          color: $font-day;
+        }
+        &_night {
+          color: $font-night;
+          background-color: #101420;
+        }
       }
-      ::placeholder {
+      &_input_day::placeholder {
         color: var(--Black-100, #101420);
       }
+      &_input_night::placeholder {
+        color: $font-night;
+      }
+  }
+  &__content_dinamic_text {
+    text-align: left;
+    &_day {
+      color: $font-day;
+    }
+    &_night {
+      color: $font-night;
+    }
   }
   &__content_dinamic_controler {
     input {
@@ -128,119 +173,66 @@
     }
     .controler__value {
       width: 64px;
+      margin-left: 8px;
     }
   }
 }
 
-@media(max-width:360px) {
+
+@media (min-width: 320px) and (max-width: 545px) {
   .settings {
     &__content {
 
       &_name {
-        font-size: 22px;
-      }
-      &_items {
-        font-size: 20px;
-        margin: 0 auto 15px 5px;
-        .button {
-          img {
-            width: 26px;
-            height: 26px;
-          }
-        }
-      }
-      &_item {
-        img {
-          width: 26px;
-          height: 26px;
-        }
-      }
-      &_dinamic {
-        font-size: 22px;
-        img {
-          width: 26px;
-          height: 26px;
-        }
-      }
-      &_input {
-        font-size: 22px;
-        margin-left: 10px;
-        max-width: 122px;
-      }
-      ::placeholder {
-        color: var(--Black-100, #101420);
-      }
-      &_edit {
-        img {
-          width: 26px;
-          height: 26px;
-        }
-      }
-      &__content_dinamic_controler {
-        input {
-          width: 278px;
-        }
-      }
-    }
-    &__back-btn {
-      font-size: 16px;
-    }
-    &_night {
-      color: $font-night;
-    }
-  }
-}
-
-@media (min-width: 361px) and (max-width:650px) {
-  .settings {
-    &__content {
-
-      &_name {
-        font-size: 28px;
-      }
-      &_items {
         font-size: 23px;
-        margin: 0 auto 15px 5px;
+        margin: 10px auto 15px 24px;
+        text-align: left;
+      }
+      &_items {
+        font-size: 24px;
+        margin: 0 auto 15px 24px;
         .button {
-          img {
-            width: 28px;
-            height: 28px;
-          }
+          font-size: 24px;
         }
       }
       &_item {
-        img {
-          width: 28px;
-          height: 28px;
+        &_safe {
+          text-align: left;
+          width: 274px;
         }
       }
       &_dinamic {
-        font-size: 28px;
-        img {
-          width: 28px;
-          height: 28px;
-        }
+        font-size: 24px;
       }
       &_input {
-        font-size: 28px;
-        margin-left: 10px;
-        max-width: 140px;
-      }
-      ::placeholder {
-        color: var(--Black-100, #101420);
-      }
-      &_edit {
-        img {
-          width: 28px;
-          height: 28px;
-        }
+        font-size: 23px;
+        margin-left: 8px;
+        padding: 0;
       }
     }
     &__back-btn {
-      font-size: 28px;
+      font-size: 24px;
     }
     &_night {
       color: $font-night;
+    }
+    &__content_dinamic_controler {
+      .controler__value {
+        margin-left: 2px;
+        width: 51px;
+        height: 24px;
+      }
+      .controler {
+        img {
+          margin-right: 8px;
+        }
+        input {
+          max-width: 256px;
+        }
+      }
+    }
+    &__content_dinamic {
+     margin: 0px auto 15px 24px;
     }
   }
 }

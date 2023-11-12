@@ -103,13 +103,18 @@ const Settings = () => {
             >
               Имя робота:
               <input
-                className="settings__content_input"
+                className={classnames("settings__content_input", {
+                  settings__content_input_day: isDay,
+                  settings__content_input_night: !isDay,
+                })}
                 ref={inputRef} // Привязка рефа к инпуту
                 type="text"
                 placeholder={inputValue}
                 name="inputName"
                 id="inputName"
                 readOnly
+                size={inputValue.length>1?inputValue.length-3:1}
+                onBlur={handleFormSubmit}
               />
               <img src={isDay ? pen : penNight} alt="" />
             </label>
@@ -125,7 +130,7 @@ const Settings = () => {
                 alt="img"
                 src={isDay ? safety : safetyNight}
               />
-              Настроить безопасные зоны
+              <div className="settings__content_item_safe">Настроить безопасные зоны</div>
             </div>
             <div className="settings__content_item">
               <img
@@ -158,7 +163,10 @@ const Settings = () => {
             </button>
           </div>
           <div className="settings__content_dinamic">
-            Громкость динамика
+            <div className={classnames("settings__content_dinamic_text", ({
+              settings__content_dinamic_text_day: isDay,
+              settings__content_dinamic_text_night: !isDay,
+            }))}>Громкость динамика</div>
             <div className="settings__content_dinamic_controler" >
               <Controler
                   maxValue={3000}
