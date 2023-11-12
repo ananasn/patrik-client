@@ -152,10 +152,18 @@
         }
       }
       &_input_day::placeholder {
-        color: var(--Black-100, #101420);
+        color: #101420;
+      }
+      &_input_day::-moz-placeholder {
+        color: #101420;
+        opacity: 1;
       }
       &_input_night::placeholder {
         color: $font-night;
+      }
+      &_input_night::-moz-placeholder {
+        color: $font-night;
+        opacity: 1;
       }
   }
   &__content_dinamic_text {
