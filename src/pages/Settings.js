@@ -57,6 +57,7 @@ const Settings = () => {
   };
   function changeTheme() {
     dispatch(toggleDay());
+    console.log(isDay)
     localStorage.setItem('light', isDay)
     setButtonText(isDay ? 'Светлая тема' : 'Темная тема');
   }
