@@ -12,6 +12,7 @@ import LeftSidebar from "./components/LeftSidebar/LeftSidebar";
 import Main from "./components/Main/Main,";
 
 import { toggleDay } from "./store/actions";
+import { useEffect } from "react";
 // import DialogPopup from "./components/DialogPopup/DialogPopup";
 
 function App() {
@@ -24,8 +25,12 @@ function App() {
     query: "(max-width: 650px)",
   });
   function changeTheme() {
+    localStorage.setItem('light', isDay)
     dispatch(toggleDay());
   }
+  useEffect(() => {
+    localStorage.setItem('light', isDay)
+  }, [isDay, dispatch]);
   return (
     <div
       className={classnames("App", {
