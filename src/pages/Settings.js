@@ -121,6 +121,7 @@ const Settings = () => {
                 readOnly
                 size={inputValue.length>1?inputValue.length-3:1}
                 onBlur={handleFormSubmit}
+                // maxLength={15}
               />
               <img src={isDay ? pen : penNight} alt="" />
             </label>

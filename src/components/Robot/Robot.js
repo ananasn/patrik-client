@@ -153,7 +153,7 @@ const Robot = () => {
             </div>
           </div>
           <RobotControl></RobotControl>
-          {isTablet ? null : <InputBottom></InputBottom>}
+          {isTablet ? <InputBottom></InputBottom> : <InputBottom></InputBottom>}
           {/*isTablet ? (
             <>
               {isDay ? (
