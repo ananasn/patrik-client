@@ -67,10 +67,10 @@
 
   &__btns {
     position: static;
-    //display: flex;
-    //align-items: center;
-    //justify-items: center;
-    gap: 5px;
+    @media(max-width:550px) {
+      margin-bottom: 37px;
+      display: flex;
+    }
   }
 
   &__btn {
@@ -124,7 +124,7 @@
     max-height: 126px;
     padding: 14px;
     border-radius: 7px;
-    margin-right: 32px;
+    margin-right: 4px;
       &--day {
         background-color: $robot-day;
       }

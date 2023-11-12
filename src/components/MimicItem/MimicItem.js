@@ -19,6 +19,8 @@ import robotFaceNight from "../../img/robot-mimic-night/fase-night.svg";
 import plusNight from "../../img/plus-night.svg";
 import pen from "../../img/pen-day.svg";
 import penNight from "../../img/pen-night.svg";
+import dots from "../../img/movesItem/dots-day.svg";
+import dotsNight from "../../img/movesItem/dots-night.svg";
 import "./MimicItem.scss";
 
 // блок с лицом
@@ -205,6 +207,12 @@ const MimicItem = ({
                           alt="Open"
                         />
                       </button>
+                      <button
+                        draggable={true}
+                        className="mimicitem__btn"
+                      >
+                        <img src={isDay ? dots : dotsNight} alt="More" />
+                      </button>
                       <button className="mimicitem__btn" onClick={handleClick}>
                         <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
                       </button>
@@ -246,6 +254,12 @@ const MimicItem = ({
                           src={isDay ? open : openNight}
                           alt="Open"
                         />
+                      </button>
+                      <button
+                        draggable={true}
+                        className="mimicitem__btn"
+                      >
+                        <img src={isDay ? dots : dotsNight} alt="More" />
                       </button>
                       <button className="mimicitem__btn">
                         <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
