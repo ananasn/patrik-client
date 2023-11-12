@@ -58,7 +58,6 @@ const Settings = () => {
   function changeTheme() {
     dispatch(toggleDay());
     localStorage.setItem('light', isDay)
-    //console.log(localStorage.getItem('light'))
     setButtonText(isDay ? 'Светлая тема' : 'Темная тема');
   }
   useEffect(() => {
