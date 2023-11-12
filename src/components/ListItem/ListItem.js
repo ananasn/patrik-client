@@ -50,7 +50,7 @@ const ListItem = ({
                 moves__btn_settings_day: isDay,
                 moves__btn_settings_night: !isDay,
               })}
-              to={`/move/${id}`}
+              to={`/moves/move/${id}`}
             ></Link>
           </>
         )}
