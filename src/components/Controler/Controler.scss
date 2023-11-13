@@ -20,6 +20,7 @@
     font-weight: 500;
     margin-left: 10px;
     min-width: 47px;
+    max-width: 100px;
 
     &--day {
       background-color: $robot-day;
@@ -51,9 +52,8 @@ input[type=number].controler__value::-webkit-outer-spin-button,
 input[type=number].controler__value::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
-
 input[type=number].controler__value:valid {
-  border: 1px solid yellow;
+  border: none;
 }
 
 input[type=number].controler__value:invalid {
