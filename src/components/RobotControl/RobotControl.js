@@ -34,7 +34,7 @@ const RobotControl = ({bottom}) => {
 
   if (isDay) {
     return (
-      <div className={itemClass} style={{bottom: bottom}}>
+      <div className={itemClass} style={{top: bottom}}>
         {horizontalInput}
         {activeRobotPart === "neck" ? null : (
           <>
@@ -46,7 +46,7 @@ const RobotControl = ({bottom}) => {
     );
   } else {
     return (
-      <div className={`${itemClass} robot__modal-control--night`} style={{bottom: bottom}}>
+      <div className={`${itemClass} robot__modal-control--night`} style={{top: bottom}}>
         {horizontalInput}
         {activeRobotPart === "neck" ? null : (
           <>

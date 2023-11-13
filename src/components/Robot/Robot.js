@@ -58,7 +58,7 @@ const Robot = () => {
     } else {
       const element = e.target.getBoundingClientRect();
       console.log('найти координату клика', element, Math.round(element.bottom));
-      setBottomClickCoordinate(Math.round(element.bottom) + 'px');
+      setBottomClickCoordinate(Math.round(element.bottom - element.height) + 'px');
       console.log('найти координату клика', bottomClickCoordinate);
       dispatch(setRobotPart(robotPart));
     }
