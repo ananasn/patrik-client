@@ -185,7 +185,44 @@
 
   .active-content {
     display: block;
+    margin-bottom: 160px;
+
+    @media(max-width: 1380px) {
+      margin-bottom: 300px;
+    }
+    @media(max-width: 1380px) {
+      margin-bottom: 360px;
+    }
+    @media(max-width: 1380px) {
+      margin-bottom: 330px;
+    }
   }
+
+  .controls-content {
+    position: absolute;
+    top: 204px;
+    left: 40px;
+    max-width: 960px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 0;
+    //flex-wrap: wrap;
+    @media(max-width: 1380px) {
+      flex-direction: column;
+      //margin-bottom: 360px;
+    }
+    @media(max-width: 1118px) {
+      margin-top: 160px;
+    }
+    @media(max-width: 1118px) {
+      margin-top: 0;
+    }
+    @media(max-width: 750px) {
+      margin-top: 160px;
+    }
+  }
+
   .mobile-controls-tabs {
     display: flex;
     justify-content: space-between;

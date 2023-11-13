@@ -211,7 +211,7 @@ const MimicItem = ({
                       </button>
                       <button
                         draggable={true}
-                        className="mimicitem__btn"
+                        className="mimicitem__btn mimicitem__btn-draggable"
                       >
                         <img src={isDay ? dots : dotsNight} alt="More" />
                       </button>
