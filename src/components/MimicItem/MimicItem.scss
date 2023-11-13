@@ -236,6 +236,7 @@
     gap: 8px;
     flex-shrink: 0;
     border-radius: 16px;
+    margin: 0 auto;
     //background: var(--Blue-bg-Day, #D1D8EF);
     @media (max-width: 480px) {
       width: 80%;
@@ -271,6 +272,7 @@
     border-radius: 24px;
     cursor: pointer;
     transition: 0.3s all;
+    margin: 0 auto;
     &:hover {
       transform: scale(1.05);
     }
