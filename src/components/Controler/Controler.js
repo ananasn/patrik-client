@@ -8,7 +8,10 @@ const Controler = ({ imgSrc, initialValue, maxValue, text, controlerRef, id, onC
   const isDay = useSelector((state) => state.isDay);
   const changeValue = (e) => {
     setValue(e.target.value);
-    onChange(e.target.value);
+    if(e.target.value >= 0 & e.target.value<= maxValue) {
+      onChange(e.target.value);
+    }
+    //onChange(e.target.value);
   };
   useEffect(() => {
     const slider = document.querySelector(`#${id}`);
@@ -41,14 +44,18 @@ const Controler = ({ imgSrc, initialValue, maxValue, text, controlerRef, id, onC
         id={id}
         ref={controlerRef}
       />
-      <div
+      <input
+        type="number"
+        onChange={(e) => changeValue(e)}
+        value={value}
+        min={0}
+        max={maxValue}
+        required
         className={classNames("controler__value", {
           "controler__value--day": isDay,
           "controler__value--night": !isDay,
         })}
-      >
-        {value}
-      </div>
+      />
     </div>
   );
 };

@@ -42,6 +42,28 @@
 
 }
 
+/*input value*/
+input[type=number].controler__value:focus {
+  outline: none;
+}
+
+input[type=number].controler__value::-webkit-outer-spin-button,
+input[type=number].controler__value::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type=number].controler__value:valid {
+  border: 1px solid yellow;
+}
+
+input[type=number].controler__value:invalid {
+  border: 1px solid red;
+}
+
+input[type=number].controler__value:focus:valid {
+  border: 1px solid green;
+}
+
 input[type=range].controler-input {
   height: 2.2em;
   -webkit-appearance: none;
