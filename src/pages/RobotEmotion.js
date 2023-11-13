@@ -24,7 +24,7 @@ import save from "../img/save-day.svg";
 import saveNight from "../img/save-night.svg";
 import plus from "../img/plus-day.svg";
 import plusNight from "../img/plus-night.svg";
-
+import ModalNotification from "../components/ModalNotification/ModalNotification";
 import "./RobotEmotion.scss";
 
 // страница создания и редактирования мимик; где карточки
@@ -36,6 +36,7 @@ const RobotEmotion = () => {
   const { mimicId } = useParams();
   const [inputValue, setInputValue] = useState("");
   const [helperText, setHelperText] = useState("");
+  const [isModalErrorOpen, setIsModalErrorOpen] = useState(false);
   //const [newId, setNewId] = useState(0);
 
   // получаем имя мимики и id
@@ -203,6 +204,7 @@ const RobotEmotion = () => {
     })
     if (!isSuccess) {
       setItems(items.slice()) // чтобы стейт обновился нужен новый массив
+      setIsModalErrorOpen(true)
       return;
     }
     items.forEach((item) => delete item.isSuccess)
@@ -389,19 +391,8 @@ const RobotEmotion = () => {
         </div>
       </div>
 
-      {/*isTablet ? (
-        <>
-          {isDay ? (
-            <div className="App__bottom">
-              <NavList></NavList>
-            </div>
-          ) : (
-            <div className="App__bottom--night">
-              <NavList></NavList>
-            </div>
-          )}
-        </>
-          ) : null*/}
+      <ModalNotification isOpen={isModalErrorOpen} onClose={(e) => setIsModalErrorOpen(false)}></ModalNotification>
+
     </div>
   );
 };

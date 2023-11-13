@@ -36,14 +36,14 @@ const NavList = () => {
         </NavLink>
       </li>
       <li className={`${isDay ? "navlist__item_day" : "navlist__item_night"}`}>
-        <Link
-          className={`${isDay ? "navlist__link_day" : "navlist__link_night"}`}
+        <NavLink
+          className={`${isDay ? "navlist__link_day" : "navlist__link_night"} navlist__dialog`}
           to="/dialog"
           onClick={() => dispatch(toggleIsDialogPopupOpen())}
         >
           <img alt="иконка меню" src={isDay ? dialog : dialogNight} />
           <p>Диалог</p>
-        </Link>
+        </NavLink>
       </li>
       <li className={`${isDay ? "navlist__item_day" : "navlist__item_night"}`}>
         <NavLink
