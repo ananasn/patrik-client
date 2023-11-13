@@ -44,15 +44,18 @@
 
     &_day {
       &:hover {
-        background-color: #d2d9ef;
+        //background-color: #d2d9ef;
+        background-color: #F4F5F9;
       }
       a:hover {
-        background-color: #d2d9ef;
+        //background-color: #d2d9ef;
+        background-color: #F4F5F9;
       }
     }
     &_night {
       &:hover {
-        background-color: #101420;
+        //background-color: #101420;
+        background-color: #1F2432;
       }
     }
   }
