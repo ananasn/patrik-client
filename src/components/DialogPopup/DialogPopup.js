@@ -26,7 +26,7 @@ const DialogPopup = () => {
         })}
       >
         <div className="dialog-popup__wrapper">
-          <h2 class="dialog-popup__title">Выберите режим диалога</h2>
+          <h2 className="dialog-popup__title">Выберите режим диалога</h2>
           <button
             type="button"
             className={classnames("dialog-popup__close", {

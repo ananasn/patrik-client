@@ -38,7 +38,7 @@ const RobotControl = () => {
         {activeRobotPart === "neck" ? null : (
           <>
             <Controler imgSrc={RightLeft} initialValue={150} id={"vertical"} />
-            <Controler imgSrc={TopBottom} initialValue={130} id={"horizontal"} />
+            {/*<Controler imgSrc={TopBottom} initialValue={130} id={"horizontal"} />*/}
           </>
         )}
       </div>
@@ -54,11 +54,11 @@ const RobotControl = () => {
               initialValue={150}
               id={"vertical"}
             />
-          <Controler
+          {/*<Controler
             imgSrc={TopBottomNight}
             initialValue={130}
             id={"horizontal"}
-          />
+        />*/}
           </>
         )}
       </div>
