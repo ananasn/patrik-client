@@ -36,7 +36,10 @@ const RobotControl = () => {
       <div className={itemClass}>
         {horizontalInput}
         {activeRobotPart === "neck" ? null : (
-          <Controler imgSrc={RightLeft} initialValue={150} id={"vertical"} />
+          <>
+            <Controler imgSrc={RightLeft} initialValue={150} id={"vertical"} />
+            <Controler imgSrc={TopBottom} initialValue={130} id={"horizontal"} />
+          </>
         )}
       </div>
     );
@@ -45,11 +48,18 @@ const RobotControl = () => {
       <div className={`${itemClass} robot__modal-control--night`}>
         {horizontalInput}
         {activeRobotPart === "neck" ? null : (
+          <>
+            <Controler
+              imgSrc={RightLeftNight}
+              initialValue={150}
+              id={"vertical"}
+            />
           <Controler
-            imgSrc={RightLeftNight}
-            initialValue={150}
-            id={"vertical"}
+            imgSrc={TopBottomNight}
+            initialValue={130}
+            id={"horizontal"}
           />
+          </>
         )}
       </div>
     );

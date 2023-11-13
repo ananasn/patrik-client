@@ -1,6 +1,8 @@
 @import "../../utils/variables";
 
 .robot {
+  position: relative;
+
   &__modal-control {
     position: relative;
     transition: 0.5s all;
@@ -8,21 +10,49 @@
     opacity: 0;
     background-color: $bars-day;
     bottom: 125px;
-    max-width: 400px;
+    max-width: 336px;
     margin: 0 auto;
     right: 0px;
-    padding: 65px 30px;
+    padding: 65px 0 65px 30px;
     display: flex;
     flex-direction: column;
     align-content: center;
     justify-items: center;
     gap: 40px;
     border-radius: 32px 32px 32px 32px;
+
+    @media(max-width:1180px) {
+      flex-direction: row;
+      gap: 10px;
+      max-width: 100%;
+      margin: 0;
+      padding: 30px 0 58px 20px;
+    }
+
+    @media(max-width:680px) {
+      flex-direction: column;
+      max-width: 100%;
+    }
+
+    .controler {
+      max-width: 296px;
+    }
+  }
+
+  input[type=number].controler__value {
+    width: 56px;
   }
 
   &__modal-control--active {
     visibility: visible;
     opacity: 1;
+    position: absolute;
+    bottom: 36%;
+    left: 0;
+
+    @media(max-width:1180px) {
+      bottom: 0;
+    }
   }
   &__modal-control--night {
     background-color: $bars-night;

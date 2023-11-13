@@ -291,19 +291,6 @@ const Robot = () => {
           </div>
           <RobotControl></RobotControl>
           {isTablet ? null : <InputBottom></InputBottom>}
-          {/*isTablet ? (
-            <>
-              {isDay ? (
-                <div className="App__bottom">
-                  <NavList></NavList>
-                </div>
-              ) : (
-                <div className="App__bottom--night">
-                  <NavList></NavList>
-                </div>
-              )}
-            </>
-              ) : null*/}
         </>
       )}
     </div>
