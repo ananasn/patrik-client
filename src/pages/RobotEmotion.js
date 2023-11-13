@@ -291,7 +291,7 @@ const RobotEmotion = () => {
                 name="inputName"
                 id="inputName"
                 onInput={onMimicNameInput}
-                size={inputValue.length>1?inputValue.length-3:1}
+                style={{width:`${inputValue.length*19 || 10}px`}}
                 //readOnly
               />
               <label
@@ -333,7 +333,7 @@ const RobotEmotion = () => {
                           //dragId={newId}
                           mimicItemId={item.id} // id карточки mimic_item
                           delayStart={item.delay}
-                          easing={item.easing}
+                          easingServerStart={item.easing}
                           mimic={item.mimic}
                           order={item.id}
                           saveFunc={saveFunc}
