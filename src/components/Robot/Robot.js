@@ -1,13 +1,13 @@
 import "./Robot.scss"; // Подключение стилей
 
 import React from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import classnames from "classnames";
 import { useMediaQuery } from "react-responsive";
 
-import NavList from "../NavList/NavList";
-import RightSidebar from "../RightSidebar/RightSidebar";
+//import NavList from "../NavList/NavList";
+//import RightSidebar from "../RightSidebar/RightSidebar";
 
 import robotBody from "../../img/robot-day/robot-body.svg";
 import robotLeftShoulder from "../../img/robot-day/robot-left-shoulder.svg";
@@ -68,7 +68,12 @@ const Robot = () => {
       {isDay ? (
         <>
           <div className="robot__head">
-            <img alt="лицо робота" className="robot__face" src={robotFace} />
+            <img
+              alt="лицо робота"
+              className="robot__face"
+              src={robotFace}
+              onClick={() => handleRobotPartChoice("neck")}
+              />
             <img
               alt="шея робота"
               className="robot__neck"
@@ -175,6 +180,7 @@ const Robot = () => {
               alt="лицо робота"
               className="robot__face"
               src={robotFaceNight}
+              onClick={() => handleRobotPartChoice("neck")}
             />
             <img
               alt="шея робота"

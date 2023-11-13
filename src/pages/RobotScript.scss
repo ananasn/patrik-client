@@ -121,6 +121,7 @@
     justify-items: center;
     justify-content: center;
     font-size: 24px;
+    width: 319px;
     padding: 16px 26px;
     text-align: center;
 
@@ -162,6 +163,20 @@
 
 }
 
+@media(max-width: 1240px) {
+  .robot-script {
+    &__control {
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+    &__add-col {
+      height: 120px;
+    }
+  }
+
+}
+
 @media(max-width:1015px) {
   .robot-script {
     &__header {
@@ -180,7 +195,7 @@
     }
 
     &__control {
-      gap: 64px;
+      //gap: 64px;
     }
   }
 }
@@ -241,7 +256,8 @@
       padding: 0px;
     }
     &-add__btn {
-      padding: 16px 10px 16px 14px;
+      width: 290px;
+      padding: 16px 8px 16px 10px;
     }
   }
 }
