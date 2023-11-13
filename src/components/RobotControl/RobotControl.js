@@ -7,13 +7,14 @@ import "./RobotControl.scss";
 
 import Controler from "../Controler/Controler";
 
-const RobotControl = () => {
+const RobotControl = ({bottom}) => {
   const isDay = useSelector((state) => state.isDay);
   const activeRobotPart = useSelector((state) => state.activeRobotPart);
   const itemClass = `robot__modal-control ${
     activeRobotPart ? `robot__modal-control--active` : ""
   }`;
   console.log(activeRobotPart, itemClass);
+  console.log('передать значение', bottom)
   const horizontalInput =
     activeRobotPart === "neck" && isDay ? (
       <>
@@ -33,7 +34,7 @@ const RobotControl = () => {
 
   if (isDay) {
     return (
-      <div className={itemClass}>
+      <div className={itemClass} style={{bottom: bottom}}>
         {horizontalInput}
         {activeRobotPart === "neck" ? null : (
           <>
@@ -45,7 +46,7 @@ const RobotControl = () => {
     );
   } else {
     return (
-      <div className={`${itemClass} robot__modal-control--night`}>
+      <div className={`${itemClass} robot__modal-control--night`} style={{bottom: bottom}}>
         {horizontalInput}
         {activeRobotPart === "neck" ? null : (
           <>

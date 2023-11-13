@@ -1,6 +1,6 @@
 import "./Robot.scss"; // Подключение стилей
 
-import React from "react";
+import React, {useState, useEffect} from "react";
 //import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import classnames from "classnames";
@@ -46,6 +46,7 @@ const Robot = () => {
   const activeRobotPart = useSelector((state) => state.activeRobotPart);
 
   const isDay = useSelector((state) => state.isDay);
+  const [bottomClickCoordinate, setBottomClickCoordinate] = useState();
 
   // for (const [key, value] of Object.entries(isActiveStateObject.day)) {
   //   console.log(`${key}: ${value}`);
@@ -56,10 +57,16 @@ const Robot = () => {
       dispatch(resetActiveFlags());
     } else {
       const element = e.target.getBoundingClientRect();
-      console.log('найти координату клика', element)
+      console.log('найти координату клика', element, Math.round(element.bottom));
+      setBottomClickCoordinate(Math.round(element.bottom) + 'px');
+      console.log('найти координату клика', bottomClickCoordinate);
       dispatch(setRobotPart(robotPart));
     }
   };
+  useEffect(() => {
+    setBottomClickCoordinate(bottomClickCoordinate);
+  }, [bottomClickCoordinate]);
+
   return (
     <div
       className={classnames("robot", {
@@ -74,13 +81,13 @@ const Robot = () => {
               alt="лицо робота"
               className="robot__face"
               src={robotFace}
-              onClick={() => handleRobotPartChoice("neck")}
+              onClick={(e) => handleRobotPartChoice(e, "neck")}
               />
             <img
               alt="шея робота"
               className="robot__neck"
               src={activeRobotPart === "neck" ? robotNeckDayActive : robotNeck}
-              onClick={() => handleRobotPartChoice("neck")}
+              onClick={(e) => handleRobotPartChoice(e, "neck")}
             />
           </div>
           <div className="robot__body">
@@ -159,7 +166,7 @@ const Robot = () => {
               />
             </div>
           </div>
-          <RobotControl></RobotControl>
+          <RobotControl bottom={bottomClickCoordinate}></RobotControl>
           {isTablet ? <InputBottom></InputBottom> : <InputBottom></InputBottom>}
           {/*isTablet ? (
             <>
@@ -182,7 +189,7 @@ const Robot = () => {
               alt="лицо робота"
               className="robot__face"
               src={robotFaceNight}
-              onClick={() => handleRobotPartChoice("neck")}
+              onClick={(e) => handleRobotPartChoice(e, "neck")}
             />
             <img
               alt="шея робота"
@@ -192,7 +199,7 @@ const Robot = () => {
                   ? robotNeckNightActive
                   : robotNeckNight
               }
-              onClick={() => handleRobotPartChoice("neck")}
+              onClick={(e) => handleRobotPartChoice(e, "neck")}
             />
           </div>
           <div className="robot__body">
@@ -291,7 +298,7 @@ const Robot = () => {
               />
             </div>
           </div>
-          <RobotControl></RobotControl>
+          <RobotControl bottom={bottomClickCoordinate}></RobotControl>
           {isTablet ? null : <InputBottom></InputBottom>}
         </>
       )}
