@@ -23,6 +23,7 @@ import dotsNight from "../../img/movesItem/dots-night.svg";
 import animationPlayDay from "../../img/animation/animation-play-day.svg";
 import animationPlayNight from "../../img/animation/animation-play-night.svg";
 
+
 import "./MimicItem.scss";
 
 // блок с лицом
@@ -54,14 +55,31 @@ const MimicItem = ({
   saveFunc,
   deleteMimicItem
 }) => {
+  // с сервера easing 'steps(100)'
   let easing = easingServerStart;
-  let stepsStart;
+  let stepsStart = 1;
   if (easingServerStart?.includes("steps")) {
     easing = "steps";
     let values = easingServerStart.match(/\d+/g);
     stepsStart = values ? values[0] : 1;
-    console.log("easingServerStart", easingServerStart);
+    //console.log("easingServerStart", easingServerStart, values);
   }
+  // с сервера easing 'spring(10, 100, 10, 0)'
+  let springMassStart = 1;
+  let springStiffnessStart = 100;
+  let springDampingStart = 10;
+  let springVelocityStart = 0;
+
+  if (easingServerStart?.includes("spring")) {
+    easing = "spring";
+    let values = easingServerStart.match(/\d+/g);
+    springMassStart = values ? values[0] : 1;
+    springStiffnessStart = values ? values[1] : 100;
+    springDampingStart = values ? values[2] : 10;
+    springVelocityStart = values ? values[3] : 0;
+    console.log("easingServerStart", easingServerStart, values);
+  }
+
   //const [mimicData, setMimic] = useState(mimic);
   //const [isReadOnly, setIsReadOnly] = useState(true);
   const [showItem, setShowItem] = useState(true);
@@ -72,10 +90,10 @@ const MimicItem = ({
   const [isModalAnimationOpen, setIsModalAnimationOpen] = useState(false);
   const [easingValue, setEasingValue] = useState(easing);
   const [stepsValue, setStepsValue] = useState(stepsStart);
-  const [springMassValue, setSpringMassValue] = useState(1);
-  const [springStiffnessValue, setSpringStiffnessValue] = useState(100);
-  const [springDampingValue, setSpringDampingValue] = useState(10);
-  const [springVelocityValue, setSpringVelocityValue] = useState(0);
+  const [springMassValue, setSpringMassValue] = useState(springMassStart);
+  const [springStiffnessValue, setSpringStiffnessValue] = useState(springStiffnessStart);
+  const [springDampingValue, setSpringDampingValue] = useState(springDampingStart);
+  const [springVelocityValue, setSpringVelocityValue] = useState(springVelocityStart);
   const [tabValues, setTabValues] = useState({});
   const [delayValue, setDelayValue] = useState(delayStart);
   // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
@@ -124,9 +142,14 @@ const MimicItem = ({
   // подготовка данных к отправке на сервер
   useEffect(() => {
     //console.log(delayValue);
+    // easing в формате для сервера 'steps(100)'
     let easingValueServer = easingValue;
     if (easingValue === 'steps') {
-      easingValueServer = `${easingValue}(${stepsValue})`
+      easingValueServer = `${easingValue}(${stepsValue || 1})`
+
+    } else if (easingValue === 'spring') {
+      //'spring(mass, stiffness, damping, velocity)'
+      easingValueServer = `spring(${springMassValue || 1}, ${springStiffnessValue || 100},  ${springDampingValue || 10},  ${springVelocityValue || 0})`
     }
 
     saveFunc({
@@ -156,7 +179,7 @@ const MimicItem = ({
       //mimic: mimic,
       easing: easingValueServer,
     });
-  },[easingValue, tabValues, delayValue, stepsValue])
+  },[easingValue, tabValues, delayValue, stepsValue, springMassValue, springStiffnessValue, springDampingValue, springVelocityValue])
 
   //const dragId = codeGenerator(0);
 
@@ -299,7 +322,7 @@ const MimicItem = ({
                     <img src={isDay ? plus : plusNight} alt="Plus" />
                     Добавить анимацию
                   </button>}
-                  <div className="mimicitem__easingError">{easingError ? "Добавьте анимацию!!!" : ""}</div>
+                  {/* <div className="mimicitem__easingError">{easingError ? <ModalNotification isOpen={easingError}></ModalNotification> : ""}</div> */}
                   {easingValue === "linear" && <div
                     className={classNames("mimicitem-add__easingSelected", {
                       "mimicitem-add__btn--day": isDay,

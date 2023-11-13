@@ -9,8 +9,12 @@
   margin: 10px 0 0 56px;
   //margin: 40px 0 0 56px;
 
+  &__dialog.active {
+    background-color:  #82D451;
+  }
+
   & li {
-    padding: 10px;
+    //padding: 10px;
     cursor: pointer;
     border-radius: 8px;
 
@@ -20,6 +24,8 @@
       text-decoration: none;
       display: flex;
       flex-direction: row;
+      padding: 10px;
+      border-radius: 8px;
 
       & p {
         margin: 0;
