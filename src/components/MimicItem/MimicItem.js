@@ -308,7 +308,11 @@ const MimicItem = ({
                   >
                     <img className={classNames("mimicitem-add__easingSelected_play")} src={isDay ? animationPlayDay : animationPlayNight} alt="" />
                     Linear
-                    <img src={isDay ? pen : penNight} alt="" />
+                    <img
+                      onClick={addMimicItemHandler}
+                      src={isDay ? pen : penNight}
+                      alt=""
+                    />
                   </div>}
                   {easingValue === "steps" && <div
                     className={classNames("mimicitem-add__easingSelected", {
@@ -318,7 +322,11 @@ const MimicItem = ({
                   >
                     <img className={classNames("mimicitem-add__easingSelected_play")} src={isDay ? animationPlayDay : animationPlayNight} alt="" />
                     Steps
-                    <img src={isDay ? pen : penNight} alt="" />
+                    <img
+                      onClick={addMimicItemHandler}
+                      src={isDay ? pen : penNight}
+                      alt=""
+                    />
                     <div className="mimicitem__controller">
                       <div>Number of steps</div>
                       <input
@@ -342,7 +350,11 @@ const MimicItem = ({
                   >
                     <img className={classNames("mimicitem-add__easingSelected_play")} src={isDay ? animationPlayDay : animationPlayNight} alt="" />
                     Spring
-                    <img src={isDay ? pen : penNight} alt="" />
+                    <img
+                      onClick={addMimicItemHandler}
+                      src={isDay ? pen : penNight}
+                      alt=""
+                    />
                     <div className="mimicitem__controller">
                       <div>Mass</div>
                       <input
@@ -414,20 +426,27 @@ const MimicItem = ({
                   >
                     <img src={isDay ? plus : plusNight} alt="Plus" /> Добавить задержку
                   </button>}
-                  {delayView === 1 && <input
-                    className={classNames("mimicitem-add__input", {
-                      "mimicitem-add__input--day": isDay,
-                      "mimicitem-add__input--night": !isDay,
-                    })}
-                    ref={delayRef}
-                    value={delayValue}
-                    onBlur={ function(){
-                      //setDelayValue(delayRef.current.value);
-                      setDelayView(2);
-                      //console.log(delayRef.current.value);
-                    }}
-                    onInput={() => setDelayValue(delayRef.current.value) }
-                  />}
+                  <div  className="mimicitem__controller">
+                    {delayView === 1 && <input
+                      // className={classNames("mimicitem-add__input", {
+                      //   "mimicitem-add__input--day": isDay,
+                      //   "mimicitem-add__input--night": !isDay,
+                      // })}
+                      className={classNames("controler__value", {
+                        "controler__value--day": isDay,
+                        "controler__value--night": !isDay,
+                      })}
+                      ref={delayRef}
+                      value={delayValue}
+                      onBlur={ function(){
+                        //setDelayValue(delayRef.current.value);
+                        setDelayView(2);
+                        //console.log(delayRef.current.value);
+                      }}
+                      onInput={() => setDelayValue(delayRef.current.value) }
+                    />}
+                  </div>
+
                   {delayView === 2 && <div
                     className={classNames("mimicitem-add__last", {
                       "mimicitem-add__last--day": isDay,
