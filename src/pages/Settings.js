@@ -65,6 +65,10 @@ const Settings = () => {
     localStorage.setItem('light', isDay)
   }, [isDay, dispatch]);
 
+  const onInputSettings = (e) => {
+    setInputValue(e.target.value);
+  }
+
   return (
     <div className="settings__wrapper">
       <div
@@ -115,13 +119,13 @@ const Settings = () => {
                 })}
                 ref={inputRef} // Привязка рефа к инпуту
                 type="text"
-                placeholder={inputValue}
+                value={inputValue}
                 name="inputName"
                 id="inputName"
                 readOnly
-                size={inputValue.length>1?inputValue.length-3:1}
-                onBlur={handleFormSubmit}
-                // maxLength={15}
+                //onBlur={handleFormSubmit}
+                onInput={onInputSettings}
+                style={{width:`${inputValue.length*19 || 10}px`}}
               />
               <img src={isDay ? pen : penNight} alt="" />
             </label>
