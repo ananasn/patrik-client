@@ -84,6 +84,17 @@
     }
   }
 
+  &__btn-draggable {
+    background-color: transparent;
+    border: 0px;
+    outline: none;
+    cursor: grab;
+
+    img {
+      transition: 0.5s all;
+    }
+  }
+
   &__btn-show--open {
     transform: rotate(0deg);
   }
