@@ -291,6 +291,7 @@ const RobotEmotion = () => {
                 name="inputName"
                 id="inputName"
                 onInput={onMimicNameInput}
+                size={inputValue.length>1?inputValue.length-3:1}
                 //readOnly
               />
               <label

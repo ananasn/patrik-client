@@ -5,12 +5,9 @@ import classNames from "classnames";
 import { Draggable } from "react-beautiful-dnd";
 import {codeGenerator} from "../../utils/utils";
 import Tabs from "../Tabs/Tabs";
-
 import ModalAnimation from "../ModalAnimation/ModalAnimation";
 import open from "../../img/movesItem/open-day.svg";
 import openNight from "../../img/movesItem/open-night.svg";
-//import dots from "../../img/movesItem/dots-day.svg";
-//import dotsNight from "../../img/movesItem/dots-night.svg";
 import deleteItem from "../../img/movesItem/delete-day.svg";
 import deleteItemNight from "../../img/movesItem/delete-night.svg";
 import robotFace from "../../img/robot-mimic/fase.svg";
@@ -19,8 +16,13 @@ import robotFaceNight from "../../img/robot-mimic-night/fase-night.svg";
 import plusNight from "../../img/plus-night.svg";
 import pen from "../../img/pen-day.svg";
 import penNight from "../../img/pen-night.svg";
+import timerDay from "../../img/timer/timer-day.svg";
+import timerNight from "../../img/timer/timer-night.svg";
 import dots from "../../img/movesItem/dots-day.svg";
 import dotsNight from "../../img/movesItem/dots-night.svg";
+import animationPlayDay from "../../img/animation/animation-play-day.svg";
+import animationPlayNight from "../../img/animation/animation-play-night.svg";
+
 import "./MimicItem.scss";
 
 // блок с лицом
@@ -281,10 +283,17 @@ const MimicItem = ({
                     Добавить анимацию
                   </button>}
                   <div className="mimicitem__easingError">{easingError ? "Добавьте анимацию!!!" : ""}</div>
-                  {easingValue === "linear" && <div>
+                  {easingValue === "linear" && <div
+                    className={classNames("mimicitem-add__easingSelected", {
+                      "mimicitem-add__btn--day": isDay,
+                      "mimicitem-add__btn--night": !isDay,
+                    })}
+                  >
+                    <img className={classNames("mimicitem-add__easingSelected_play")} src={isDay ? animationPlayDay : animationPlayNight} alt="" />
                     Linear
                     <img src={isDay ? pen : penNight} alt="" />
                   </div>}
+                  {/* Задержка */}
                   { delayView === 0 && <button
                     className={classNames("mimicitem-add__btn", {
                       "mimicitem-add__btn--day": isDay,
@@ -295,6 +304,10 @@ const MimicItem = ({
                     <img src={isDay ? plus : plusNight} alt="Plus" /> Добавить задержку
                   </button>}
                   {delayView === 1 && <input
+                    className={classNames("mimicitem-add__input", {
+                      "mimicitem-add__input--day": isDay,
+                      "mimicitem-add__input--night": !isDay,
+                    })}
                     ref={delayRef}
                     value={delayValue}
                     onBlur={ function(){
@@ -305,9 +318,15 @@ const MimicItem = ({
                     onInput={() => setDelayValue(delayRef.current.value) }
                   />}
                   {delayView === 2 && <div
+                    className={classNames("mimicitem-add__last", {
+                      "mimicitem-add__last--day": isDay,
+                      "mimicitem-add__last--night": !isDay,
+                    })}
                     onClick={() => setDelayView(1)}
                   >
-                    {delayValue}
+                    <img src={isDay ? timerDay : timerNight} alt="" />
+                    {delayValue} мс
+                    <img src={isDay ? pen : penNight} alt="" />
                   </div>}
                 </div>
               </div>
