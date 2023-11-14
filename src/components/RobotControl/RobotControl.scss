@@ -21,7 +21,8 @@
     gap: 40px;
     border-radius: 32px 32px 32px 32px;
 
-    @media(max-width:1180px) {
+    //@media(max-width:1180px) {
+      @media(max-width:850px) {
       flex-direction: row;
       gap: 10px;
       max-width: 100%;
