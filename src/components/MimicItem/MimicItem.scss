@@ -3,7 +3,6 @@
 .mimicitem {
   position: relative;
   margin: 0px;
-  //padding: 0px;
   display: flex;
   flex-direction: column;
   max-width: 976px;
@@ -67,10 +66,11 @@
 
   &__btns {
     position: static;
+    height: fit-content;
     @media(max-width:1400px) {
-      //margin-bottom: 37px;
+      margin-top: 365px;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
     }
     @media(max-width:1280px) {
       //margin-bottom: 46px;
@@ -122,7 +122,11 @@
   &__controls {
     display: flex;
     flex-direction: row;
-   justify-content: space-around;
+    justify-content: space-around;
+  }
+
+  &__controllerAll {
+    display: inline-flex;
   }
 
   &__controller {
@@ -149,7 +153,7 @@
   &__face {
     position: relative;
     max-width: 240px;
-    max-height: 126px;
+    max-height: 118px;
     padding: 14px;
     border-radius: 7px;
     margin-right: 4px;
@@ -229,15 +233,14 @@
 
   &-add__last {
     display: flex;
-    width: 46%;
+    width: 95%;
     height: 40px;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     gap: 8px;
     flex-shrink: 0;
     border-radius: 16px;
-    margin: 0 auto;
-    //background: var(--Blue-bg-Day, #D1D8EF);
+    margin: 0;
     @media (max-width: 480px) {
       width: 80%;
     }
@@ -264,7 +267,7 @@
     flex-grow: 1;
     align-items: center;
     justify-items: center;
-    justify-content: center;
+    justify-content: left;
     padding: 24px 20px;
     text-align: center;
     border: 0px;
@@ -301,10 +304,6 @@
     margin-top: 40px;
     align-items: center;
   }
-
-  &__easingError {
-    color: red;
-  }
 }
 
 .mimicitem__face-container {
@@ -312,8 +311,18 @@
   flex-wrap: nowrap;
   gap: 24px;
 
-  @media(max-width: 1120px) {
+  @media (min-width: 300px) and (max-width: 734px) {
     flex-wrap: wrap;
+  }
+
+  @media (min-width: 734px) and (max-width: 849px) {
+    flex-wrap: nowrap;
+  }
+  @media (min-width: 734px) and (max-width: 1033px) {
+    flex-wrap: wrap;
+  }
+  @media (min-width: 300px) and (max-width: 649px) {
+    justify-content: center;
   }
 }
 
@@ -415,6 +424,7 @@
         position: absolute;
         right: 0;
         top: 0;
+        margin: 35px 35px 0 0;
       }
     }
   }
@@ -435,9 +445,8 @@
     &--show {
       .mimicitem__btns {
         position: absolute;
-        right: 24px;
-        bottom: 104px;
-        gap: 5px;
+        right: 0;
+        gap: 0;
       }
     }
 
@@ -448,7 +457,7 @@
         position: absolute;
         right: 0;
         top: 0;
-        //gap: 5px;
+        margin: 35px 5px 0 0;
       }
     }
     &__controls {
@@ -460,6 +469,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      &-name {
+        font-size: 24px;
+      }
     }
   }
 }
@@ -469,26 +481,69 @@
     &--show {
       .mimicitem__btns {
         position: absolute;
-        right: 24px;
-        bottom: 184px;
-        gap: 5px;
+        right: 0;
+        gap: 0;
+        margin: 380px 69px 0 0;
+      }
+    }
+    &-add__easingSelected {
+      justify-content: start;
+      padding: 24px;
+      flex-flow: wrap;
+    }
+    &__controllerAll {
+      display: flex;
+    flex-flow: wrap;
+    }
+    &__controller.gap {
+        gap: 12px !important;
+    }
+    &--hide {
+      .face__items-container {
+        display: none;
       }
     }
 
   }
 }
 
-@media(max-width: 1285px) {
+@media(min-width: 850px) and (max-width: 1032px) {
   .mimicitem {
-    &__control {
-      &-name {
-        font-size: 24px;
+
+    &--show {
+      .mimicitem__btns {
+        margin: 590px 69px 0 0;
       }
     }
+
   }
 }
 
-@media(max-width:515px) {
+@media(min-width: 650px) and (max-width: 733px) {
+  .mimicitem {
+
+    &--show {
+      .mimicitem__btns {
+        margin: 541px 69px 0 0;
+      }
+    }
+
+  }
+}
+
+@media(min-width: 550px) and (max-width: 649px) {
+  .mimicitem {
+
+    &--show {
+      .mimicitem__btns {
+        margin: 480px 69px 0 0;
+      }
+    }
+
+  }
+}
+
+@media(max-width:550px) {
   .mimicitem {
 
     &__face {
@@ -498,6 +553,15 @@
 
     &--hide {
       max-height: 80px;
+      .mimicitem__face {
+        margin-right: 40px;
+      }
+    }
+
+    &--show {
+      .mimicitem__btns {
+        margin: 481px 40px 0 0;
+      }
     }
 
     &__btn {

@@ -4,6 +4,9 @@
   align-items: center;
   justify-items: center;
   flex-wrap: wrap;
+  @media (min-width: 439px) and (max-width: 481px) {
+    width: 80%;
+  }
   & img {
     max-width: 32px;
     max-height: 32px;
@@ -25,6 +28,16 @@
     -webkit-appearance: none;
     -moz-appearance: textfield;
 
+    @media (min-width: 300px) and (max-width: 649px) {
+      padding: 8px 18px;
+    }
+    @media (min-width: 649px) and (max-width: 736px) {
+      padding: 8px 16px;
+    }
+    @media (min-width: 850px) and (max-width: 1034px) {
+      padding: 8px 16px;
+    }
+
     &--day {
       background-color: $robot-day;
       color: $font-day;
@@ -42,6 +55,9 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    @media (min-width: 300px) and (max-width: 649px) {
+      margin-right: 8px;
+    }
   }
 
 }
