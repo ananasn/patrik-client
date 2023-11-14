@@ -57,8 +57,12 @@ const Robot = () => {
       dispatch(resetActiveFlags());
     } else {
       const element = e.target.getBoundingClientRect();
+      const parent = e.target.parentNode.getBoundingClientRect();
+      console.log('высота родителя', parent.bottom)
       console.log('найти координату клика', element, Math.round(element.bottom));
-      setBottomClickCoordinate(Math.round(element.bottom - element.height) + 'px');
+      //const screenHeight = window.screen.height;
+      //console.log('высота экрана', screenHeight)
+      setBottomClickCoordinate(Math.round(parent.bottom - element.bottom) + 'px');
       console.log('найти координату клика', bottomClickCoordinate);
       dispatch(setRobotPart(robotPart));
     }

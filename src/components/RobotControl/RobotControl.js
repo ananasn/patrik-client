@@ -1,8 +1,10 @@
+import { useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 import TopBottom from "../../img/robot-control-day/top-bottom.svg";
 import RightLeft from "../../img/robot-control-day/right-left.svg";
 import TopBottomNight from "../../img/robot-control-night/top-bottom.svg";
 import RightLeftNight from "../../img/robot-control-night/right-left.svg";
-import { useSelector } from "react-redux";
+
 import "./RobotControl.scss";
 
 import Controler from "../Controler/Controler";
@@ -15,6 +17,14 @@ const RobotControl = ({bottom}) => {
   }`;
   console.log(activeRobotPart, itemClass);
   console.log('передать значение', bottom)
+  const isTablet = useMediaQuery({
+    query: "(max-width: 850px)",
+  });
+  const isMobile = useMediaQuery({
+    query: "(max-width: 650px)",
+  });
+  const bottomStyle = !isTablet & !isMobile & !(activeRobotPart === "neck") ? bottom : null;
+  console.log('применить стили только для пк', bottomStyle)
   const horizontalInput =
     activeRobotPart === "neck" && isDay ? (
       <>
@@ -34,7 +44,7 @@ const RobotControl = ({bottom}) => {
 
   if (isDay) {
     return (
-      <div className={itemClass} style={{top: bottom}}>
+      <div className={itemClass} style={{bottom: bottomStyle}}>
         {horizontalInput}
         {activeRobotPart === "neck" ? null : (
           <>
@@ -46,7 +56,7 @@ const RobotControl = ({bottom}) => {
     );
   } else {
     return (
-      <div className={`${itemClass} robot__modal-control--night`} style={{top: bottom}}>
+      <div className={`${itemClass} robot__modal-control--night`} style={{bottom: bottomStyle}}>
         {horizontalInput}
         {activeRobotPart === "neck" ? null : (
           <>
