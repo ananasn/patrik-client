@@ -59,7 +59,7 @@ const Controler = ({ imgSrc, initialValue, maxValue, text, id, onChange }) => {
         min={0}
         max={maxValue}
         required
-        className={classNames("controler__value", {
+        className={classNames("controler__value inputWidth", {
           "controler__value--day": isDay,
           "controler__value--night": !isDay,
         })}

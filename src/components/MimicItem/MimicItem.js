@@ -350,7 +350,7 @@ const MimicItem = ({
                       src={isDay ? pen : penNight}
                       alt=""
                     />
-                    <div className="mimicitem__controller">
+                    <div className="mimicitem__controller gap">
                       <div>Number of steps</div>
                       <input
                         type="number"
@@ -378,65 +378,67 @@ const MimicItem = ({
                       src={isDay ? pen : penNight}
                       alt=""
                     />
-                    <div className="mimicitem__controller">
-                      <div>Mass</div>
-                      <input
-                        type="number"
-                        onChange={(e) => setSpringMassValue(e.target.value)}
-                        value={springMassValue}
-                        required
-                        min={0}
-                        max={100}
-                        className={classNames("controler__value", {
-                          "controler__value--day": isDay,
-                          "controler__value--night": !isDay,
-                        })}
-                      />
-                    </div>
-                    <div className="mimicitem__controller">
-                      <div>Stiffness</div>
-                      <input
-                        type="number"
-                        onChange={(e) => setSpringStiffnessValue(e.target.value)}
-                        value={springStiffnessValue}
-                        required
-                        min={0}
-                        max={100}
-                        className={classNames("controler__value", {
-                          "controler__value--day": isDay,
-                          "controler__value--night": !isDay,
-                        })}
-                      />
-                    </div>
-                    <div className="mimicitem__controller">
-                      <div>Damping</div>
-                      <input
-                        type="number"
-                        onChange={(e) => setSpringDampingValue(e.target.value)}
-                        value={springDampingValue}
-                        required
-                        min={0}
-                        max={100}
-                        className={classNames("controler__value", {
-                          "controler__value--day": isDay,
-                          "controler__value--night": !isDay,
-                        })}
-                      />
-                    </div>
-                    <div className="mimicitem__controller">
-                      <div>Velocity</div>
-                      <input
-                        type="number"
-                        onChange={(e) => setSpringVelocityValue(e.target.value)}
-                        value={springVelocityValue}
-                        required
-                        min={0}
-                        max={100}
-                        className={classNames("controler__value", {
-                          "controler__value--day": isDay,
-                          "controler__value--night": !isDay,
-                        })}
-                      />
+                    <div className="mimicitem__controllerAll">
+                      <div className="mimicitem__controller gap">
+                        <div>Mass</div>
+                        <input
+                          type="number"
+                          onChange={(e) => setSpringMassValue(e.target.value)}
+                          value={springMassValue}
+                          required
+                          min={0}
+                          max={100}
+                          className={classNames("controler__value", {
+                            "controler__value--day": isDay,
+                            "controler__value--night": !isDay,
+                          })}
+                        />
+                      </div>
+                      <div className="mimicitem__controller gap">
+                        <div>Stiffness</div>
+                        <input
+                          type="number"
+                          onChange={(e) => setSpringStiffnessValue(e.target.value)}
+                          value={springStiffnessValue}
+                          required
+                          min={0}
+                          max={100}
+                          className={classNames("controler__value", {
+                            "controler__value--day": isDay,
+                            "controler__value--night": !isDay,
+                          })}
+                        />
+                      </div>
+                      <div className="mimicitem__controller gap">
+                        <div>Damping</div>
+                        <input
+                          type="number"
+                          onChange={(e) => setSpringDampingValue(e.target.value)}
+                          value={springDampingValue}
+                          required
+                          min={0}
+                          max={100}
+                          className={classNames("controler__value", {
+                            "controler__value--day": isDay,
+                            "controler__value--night": !isDay,
+                          })}
+                        />
+                      </div>
+                      <div className="mimicitem__controller gap">
+                        <div>Velocity</div>
+                        <input
+                          type="number"
+                          onChange={(e) => setSpringVelocityValue(e.target.value)}
+                          value={springVelocityValue}
+                          required
+                          min={0}
+                          max={100}
+                          className={classNames("controler__value", {
+                            "controler__value--day": isDay,
+                            "controler__value--night": !isDay,
+                          })}
+                        />
+                      </div>
                     </div>
                   </div>}
                   {/* Задержка */}
@@ -451,10 +453,6 @@ const MimicItem = ({
                   </button>}
                   <div  className="mimicitem__controller">
                     {delayView === 1 && <input
-                      // className={classNames("mimicitem-add__input", {
-                      //   "mimicitem-add__input--day": isDay,
-                      //   "mimicitem-add__input--night": !isDay,
-                      // })}
                       className={classNames("controler__value", {
                         "controler__value--day": isDay,
                         "controler__value--night": !isDay,
@@ -462,9 +460,7 @@ const MimicItem = ({
                       ref={delayRef}
                       value={delayValue}
                       onBlur={ function(){
-                        //setDelayValue(delayRef.current.value);
                         setDelayView(2);
-                        //console.log(delayRef.current.value);
                       }}
                       onInput={() => setDelayValue(delayRef.current.value) }
                     />}
