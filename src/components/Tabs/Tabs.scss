@@ -206,10 +206,12 @@
     top: 204px;
     left: 40px;
     max-width: 960px;
-    width: 100%;
+    width: 95%;
     display: flex;
     flex-direction: row;
     margin-top: 0;
+    justify-content: flex-start;
+    gap: 66px;
     //flex-wrap: wrap;
     @media(max-width: 1400px) {
       flex-direction: column;
