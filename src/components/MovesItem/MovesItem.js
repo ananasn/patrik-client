@@ -296,6 +296,7 @@ const MovesItem = ({
                     alt="лицо робота"
                     className="movesitem__face"
                     src={robotFace}
+                    onClick={() => handleRobotPartChoice("neck")}
                   />
                   <img
                     alt="шея робота"
