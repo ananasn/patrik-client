@@ -191,6 +191,7 @@ const RobotMoves = () => {
                         neck={item.neck}
                         head={item.head}
                         delay={item.delay}
+                        //delayStart={item.delay}
                         phrase={item.phrase}
                         mimic={item.mimic}
                         saveFunc={saveFunc}
@@ -219,14 +220,14 @@ const RobotMoves = () => {
             >
               <img src={isDay ? plus : plusNight} alt="Plus" /> Поза
             </button>
-            <button
+            {/*<button
               className={classNames("robotmoves-add__btn", {
                 "robotmoves-add__btn--day": isDay,
                 "robotmoves-add__btn--night": !isDay,
               })}
             >
               <img src={isDay ? plus : plusNight} alt="Plus" /> Задержка
-            </button>
+            </button>*/}
             <button
               className={classNames("robotmoves-add__btn", {
                 "robotmoves-add__btn--day": isDay,
