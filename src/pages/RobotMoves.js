@@ -58,6 +58,22 @@ const RobotMoves = () => {
     dispatch(setIsMove(true));
     dispatch(toggleIsModalOpen());
   };
+  const deletePose = async (poseId) => {
+    await fetch(`http://localhost:8000/api/pose/${poseId}/`, {method:"DELETE"});
+
+    const fetchData = async () => {
+      const response = await request("http://localhost:8000/api/pose/");
+      const data = await response;
+      const result = await data.filter((item) => item.move == moveId );
+      setItems(result);
+    };
+    fetchData();
+  }
+
+  const handlePlay = async () => {
+    await fetch(`http://localhost:8000/api/run_mimic/${moveId}/`, {method:"POST"});
+    console.log(moveId, "run");
+  }
   const saveFunc = (obj) => {
     const res = items.map((item) => {
       if (item.id === obj.id) {
@@ -114,7 +130,7 @@ const RobotMoves = () => {
           </form>
         </div>
         <div className="robotmoves__btns">
-          <button className="robotmoves__btn">
+          <button className="robotmoves__btn" onClick={handlePlay}>
             <img src={isDay ? run : runNight} alt="Run" />
           </button>
           <button className="robotmoves__btn">
@@ -151,6 +167,7 @@ const RobotMoves = () => {
                         phrase={item.phrase}
                         mimic={item.mimic}
                         saveFunc={saveFunc}
+                        deletePose={deletePose}
                         order={item.order}
                         index={index}
                       ></MovesItem>
