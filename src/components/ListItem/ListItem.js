@@ -10,8 +10,15 @@ const ListItem = ({
   isScene = false,
   isModal = false,
   onClick,
+  deleteMove
 }) => {
   const isDay = useSelector((state) => state.isDay);
+  const handleDelete = () => {
+    deleteMove(id);
+  }
+  const handlePlay = async () => {
+    await fetch(`http://localhost:8000/api/run_move/${id}/`, {method:"POST"});
+  }
   return (
     <li
       className={classnames("moves__item", {
@@ -44,6 +51,7 @@ const ListItem = ({
                 moves__btn_delete_day: isDay,
                 moves__btn_delete_night: !isDay,
               })}
+              onClick={handleDelete}
             ></button>
             <Link
               className={classnames("moves__btn", {
@@ -59,6 +67,7 @@ const ListItem = ({
             moves__btn_play_day: isDay,
             moves__btn_play_night: !isDay,
           })}
+          onClick={handlePlay}
         ></button>
       </div>
     </li>

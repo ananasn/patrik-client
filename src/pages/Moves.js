@@ -30,6 +30,17 @@ const Moves = () => {
   }, []);
   const moves = useSelector((state) => state.moves);
 
+  const deleteMove = async (moveId) => {
+    await fetch(`http://localhost:8000/api/move/${moveId}/`, {method:"DELETE"});
+
+    const fetchData = async () => {
+      const response = await request("http://localhost:8000/api/move/");
+      const data = await response;
+      dispatch(setMoves(data));
+    };
+    fetchData();
+  }
+
   const [filteredItems, setFilteredItems] = useState(moves);
   useEffect(() => {
     setFilteredItems(moves);
@@ -79,7 +90,7 @@ const Moves = () => {
         <SearchBar onSearch={handleSearch} />
         <ul className="moves__list">
           {filteredItems.map(({ name, id }) => (
-            <ListItem key={id} text={name} id={id}></ListItem>
+            <ListItem key={id} text={name} id={id} deleteMove={deleteMove}></ListItem>
           ))}
         </ul>
       </div>
