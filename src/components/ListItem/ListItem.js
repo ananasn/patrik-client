@@ -18,6 +18,7 @@ const ListItem = ({
   }
   const handlePlay = async () => {
     await fetch(`http://localhost:8000/api/run_move/${id}/`, {method:"POST"});
+    console.log(id, 'run move');
   }
   return (
     <li

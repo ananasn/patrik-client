@@ -6,6 +6,7 @@ import { useHttp } from "../../hooks/http.hook";
 
 import SearchBar from "../../components/SearchBar/SearchBar";
 import ListItem from "../ListItem/ListItem";
+import ListMimics from "../ListMimics/ListMimics";
 
 import closeDay from "../../img/movesItem/delete-day.svg";
 import closeNight from "../../img/movesItem/delete-night.svg";
@@ -48,10 +49,17 @@ const Modal = () => {
     }
   }, [moves, mimics, isMove]);
   const handleSearch = (searchTerm) => {
-    const filtered = moves.filter((item) =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredItems(filtered);
+    if (isMove === true) {
+      const filtered = moves.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredItems(filtered);
+    } else {
+      const filtered = mimics.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredItems(filtered);
+    }
   };
   const handleModalClose = () => {
     dispatch(toggleIsModalOpen());
@@ -71,7 +79,7 @@ const Modal = () => {
         <div className="modal__header">
           <div className="modal__header-top">
             <h2 className="modal__title">
-              {isMove ? "Импорт движения" : "Выбор способа анимации"}
+              {isMove ? "Импорт движения" : "Выбор мимики"}
             </h2>
             <button onClick={handleModalClose} className="modal__close">
               <img src={isDay ? closeDay : closeNight} alt="Close" />
@@ -87,14 +95,25 @@ const Modal = () => {
               <h2>Идёт загрузка данных</h2>
             ) : (
               filteredItems.map((item, id) => {
-                return (
-                  <ListItem
-                    text={item.name}
-                    id={item.id}
-                    key={id}
-                    isModal={true}
-                  ></ListItem>
-                );
+                if (isMove === true) {
+                  return (
+                    <ListItem
+                      text={item.name}
+                      id={item.id}
+                      key={id}
+                      isModal={true}
+                    ></ListItem>
+                  );
+                  } else {
+                    return (
+                      <ListMimics
+                        text={item.name}
+                        id={item.id}
+                        key={id}
+                        isModal={true}
+                      ></ListMimics>
+                    );
+                  }
               })
             )}
           </ul>

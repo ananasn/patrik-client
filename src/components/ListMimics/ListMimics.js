@@ -18,7 +18,7 @@ const ListMimics = ({
   }
   const handlePlay = async () => {
     await fetch(`http://localhost:8000/api/run_mimic/${id}/`, {method:"POST"});
-    //console.log(id, "run");
+    console.log(id, "run mimic");
   }
   return (
     <li
