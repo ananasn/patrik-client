@@ -259,6 +259,43 @@
     margin-top: 40px;
     align-items: center;
   }
+
+  &-add__btn {
+    //position: relative;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    width: 90%;
+    gap: 10px;
+    font-size: 32px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 0px;
+    outline: none;
+    border-radius: 12px;
+    padding: 16px 0px;
+    overflow: hidden;
+    transition: 0.3s all;
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &--day {
+      background-color: $move-add-smt-day;
+      color: $btns-day;
+      fill: $btns-day;
+    }
+    &--night {
+      background-color: $move-add-smt-night;
+      color: $btns-night;
+      fill: $btns-night;
+    }
+    img {
+      max-width: 32px;
+      max-height: 32px;
+    }
+  }
 }
 
 @media(max-width: 1285px) {
@@ -343,6 +380,15 @@
     &__control {
       &-name {
         font-size: 24px;
+      }
+    }
+
+    &-add__btn {
+      font-size: 24px;
+
+      svg {
+        width: 32px;
+        height: 32px;
       }
     }
   }

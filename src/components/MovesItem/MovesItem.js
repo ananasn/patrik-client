@@ -38,14 +38,14 @@ import robotNeckDayActive from "../../img/robot-day/neck-day-active.svg";
 import robotArmDayActive from "../../img/robot-day/arm-day-active.svg";
 import robotHandDayActive from "../../img/robot-day/hand-day-active.svg";
 
-import plus from "../../img/plus-day.svg";
-import plusNight from "../../img/plus-night.svg";
 import timerDay from "../../img/timer/timer-day.svg";
 import timerNight from "../../img/timer/timer-night.svg";
 
 import robotNeckNightActive from "../../img/robot-moves-night/robot-neck-night-active.svg";
 import robotArmNightActive from "../../img/robot-moves-night/robot-arm-night-active.svg";
 import robotHandNightActive from "../../img/robot-moves-night/robot-hand-night-active.svg";
+
+import {ReactComponent as PlusIco } from "../../img/plus.svg";
 
 import "./MovesItem.scss";
 import { Draggable } from "react-beautiful-dnd";
@@ -651,13 +651,14 @@ const MovesItem = ({
           ></RobotAddSmt>
           {/* Задержка */}
           { delayView === 0 && <button
-            className={classnames("mimicitem-add__btn", {
-              "mimicitem-add__btn--day": isDay,
-              "mimicitem-add__btn--night": !isDay,
+            className={classnames("movesitem-add__btn", {
+              "movesitem-add__btn--day": isDay,
+              "movesitem-add__btn--night": !isDay,
             })}
             onClick={() => setDelayView(1)}
             >
-              <img src={isDay ? plus : plusNight} alt="Plus" /> Добавить задержку
+              <PlusIco />
+              <span>Задержка</span>
             </button>}
               <div  className="mimicitem__controller">
                 {delayView === 1 && <input

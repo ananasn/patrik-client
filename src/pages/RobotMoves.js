@@ -177,7 +177,7 @@ const RobotMoves = () => {
                       <MovesItem
                         card={item}
                         moveId={item.move}
-                        key={item.id}
+                        key={item.order}
                         id={item.id}
                         name={item.name}
                         l1={item.l1}
