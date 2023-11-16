@@ -87,7 +87,7 @@ const RobotMoves = () => {
     console.log(res);
   };
   const addPoseHandler = () => { // для кнопки "создать pose"
-    const i = codeGenerator();
+    const i = codeGenerator() + 1;
     setItems([...items, {
       "name": `Поза ${i}`,
       "l1": 0,
@@ -105,6 +105,7 @@ const RobotMoves = () => {
       "phrase": "Добавить фразу",
       "delay": 0,
       "order": i,
+      "id": i,
       "mimic": null
     }])
     console.log(items)
@@ -191,7 +192,7 @@ const RobotMoves = () => {
                       <MovesItem
                         card={item}
                         moveId={item.move}
-                        key={item.order}
+                        key={item.id}//id
                         id={item.id}
                         name={item.name}
                         l1={item.l1}
@@ -209,7 +210,7 @@ const RobotMoves = () => {
                         mimic={item.mimic}
                         saveFunc={saveFunc}
                         deletePose={deletePose}
-                        order={item.order}
+                        order={item.id}
                         index={index}
                       ></MovesItem>
                     );
