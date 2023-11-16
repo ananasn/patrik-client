@@ -1,6 +1,8 @@
 import classnames from "classnames";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { toggleIsModalOpen } from "../../store/actions";
 
 import "./ListItem.scss";
 
@@ -12,6 +14,7 @@ const ListItem = ({
   onClick,
   deleteMove
 }) => {
+  const dispatch = useDispatch();
   const isDay = useSelector((state) => state.isDay);
   const handleDelete = () => {
     deleteMove(id);
@@ -21,8 +24,8 @@ const ListItem = ({
     console.log(id, 'run move');
   }
   const handleImportMoveData = () => {
-
     console.log(id, text, "add import move");
+    dispatch(toggleIsModalOpen());
   }
   return (
     <li

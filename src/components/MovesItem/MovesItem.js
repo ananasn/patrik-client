@@ -46,6 +46,7 @@ import robotArmNightActive from "../../img/robot-moves-night/robot-arm-night-act
 import robotHandNightActive from "../../img/robot-moves-night/robot-hand-night-active.svg";
 
 import {ReactComponent as PlusIco } from "../../img/plus.svg";
+import {ReactComponent as EmotionIco} from "../../img/icons/menu-day/mim.svg";
 
 import "./MovesItem.scss";
 import { Draggable } from "react-beautiful-dnd";
@@ -91,6 +92,8 @@ const MovesItem = ({
   const [showItem, setShowItem] = useState(true);
   const inputRef = useRef(null);
   const isDay = useSelector((state) => state.isDay);
+  const importMimic = useSelector((state) => state.importMimic);
+  console.log(importMimic)
 
   const [delayValue, setDelayValue] = useState(delay);
   // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
@@ -124,7 +127,7 @@ const MovesItem = ({
       delay: delayValue,
       order: order,
       move: moveId,
-      mimic: null,
+      mimic: importMimic.id,
     });
   };
   const handleRobotPartChoice = (robotPart) => {
@@ -224,10 +227,10 @@ const MovesItem = ({
       r3: parseInt(r3Deg),
       r4: parseInt(r4Deg),
       phrase: phraseData,
-      delay: null,
+      delay: delayValue,
       order: order,
       move: moveId,
-      mimic: null,
+      mimic: importMimic.id,
     });
   };
   return (
@@ -643,7 +646,28 @@ const MovesItem = ({
           </div>
         </div>
         <div className="movesitem__footer">
-          <RobotAddSmt word={"мимику"}></RobotAddSmt>
+          {importMimic ? (
+            <button
+              className={classnames("robotaddsmt", {
+                "robotaddsmt--night": !isDay,
+                "robotaddsmt--day": isDay,
+              })}
+            >
+              <EmotionIco />
+              <h3
+                className={classnames("robotaddsmt__text", {
+                  "robotaddsmt__text--night": !isDay,
+                  "robotaddsmt__text--day": isDay,
+                })}
+              >
+                {importMimic.text}
+              </h3>
+            </button>
+          ) :  (
+            <RobotAddSmt
+              word={"мимику"}
+            ></RobotAddSmt>
+          )}
           <RobotAddSmt
             pharsa={phraseData}
             handlePhrasaChange={handlePhrasaChange}

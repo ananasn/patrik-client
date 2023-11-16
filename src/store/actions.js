@@ -57,3 +57,8 @@ export const setScripts = (payload) => ({
   type: "SET_SCRIPTS",
   payload,
 });
+
+export const setImportMimic = (payload) => ({
+  type: "SET_IMPORT_MIMIC",
+  payload,
+})

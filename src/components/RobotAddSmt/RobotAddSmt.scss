@@ -39,6 +39,11 @@
     max-height: 48px;
   }
 
+  svg {
+    width: 36px;
+    height: 36px;
+  }
+
   &__text {
     font-size: 32px;
     font-weight: 500;
@@ -68,20 +73,26 @@
     flex-grow: 1;
     &--day {
       background-color: $robot-day;
+      color: rgba(16, 20, 32, 0.50);
     }
 
     &--night {
       background-color: $robot-night;
+      color: rgba(255, 255, 255, 0.50);
     }
   }
 }
 
 .robotaddsmt--day {
   background-color: $move-add-smt-day;
+  //fill: $btns-day;
+  stroke: $btns-day;
 }
 
 .robotaddsmt--night {
   background-color: $move-add-smt-night;
+  //fill: $btns-night;
+  stroke: $btns-night;
 }
 
 @media(max-width:900px) {
@@ -93,6 +104,11 @@
     img {
       max-width: 32px;
       max-height: 32px;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
     }
   }
 }
