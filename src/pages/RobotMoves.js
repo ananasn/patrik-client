@@ -87,7 +87,7 @@ const RobotMoves = () => {
     console.log(res);
   };
   const addPoseHandler = () => { // для кнопки "создать pose"
-    const i = codeGenerator() + 1;
+    const i = codeGenerator();
     setItems([...items, {
       "name": `Поза ${i}`,
       "l1": 0,
@@ -110,10 +110,24 @@ const RobotMoves = () => {
     console.log(items)
   }
   const handleDragDrop = (results) => {
-    console.log("drag drop event accured", results);
+    //console.log("drag drop event accured", results);
     const {destination, source, draggableId} = results;
-    console.log(destination, source, draggableId);
+    //console.log(destination, source, draggableId);
     if(!destination) return;
+    if(
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+      )
+      return;
+    const reorderedItems = [...items];
+    const sourceIndex = source.index;
+    const destinationIndex = destination.index;
+    //console.log(sourceIndex, destinationIndex)
+
+    const [removedItems] = reorderedItems.splice(sourceIndex, 1);
+    reorderedItems.splice(destinationIndex, 0, removedItems);
+
+    return setItems(reorderedItems);
   }
   return (
     <div className="robotmoves">
@@ -191,7 +205,6 @@ const RobotMoves = () => {
                         neck={item.neck}
                         head={item.head}
                         delay={item.delay}
-                        //delayStart={item.delay}
                         phrase={item.phrase}
                         mimic={item.mimic}
                         saveFunc={saveFunc}
@@ -220,14 +233,6 @@ const RobotMoves = () => {
             >
               <img src={isDay ? plus : plusNight} alt="Plus" /> Поза
             </button>
-            {/*<button
-              className={classNames("robotmoves-add__btn", {
-                "robotmoves-add__btn--day": isDay,
-                "robotmoves-add__btn--night": !isDay,
-              })}
-            >
-              <img src={isDay ? plus : plusNight} alt="Plus" /> Задержка
-            </button>*/}
             <button
               className={classNames("robotmoves-add__btn", {
                 "robotmoves-add__btn--day": isDay,
