@@ -18,7 +18,11 @@ const ListMimics = ({
   }
   const handlePlay = async () => {
     await fetch(`http://localhost:8000/api/run_mimic/${id}/`, {method:"POST"});
-    //console.log(id, "run");
+    console.log(id, "run mimic");
+  }
+  const handleImportMimicData = () => {
+
+    console.log(id, text, "add import data");
   }
   return (
     <li
@@ -43,6 +47,7 @@ const ListMimics = ({
               mimics__btn_import_day: isDay,
               mimics__btn_import_night: !isDay,
             })}
+            onClick={handleImportMimicData}
           ></button>
         ) : (
           <>

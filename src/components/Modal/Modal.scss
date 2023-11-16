@@ -58,6 +58,17 @@
 
   &__body {
     margin-top: 16px;
+    overflow-y: scroll;
+    /*-ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+    overflow-x: none;
+
+    &::-webkit-scrollbar {
+      width: 0 !important;
+      height: 0;
+      display: none !important;
+      background: transparent;
+    }*/
   }
 
   &__close {
@@ -74,5 +85,42 @@
     margin: 0px;
     padding: 0px;
     overflow-y: auto;
+  }
+}
+
+@media(max-width:860px) {
+  .modal {
+    &__inner {
+      width: 60%;
+      height: 40%;
+    }
+  }
+}
+
+@media(max-width:640px) {
+  .modal {
+    &__inner {
+      width: 82%;
+      //height: 90%;
+    }
+  }
+}
+
+@media(max-width:430px) {
+  .modal {
+    &__inner {
+      width: 78%;
+      height: 78%;
+    }
+  }
+}
+
+@media(max-width:350px) {
+  .modal {
+    &__inner {
+      width: 84%;
+      height: 84%;
+      padding: 16px;
+    }
   }
 }

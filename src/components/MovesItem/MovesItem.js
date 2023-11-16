@@ -38,6 +38,11 @@ import robotNeckDayActive from "../../img/robot-day/neck-day-active.svg";
 import robotArmDayActive from "../../img/robot-day/arm-day-active.svg";
 import robotHandDayActive from "../../img/robot-day/hand-day-active.svg";
 
+import plus from "../../img/plus-day.svg";
+import plusNight from "../../img/plus-night.svg";
+import timerDay from "../../img/timer/timer-day.svg";
+import timerNight from "../../img/timer/timer-night.svg";
+
 import robotNeckNightActive from "../../img/robot-moves-night/robot-neck-night-active.svg";
 import robotArmNightActive from "../../img/robot-moves-night/robot-arm-night-active.svg";
 import robotHandNightActive from "../../img/robot-moves-night/robot-hand-night-active.svg";
@@ -64,7 +69,8 @@ const MovesItem = ({
   saveFunc,
   moveId,
   order,
-  index
+  index,
+  delay,
 }) => {
   const [l1Deg, setL1] = useState(l1);
   const [l2Deg, setL2] = useState(l2);
@@ -85,6 +91,12 @@ const MovesItem = ({
   const [showItem, setShowItem] = useState(true);
   const inputRef = useRef(null);
   const isDay = useSelector((state) => state.isDay);
+
+  const [delayValue, setDelayValue] = useState(delay);
+  // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
+  const [delayView, setDelayView] = useState(delayValue === 0 ? 0 : 2);
+  const delayRef = useRef(null);
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const newValue = e.target.movename.value;
@@ -109,7 +121,7 @@ const MovesItem = ({
       r3: parseInt(r3Deg),
       r4: parseInt(r4Deg),
       phrase: newPhrase,
-      delay: null,
+      delay: delayValue,
       order: order,
       move: moveId,
       mimic: null,
@@ -296,6 +308,7 @@ const MovesItem = ({
                     alt="лицо робота"
                     className="movesitem__face"
                     src={robotFace}
+                    onClick={() => handleRobotPartChoice("neck")}
                   />
                   <img
                     alt="шея робота"
@@ -636,6 +649,42 @@ const MovesItem = ({
             handlePhrasaChange={handlePhrasaChange}
             word={"фразу"}
           ></RobotAddSmt>
+          {/* Задержка */}
+          { delayView === 0 && <button
+            className={classnames("mimicitem-add__btn", {
+              "mimicitem-add__btn--day": isDay,
+              "mimicitem-add__btn--night": !isDay,
+            })}
+            onClick={() => setDelayView(1)}
+            >
+              <img src={isDay ? plus : plusNight} alt="Plus" /> Добавить задержку
+            </button>}
+              <div  className="mimicitem__controller">
+                {delayView === 1 && <input
+                  className={classnames("controler__value", {
+                    "controler__value--day": isDay,
+                    "controler__value--night": !isDay,
+                  })}
+                  ref={delayRef}
+                  value={delayValue}
+                  onBlur={ function(){
+                    setDelayView(2);
+                  }}
+                  onInput={() => setDelayValue(delayRef.current.value) }
+                />}
+              </div>
+
+              {delayView === 2 && <div
+                className={classnames("mimicitem-add__last", {
+                  "mimicitem-add__last--day": isDay,
+                  "mimicitem-add__last--night": !isDay,
+                })}
+                onClick={() => setDelayView(1)}
+              >
+                <img src={isDay ? timerDay : timerNight} alt="" />
+                {delayValue} мс
+                <img src={isDay ? pen : penNight} alt="" />
+              </div>}
         </div>
       </li>
       )}

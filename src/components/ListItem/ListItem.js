@@ -18,6 +18,11 @@ const ListItem = ({
   }
   const handlePlay = async () => {
     await fetch(`http://localhost:8000/api/run_move/${id}/`, {method:"POST"});
+    console.log(id, 'run move');
+  }
+  const handleImportMoveData = () => {
+
+    console.log(id, text, "add import move");
   }
   return (
     <li
@@ -43,6 +48,7 @@ const ListItem = ({
               moves__btn_import_day: isDay,
               moves__btn_import_night: !isDay,
             })}
+            onClick={handleImportMoveData}
           ></button>
         ) : (
           <>

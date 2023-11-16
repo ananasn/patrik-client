@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleIsModalOpen, setIsMove } from "../store/actions";
 import MovesItem from "../components/MovesItem/MovesItem";
+import {codeGenerator} from "../utils/utils";
 //import DelayTimer from "../components/DelayTimer/DelayTimer";
 
 import back from "../img/icons/menu-day/back-day.svg";
@@ -85,8 +86,34 @@ const RobotMoves = () => {
     setItems(res);
     console.log(res);
   };
+  const addPoseHandler = () => { // для кнопки "создать pose"
+    const i = codeGenerator() + 1;
+    setItems([...items, {
+      "name": `Поза ${i}`,
+      "l1": 0,
+      "l2": 0,
+      "l3": 0,
+      "l4": 0,
+      "l5": 0,
+      "neck": 0,
+      "head": 0,
+      "r1": 0,
+      "r2": 0,
+      "r3": 0,
+      "r4": 0,
+      "r5": 0,
+      "phrase": "Добавить фразу",
+      "delay": 0,
+      "order": i,
+      "mimic": null
+    }])
+    console.log(items)
+  }
   const handleDragDrop = (results) => {
     console.log("drag drop event accured", results);
+    const {destination, source, draggableId} = results;
+    console.log(destination, source, draggableId);
+    if(!destination) return;
   }
   return (
     <div className="robotmoves">
@@ -164,6 +191,7 @@ const RobotMoves = () => {
                         neck={item.neck}
                         head={item.head}
                         delay={item.delay}
+                        //delayStart={item.delay}
                         phrase={item.phrase}
                         mimic={item.mimic}
                         saveFunc={saveFunc}
@@ -188,17 +216,18 @@ const RobotMoves = () => {
                 "robotmoves-add__btn--day": isDay,
                 "robotmoves-add__btn--night": !isDay,
               })}
+              onClick={addPoseHandler}
             >
               <img src={isDay ? plus : plusNight} alt="Plus" /> Поза
             </button>
-            <button
+            {/*<button
               className={classNames("robotmoves-add__btn", {
                 "robotmoves-add__btn--day": isDay,
                 "robotmoves-add__btn--night": !isDay,
               })}
             >
               <img src={isDay ? plus : plusNight} alt="Plus" /> Задержка
-            </button>
+            </button>*/}
             <button
               className={classNames("robotmoves-add__btn", {
                 "robotmoves-add__btn--day": isDay,

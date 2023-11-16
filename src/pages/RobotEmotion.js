@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import {codeGenerator} from "../utils/utils";
-import NavList from "../components/NavList/NavList";
+//import NavList from "../components/NavList/NavList";
 //import { toggleIsModalOpen, setIsMove } from "../store/actions";
 import MimicItem from "../components/MimicItem/MimicItem";
 import { setMimics } from "../store/actions";
@@ -124,31 +124,6 @@ const RobotEmotion = () => {
   const addMimicItemHandler = () => { // для кнопки "создать мимику"
     const i = codeGenerator() + 1;
     console.log(i)
-    /*const newItem = {
-      "style_left_eye": 0,
-      "x_left_eye": 0,
-      "y_left_eye": 0,
-      "w_left_eye": 0,
-      "h_left_eye": 0,
-      "style_right_eye": 0,
-      "x_right_eye": 0,
-      "y_right_eye": 0,
-      "w_right_eye": 0,
-      "h_right_eye": 0,
-      "style_mouth": 0,
-      "x_mouth": 0,
-      "y_mouth": 0,
-      "w_mouth": 0,
-      "h_mouth": 0,
-      "delay": 0,
-      "order": i,
-      "easing": ""
-    };
-    console.log(items)
-    //const newItems = items ? items.push(newItem) : [newItem];
-    //setItems(newItems);
-    setItems([...items, newItem]);
-    console.log(items)*/
     setItems([...items, {
       "style_left_eye": 0,
       "x_left_eye": 0,
@@ -170,7 +145,6 @@ const RobotEmotion = () => {
       "easing": ""
     }])
     console.log(items)
-    //setNewId(codeGenerator(0)); //после добавления одной карточки нужно сохранить результат, а затем перетаскивать
   }
 
   const deleteMimicItem = async (mimicItemId) => {

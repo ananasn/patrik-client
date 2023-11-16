@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames";
 import { Draggable } from "react-beautiful-dnd";
-import {codeGenerator} from "../../utils/utils";
+//import {codeGenerator} from "../../utils/utils";
 import Tabs from "../Tabs/Tabs";
 import ModalAnimation from "../ModalAnimation/ModalAnimation";
 import open from "../../img/movesItem/open-day.svg";
