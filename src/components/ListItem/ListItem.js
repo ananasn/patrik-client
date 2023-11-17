@@ -12,6 +12,7 @@ const ListItem = ({
   isScene = false,
   isModal = false,
   onClick,
+  onMoveImport,
   deleteMove
 }) => {
   const dispatch = useDispatch();
@@ -25,6 +26,9 @@ const ListItem = ({
   }
   const handleImportMoveData = () => {
     console.log(id, text, "add import move");
+    if (onMoveImport) {
+      onMoveImport(id, text);
+    } ;
     dispatch(toggleIsModalOpen());
   }
   return (

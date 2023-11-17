@@ -15,7 +15,7 @@ import classNames from "classnames";
 
 import "./Modal.scss";
 
-const Modal = () => {
+const Modal = ({onMoveImport}) => {
   const isMove = useSelector((state) => state.isMove);
   const isDay = useSelector((state) => state.isDay);
   const isModalOpen = useSelector((state) => state.isModalOpen);
@@ -102,6 +102,7 @@ const Modal = () => {
                       id={item.id}
                       key={id}
                       isModal={true}
+                      onMoveImport={onMoveImport}
                     ></ListItem>
                   );
                   } else {
