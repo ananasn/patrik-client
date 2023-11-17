@@ -105,15 +105,30 @@ const RobotMoves = () => {
       "phrase": "Добавить фразу",
       "delay": 0,
       "order": i,
+      "id": i,
       "mimic": null
     }])
     console.log(items)
   }
   const handleDragDrop = (results) => {
-    console.log("drag drop event accured", results);
+    //console.log("drag drop event accured", results);
     const {destination, source, draggableId} = results;
-    console.log(destination, source, draggableId);
+    //console.log(destination, source, draggableId);
     if(!destination) return;
+    if(
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+      )
+      return;
+    const reorderedItems = [...items];
+    const sourceIndex = source.index;
+    const destinationIndex = destination.index;
+    //console.log(sourceIndex, destinationIndex)
+
+    const [removedItems] = reorderedItems.splice(sourceIndex, 1);
+    reorderedItems.splice(destinationIndex, 0, removedItems);
+
+    return setItems(reorderedItems);
   }
   return (
     <div className="robotmoves">
@@ -177,7 +192,7 @@ const RobotMoves = () => {
                       <MovesItem
                         card={item}
                         moveId={item.move}
-                        key={item.id}
+                        key={item.id}//id
                         id={item.id}
                         name={item.name}
                         l1={item.l1}
@@ -191,12 +206,11 @@ const RobotMoves = () => {
                         neck={item.neck}
                         head={item.head}
                         delay={item.delay}
-                        //delayStart={item.delay}
                         phrase={item.phrase}
                         mimic={item.mimic}
                         saveFunc={saveFunc}
                         deletePose={deletePose}
-                        order={item.order}
+                        order={item.id}
                         index={index}
                       ></MovesItem>
                     );
@@ -220,14 +234,6 @@ const RobotMoves = () => {
             >
               <img src={isDay ? plus : plusNight} alt="Plus" /> Поза
             </button>
-            {/*<button
-              className={classNames("robotmoves-add__btn", {
-                "robotmoves-add__btn--day": isDay,
-                "robotmoves-add__btn--night": !isDay,
-              })}
-            >
-              <img src={isDay ? plus : plusNight} alt="Plus" /> Задержка
-            </button>*/}
             <button
               className={classNames("robotmoves-add__btn", {
                 "robotmoves-add__btn--day": isDay,

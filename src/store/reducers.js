@@ -21,6 +21,7 @@ const initialState = {
   activePoseList: [],
   mimics: [],
   scripts: [],
+  importMimic: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -105,6 +106,11 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           scripts: action.payload,
         };
+        case "SET_IMPORT_MIMIC":
+          return {
+            ...state,
+            importMimic: action.payload,
+          };
 
     default:
       return state;

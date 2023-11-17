@@ -38,14 +38,15 @@ import robotNeckDayActive from "../../img/robot-day/neck-day-active.svg";
 import robotArmDayActive from "../../img/robot-day/arm-day-active.svg";
 import robotHandDayActive from "../../img/robot-day/hand-day-active.svg";
 
-import plus from "../../img/plus-day.svg";
-import plusNight from "../../img/plus-night.svg";
 import timerDay from "../../img/timer/timer-day.svg";
 import timerNight from "../../img/timer/timer-night.svg";
 
 import robotNeckNightActive from "../../img/robot-moves-night/robot-neck-night-active.svg";
 import robotArmNightActive from "../../img/robot-moves-night/robot-arm-night-active.svg";
 import robotHandNightActive from "../../img/robot-moves-night/robot-hand-night-active.svg";
+
+import {ReactComponent as PlusIco } from "../../img/plus.svg";
+import {ReactComponent as EmotionIco} from "../../img/icons/menu-day/mim.svg";
 
 import "./MovesItem.scss";
 import { Draggable } from "react-beautiful-dnd";
@@ -91,6 +92,8 @@ const MovesItem = ({
   const [showItem, setShowItem] = useState(true);
   const inputRef = useRef(null);
   const isDay = useSelector((state) => state.isDay);
+  const importMimic = useSelector((state) => state.importMimic);
+  console.log(importMimic)
 
   const [delayValue, setDelayValue] = useState(delay);
   // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
@@ -124,7 +127,7 @@ const MovesItem = ({
       delay: delayValue,
       order: order,
       move: moveId,
-      mimic: null,
+      mimic: importMimic.id,
     });
   };
   const handleRobotPartChoice = (robotPart) => {
@@ -224,10 +227,10 @@ const MovesItem = ({
       r3: parseInt(r3Deg),
       r4: parseInt(r4Deg),
       phrase: phraseData,
-      delay: null,
+      delay: delayValue,
       order: order,
       move: moveId,
-      mimic: null,
+      mimic: importMimic.id,
     });
   };
   return (
@@ -643,7 +646,28 @@ const MovesItem = ({
           </div>
         </div>
         <div className="movesitem__footer">
-          <RobotAddSmt word={"мимику"}></RobotAddSmt>
+          {importMimic ? (
+            <button
+              className={classnames("robotaddsmt", {
+                "robotaddsmt--night": !isDay,
+                "robotaddsmt--day": isDay,
+              })}
+            >
+              <EmotionIco />
+              <h3
+                className={classnames("robotaddsmt__text", {
+                  "robotaddsmt__text--night": !isDay,
+                  "robotaddsmt__text--day": isDay,
+                })}
+              >
+                {importMimic.text}
+              </h3>
+            </button>
+          ) :  (
+            <RobotAddSmt
+              word={"мимику"}
+            ></RobotAddSmt>
+          )}
           <RobotAddSmt
             pharsa={phraseData}
             handlePhrasaChange={handlePhrasaChange}
@@ -651,13 +675,14 @@ const MovesItem = ({
           ></RobotAddSmt>
           {/* Задержка */}
           { delayView === 0 && <button
-            className={classnames("mimicitem-add__btn", {
-              "mimicitem-add__btn--day": isDay,
-              "mimicitem-add__btn--night": !isDay,
+            className={classnames("movesitem-add__btn", {
+              "movesitem-add__btn--day": isDay,
+              "movesitem-add__btn--night": !isDay,
             })}
             onClick={() => setDelayView(1)}
             >
-              <img src={isDay ? plus : plusNight} alt="Plus" /> Добавить задержку
+              <PlusIco />
+              <span>Задержка</span>
             </button>}
               <div  className="mimicitem__controller">
                 {delayView === 1 && <input

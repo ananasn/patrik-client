@@ -30,7 +30,7 @@ import "./RobotEmotion.scss";
 // страница создания и редактирования мимик; где карточки
 const RobotEmotion = () => {
   const isDay = useSelector((state) => state.isDay);
-  const mimics = useSelector((state) => state.mimics);
+  //const mimics = useSelector((state) => state.mimics);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { mimicId } = useParams();
@@ -193,10 +193,10 @@ const RobotEmotion = () => {
     navigate(-1);
   }
 
-  const handleDragDrop = async (results) => {
-    console.log("drag drop event occured", results);
+  const handleDragDrop = (results) => {
+    //console.log("drag drop event occured", results);
     const {destination, source, draggableId} = results;
-    console.log(destination, source, draggableId);
+    //console.log(destination, source, draggableId);
     if(!destination) return;
     if(
       source.droppableId === destination.droppableId &&
@@ -206,17 +206,10 @@ const RobotEmotion = () => {
     const reorderedItems = [...items];
     const sourceIndex = source.index;
     const destinationIndex = destination.index;
-    console.log(sourceIndex, destinationIndex)
+    //console.log(sourceIndex, destinationIndex)
 
     const [removedItems] = reorderedItems.splice(sourceIndex, 1);
-    reorderedItems.splice(destinationIndex, 0, removedItems)
-    //запрос на бэк
-    /*const res = await request("http://localhost:8000/api/save_mimic_items/", "post",
-    JSON.stringify({
-      name: inputValue,
-      mimic_items: reorderedItems
-    }));
-    console.log(res);*/
+    reorderedItems.splice(destinationIndex, 0, removedItems);
 
     return setItems(reorderedItems);
   }

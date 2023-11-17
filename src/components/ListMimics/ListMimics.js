@@ -1,6 +1,8 @@
 import classnames from "classnames";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { setImportMimic, toggleIsModalOpen } from "../../store/actions";
 
 import "./ListMimics.scss";
 // страница - список мимик
@@ -11,6 +13,7 @@ const ListMimics = ({
   isModal = false,
   deleteMimic
 }) => {
+  const dispatch = useDispatch();
   const isDay = useSelector((state) => state.isDay);
   const handleDelete = () => {
     deleteMimic(id);
@@ -21,8 +24,10 @@ const ListMimics = ({
     console.log(id, "run mimic");
   }
   const handleImportMimicData = () => {
-
-    console.log(id, text, "add import data");
+    dispatch(setImportMimic({id: id, text: text}))
+    console.log(id, text, "add import move");
+    dispatch(toggleIsModalOpen());
+    console.log(id, text, "add import  mimic data");
   }
   return (
     <li
