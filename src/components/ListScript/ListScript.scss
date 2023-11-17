@@ -35,7 +35,8 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    width: 240px;
+    //width: 240px;
+    width: 100%;
     text-align: start;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -120,8 +121,13 @@
 
 @media(max-width:430px) {
   .script__item {
+    padding: 10px 16px;
+    height: 31px;
     .script__text {
       font-size: 16px;
+    }
+    .script__btns {
+      gap: 5px;
     }
     .script__btn {
       width: 24px;

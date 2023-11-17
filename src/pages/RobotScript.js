@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useHttp } from "../hooks/http.hook";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
@@ -37,6 +37,7 @@ const RobotScript = () => {
   const [isModalScriptOpen, setIsModalScriptOpen] = useState(false);
   const [isModalScriptAddMoveOpen, setIsModalScriptAddMoveOpen] = useState(false);
   const [items, setItems] = useState([]);
+  const navigate = useNavigate();
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
@@ -119,7 +120,7 @@ const RobotScript = () => {
   const addScriptMoveHandler = () => {
     setIsModalScriptAddMoveOpen(true);
   }
-
+  // срабатывает, когда в попапе выбираем тригеры(условия)
   const onScriptChange = (script) => {
     console.log(script);
   }
@@ -128,18 +129,25 @@ const RobotScript = () => {
     setIsModalScriptAddMoveOpen(false);
   }
 
-/*  const deleteScriptItem = async (scriptItemId) => {
-    await fetch(`http://localhost:8000/api/mimic_item/${scriptItemId}/`, {method:"DELETE"});
+  const handlePlayScript = async () => {
+    await fetch(`http://localhost:8000/api/run_script/${scriptId}/`, {method:"POST"});
+    console.log(scriptId, "run");
+  }
 
-    const fetchData = async () => {
-      const response = await request("http://localhost:8000/api/mimic_item/");
-      const data = await response;
-      //console.log(data)
-      const result = await data.filter((item) => item.mimic == mimicId ); // emotionId
-      setItems(result);
-    };
-    fetchData();
-  }*/
+  //запрос на сохранение/перезапись сценария
+  const handleSaveScript = async () => {
+
+    // const res = await request("http://localhost:8000/api/save_mimic_items/", "post",
+    //   JSON.stringify({
+    //     id: scriptId,
+    //     name: inputValue,
+    //     mimic_items: items
+    //   }));
+    //console.log(res);
+    //console.log("navigate to /script")
+    navigate(-1);
+  }
+
   return (
     <div className="robot-script">
       <div
@@ -182,10 +190,16 @@ const RobotScript = () => {
           </form>
         </div>
         <div className="robot-script__btns">
-          <button className="robot-script__btn">
+          <button
+            className="robot-script__btn"
+            onClick={handlePlayScript}
+          >
             <img src={isDay ? run : runNight} alt="Run" />
           </button>
-          <button className="robot-script__btn">
+          <button
+            className="robot-script__btn"
+            onClick={handleSaveScript}
+          >
             <img src={isDay ? save : saveNight} alt="Save" />
           </button>
         </div>
