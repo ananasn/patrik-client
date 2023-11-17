@@ -81,6 +81,15 @@ const RobotAddSmt = ({ word, pharsa, handlePhrasaChange }) => {
         />
       ) : // </form>
       null}
+       {/*importMimic ? (
+          <>
+              <EmotionIco />
+              <h3>
+                {importMimic.text}
+              </h3>
+          </>
+          ) :  null*/
+        }
     </button>
   );
 };
