@@ -38,6 +38,8 @@ const RobotScript = () => {
   const [isModalScriptAddMoveOpen, setIsModalScriptAddMoveOpen] = useState(false);
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
+  const [moves, setMoves] = useState([]);
+  const [triggers, setTriggers] = useState([]);
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
@@ -121,8 +123,10 @@ const RobotScript = () => {
     setIsModalScriptAddMoveOpen(true);
   }
   // срабатывает, когда в попапе выбираем тригеры(условия)
-  const onScriptChange = (script) => {
-    console.log(script);
+  const onTriggerSelect = (triggerFromPopup) => {
+    console.log(triggerFromPopup);
+    setTriggers([...triggers, triggerFromPopup.triggerServer]);
+
   }
   const onModalScriptClose = () => {
     setIsModalScriptOpen(false);
@@ -146,6 +150,15 @@ const RobotScript = () => {
     //console.log(res);
     //console.log("navigate to /script")
     navigate(-1);
+  }
+  // срабатывает когда нажали импорт в попапе с движением
+  const onMoveImport = (moveId, moveText) => {
+    console.log("onMoveImport", moveId, moveText);
+    onModalScriptClose();
+    setMoves([...moves, {
+      id: moveId,
+      text: moveText,
+    }]);
   }
 
   return (
@@ -229,6 +242,7 @@ const RobotScript = () => {
           <div className="robot-script__add-col-title">
             Если:
           </div>
+          {triggers.map((triger) => <div>{triger.trigger_type}{triger.name}</div>)}
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,
@@ -243,6 +257,7 @@ const RobotScript = () => {
           <div className="robot-script__add-col-title">
             То:
           </div>
+          {moves.map((move) => <div>{move.id}{move.text}</div>)}
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,
@@ -268,14 +283,14 @@ const RobotScript = () => {
         </>
           ) : null*/}
       <ModalScript
-          onScriptChange={onScriptChange}
+          onTriggerSelect={onTriggerSelect}
           isOpen={isModalScriptOpen}
           onClose={onModalScriptClose}
       ></ModalScript>
       <ModalScriptAddMove
-          onScriptChange={onScriptChange}
           isOpen={isModalScriptAddMoveOpen}
           onClose={onModalScriptClose}
+          onMoveImport={onMoveImport}
       ></ModalScriptAddMove>
     </div>
   );

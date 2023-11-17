@@ -22,30 +22,95 @@ import classNames from "classnames";
 
 import "./ModalScript.scss";
 
-const ModalScript = ({onScriptChange, isOpen, onClose, easingStart}) => {
+const ModalScript = ({onTriggerSelect, isOpen, onClose, easingStart}) => {
   const isDay = useSelector((state) => state.isDay);
 
   const { request, loading } = useHttp();
   const [filteredItems, setFilteredItems] = useState([
-    {value: "time", title: "Время", ico: clock, icoNight: clockNight},
-    {value: "play", title: "Запуск системы", ico: power, icoNight: powerNight},
-    {value: "face", title: "Лицо", ico: face, icoNight: faceNight},
-    {value: "sign", title: "Жест", ico: sign, icoNight: signNight},
-    {value: "phrase", title: "Фраза", ico: phrase, icoNight: phraseNight},
+    {value: "time", title: "Время", ico: clock, icoNight: clockNight, triggerServer: {
+      "name": "Время",
+      "trigger_type": 0,
+      "busy": true,
+      "phrase": "string",
+      "face_encoding": "string",
+      "face": "string",
+      "gesture_landmarks": "string",
+      "time": "string",
+      "startup": true,
+      "week": 0,
+      "period": 1,
+      "number": 0
+    }},
+    {value: "play", title: "Запуск системы", ico: power, icoNight: powerNight, triggerServer: {
+      "name": "Запуск системы",
+      "trigger_type": 1,
+      "busy": true,
+      "phrase": "string",
+      "face_encoding": "string",
+      "face": "string",
+      "gesture_landmarks": "string",
+      "time": "string",
+      "startup": true,
+      "week": 0,
+      "period": 1,
+      "number": 0
+    }},
+    {value: "face", title: "Лицо", ico: face, icoNight: faceNight, triggerServer: {
+      "name": "Лицо",
+      "trigger_type": 2,
+      "busy": true,
+      "phrase": "string",
+      "face_encoding": "string",
+      "face": "string",
+      "gesture_landmarks": "string",
+      "time": "string",
+      "startup": true,
+      "week": 0,
+      "period": 1,
+      "number": 0
+    }},
+    {value: "sign", title: "Жест", ico: sign, icoNight: signNight, triggerServer: {
+      "name": "Жест",
+      "trigger_type": 3,
+      "busy": true,
+      "phrase": "string",
+      "face_encoding": "string",
+      "face": "string",
+      "gesture_landmarks": "string",
+      "time": "string",
+      "startup": true,
+      "week": 0,
+      "period": 1,
+      "number": 0
+    }},
+    {value: "phrase", title: "Фраза", ico: phrase, icoNight: phraseNight, triggerServer: {
+      "name": "Фраза",
+      "trigger_type": 4,
+      "busy": true,
+      "phrase": "string",
+      "face_encoding": "string",
+      "face": "string",
+      "gesture_landmarks": "string",
+      "time": "string",
+      "startup": true,
+      "week": 0,
+      "period": 1,
+      "number": 0
+    }},
   ]);
   // выбранные
-  const [selectedScript, setSelectedScript] = useState([]);
-  useEffect(() => {
-    onScriptChange(selectedScript);
-  }, [selectedScript]);
-  // устанавливаем начальное значение
-  useEffect(() => {
-    const selectedScript = filteredItems.find((script) => script.value === "face");
+  // const [selectedScript, setSelectedScript] = useState([]);
+  // useEffect(() => {
+  //   onTriggerSelect(selectedScript);
+  // }, [selectedScript]);
+  // // устанавливаем начальное значение
+  // useEffect(() => {
+  //   const selectedScript = filteredItems.find((script) => script.value === "face");
 
-    if (selectedScript) {
-      setSelectedScript([selectedScript]);
-    }
-  }, []);
+  //   if (selectedScript) {
+  //     setSelectedScript([selectedScript]);
+  //   }
+  // }, []);
 
   const handleModalClose = () => {
     onClose();
@@ -100,15 +165,16 @@ const ModalScript = ({onScriptChange, isOpen, onClose, easingStart}) => {
                     })}
                     onClick={() => {
                       // если скрипт уже выбран
-                      if (selectedScript.includes(item)) {
-                        let i = selectedScript.indexOf(item);
-                        selectedScript.splice(i, 1);
-                        setSelectedScript([...selectedScript]);
-                      } else {
-                        // добавляем не больше одного скрипта
-                        setSelectedScript([item]);
+                      // if (selectedScript.includes(item)) {
+                      //   let i = selectedScript.indexOf(item);
+                      //   selectedScript.splice(i, 1);
+                      //   setSelectedScript([...selectedScript]);
+                      // } else {
+                      //   // добавляем не больше одного скрипта
+                      //   setSelectedScript([item]);
 
-                      }
+                      // }
+                      onTriggerSelect(item);
                       // закрыть модальное окно
                       onClose();
                     }}
