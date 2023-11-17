@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useHttp } from "../hooks/http.hook";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import { toggleIsModalOpen, setIsMove } from "../store/actions";
 import MovesItem from "../components/MovesItem/MovesItem";
 import {codeGenerator} from "../utils/utils";
@@ -30,8 +30,25 @@ const RobotMoves = () => {
   const isDay = useSelector((state) => state.isDay);
   const { moveId } = useParams();
   const { request, loading, error, clearError } = useHttp();
-  const [inputValue, setInputValue] = useState("Новое движение");
+  const [inputValue, setInputValue] = useState("");
+  const [helperText, setHelperText] = useState("");
   const [items, setItems] = useState([]);
+
+    // получаем имя движения и id
+    useEffect(() => {
+      const fetchData = async () => {
+        const response = await request(`http://localhost:8000/api/move/${moveId}`);
+        const data = await response;
+        setInputValue(data.name);
+      };
+      // при редактировании движения так делать
+      if (moveId) {
+        fetchData();
+      } else {
+        setInputValue("Новое движение");
+      }
+    }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await request("http://localhost:8000/api/pose/");
@@ -43,6 +60,7 @@ const RobotMoves = () => {
   }, []);
   const inputRef = useRef(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const newValue = inputRef.current.value;
@@ -130,6 +148,33 @@ const RobotMoves = () => {
 
     return setItems(reorderedItems);
   }
+  //запрос на сохранение/перезапись имени и всех карточек движения(поз)
+  const handleSaveMove = async () => {
+    console.log(items);
+    const res = await request("http://localhost:8000/api/save_poses/", "post",
+    JSON.stringify({
+      id: moveId,
+      name: inputValue,
+      poses: items
+    }));
+    console.log("Сохранение движения")
+    navigate(-1);
+  }
+  const onMoveNameInput = async () => {
+    //console.log(inputRef.current.value)
+    //const newValue = inputRef.current.value;
+    //setInputValue(newValue);
+    const resInput = await request("http://localhost:8000/api/is_move_unique/", "post",
+    JSON.stringify({
+      name: inputRef.current.value,
+    }));
+    //console.log(resInput)
+    //console.log(resInput.unique)
+    (resInput.unique == false) ? setHelperText("Такое движение уже существует") : setHelperText("");
+    setInputValue(inputRef.current.value);
+    //inputRef.current.value = "";
+    //inputRef.current.readOnly = true; // Установка readOnly после отправки формы
+  }
   return (
     <div className="robotmoves">
       <div
@@ -153,29 +198,34 @@ const RobotMoves = () => {
             onSubmit={(e) => handleFormSubmit(e)}
             className="robotmoves__form"
           >
-            <input
-              className="robotmoves__input"
-              ref={inputRef} // Привязка рефа к инпуту
-              type="text"
-              placeholder={inputValue}
-              name="inputName"
-              id="inputName"
-              readOnly
-            />
-            <label
-              onClick={(e) => handleLabelClick(e)}
-              htmlFor="inputName"
-              className="robotmoves__edit"
-            >
-              <img src={isDay ? pen : penNight} alt="" />
-            </label>
+            <div className="robotmoves__form-container">
+              <input
+                className="robotmoves__input"
+                ref={inputRef} // Привязка рефа к инпуту
+                type="text"
+                placeholder={inputValue}
+                name="inputName"
+                id="inputName"
+                onInput={onMoveNameInput}
+                style={{width:`${inputValue.length*19 || 10}px`}}
+                //readOnly
+              />
+              <label
+                onClick={(e) => handleLabelClick(e)}
+                htmlFor="inputName"
+                className="robotmoves__edit"
+              >
+                <img src={isDay ? pen : penNight} alt="" />
+              </label>
+            </div>
+            <div className="robotmoves__name-helper-text">{helperText}</div>
           </form>
         </div>
         <div className="robotmoves__btns">
           <button className="robotmoves__btn" onClick={handlePlay}>
             <img src={isDay ? run : runNight} alt="Run" />
           </button>
-          <button className="robotmoves__btn">
+          <button className="robotmoves__btn" onClick={handleSaveMove}>
             <img src={isDay ? save : saveNight} alt="Save" />
           </button>
         </div>
@@ -192,7 +242,7 @@ const RobotMoves = () => {
                       <MovesItem
                         card={item}
                         moveId={item.move}
-                        key={item.id}//id
+                        key={item.id ? item.id : `new ${item.order}`}//id
                         id={item.id}
                         name={item.name}
                         l1={item.l1}
@@ -251,6 +301,7 @@ const RobotMoves = () => {
                 "robotmoves-add__btn--day": isDay,
                 "robotmoves-add__btn--night": !isDay,
               })}
+              onClick={handleSaveMove}
             >
               <img src={isDay ? save : saveNight} alt="save" /> Сохранить
             </button>

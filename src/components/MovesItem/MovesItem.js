@@ -1,8 +1,9 @@
 import { useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import classnames from "classnames";
 import Controler from "../Controler/Controler";
 import RobotAddSmt from "../RobotAddSmt/RobotAddSmt";
+import { toggleIsModalOpen, setIsMove } from "../../store/actions";
 
 import pen from "../../img/pen-day.svg";
 import penNight from "../../img/pen-night.svg";
@@ -93,7 +94,9 @@ const MovesItem = ({
   const inputRef = useRef(null);
   const isDay = useSelector((state) => state.isDay);
   const importMimic = useSelector((state) => state.importMimic);
-  console.log(importMimic)
+  const dispatch = useDispatch();
+  console.log(importMimic);
+
 
   const [delayValue, setDelayValue] = useState(delay);
   // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
@@ -232,6 +235,11 @@ const MovesItem = ({
       move: moveId,
       mimic: importMimic.id,
     });
+  };
+  const handleMimicOpen = (e) => {
+    e.preventDefault();
+    dispatch(setIsMove(false));
+    dispatch(toggleIsModalOpen());
   };
   return (
     <Draggable draggableId={order.toString()} index={index}>
@@ -652,6 +660,7 @@ const MovesItem = ({
                 "robotaddsmt--night": !isDay,
                 "robotaddsmt--day": isDay,
               })}
+              onClick={handleMimicOpen}
             >
               <EmotionIco />
               <h3
