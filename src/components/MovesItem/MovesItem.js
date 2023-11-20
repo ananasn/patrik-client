@@ -130,7 +130,7 @@ const MovesItem = ({
       delay: delayValue,
       order: order,
       move: moveId,
-      mimic: importMimic.id,
+      mimic: importMimic ? importMimic.id : null,
     });
   };
   const handleRobotPartChoice = (robotPart) => {
@@ -233,7 +233,7 @@ const MovesItem = ({
       delay: delayValue,
       order: order,
       move: moveId,
-      mimic: importMimic.id,
+      mimic: importMimic ? importMimic.id : null,
     });
   };
   const handleMimicOpen = (e) => {

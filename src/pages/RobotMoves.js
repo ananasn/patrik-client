@@ -55,6 +55,7 @@ const RobotMoves = () => {
       const data = await response;
       const result = await data.filter((item) => item.move == moveId);
       setItems(result);
+      console.log(result);
     };
     fetchData();
   }, []);
@@ -150,6 +151,7 @@ const RobotMoves = () => {
   }
   //запрос на сохранение/перезапись имени и всех карточек движения(поз)
   const handleSaveMove = async () => {
+    setItems(items.slice()) // чтобы стейт обновился нужен новый массив
     console.log(items);
     const res = await request("http://localhost:8000/api/save_poses/", "post",
     JSON.stringify({
@@ -200,7 +202,10 @@ const RobotMoves = () => {
           >
             <div className="robotmoves__form-container">
               <input
-                className="robotmoves__input"
+                className={classNames("robotmoves__input", {
+                  "robotmoves__input--day": isDay,
+                  "robotmoves__input--night": !isDay,
+                })}
                 ref={inputRef} // Привязка рефа к инпуту
                 type="text"
                 placeholder={inputValue}
@@ -242,8 +247,8 @@ const RobotMoves = () => {
                       <MovesItem
                         card={item}
                         moveId={item.move}
-                        key={item.id ? item.id : `new ${item.order}`}//id
-                        id={item.id}
+                        key={item.id}//id
+                        id={item.id}//id
                         name={item.name}
                         l1={item.l1}
                         l2={item.l2}
