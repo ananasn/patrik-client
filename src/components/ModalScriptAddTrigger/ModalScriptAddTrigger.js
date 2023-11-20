@@ -20,9 +20,9 @@ import phraseNight from "../../img/script-night/mic-night.svg"
 
 import classNames from "classnames";
 
-import "./ModalScript.scss";
+import "./ModalScriptAddTrigger.scss";
 
-const ModalScript = ({onTriggerSelect, isOpen, onClose, easingStart}) => {
+const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) => {
   const isDay = useSelector((state) => state.isDay);
 
   const { request, loading } = useHttp();
@@ -212,4 +212,4 @@ const ModalScript = ({onTriggerSelect, isOpen, onClose, easingStart}) => {
   );
 };
 
-export default ModalScript;
+export default ModalScriptAddTrigger;
