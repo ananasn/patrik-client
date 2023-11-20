@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 //import NavList from "../components/NavList/NavList";
 //import { toggleIsModalScriptOpen, setIsMove } from "../store/actions";
-import ModalScript from "../components/ModalScript/ModalScript";
+import ModalScriptAddTrigger from "../components/ModalScriptAddTrigger/ModalScriptAddTrigger";
 import ModalScriptAddMove from "../components/ModalScriptAddMove/ModalScriptAddMove";
 import ScriptItem from "../components/ScriptItem/ScriptItem";
 //import DelayTimer from "../components/DelayTimer/DelayTimer";
@@ -23,6 +23,9 @@ import save from "../img/save-day.svg";
 import saveNight from "../img/save-night.svg";
 import plus from "../img/plus-day.svg";
 import plusNight from "../img/plus-night.svg";
+import clock from "../img/script-day/clock.svg"
+import clockNight from "../img/script-night/clock-night.svg"
+
 //import importDay from "../img/import/import-day.svg";
 //import importNight from "../img/import/import-night.svg";
 
@@ -161,6 +164,12 @@ const RobotScript = () => {
     }]);
   }
 
+  // const onIconSelect = (triger) => {
+  //   if (triger.name = "Время") {
+  //     <img src={isDay ? clock : clockNight} alt="Face" />
+  //   }
+  // }
+
   return (
     <div className="robot-script">
       <div
@@ -242,7 +251,12 @@ const RobotScript = () => {
           <div className="robot-script__add-col-title">
             Если:
           </div>
-          {triggers.map((triger) => <div>{triger.trigger_type}{triger.name}</div>)}
+          {triggers.map((triger, triggerFromPopup, filteredItems, ico, icoNight) =>
+            <div>
+              {triger.name ? filteredItems.ico : filteredItems.icoNight}
+              {/* <img src={isDay ? triggerFromPopup.ico(triger.trigger_type) : triggerFromPopup.icoNight} alt="Face" /> */}
+              {triger.trigger_type}{triger.name}
+            </div>)}
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,
@@ -282,11 +296,11 @@ const RobotScript = () => {
           )}
         </>
           ) : null*/}
-      <ModalScript
+      <ModalScriptAddTrigger
           onTriggerSelect={onTriggerSelect}
           isOpen={isModalScriptOpen}
           onClose={onModalScriptClose}
-      ></ModalScript>
+      ></ModalScriptAddTrigger>
       <ModalScriptAddMove
           isOpen={isModalScriptAddMoveOpen}
           onClose={onModalScriptClose}
