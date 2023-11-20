@@ -2,7 +2,7 @@ import classnames from "classnames";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { toggleIsModalOpen } from "../../store/actions";
+import { toggleIsModalOpen, setImportMove } from "../../store/actions";
 
 import "./ListItem.scss";
 
@@ -24,6 +24,7 @@ const ListItem = ({
     console.log(id, 'run move');
   }
   const handleImportMoveData = () => {
+    dispatch(setImportMove({id: id, text: text}));
     console.log(id, text, "add import move");
     dispatch(toggleIsModalOpen());
   }
