@@ -39,8 +39,9 @@ const RobotAddSmt = ({ word, pharsa, handlePhrasaChange }) => {
       const inputValue = inputRef.current.value;
       setFormValue(inputValue);
       handlePhrasaChange(inputValue);
-      inputRef.current.value = "";
+
       setIsOpen(false);
+      inputRef.current.value = "";
     }
   };
   return (
