@@ -23,6 +23,10 @@ import save from "../img/save-day.svg";
 import saveNight from "../img/save-night.svg";
 import plus from "../img/plus-day.svg";
 import plusNight from "../img/plus-night.svg";
+import scriptMove from "../img/script-day/scriptMove.svg";
+import scriptMoveNight from "../img/script-night/scriptMove-night.svg";
+import deleteItem from "../img/movesItem/delete-day.svg";
+import deleteItemNight from "../img/movesItem/delete-night.svg";
 //import { ReactComponent as ClockIco } from "../img/script-day/clock.svg"
 //import clockNight from "../img/script-night/clock-night.svg"
 
@@ -41,6 +45,7 @@ const RobotScript = () => {
   const [isModalScriptAddMoveOpen, setIsModalScriptAddMoveOpen] = useState(false);
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [moves, setMoves] = useState([]);
   const [triggers, setTriggers] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -172,6 +177,17 @@ const RobotScript = () => {
     setButtonText(buttonText === 'или' ? 'и' : 'или');
   }
 
+  const deleteMove = async (moveId) => {
+    await fetch(`http://localhost:8000/api/move/${moveId}/`, {method:"DELETE"});
+
+    const fetchData = async () => {
+      const response = await request("http://localhost:8000/api/move/");
+      const data = await response;
+      dispatch(setMoves(data));
+    };
+    fetchData();
+  }
+
   // const onIconSelect = (triger) => {
   //   if (triger.name = "Время") {
   //     <img src={isDay ? clock : clockNight} alt="Face" />
@@ -290,7 +306,16 @@ const RobotScript = () => {
             То:
           </div>
           {moves.map((move) => <div className="robot-script__add-col-importedMoves">
-            {move.id}{move.text}
+            <div className={classNames("robot-script__add-col-importedMoves-move", {
+              "robot-script__add-col-importedMoves-move--day": isDay,
+              "robot-script__add-col-importedMoves-move--night": !isDay,
+            })}>
+              <img src={isDay ? scriptMove : scriptMoveNight} alt="Face" />
+              {move.id}{move.text}
+              <button className="robot-script__btnDlt" deleteMove={deleteMove}>
+                <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
+              </button>
+            </div>
             <button
               className={classNames("robot-script-add__btnILi", {
                 "robot-script-add__btnIli--day": isDay,

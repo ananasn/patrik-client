@@ -7,9 +7,9 @@ import closeDay from "../../img/movesItem/delete-day.svg";
 import closeNight from "../../img/movesItem/delete-night.svg";
 
 import scriptMove from "../../img/script-day/scriptMove.svg"
+import scriptMoveNight from "../../img/script-night/scriptMove-night.svg"
 import timer from "../../img/script-day/timer.svg"
 import { toggleIsModalOpen, setIsMove } from "../../store/actions";
-import scriptMoveNight from "../../img/script-night/scriptMove-night.svg"
 import timerNight from "../../img/script-night/timer-night.svg"
 import Modal from "../../components/Modal/Modal";
 
@@ -46,6 +46,11 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
   };
   const handleImport = () => {
     dispatch(setIsMove(true));
+    dispatch(toggleIsModalOpen());
+  };
+  // при клике на задержку в сценарии - открывается попап с задержкой
+  const handleDelay = () => {
+    //dispatch(setIsMove(true));
     dispatch(toggleIsModalOpen());
   };
 
@@ -99,13 +104,17 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
                     "modal-script-add-move__item--day": isDay,
                     "modal-script-add-move__item--night": !isDay,
                   })}
-                  onClick={() => {
-                    // закрыть модальное окно
-                    onClose();
-                  }}
+                  // onClick={() => {
+                  //   // закрыть модальное окно
+                  //   onClose();
+                  // }}
                 >
                   <img src={isDay ? timer : timerNight} alt="Face" />
-                  <div>Задержка</div>
+                  <div
+                    onClick={handleDelay}
+                  >
+                    Задержка
+                  </div>
                 </li>
               </>
               // filteredItems.map((item, id) => {
