@@ -8,6 +8,7 @@ import closeNight from "../../img/movesItem/delete-night.svg";
 
 import face from "../../img/script-day/face.svg"
 import clock from "../../img/script-day/clock.svg"
+import { ReactComponent as ClockIco } from "../../img/script-day/clock.svg"
 import power from "../../img/script-day/power.svg"
 import sign from "../../img/script-day/sign.svg"
 import phrase from "../../img/script-day/mic.svg"
