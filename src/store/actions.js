@@ -61,4 +61,11 @@ export const setScripts = (payload) => ({
 export const setImportMimic = (payload) => ({
   type: "SET_IMPORT_MIMIC",
   payload,
-})
+});
+
+export const setImportMove = (payload) => ({
+  type: "SET_IMPORT_MOVE",
+  payload,
+});
+
+

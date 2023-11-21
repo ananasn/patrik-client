@@ -4,7 +4,7 @@ import { useHttp } from "../hooks/http.hook";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch} from "react-redux";
-import { toggleIsModalOpen, setIsMove } from "../store/actions";
+import { toggleIsModalOpen, setIsMove, setImportMove } from "../store/actions";
 import MovesItem from "../components/MovesItem/MovesItem";
 import {codeGenerator} from "../utils/utils";
 //import DelayTimer from "../components/DelayTimer/DelayTimer";
@@ -33,6 +33,7 @@ const RobotMoves = () => {
   const [inputValue, setInputValue] = useState("");
   const [helperText, setHelperText] = useState("");
   const [items, setItems] = useState([]);
+  const [allMove, setAllMove] = useState([]);
 
     // получаем имя движения и id
     useEffect(() => {
@@ -55,6 +56,7 @@ const RobotMoves = () => {
       const data = await response;
       const result = await data.filter((item) => item.move == moveId);
       setItems(result);
+      setAllMove(data);
       console.log(result);
     };
     fetchData();
@@ -62,6 +64,7 @@ const RobotMoves = () => {
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const importMove = useSelector((state) => state.importMove);
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const newValue = inputRef.current.value;
@@ -151,7 +154,15 @@ const RobotMoves = () => {
   }
   //запрос на сохранение/перезапись имени и всех карточек движения(поз)
   const handleSaveMove = async () => {
-    setItems(items.slice()) // чтобы стейт обновился нужен новый массив
+    /*console.log(importMove, 'добавляем движ при сохранении', importMove.id);
+    if (importMove) {
+      const importItems = allMove.filter((item) => item.move == importMove.id);
+      console.log(allMove, allMove.move, importItems, importItems.poses);
+      console.log([...items, ...importItems]); //соединяем два массива
+      setItems([...items, ...importItems]);
+      //setItems(items.slice())
+    }*/
+     setItems(items.slice()) // чтобы стейт обновился нужен новый массив
     console.log(items);
     const res = await request("http://localhost:8000/api/save_poses/", "post",
     JSON.stringify({
@@ -159,7 +170,8 @@ const RobotMoves = () => {
       name: inputValue,
       poses: items
     }));
-    console.log("Сохранение движения")
+    console.log("Сохранение движения");
+    dispatch(setImportMove(null));
     navigate(-1);
   }
   const onMoveNameInput = async () => {
@@ -177,6 +189,16 @@ const RobotMoves = () => {
     //inputRef.current.value = "";
     //inputRef.current.readOnly = true; // Установка readOnly после отправки формы
   }
+  useEffect(() => {
+    //console.log(importMove, 'добавляем движ при сохранении', importMove.id);
+    if (importMove) {
+      const importItems = allMove.filter((item) => item.move == importMove.id);
+      console.log(allMove, allMove.move, importItems, importItems.poses);
+      console.log([...items, ...importItems]); //соединяем два массива
+      setItems([...items, ...importItems]);
+      //setItems(items.slice())
+    }
+  }, [importMove]);
   return (
     <div className="robotmoves">
       <div

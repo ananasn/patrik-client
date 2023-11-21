@@ -22,6 +22,7 @@ const initialState = {
   mimics: [],
   scripts: [],
   importMimic: null,
+  importMove: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -106,11 +107,16 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           scripts: action.payload,
         };
-        case "SET_IMPORT_MIMIC":
-          return {
-            ...state,
-            importMimic: action.payload,
-          };
+      case "SET_IMPORT_MIMIC":
+        return {
+          ...state,
+          importMimic: action.payload,
+        };
+      case "SET_IMPORT_MOVE":
+        return {
+          ...state,
+          importMove: action.payload,
+        };
 
     default:
       return state;
