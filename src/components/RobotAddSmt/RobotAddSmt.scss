@@ -50,6 +50,10 @@
     margin: 0px;
     transition: 0.3s all;
 
+    &--hidden {
+      display: none;
+    }
+
     &--day {
       color: $btns-day;
     }
