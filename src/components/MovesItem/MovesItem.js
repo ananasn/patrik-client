@@ -93,9 +93,11 @@ const MovesItem = ({
   const [showItem, setShowItem] = useState(true);
   const inputRef = useRef(null);
   const isDay = useSelector((state) => state.isDay);
-  const importMimic = useSelector((state) => state.importMimic);
+  const mimics = useSelector((state) => state.mimics);
+  const [importMimicName, setImportMimicName] = useState(null);
+  //const importMimic = useSelector((state) => state.importMimic);
   const dispatch = useDispatch();
-  console.log(importMimic);
+  //console.log(importMimic);
 
 
   const [delayValue, setDelayValue] = useState(delay);
@@ -130,33 +132,38 @@ const MovesItem = ({
       delay: delayValue,
       order: order,
       move: moveId,
-      mimic: importMimic ? importMimic.id : mimicData,
+      mimic: mimicData,
     });
   };
   //изменение карточки позы при выборе\изменении мимики
-  //const handleMimicChange = (importMimic) => {
-  //  setMimic(importMimic.id)
-  //saveFunc({
-  //  id: id,
-  //  name: inputValue,
-  //  l1: parseInt(l1Deg),
-  //  l2: parseInt(l2Deg),
-  //  l3: parseInt(l3Deg),
-  // l4: parseInt(l4Deg),
-  //  neck: parseInt(neckDeg),
-  //  head: parseInt(headDeg),
-  //  r1: parseInt(r1Deg),
-  //  r2: parseInt(r2Deg),
-  //  r3: parseInt(r3Deg),
-  //  r4: parseInt(r4Deg),
-  //  phrase: newPhrase,
-  //  delay: delayValue,
-  ///  order: order,
-  //  move: moveId,
-  //  mimic: mimicData,
-  //});
-    //dispatch(setImportMimic(null))
-  //}
+  const handleMimicChange = (importMimic) => {
+    //e.preventDefault();
+    //dispatch(setIsMove(false));
+    //dispatch(toggleIsModalOpen());
+
+    setMimic(importMimic.id);
+    setImportMimicName(importMimic.text);
+    saveFunc({
+      id: id,
+      name: inputValue,
+      l1: parseInt(l1Deg),
+      l2: parseInt(l2Deg),
+      l3: parseInt(l3Deg),
+      l4: parseInt(l4Deg),
+      neck: parseInt(neckDeg),
+      head: parseInt(headDeg),
+      r1: parseInt(r1Deg),
+      r2: parseInt(r2Deg),
+      r3: parseInt(r3Deg),
+      r4: parseInt(r4Deg),
+      phrase: phraseData,
+      delay: delayValue,
+      order: order,
+      move: moveId,
+      mimic: mimicData,
+    });
+  dispatch(setImportMimic(null))
+  }
   const handleRobotPartChoice = (robotPart) => {
     if (activeRobotPart === robotPart) {
       setActiveRobotPart(null);
@@ -257,7 +264,7 @@ const MovesItem = ({
       delay: delayValue,
       order: order,
       move: moveId,
-      mimic: importMimic ? importMimic.id : mimic,
+      mimic: mimicData,
     });
   };
   const handleMimicOpen = (e) => {
@@ -283,10 +290,15 @@ const MovesItem = ({
       delay: delayValue,
       order: order,
       move: moveId,
-      mimic: importMimic ? importMimic.id : mimicData,
+      mimic: mimicData,
     });
     //dispatch(setImportMimic(null))
-  }, [delayValue, inputValue])
+  }, [delayValue, inputValue]);
+  useEffect(() => {
+    const findMimic = mimics.filter((item) => item.id == mimicData.id);
+    setImportMimicName(findMimic.text);
+    console.log(importMimicName);
+  }, [mimicData])
   return (
     <Draggable draggableId={order.toString()} index={index}>
       {(provided) => (
@@ -700,7 +712,7 @@ const MovesItem = ({
           </div>
         </div>
         <div className="movesitem__footer">
-          {importMimic ? (
+          {mimicData ? (
             <button
               className={classnames("robotaddsmt", {
                 "robotaddsmt--night": !isDay,
@@ -715,13 +727,14 @@ const MovesItem = ({
                   "robotaddsmt__text--day": isDay,
                 })}
               >
-                {importMimic.text}
+                {mimicData}
+                {importMimicName}
               </h3>
             </button>
           ) :  (
             <RobotAddSmt
               word={"мимику"}
-              //handleMimicChange={handleMimicChange} //изменение мимики
+              handleMimicChange={handleMimicChange} //изменение мимики
             ></RobotAddSmt>
           )}
           <RobotAddSmt
