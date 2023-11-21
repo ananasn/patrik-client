@@ -23,8 +23,8 @@ import save from "../img/save-day.svg";
 import saveNight from "../img/save-night.svg";
 import plus from "../img/plus-day.svg";
 import plusNight from "../img/plus-night.svg";
-import clock from "../img/script-day/clock.svg"
-import clockNight from "../img/script-night/clock-night.svg"
+//import { ReactComponent as ClockIco } from "../img/script-day/clock.svg"
+//import clockNight from "../img/script-night/clock-night.svg"
 
 //import importDay from "../img/import/import-day.svg";
 //import importNight from "../img/import/import-night.svg";
@@ -43,6 +43,8 @@ const RobotScript = () => {
   const navigate = useNavigate();
   const [moves, setMoves] = useState([]);
   const [triggers, setTriggers] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [buttonText, setButtonText] = useState('или');
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
@@ -127,8 +129,9 @@ const RobotScript = () => {
   }
   // срабатывает, когда в попапе выбираем тригеры(условия)
   const onTriggerSelect = (triggerFromPopup) => {
-    console.log(triggerFromPopup);
+    //console.log(triggerFromPopup);
     setTriggers([...triggers, triggerFromPopup.triggerServer]);
+    setFilteredItems([...filteredItems, triggerFromPopup]);
 
   }
   const onModalScriptClose = () => {
@@ -138,7 +141,7 @@ const RobotScript = () => {
 
   const handlePlayScript = async () => {
     await fetch(`http://localhost:8000/api/run_script/${scriptId}/`, {method:"POST"});
-    console.log(scriptId, "run");
+    //console.log(scriptId, "run");
   }
 
   //запрос на сохранение/перезапись сценария
@@ -162,6 +165,11 @@ const RobotScript = () => {
       id: moveId,
       text: moveText,
     }]);
+  }
+
+  //меняем текст на кнопке ИЛИ\И по клику
+  const onBtnIliTextChange = () => {
+    setButtonText(buttonText === 'или' ? 'и' : 'или');
   }
 
   // const onIconSelect = (triger) => {
@@ -251,12 +259,22 @@ const RobotScript = () => {
           <div className="robot-script__add-col-title">
             Если:
           </div>
-          {triggers.map((triger, triggerFromPopup, filteredItems, ico, icoNight) =>
-            <div>
-              {triger.name ? filteredItems.ico : filteredItems.icoNight}
-              {/* <img src={isDay ? triggerFromPopup.ico(triger.trigger_type) : triggerFromPopup.icoNight} alt="Face" /> */}
-              {triger.trigger_type}{triger.name}
-            </div>)}
+          <div className="robot-script__add-col-trigger">
+            {filteredItems.map((item) =>
+              <div>
+                <img src={isDay ? item.ico : item.icoNight} alt="Face" />
+                {item.triggerServer.trigger_type}{item.triggerServer.name}
+                {item.triggerServer.trigger_type === 0 && <div>Для времени див</div>}
+                {item.triggerServer.trigger_type === 1 && <div>Для Запуск системы див</div>}
+                {item.triggerServer.trigger_type === 2 && <div>Для Лицо див</div>}
+                {item.triggerServer.trigger_type === 3 && <div>Для Жест див</div>}
+                {item.triggerServer.trigger_type === 4 && <div>Для Фраза див</div>}
+              </div>)}
+            {/* {triggers.map((triger) =>
+              <div>
+                {triger.trigger_type}{triger.name}
+              </div>)} */}
+          </div>
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,
@@ -271,7 +289,18 @@ const RobotScript = () => {
           <div className="robot-script__add-col-title">
             То:
           </div>
-          {moves.map((move) => <div>{move.id}{move.text}</div>)}
+          {moves.map((move) => <div className="robot-script__add-col-importedMoves">
+            {move.id}{move.text}
+            <button
+              className={classNames("robot-script-add__btnILi", {
+                "robot-script-add__btnIli--day": isDay,
+                "robot-script-add__btnIli--night": !isDay,
+              })}
+              onClick={onBtnIliTextChange}
+            >
+              {buttonText}
+            </button>
+          </div>)}
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,
