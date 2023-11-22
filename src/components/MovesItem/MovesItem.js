@@ -47,7 +47,7 @@ import robotArmNightActive from "../../img/robot-moves-night/robot-arm-night-act
 import robotHandNightActive from "../../img/robot-moves-night/robot-hand-night-active.svg";
 
 import {ReactComponent as PlusIco } from "../../img/plus.svg";
-import {ReactComponent as EmotionIco} from "../../img/icons/menu-day/mim.svg";
+//import {ReactComponent as EmotionIco} from "../../img/icons/menu-day/mim.svg";
 
 import "./MovesItem.scss";
 import { Draggable } from "react-beautiful-dnd";
@@ -93,8 +93,8 @@ const MovesItem = ({
   const [showItem, setShowItem] = useState(true);
   const inputRef = useRef(null);
   const isDay = useSelector((state) => state.isDay);
-  const mimics = useSelector((state) => state.mimics);
-  const [importMimicName, setImportMimicName] = useState(null);
+  //const mimics = useSelector((state) => state.mimics);
+  //const [importMimicName, setImportMimicName] = useState(null);
   //const importMimic = useSelector((state) => state.importMimic);
   const dispatch = useDispatch();
   //console.log(importMimic);
@@ -136,13 +136,13 @@ const MovesItem = ({
     });
   };
   //изменение карточки позы при выборе\изменении мимики
-  const handleMimicChange = (importMimic) => {
+  const handleMimicChange = (id) => {
     //e.preventDefault();
     //dispatch(setIsMove(false));
     //dispatch(toggleIsModalOpen());
 
-    setMimic(importMimic.id);
-    setImportMimicName(importMimic.text);
+    setMimic(id);
+    //setImportMimicName(text);
     saveFunc({
       id: id,
       name: inputValue,
@@ -267,11 +267,6 @@ const MovesItem = ({
       mimic: mimicData,
     });
   };
-  const handleMimicOpen = (e) => {
-    e.preventDefault();
-    dispatch(setIsMove(false));
-    dispatch(toggleIsModalOpen());
-  };
   useEffect(() => {
     saveFunc({
       id: id,
@@ -292,13 +287,15 @@ const MovesItem = ({
       move: moveId,
       mimic: mimicData,
     });
-    //dispatch(setImportMimic(null))
-  }, [delayValue, inputValue]);
-  useEffect(() => {
-    const findMimic = mimics.filter((item) => item.id == mimicData.id);
-    setImportMimicName(findMimic.text);
-    console.log(importMimicName);
-  }, [mimicData])
+    dispatch(setImportMimic(null));
+  }, [delayValue, inputValue, mimicData]);
+  /*useEffect(() => {
+    if (mimicData) {
+      const findMimic = mimics.filter((item) => item.id == mimicData.id);
+      setImportMimicName(findMimic.text);
+      console.log(importMimicName);
+    }
+  }, [mimicData])*/
   return (
     <Draggable draggableId={order.toString()} index={index}>
       {(provided) => (
@@ -712,7 +709,7 @@ const MovesItem = ({
           </div>
         </div>
         <div className="movesitem__footer">
-          {mimicData ? (
+          {/*mimicData ? (
             <button
               className={classnames("robotaddsmt", {
                 "robotaddsmt--night": !isDay,
@@ -731,12 +728,12 @@ const MovesItem = ({
                 {importMimicName}
               </h3>
             </button>
-          ) :  (
-            <RobotAddSmt
-              word={"мимику"}
-              handleMimicChange={handleMimicChange} //изменение мимики
-            ></RobotAddSmt>
-          )}
+          ) :  (          )*/}
+          <RobotAddSmt
+            word={"мимику"}
+            mimic={mimicData}
+            handleMimicChange={handleMimicChange} //изменение мимики
+          ></RobotAddSmt>
           <RobotAddSmt
             pharsa={phraseData}
             handlePhrasaChange={handlePhrasaChange}
