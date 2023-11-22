@@ -169,6 +169,7 @@ const RobotScript = () => {
   }
 
   const deleteMove = async (moveId) => {
+    //TODO
     // await fetch(`http://localhost:8000/api/move/${moveId}/`, {method:"DELETE"});
 
     // const fetchData = async () => {
@@ -177,7 +178,6 @@ const RobotScript = () => {
     //   dispatch(setMoves(data));
     // };
     // fetchData();
-    //TODO
   }
 
   const deleteTrigger = () => {
@@ -269,8 +269,15 @@ const RobotScript = () => {
             {filteredItems.map((item) =>
               <div className="robot-script__add-col-trigger-items">
                 <div className="robot-script__add-col-trigger-name">
-                  <img src={isDay ? item.ico : item.icoNight} alt="Face" />
-                  {item.triggerServer.name}
+                  <div
+                    className={classNames("robot-script__add-col-trigger-name-inner", {
+                      "robot-script__add-col-trigger-name-inner--day": isDay,
+                      "robot-script__add-col-trigger-name-inner--night": !isDay,
+                    })}
+                  >
+                    <img src={isDay ? item.ico : item.icoNight} alt="Face" />
+                    {item.triggerServer.name}
+                  </div>
                   <button className="robot-script__btnDlt" deleteTrigger={deleteTrigger}>
                     <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
                   </button>
@@ -280,6 +287,14 @@ const RobotScript = () => {
                 {item.triggerServer.trigger_type === 2 && <div>Для Лицо див</div>}
                 {item.triggerServer.trigger_type === 3 && <div>Для Жест див</div>}
                 {item.triggerServer.trigger_type === 4 && <div>Для Фраза див</div>}
+                <button
+                  className={classNames("robot-script-add__btnILi", {
+                    "robot-script-add__btnIli--day": isDay,
+                    "robot-script-add__btnIli--night": !isDay,
+                  })}
+                >
+                  или
+                </button>
               </div>)}
           </div>
           <button
@@ -301,8 +316,10 @@ const RobotScript = () => {
               "robot-script__add-col-importedMoves-move--day": isDay,
               "robot-script__add-col-importedMoves-move--night": !isDay,
             })}>
-              <img src={isDay ? scriptMove : scriptMoveNight} alt="Face" />
-              {move.id}{move.text}
+              <div className="robot-script__add-col-importedMoves-move-text">
+                <img src={isDay ? scriptMove : scriptMoveNight} alt="Face" />
+                {move.text}
+              </div>
               <button className="robot-script__btnDlt" deleteMove={deleteMove}>
                 <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
               </button>

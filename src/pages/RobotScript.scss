@@ -130,6 +130,11 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
     &-move {
       display: flex;
       width: 320px;
@@ -140,6 +145,10 @@
       img {
         width: 32px;
         height: 32px;
+      }
+      &-text {
+        display: flex;
+        gap: 8px;
       }
       &--day {
         color: $btns-day;
@@ -158,7 +167,29 @@
     flex-direction: column;
     &-name {
       display: flex;
-      gap: 8px;
+      margin: 0 16px 0;
+      justify-content: space-between;
+
+      &-inner {
+        display: flex;
+        gap: 8px;
+        font-family: Inter;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        img {
+          width: 32px;
+          height: 32px;
+        }
+        &--day {
+          color: $btns-day;
+        }
+
+        &--night {
+          color: $btns-night;
+        }
+      }
     }
     // &-name:second-child {
     //  margin-right: 30px;
