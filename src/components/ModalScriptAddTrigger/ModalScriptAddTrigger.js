@@ -99,37 +99,11 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
       "number": 0
     }},
   ]);
-  // выбранные
-  // const [selectedScript, setSelectedScript] = useState([]);
-  // useEffect(() => {
-  //   onTriggerSelect(selectedScript);
-  // }, [selectedScript]);
-  // // устанавливаем начальное значение
-  // useEffect(() => {
-  //   const selectedScript = filteredItems.find((script) => script.value === "face");
-
-  //   if (selectedScript) {
-  //     setSelectedScript([selectedScript]);
-  //   }
-  // }, []);
 
   const handleModalClose = () => {
     onClose();
   };
-  /*const onClick = () => {
-  // если скрипт уже выбран
-  if (selectedScript.includes(item)) {
-    let i = selectedScript.indexOf(item);
-      selectedScript.splice(i, 1);
-      setSelectedScript([...selectedScript]);
-  } else {
-  // добавляем не больше одного скрипта
-  setSelectedScript([item]);
 
-  }
-  // закрыть модальное окно
-  onClose();
-  };*/
   return (
     <div
       className={classNames("modal", {
@@ -165,16 +139,6 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
                       "modal-script__item--night": !isDay,
                     })}
                     onClick={() => {
-                      // если скрипт уже выбран
-                      // if (selectedScript.includes(item)) {
-                      //   let i = selectedScript.indexOf(item);
-                      //   selectedScript.splice(i, 1);
-                      //   setSelectedScript([...selectedScript]);
-                      // } else {
-                      //   // добавляем не больше одного скрипта
-                      //   setSelectedScript([item]);
-
-                      // }
                       onTriggerSelect(item);
                       // закрыть модальное окно
                       onClose();
@@ -183,26 +147,6 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
                     <img src={isDay ? item.ico : item.icoNight} alt="Face" />
                     <div>{item.title}</div>
                   </li>
-                  /*<ListItem
-                    text={item.title}
-                    id={item.id}
-                    key={id}
-                    isModal={true}
-                    onClick={() => {
-                      // если скрипт уже выбран
-                      if (selectedScript.includes(item)) {
-                        let i = selectedScript.indexOf(item);
-                        selectedScript.splice(i, 1);
-                        setSelectedScript([...selectedScript]);
-                      } else {
-                        // добавляем не больше одного скрипта
-                        setSelectedScript([item]);
-
-                      }
-                      // закрыть модальное окно
-                      onClose();
-                    }}
-                  ></ListItem>*/
                 );
               })
             )}

@@ -217,22 +217,12 @@
       background-color: $bars-day;
       color: $btns-day;
     }
-    // &--day:last-child {
-    //   display: none;
-    // }
     &--night {
       border: 1px solid $robot-move-night;
       border-radius: 32px;
       margin-bottom: 8px;
       background-color: rgba(222, 248, 252, 0.10);
       color: $btns-night;
-    }
-    // img {
-    //   max-width: 32px;
-    //   max-height: 32px;
-    // }
-    &:last-child {
-      display: none;
     }
   }
 }

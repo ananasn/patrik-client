@@ -5,18 +5,14 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-//import NavList from "../components/NavList/NavList";
-//import { toggleIsModalScriptOpen, setIsMove } from "../store/actions";
 import ModalScriptAddTrigger from "../components/ModalScriptAddTrigger/ModalScriptAddTrigger";
 import ModalScriptAddMove from "../components/ModalScriptAddMove/ModalScriptAddMove";
 import ScriptItem from "../components/ScriptItem/ScriptItem";
-//import DelayTimer from "../components/DelayTimer/DelayTimer";
 
 import back from "../img/icons/menu-day/back-day.svg";
 import backNight from "../img/icons/menu-night/back-night.svg";
 import pen from "../img/pen-day.svg";
 import penNight from "../img/pen-night.svg";
-
 import run from "../img/play-day.svg";
 import runNight from "../img/play-night.svg";
 import save from "../img/save-day.svg";
@@ -27,11 +23,6 @@ import scriptMove from "../img/script-day/scriptMove.svg";
 import scriptMoveNight from "../img/script-night/scriptMove-night.svg";
 import deleteItem from "../img/movesItem/delete-day.svg";
 import deleteItemNight from "../img/movesItem/delete-night.svg";
-//import { ReactComponent as ClockIco } from "../img/script-day/clock.svg"
-//import clockNight from "../img/script-night/clock-night.svg"
-
-//import importDay from "../img/import/import-day.svg";
-//import importNight from "../img/import/import-night.svg";
 
 import "./RobotScript.scss";
 
@@ -188,12 +179,6 @@ const RobotScript = () => {
     fetchData();
   }
 
-  // const onIconSelect = (triger) => {
-  //   if (triger.name = "Время") {
-  //     <img src={isDay ? clock : clockNight} alt="Face" />
-  //   }
-  // }
-
   return (
     <div className="robot-script">
       <div
@@ -279,17 +264,13 @@ const RobotScript = () => {
             {filteredItems.map((item) =>
               <div>
                 <img src={isDay ? item.ico : item.icoNight} alt="Face" />
-                {item.triggerServer.trigger_type}{item.triggerServer.name}
+                {item.triggerServer.name}
                 {item.triggerServer.trigger_type === 0 && <div>Для времени див</div>}
                 {item.triggerServer.trigger_type === 1 && <div>Для Запуск системы див</div>}
                 {item.triggerServer.trigger_type === 2 && <div>Для Лицо див</div>}
                 {item.triggerServer.trigger_type === 3 && <div>Для Жест див</div>}
                 {item.triggerServer.trigger_type === 4 && <div>Для Фраза див</div>}
               </div>)}
-            {/* {triggers.map((triger) =>
-              <div>
-                {triger.trigger_type}{triger.name}
-              </div>)} */}
           </div>
           <button
             className={classNames("robot-script-add__btn", {
@@ -337,19 +318,6 @@ const RobotScript = () => {
           </button>
         </div>
       </div>
-      {/*isTablet ? (
-        <>
-          {isDay ? (
-            <div className="App__bottom">
-              <NavList></NavList>
-            </div>
-          ) : (
-            <div className="App__bottom--night">
-              <NavList></NavList>
-            </div>
-          )}
-        </>
-          ) : null*/}
       <ModalScriptAddTrigger
           onTriggerSelect={onTriggerSelect}
           isOpen={isModalScriptOpen}
