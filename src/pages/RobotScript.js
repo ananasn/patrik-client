@@ -169,14 +169,19 @@ const RobotScript = () => {
   }
 
   const deleteMove = async (moveId) => {
-    await fetch(`http://localhost:8000/api/move/${moveId}/`, {method:"DELETE"});
+    // await fetch(`http://localhost:8000/api/move/${moveId}/`, {method:"DELETE"});
 
-    const fetchData = async () => {
-      const response = await request("http://localhost:8000/api/move/");
-      const data = await response;
-      dispatch(setMoves(data));
-    };
-    fetchData();
+    // const fetchData = async () => {
+    //   const response = await request("http://localhost:8000/api/move/");
+    //   const data = await response;
+    //   dispatch(setMoves(data));
+    // };
+    // fetchData();
+    //TODO
+  }
+
+  const deleteTrigger = () => {
+    //TODO
   }
 
   return (
@@ -262,9 +267,14 @@ const RobotScript = () => {
           </div>
           <div className="robot-script__add-col-trigger">
             {filteredItems.map((item) =>
-              <div>
-                <img src={isDay ? item.ico : item.icoNight} alt="Face" />
-                {item.triggerServer.name}
+              <div className="robot-script__add-col-trigger-items">
+                <div className="robot-script__add-col-trigger-name">
+                  <img src={isDay ? item.ico : item.icoNight} alt="Face" />
+                  {item.triggerServer.name}
+                  <button className="robot-script__btnDlt" deleteTrigger={deleteTrigger}>
+                    <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
+                  </button>
+                </div>
                 {item.triggerServer.trigger_type === 0 && <div>Для времени див</div>}
                 {item.triggerServer.trigger_type === 1 && <div>Для Запуск системы див</div>}
                 {item.triggerServer.trigger_type === 2 && <div>Для Лицо див</div>}

@@ -156,6 +156,13 @@
   &__add-col-trigger {
     display: flex;
     flex-direction: column;
+    &-name {
+      display: flex;
+      gap: 8px;
+    }
+    // &-name:second-child {
+    //  margin-right: 30px;
+    // }
   }
   &-add__btn {
     display: flex;
