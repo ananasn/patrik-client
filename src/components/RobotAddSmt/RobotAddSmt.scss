@@ -85,6 +85,12 @@
       color: rgba(255, 255, 255, 0.50);
     }
   }
+  &__mimic-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto;
+  }
 }
 
 .robotaddsmt--day {
