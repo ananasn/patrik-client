@@ -1,0 +1,145 @@
+.update {
+  margin-top: 32%;
+  margin-left: 120px;
+  margin-bottom: 40px;
+  text-align: left;
+
+  svg {
+    width: 80px;
+    height: 80px;
+  }
+
+  &_day {
+    fill: #1E85FF;
+  }
+  &_night {
+    fill: #DEF8FC;
+  }
+}
+
+.update__title {
+  margin-top: 40px;
+  margin-bottom: 12px;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.update__version{
+  margin: 0;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  &_day {
+    color: rgba(16, 20, 32, 0.50);
+  }
+
+  &_night {
+    color: rgba(255, 255, 255, 0.50);
+  }
+}
+
+.update__description {
+  margin-top: 40px;
+  margin-bottom: 64px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.update__buttons-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.update__button {
+  display: flex;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s all;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &_day {
+    color: #1E85FF;
+    background-color: transparent;
+  }
+
+  &_night {
+    color: #DEF8FC;
+    background-color: transparent;
+  }
+}
+
+.update__button_colored {
+  display: flex;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s all;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &_day {
+    color: #ffffff;
+    background-color: #1E85FF;
+  }
+
+  &_night {
+    color: #101420;
+    background-color: #DEF8FC;
+  }
+}
+
+@media (max-width: 850px) {
+  .update {
+    margin-left: 65px;
+    margin-right: 65px;
+    text-align: center;
+  }
+  .update__buttons-container {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 650px) {
+  .update {
+    margin-left: 26px;
+    margin-right: 26px;
+  }
+
+  .update__title {
+    font-size: 32px;
+    line-height: normal;
+  }
+
+  .update__buttons-container {
+    flex-wrap: wrap;
+  }
+}
