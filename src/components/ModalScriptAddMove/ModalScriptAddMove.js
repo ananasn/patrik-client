@@ -12,6 +12,7 @@ import timer from "../../img/script-day/timer.svg"
 import { toggleIsModalOpen, setIsMove } from "../../store/actions";
 import timerNight from "../../img/script-night/timer-night.svg"
 import Modal from "../../components/Modal/Modal";
+import ModalScriptAddTimeout from "../../components/ModalScriptAddTimeout/ModalScriptAddTimeout";
 
 
 import classNames from "classnames";
@@ -26,32 +27,21 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
     {value: "scriptMove", title: "Движение", ico: scriptMove, icoNight: scriptMoveNight},
     {value: "timer", title: "Задержка", ico: timer, icoNight: timerNight},
   ]);
-  // выбранные
-  //const [selectedScript, setSelectedScript] = useState([]);
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   onScriptChange(selectedScript);
-  // }, [selectedScript]);
-  // устанавливаем начальное значение
-  // useEffect(() => {
-  //   const selectedScript = filteredItems.find((script) => script.value === "face");
 
-  //   if (selectedScript) {
-  //     setSelectedScript([selectedScript]);
-  //   }
-  // }, []);
+  const dispatch = useDispatch();
 
   const handleModalClose = () => {
     onClose();
   };
+  const [isAddTimeOutOpen, setIsAddTimeOutOpen] = useState(false);
+
   const handleImport = () => {
     dispatch(setIsMove(true));
     dispatch(toggleIsModalOpen());
   };
-  // при клике на задержку в сценарии - открывается попап с задержкой
+
   const handleDelay = () => {
-    //dispatch(setIsMove(true));
-    dispatch(toggleIsModalOpen());
+    setIsAddTimeOutOpen(true);
   };
 
   return (
@@ -87,10 +77,6 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
                     "modal-script-add-move__item--day": isDay,
                     "modal-script-add-move__item--night": !isDay,
                   })}
-                  // onClick={() => {
-                  //   // закрыть модальное окно
-                  //   onClose();
-                  // }}
                 >
                   <img src={isDay ? scriptMove : scriptMoveNight} alt="Face" />
                   <div
@@ -104,10 +90,6 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
                     "modal-script-add-move__item--day": isDay,
                     "modal-script-add-move__item--night": !isDay,
                   })}
-                  // onClick={() => {
-                  //   // закрыть модальное окно
-                  //   onClose();
-                  // }}
                 >
                   <img src={isDay ? timer : timerNight} alt="Face" />
                   <div
@@ -117,33 +99,6 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
                   </div>
                 </li>
               </>
-              // filteredItems.map((item, id) => {
-              //   return (
-              //     <li
-              //       className={classNames("modal-script-add-move__item", {
-              //         "modal-script-add-move__item--day": isDay,
-              //         "modal-script-add-move__item--night": !isDay,
-              //       })}
-              //       onClick={() => {
-              //         // если скрипт уже выбран
-              //         if (selectedScript.includes(item)) {
-              //           let i = selectedScript.indexOf(item);
-              //           selectedScript.splice(i, 1);
-              //           setSelectedScript([...selectedScript]);
-              //         } else {
-              //           // добавляем не больше одного скрипта
-              //           setSelectedScript([item]);
-
-              //         }
-              //         // закрыть модальное окно
-              //         onClose();
-              //       }}
-              //     >
-              //       <img src={isDay ? item.ico : item.icoNight} alt="Face" />
-              //       <div>{item.title}1</div>
-              //     </li>
-              //   );
-              // })
             )}
           </ul>
         </div>
@@ -151,6 +106,7 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
       <Modal
         onMoveImport={onMoveImport}
       ></Modal>
+      <ModalScriptAddTimeout isOpen={isAddTimeOutOpen} onClose={() => {setIsAddTimeOutOpen(false); onClose()}}></ModalScriptAddTimeout>
     </div>
   );
 };
