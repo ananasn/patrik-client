@@ -95,7 +95,7 @@ const MovesItem = ({
   const isDay = useSelector((state) => state.isDay);
   //const mimics = useSelector((state) => state.mimics);
   //const [importMimicName, setImportMimicName] = useState(null);
-  //const importMimic = useSelector((state) => state.importMimic);
+  const importMimic = useSelector((state) => state.importMimic);
   const dispatch = useDispatch();
   //console.log(importMimic);
 
@@ -141,7 +141,8 @@ const MovesItem = ({
     //dispatch(setIsMove(false));
     //dispatch(toggleIsModalOpen());
 
-    setMimic(id);
+    //setMimic(id);
+    console.log(id, importMimic, mimicData, 'before save')
     //setImportMimicName(text);
     saveFunc({
       id: id,
@@ -160,7 +161,7 @@ const MovesItem = ({
       delay: delayValue,
       order: order,
       move: moveId,
-      mimic: mimicData,
+      mimic: importMimic ? importMimic.id : mimic,
     });
   dispatch(setImportMimic(null))
   }
@@ -268,6 +269,8 @@ const MovesItem = ({
     });
   };
   useEffect(() => {
+    //setMimic(importMimic ? importMimic.id : mimicData)
+    console.log("before save 2", mimicData)
     saveFunc({
       id: id,
       name: inputValue,
@@ -287,8 +290,8 @@ const MovesItem = ({
       move: moveId,
       mimic: mimicData,
     });
-    dispatch(setImportMimic(null));
-  }, [delayValue, inputValue, mimicData]);
+    //dispatch(setImportMimic(null));
+  }, [delayValue, inputValue, mimicData, importMimic]);
   /*useEffect(() => {
     if (mimicData) {
       const findMimic = mimics.filter((item) => item.id == mimicData.id);
@@ -327,6 +330,7 @@ const MovesItem = ({
                   "movesitem__input--night": !isDay,
                 })}
                 ref={inputRef}
+                style={{width:`${inputValue.length*19 || 10}px`}}
               />
               <label onClick={(e) => handlePenClick(e)} htmlFor="movename">
                 <img src={isDay ? pen : penNight} alt="Pen" />

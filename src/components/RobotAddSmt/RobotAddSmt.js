@@ -48,7 +48,9 @@ const RobotAddSmt = ({ word, pharsa, handlePhrasaChange, mimic, handleMimicChang
       setIsMimic(false);
     }
     setIsMimic(true);
-    if (importMimic) {
+    handleMimicChange(addMimic);
+    console.log(addMimic, "handleMimicChange")
+    /*if (importMimic) {
       console.log("import mim exist");
       setAddMimic(importMimic.id);
       handleMimicChange(importMimic.id);
@@ -60,7 +62,7 @@ const RobotAddSmt = ({ word, pharsa, handlePhrasaChange, mimic, handleMimicChang
     //dispatch(setImportMimic(null));
 
     //const findMimic = mimics.filter((item) => item.id == mimic);
-    setImportMimicName(importMimic ? importMimic.text : null);
+    setImportMimicName(importMimic ? importMimic.text : null);*/
     console.log(importMimicName)
   };
   const handleSubmit = (e) => {
@@ -75,12 +77,16 @@ const RobotAddSmt = ({ word, pharsa, handlePhrasaChange, mimic, handleMimicChang
     }
   };
   useEffect(() => {
-    const findMimic = mimics.filter((item) => item.id == mimic);
-    setImportMimicName(findMimic.name);
-
-    setImportMimicName(importMimicName);
-    setAddMimic(addMimic);
-  }, [addMimic, importMimicName, mimic, importMimic, mimics]);
+    //const findMimic = mimics.filter((item) => item.id == mimic);
+    //setImportMimicName(findMimic.name);
+    /*if (importMimic) {
+      setImportMimicName(importMimicName);
+      setAddMimic(addMimic);
+    }*/
+    setImportMimicName(importMimic ? importMimic.text : mimics.filter((item) => item.id == mimic).name);
+    setAddMimic(importMimic ? importMimic.id : mimic);
+    //handleMimicChange(addMimic);
+  }, [addMimic, importMimicName, mimic, importMimic, mimics, handleMimicChange]);
   return (
     <button
       onClick={
