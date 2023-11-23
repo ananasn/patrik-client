@@ -135,6 +135,11 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    &:last-child {
+      .robot-script-add__btnILi {
+        display: none;
+      }
+    }
     &-move {
       display: flex;
       width: 320px;
@@ -191,9 +196,6 @@
         }
       }
     }
-    // &-name:second-child {
-    //  margin-right: 30px;
-    // }
   }
   &-add__btn {
     display: flex;

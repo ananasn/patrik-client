@@ -168,20 +168,15 @@ const RobotScript = () => {
     setButtonText(buttonText === 'или' ? 'и' : 'или');
   }
 
-  const deleteMove = async (moveId) => {
-    //TODO
-    // await fetch(`http://localhost:8000/api/move/${moveId}/`, {method:"DELETE"});
-
-    // const fetchData = async () => {
-    //   const response = await request("http://localhost:8000/api/move/");
-    //   const data = await response;
-    //   dispatch(setMoves(data));
-    // };
-    // fetchData();
+  const deleteMove = (move) => {
+    let index = moves.indexOf(move);
+    setMoves([...moves.slice(0, index), ...moves.slice(index + 1)]);
   }
 
-  const deleteTrigger = () => {
-    //TODO
+  const deleteTrigger = (item) => {
+    console.log("triger delete");
+    let index = filteredItems.indexOf(item);
+    setFilteredItems([...filteredItems.slice(0, index), ...filteredItems.slice(index + 1)]);
   }
 
   return (
@@ -278,7 +273,7 @@ const RobotScript = () => {
                     <img src={isDay ? item.ico : item.icoNight} alt="Face" />
                     {item.triggerServer.name}
                   </div>
-                  <button className="robot-script__btnDlt" deleteTrigger={deleteTrigger}>
+                  <button className="robot-script__btnDlt" onClick={() => deleteTrigger(item)}>
                     <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
                   </button>
                 </div>
@@ -311,29 +306,31 @@ const RobotScript = () => {
           <div className="robot-script__add-col-title">
             То:
           </div>
-          {moves.map((move) => <div className="robot-script__add-col-importedMoves">
-            <div className={classNames("robot-script__add-col-importedMoves-move", {
-              "robot-script__add-col-importedMoves-move--day": isDay,
-              "robot-script__add-col-importedMoves-move--night": !isDay,
-            })}>
-              <div className="robot-script__add-col-importedMoves-move-text">
-                <img src={isDay ? scriptMove : scriptMoveNight} alt="Face" />
-                {move.text}
+          <div className="robot-script__add-col-importedMovesWraper">
+            {moves.map((move) => <div className="robot-script__add-col-importedMoves">
+              <div className={classNames("robot-script__add-col-importedMoves-move", {
+                "robot-script__add-col-importedMoves-move--day": isDay,
+                "robot-script__add-col-importedMoves-move--night": !isDay,
+              })}>
+                <div className="robot-script__add-col-importedMoves-move-text">
+                  <img src={isDay ? scriptMove : scriptMoveNight} alt="Face" />
+                  {move.text}
+                </div>
+                <button className="robot-script__btnDlt"onClick={() => deleteMove(move)}>
+                  <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
+                </button>
               </div>
-              <button className="robot-script__btnDlt" deleteMove={deleteMove}>
-                <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
+              <button
+                className={classNames("robot-script-add__btnILi", {
+                  "robot-script-add__btnIli--day": isDay,
+                  "robot-script-add__btnIli--night": !isDay,
+                })}
+                onClick={onBtnIliTextChange}
+              >
+                {buttonText}
               </button>
-            </div>
-            <button
-              className={classNames("robot-script-add__btnILi", {
-                "robot-script-add__btnIli--day": isDay,
-                "robot-script-add__btnIli--night": !isDay,
-              })}
-              onClick={onBtnIliTextChange}
-            >
-              {buttonText}
-            </button>
-          </div>)}
+            </div>)}
+          </div>
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,

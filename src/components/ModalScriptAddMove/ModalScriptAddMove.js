@@ -12,6 +12,7 @@ import timer from "../../img/script-day/timer.svg"
 import { toggleIsModalOpen, setIsMove } from "../../store/actions";
 import timerNight from "../../img/script-night/timer-night.svg"
 import Modal from "../../components/Modal/Modal";
+import ModalScriptAddTimeout from "../../components/ModalScriptAddTimeout/ModalScriptAddTimeout";
 
 
 import classNames from "classnames";
@@ -32,13 +33,15 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
   const handleModalClose = () => {
     onClose();
   };
+  const [isAddTimeOutOpen, setIsAddTimeOutOpen] = useState(false);
+
   const handleImport = () => {
     dispatch(setIsMove(true));
     dispatch(toggleIsModalOpen());
   };
-  //TODO при клике на задержку в сценарии - открывается попап с задержкой
-  const handleDelay = () => {
 
+  const handleDelay = () => {
+    setIsAddTimeOutOpen(true);
   };
 
   return (
@@ -103,6 +106,7 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
       <Modal
         onMoveImport={onMoveImport}
       ></Modal>
+      <ModalScriptAddTimeout isOpen={isAddTimeOutOpen} onClose={() => {setIsAddTimeOutOpen(false); onClose()}}></ModalScriptAddTimeout>
     </div>
   );
 };
