@@ -147,6 +147,7 @@
       justify-content: center;
       align-items: center;
       border-radius: 8px;
+      //width: 100%;
       img {
         width: 32px;
         height: 32px;
@@ -207,7 +208,7 @@
     width: 319px;
     padding: 16px 26px;
     text-align: center;
-
+    margin-top: 8px;
     outline: none;
     border-radius: 8px;
     cursor: pointer;
