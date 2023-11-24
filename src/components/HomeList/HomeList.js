@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import classnames from "classnames";
 
@@ -9,11 +9,11 @@ import "./HomeList.scss"; // Подключение стилей
 
 const HomeList = ({ title, items }) => {
   const isDay = useSelector((state) => state.isDay);
-
+  console.log(items)
   const [filteredItems, setFilteredItems] = useState(items); // Локальное состояние для фильтрованных элементов
   const handleSearch = (searchTerm) => {
     const filtered = items.filter((item) =>
-      item.text.toLowerCase().includes(searchTerm.toLowerCase())
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredItems(filtered);
   };
@@ -36,7 +36,7 @@ const HomeList = ({ title, items }) => {
               })}
               key={idx}
             >
-              <p className="home-list__text">{item.text}</p>
+              <p className="home-list__text">{item.name}</p>
               <button
                 className={classnames("home-list__btn", {
                   "home-list__btn_day": isDay,
