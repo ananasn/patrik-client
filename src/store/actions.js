@@ -68,4 +68,9 @@ export const setImportMove = (payload) => ({
   payload,
 });
 
+export const setUpdate = (payload) => ({
+  type: "SET_UPDATE",
+  payload,
+});
+
 

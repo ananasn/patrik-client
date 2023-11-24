@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
 import {ReactComponent as UpdateIco} from "../img/icons/menu-day/update.svg";
@@ -7,7 +6,7 @@ import "./Update.scss";
 
 const Update = () => {
   const isDay = useSelector((state) => state.isDay);
-  const [isUpdate, setIsUpdate] = useState(false);
+  const update = useSelector((state) => state.update);
   return (
     <div
       className={classNames("update", {
@@ -22,7 +21,7 @@ const Update = () => {
           update__title_night: !isDay,
         })}
       >
-        {isUpdate ? "Доступно обновление" : "У вас последняя версия ПО"}
+        {update.isUpdate ? "Доступно обновление" : "У вас последняя версия ПО"}
       </h2>
       <p
         className={classNames("update__version", {
@@ -30,12 +29,12 @@ const Update = () => {
           update__version_night: !isDay,
         })}
       >
-        версия 3.33.9
+        {update.updateVersion}
       </p>
-      {isUpdate ? (
+      {update.isUpdate ? (
         <p className="update__description">В новой версии доступны трали вали и прочие чудеса</p>
       ): null}
-      {isUpdate ? (
+      {update.isUpdate ? (
         <div className="update__buttons-container">
           <button
             className={classNames("update__button_colored", {
