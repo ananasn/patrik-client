@@ -21,9 +21,9 @@ import phraseNight from "../../img/script-night/mic-night.svg"
 
 import classNames from "classnames";
 
-import "./ModalScriptAddTrigger.scss";
-
-const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) => {
+import "./ModalScriptAddTimeout.scss";
+//TODO ModalScriptAddTimeout верстку
+const ModalScriptAddTimeout = ({onTriggerSelect, isOpen, onClose, easingStart}) => {
   const isDay = useSelector((state) => state.isDay);
 
   const { request, loading } = useHttp();
@@ -157,4 +157,4 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
   );
 };
 
-export default ModalScriptAddTrigger;
+export default ModalScriptAddTimeout;

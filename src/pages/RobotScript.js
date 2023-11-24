@@ -5,29 +5,24 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
-//import NavList from "../components/NavList/NavList";
-//import { toggleIsModalScriptOpen, setIsMove } from "../store/actions";
 import ModalScriptAddTrigger from "../components/ModalScriptAddTrigger/ModalScriptAddTrigger";
 import ModalScriptAddMove from "../components/ModalScriptAddMove/ModalScriptAddMove";
 import ScriptItem from "../components/ScriptItem/ScriptItem";
-//import DelayTimer from "../components/DelayTimer/DelayTimer";
 
 import back from "../img/icons/menu-day/back-day.svg";
 import backNight from "../img/icons/menu-night/back-night.svg";
 import pen from "../img/pen-day.svg";
 import penNight from "../img/pen-night.svg";
-
 import run from "../img/play-day.svg";
 import runNight from "../img/play-night.svg";
 import save from "../img/save-day.svg";
 import saveNight from "../img/save-night.svg";
 import plus from "../img/plus-day.svg";
 import plusNight from "../img/plus-night.svg";
-import clock from "../img/script-day/clock.svg"
-import clockNight from "../img/script-night/clock-night.svg"
-
-//import importDay from "../img/import/import-day.svg";
-//import importNight from "../img/import/import-night.svg";
+import scriptMove from "../img/script-day/scriptMove.svg";
+import scriptMoveNight from "../img/script-night/scriptMove-night.svg";
+import deleteItem from "../img/movesItem/delete-day.svg";
+import deleteItemNight from "../img/movesItem/delete-night.svg";
 
 import "./RobotScript.scss";
 
@@ -41,8 +36,11 @@ const RobotScript = () => {
   const [isModalScriptAddMoveOpen, setIsModalScriptAddMoveOpen] = useState(false);
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [moves, setMoves] = useState([]);
   const [triggers, setTriggers] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [buttonText, setButtonText] = useState('или');
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
@@ -127,8 +125,9 @@ const RobotScript = () => {
   }
   // срабатывает, когда в попапе выбираем тригеры(условия)
   const onTriggerSelect = (triggerFromPopup) => {
-    console.log(triggerFromPopup);
+    //console.log(triggerFromPopup);
     setTriggers([...triggers, triggerFromPopup.triggerServer]);
+    setFilteredItems([...filteredItems, triggerFromPopup]);
 
   }
   const onModalScriptClose = () => {
@@ -138,7 +137,7 @@ const RobotScript = () => {
 
   const handlePlayScript = async () => {
     await fetch(`http://localhost:8000/api/run_script/${scriptId}/`, {method:"POST"});
-    console.log(scriptId, "run");
+    //console.log(scriptId, "run");
   }
 
   //запрос на сохранение/перезапись сценария
@@ -164,11 +163,21 @@ const RobotScript = () => {
     }]);
   }
 
-  // const onIconSelect = (triger) => {
-  //   if (triger.name = "Время") {
-  //     <img src={isDay ? clock : clockNight} alt="Face" />
-  //   }
-  // }
+  //меняем текст на кнопке ИЛИ\И по клику
+  const onBtnIliTextChange = () => {
+    setButtonText(buttonText === 'или' ? 'и' : 'или');
+  }
+
+  const deleteMove = (move) => {
+    let index = moves.indexOf(move);
+    setMoves([...moves.slice(0, index), ...moves.slice(index + 1)]);
+  }
+
+  const deleteTrigger = (item) => {
+    console.log("triger delete");
+    let index = filteredItems.indexOf(item);
+    setFilteredItems([...filteredItems.slice(0, index), ...filteredItems.slice(index + 1)]);
+  }
 
   return (
     <div className="robot-script">
@@ -251,12 +260,38 @@ const RobotScript = () => {
           <div className="robot-script__add-col-title">
             Если:
           </div>
-          {triggers.map((triger, triggerFromPopup, filteredItems, ico, icoNight) =>
-            <div>
-              {triger.name ? filteredItems.ico : filteredItems.icoNight}
-              {/* <img src={isDay ? triggerFromPopup.ico(triger.trigger_type) : triggerFromPopup.icoNight} alt="Face" /> */}
-              {triger.trigger_type}{triger.name}
-            </div>)}
+          <div className="robot-script__add-col-trigger">
+            {filteredItems.map((item) =>
+              <div className="robot-script__add-col-trigger-items">
+                <div className="robot-script__add-col-trigger-name">
+                  <div
+                    className={classNames("robot-script__add-col-trigger-name-inner", {
+                      "robot-script__add-col-trigger-name-inner--day": isDay,
+                      "robot-script__add-col-trigger-name-inner--night": !isDay,
+                    })}
+                  >
+                    <img src={isDay ? item.ico : item.icoNight} alt="Face" />
+                    {item.triggerServer.name}
+                  </div>
+                  <button className="robot-script__btnDlt" onClick={() => deleteTrigger(item)}>
+                    <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
+                  </button>
+                </div>
+                {item.triggerServer.trigger_type === 0 && <div>Для времени див</div>}
+                {item.triggerServer.trigger_type === 1 && <div>Для Запуск системы див</div>}
+                {item.triggerServer.trigger_type === 2 && <div>Для Лицо див</div>}
+                {item.triggerServer.trigger_type === 3 && <div>Для Жест див</div>}
+                {item.triggerServer.trigger_type === 4 && <div>Для Фраза див</div>}
+                <button
+                  className={classNames("robot-script-add__btnILi", {
+                    "robot-script-add__btnIli--day": isDay,
+                    "robot-script-add__btnIli--night": !isDay,
+                  })}
+                >
+                  или
+                </button>
+              </div>)}
+          </div>
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,
@@ -271,7 +306,31 @@ const RobotScript = () => {
           <div className="robot-script__add-col-title">
             То:
           </div>
-          {moves.map((move) => <div>{move.id}{move.text}</div>)}
+          <div className="robot-script__add-col-importedMovesWraper">
+            {moves.map((move) => <div className="robot-script__add-col-importedMoves">
+              <div className={classNames("robot-script__add-col-importedMoves-move", {
+                "robot-script__add-col-importedMoves-move--day": isDay,
+                "robot-script__add-col-importedMoves-move--night": !isDay,
+              })}>
+                <div className="robot-script__add-col-importedMoves-move-text">
+                  <img src={isDay ? scriptMove : scriptMoveNight} alt="Face" />
+                  {move.text}
+                </div>
+                <button className="robot-script__btnDlt"onClick={() => deleteMove(move)}>
+                  <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
+                </button>
+              </div>
+              <button
+                className={classNames("robot-script-add__btnILi", {
+                  "robot-script-add__btnIli--day": isDay,
+                  "robot-script-add__btnIli--night": !isDay,
+                })}
+                onClick={onBtnIliTextChange}
+              >
+                {buttonText}
+              </button>
+            </div>)}
+          </div>
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,
@@ -283,19 +342,6 @@ const RobotScript = () => {
           </button>
         </div>
       </div>
-      {/*isTablet ? (
-        <>
-          {isDay ? (
-            <div className="App__bottom">
-              <NavList></NavList>
-            </div>
-          ) : (
-            <div className="App__bottom--night">
-              <NavList></NavList>
-            </div>
-          )}
-        </>
-          ) : null*/}
       <ModalScriptAddTrigger
           onTriggerSelect={onTriggerSelect}
           isOpen={isModalScriptOpen}
