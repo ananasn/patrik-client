@@ -118,6 +118,15 @@
         display: flex;
         align-items: center;
         gap: 16px;
+        text-decoration: none;
+
+        &_day {
+          color: #1E85FF;
+        }
+
+        &_night {
+          color: #DEF8FC;
+        }
         img {
           width: 32px;
           height: 32px;
