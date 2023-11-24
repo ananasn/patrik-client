@@ -9,7 +9,6 @@ import "./HomeList.scss"; // Подключение стилей
 
 const HomeList = ({ title, items }) => {
   const isDay = useSelector((state) => state.isDay);
-  console.log(items)
   const [filteredItems, setFilteredItems] = useState(items); // Локальное состояние для фильтрованных элементов
   const handleSearch = (searchTerm) => {
     const filtered = items.filter((item) =>
