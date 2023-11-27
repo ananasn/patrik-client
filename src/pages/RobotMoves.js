@@ -50,14 +50,28 @@ const RobotMoves = () => {
       }
     }, []);
 
+    //получаем все движения
   useEffect(() => {
     const fetchData = async () => {
       const response = await request("http://localhost:8000/api/pose/");
       const data = await response;
-      const result = await data.filter((item) => item.move == moveId);
-      setItems(result);
+      //const result = await data.filter((item) => item.move == moveId);
+      //setItems(result);
       setAllMove(data);
-      console.log(result);
+      //console.log(result);
+    };
+    fetchData();
+  }, []);
+
+  //получаем все позы выбранного движения
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await request(`http://localhost:8000/api/list_poses/${moveId}/`);
+      const data = await response;
+      //const result = await data.filter((item) => item.move == moveId);
+      setItems(data);
+      //setAllMove(data);
+      console.log(data);
     };
     fetchData();
   }, []);
@@ -99,6 +113,11 @@ const RobotMoves = () => {
   }
   const saveFunc = (obj) => {
     const res = items.map((item) => {
+      console.log(item, item.mimic.id)
+      //const idMim = item.mimic.id;
+      //console.log(idMim)
+      //item.mimic = {idMim};
+      //item[mimic] = id
       if (item.id === obj.id) {
         return obj;
       } else {
@@ -134,7 +153,7 @@ const RobotMoves = () => {
   }
   const handleDragDrop = (results) => {
     //console.log("drag drop event accured", results);
-    const {destination, source, draggableId} = results;
+    const {destination, source} = results;
     //console.log(destination, source, draggableId);
     if(!destination) return;
     if(
