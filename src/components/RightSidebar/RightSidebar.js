@@ -1,14 +1,9 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { useHttp } from "../../hooks/http.hook";
+import { useSelector } from "react-redux";
 import classnames from "classnames";
-
-import "./RightSidebar.scss"; // Подключение стилей
 import HomeList from "../HomeList/HomeList";
+import "./RightSidebar.scss";
 
 const RightSidebar = () => {
-
   const isDay = useSelector((state) => state.isDay);
   const moves = useSelector((state) => state.moves);
   const mimics = useSelector((state) => state.mimics);

@@ -1,15 +1,36 @@
-import React from "react";
-// import { Link } from "react-router-dom";
-import NavList from "../components/NavList/NavList";
+import React, {useEffect } from "react";
 import DialogPopup  from "../components/DialogPopup/DialogPopup";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useHttp } from "../hooks/http.hook";
 import classnames from "classnames";
 import { useMediaQuery } from "react-responsive";
 import "./Home.scss";
 import Robot from "../components/Robot/Robot";
+import { setMoves, setMimics } from "../store/actions";
 import RightSidebar from "../components/RightSidebar/RightSidebar";
 
 const Home = () => {
+  //получение списка всех мимик и движений
+  const dispatch = useDispatch();
+  const { request, loading, error, clearError } = useHttp();
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await request("http://localhost:8000/api/move/");
+      const data = await response;
+      // console.log(data);
+      dispatch(setMoves(data));
+    };
+    fetchData();
+  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await request("http://localhost:8000/api/mimic/");
+      const data = await response;
+      // console.log(data);
+      dispatch(setMimics(data));
+    };
+    fetchData();
+  }, []);
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });

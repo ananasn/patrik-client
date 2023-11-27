@@ -6,6 +6,10 @@ const initialState = {
   choosedCall: {},
   isCallModalOpen: false,
   isDay: getTheme(),
+  update: {
+    isUpdate: false,
+    updateVersion: "версия 3.33.9",
+  },
   dialog: {
     off: false,
     commandChat: false,
@@ -117,7 +121,11 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           importMove: action.payload,
         };
-
+      case "SET_UPDATE":
+        return {
+          ...state,
+          update: action.payload,
+        };
     default:
       return state;
   }

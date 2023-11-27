@@ -9,7 +9,7 @@ import {ReactComponent as EmotionIco} from "../../img/icons/menu-day/mim.svg";
 
 import "./RobotAddSmt.scss";
 
-const RobotAddSmt = ({ word, pharsa, handlePhrasaChange, mimic, handleMimicChange }) => {
+const RobotAddSmt = ({ word, pharsa, handlePhrasaChange, mimic, mimicName, handleMimicChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMimic, setIsMimic] = useState(mimic ? true : false);
   const [addMimic, setAddMimic] = useState(mimic);
@@ -137,9 +137,14 @@ const RobotAddSmt = ({ word, pharsa, handlePhrasaChange, mimic, handleMimicChang
                   "robotaddsmt__text--day": isDay,
                 })}
               >
-                {mimic}
+                {mimicName ? mimicName : (
+                  <>
+                    { addMimic ? importMimicName : null }
+                  </>
+                )
+                }
                 {/*mimic ? importMimicName : null*/}
-                {addMimic ? importMimicName : null}
+                {/*addMimic ? importMimicName : null*/}
                 {/*addMimic*/}
               </h3>
           </div>

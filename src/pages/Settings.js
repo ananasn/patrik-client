@@ -1,5 +1,5 @@
 import { useState, useRef, React, useEffect } from "react";
-import NavList from "../components/NavList/NavList";
+import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import classnames from "classnames";
 import { useMediaQuery } from "react-responsive";
@@ -135,30 +135,52 @@ const Settings = () => {
               settings__content_items_night: !isDay,
             })}
           >
-            <div className="settings__content_item">
+            <NavLink
+              className={classnames("settings__content_item", {
+                settings__content_item_day: isDay,
+                settings__content_item_night: !isDay,
+              })}
+              to='/settings/safe-zones'
+            >
               <img
                 className="item_img"
                 alt="img"
                 src={isDay ? safety : safetyNight}
               />
-              <div className="settings__content_item_safe">Настроить безопасные зоны</div>
-            </div>
-            <div className="settings__content_item">
+              <div
+                className="settings__content_item_safe"
+              >
+                Настроить безопасные зоны
+              </div>
+            </NavLink>
+            <NavLink
+              className={classnames("settings__content_item", {
+                settings__content_item_day: isDay,
+                settings__content_item_night: !isDay,
+              })}
+              to='/settings/robot-access'
+            >
               <img
                 className="item_img"
                 alt="img"
                 src={isDay ? key : keyNight}
               />
               Доступы к роботу
-            </div>
-            <div className="settings__content_item">
+            </NavLink>
+            <NavLink
+              className={classnames("settings__content_item", {
+                settings__content_item_day: isDay,
+                settings__content_item_night: !isDay,
+              })}
+              to='/settings/account'
+            >
               <img
                 className="item_img"
                 alt="img"
                 src={isDay ? userIcon : userIconNight}
               />
               Учетная запись
-            </div>
+            </NavLink>
             <button className={classnames("button", ({
               button_day: isDay,
               button_night: !isDay,
@@ -188,19 +210,6 @@ const Settings = () => {
               ></Controler>
             </div>
           </div>
-          {/*isTablet ? (
-            <>
-              {isDay ? (
-                <div className="App__bottom">
-                  <NavList></NavList>
-                </div>
-              ) : (
-                <div className="App__bottom--night">
-                  <NavList></NavList>
-                </div>
-              )}
-            </>
-              ) : null*/}
         </div>
       </div>
 

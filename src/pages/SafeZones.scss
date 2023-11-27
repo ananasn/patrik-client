@@ -1,0 +1,105 @@
+@import "../utils/variables";
+
+.safezones {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    flex-grow: 1;
+
+    &_day {
+        background-color: $main-bg-day;
+    }
+
+    &_night {
+        background-color: $main-bg-night;
+    }
+
+    &__header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      justify-items: center;
+      padding: 20px 0;
+      &_day {
+        background-color: $bars-day;
+        color: $font-day;
+      }
+      &_night {
+        background-color: $bars-night;
+        color: $font-night;
+      }
+    }
+    &__back-btn {
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      padding: 0px;
+      cursor: pointer;
+      font-size: 32px;
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      &_day {
+        color: $font-day;
+        fill: $btns-day;
+      }
+      &_night {
+        color: $font-night;
+        fill: $btns-night;
+      }
+    }
+    & svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        flex-grow: 1;
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      justify-content: space-between;
+      flex-grow: 1;
+  }
+  &__container {
+    padding: 48px 88px;
+  }
+  &__description {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: normal;
+  }
+}
+
+@media(max-width:850px) {
+  .safezones {
+    &__container {
+      padding: 32px 76px;
+    }
+  }
+}
+
+@media(max-width:650px) {
+  .safezones {
+    &__container {
+      padding: 16px;
+    }
+    &__description {
+      font-size: 16px;
+      line-height: normal;
+    }
+  }
+}

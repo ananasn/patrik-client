@@ -1,13 +1,9 @@
 import "./Robot.scss"; // Подключение стилей
 
 import React, {useState, useEffect} from "react";
-//import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import classnames from "classnames";
 import { useMediaQuery } from "react-responsive";
-
-//import NavList from "../NavList/NavList";
-//import RightSidebar from "../RightSidebar/RightSidebar";
 
 import robotBody from "../../img/robot-day/robot-body.svg";
 import robotLeftShoulder from "../../img/robot-day/robot-left-shoulder.svg";
@@ -58,12 +54,10 @@ const Robot = () => {
     } else {
       const element = e.target.getBoundingClientRect();
       const parent = e.target.parentNode.getBoundingClientRect();
-      console.log('высота родителя', parent.bottom)
-      console.log('найти координату клика', element, Math.round(element.bottom));
-      //const screenHeight = window.screen.height;
-      //console.log('высота экрана', screenHeight)
+      //console.log('высота родителя', parent.bottom)
+      //console.log('найти координату клика', element, Math.round(element.bottom));
       setBottomClickCoordinate(Math.round(parent.bottom - element.bottom) + 'px');
-      console.log('найти координату клика', bottomClickCoordinate);
+      //console.log('найти координату клика', bottomClickCoordinate);
       dispatch(setRobotPart(robotPart));
     }
   };
@@ -171,20 +165,7 @@ const Robot = () => {
             </div>
           </div>
           <RobotControl bottom={bottomClickCoordinate}></RobotControl>
-          {isTablet ? <InputBottom></InputBottom> : <InputBottom></InputBottom>}
-          {/*isTablet ? (
-            <>
-              {isDay ? (
-                <div className="App__bottom">
-                  <NavList></NavList>
-                </div>
-              ) : (
-                <div className="App__bottom--night">
-                  <NavList></NavList>
-                </div>
-              )}
-            </>
-              ) : null*/}
+          <InputBottom></InputBottom>
         </>
       ) : (
         <>
@@ -303,7 +284,7 @@ const Robot = () => {
             </div>
           </div>
           <RobotControl bottom={bottomClickCoordinate}></RobotControl>
-          {isTablet ? null : <InputBottom></InputBottom>}
+          <InputBottom></InputBottom>
         </>
       )}
     </div>

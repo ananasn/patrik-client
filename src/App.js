@@ -13,11 +13,13 @@ import Main from "./components/Main/Main,";
 
 import { toggleDay } from "./store/actions";
 import { useEffect } from "react";
+import UpdateMessage from "./components/UpdateMessage/UpdateMessage";
 // import DialogPopup from "./components/DialogPopup/DialogPopup";
 
 function App() {
   const dispatch = useDispatch();
   const isDay = useSelector((state) => state.isDay);
+  const update = useSelector((state) => state.update);
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
@@ -40,8 +42,11 @@ function App() {
     >
       {isTablet ? (
         <div className={`App__top ${isDay ? "" : "App__top--night"}`}>
-          {isMobile ? null : <Profile />}
+          <>
+            {isMobile ? null: <Profile />}
+            {update.isUpdate ? <UpdateMessage /> : null}
           <NavMenu />
+          </>
         </div>
       ) : (
         <LeftSidebar />

@@ -85,7 +85,7 @@ const MovesItem = ({
   const [neckDeg, setNeck] = useState(neck);
   const [headDeg, setHead] = useState(head);
   const [phraseData, setPhrase] = useState(phrase);
-  const [mimicData, setMimic] = useState(mimic);
+  const [mimicData, setMimic] = useState(mimic.id ?? null);
   const [inputValue, setInputValue] = useState(name);
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [activeRobotPart, setActiveRobotPart] = useState(null);
@@ -161,7 +161,7 @@ const MovesItem = ({
       delay: delayValue,
       order: order,
       move: moveId,
-      mimic: importMimic ? importMimic.id : mimic,
+      mimic: importMimic ? importMimic.id : mimic.id,
     });
   dispatch(setImportMimic(null))
   }
@@ -736,6 +736,7 @@ const MovesItem = ({
           <RobotAddSmt
             word={"мимику"}
             mimic={mimicData}
+            mimicName={mimic.name ?? null}
             handleMimicChange={handleMimicChange} //изменение мимики
           ></RobotAddSmt>
           <RobotAddSmt
