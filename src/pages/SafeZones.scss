@@ -52,10 +52,11 @@
         color: $font-night;
         fill: $btns-night;
       }
-    }
-    & svg {
-      width: 40px;
-      height: 40px;
+
+      & svg {
+        width: 40px;
+        height: 40px;
+      }
     }
 
     &__wrapper {
@@ -74,6 +75,7 @@
       flex-grow: 1;
   }
   &__container {
+    height: 100%;
     padding: 48px 88px;
   }
   &__description {
@@ -81,6 +83,227 @@
     font-size: 24px;
     font-weight: 500;
     line-height: normal;
+  }
+
+  //robot
+  &__body-item {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+  }
+  &__robot {
+    &_day {
+      fill: $robot-day;
+    }
+    &_night {
+      fill: $robot-night;
+    }
+  }
+  &__head {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__face {
+    max-width: 240px;
+    //max-height: 144px;
+  }
+
+  &__neck {
+    //max-width: 95px;
+    max-height: 22px;
+    margin: 8px 0;
+    transition: 0.5s all;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: row;
+    // position: relative;
+    // align-items: center;
+    justify-content: center;
+  }
+
+  &__torso {
+    display: flex;
+    max-width: 166px;
+    max-height: 367px;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+  }
+
+  &__logo {
+    top: 41px;
+    left: 28px;
+    max-width: 114px;
+    max-height: 104px;
+    position: absolute;
+    &_day {
+      fill: $robot-logo-day;
+    }
+    &_night {
+      fill: $robot-logo-night;
+    }
+  }
+  &__breast {
+    display: flex;
+    flex-direction: column;
+    max-width: 166px;
+    max-height: 367px;
+    align-items: center;
+    &_day {
+      fill: $robot-day;
+    }
+    &_night {
+      fill: $robot-night;
+    }
+  }
+
+  &__left-shoulder {
+    display: flex;
+    flex-direction: column;
+    max-width: 83px;
+    max-height: 63px;
+    align-items: center;
+    position: absolute;
+    left: -42px;
+  }
+
+  &__right-shoulder {
+    display: flex;
+    flex-direction: column;
+    max-width: 83px;
+    max-height: 63px;
+    align-items: center;
+    position: absolute;
+    right: -42px;
+  }
+
+  &__arm {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+
+  &__arm-item {
+    margin-bottom: 4px;
+    transition: 0.5s all;
+    width: 48px;
+    height: 71px;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+    }
+  }
+
+  .active_robot_part_day {
+    fill: $btns-day;
+  }
+  .active_robot_part_night {
+    fill: $btns-night;
+  }
+
+}
+
+
+
+@media(max-width: 1285px) {
+  .safezones {
+    &__body-item {
+      flex-direction: column;
+    }
+
+    /*&--hide {
+      max-height: 100px;
+    }
+
+    &__control {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }*/
+  }
+}
+
+@media(max-width: 900px) {
+  .safezones {
+    //padding: 24px 32px 32px 32px;
+
+    &__face {
+      max-width: 138px;
+      max-height: 105px;
+    }
+
+    &__neck {
+      max-width: 79px;
+      max-height: 18px;
+    }
+
+    &__torso {
+      max-width: 138px;
+      max-height: 304px;
+      // margin-bottom: 60px;
+    }
+
+    &__logo {
+      top: 40px;
+      left: 23px;
+      max-width: 95px;
+      max-height: 87px;
+    }
+
+    &__breast {
+      max-width: 138px;
+      max-height: 304px;
+    }
+
+    &__left-shoulder {
+      max-width: 69px;
+      max-height: 52px;
+    }
+
+    &__right-shoulder {
+      max-width: 69px;
+      max-height: 52px;
+    }
+
+    &__arm {
+      display: flex;
+      flex-direction: column;
+      margin-left: 50px;
+      margin-right: 50px;
+    }
+
+    &__arm-item {
+      margin-bottom: 3px;
+      max-width: 40px;
+      max-height: 59px;
+    }
+
+    /*&__control {
+      &-name {
+        font-size: 24px;
+      }
+    }
+
+    &-add__btn {
+      font-size: 24px;
+
+      svg {
+        width: 32px;
+        height: 32px;
+      }
+    }*/
   }
 }
 
@@ -101,5 +324,54 @@
       font-size: 16px;
       line-height: normal;
     }
+  }
+}
+
+@media(max-width:515px) {
+  .safezones {
+    //padding: 24px 8px 16px 8px;
+
+    &--hide {
+      max-height: 80px;
+    }
+
+    &__arm:first-child {
+      margin-left: 0px;
+      margin-right: 46px;
+    }
+
+    &__arm:last-child {
+      margin-left: 46px;
+      margin-right: 0px;
+    }
+
+    /*&__btn {
+      max-width: 24px;
+      max-height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        max-width: 24px;
+        max-height: 24px;
+      }
+    }
+
+    &__form {
+      input {
+        font-size: 24px;
+      }
+
+      label {
+        max-width: 24px;
+        max-height: 24px;
+
+        img {
+          max-width: 24px;
+          max-height: 24px;
+        }
+      }
+    }*/
   }
 }
