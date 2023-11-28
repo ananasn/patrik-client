@@ -12,7 +12,6 @@ import timer from "../../img/script-day/timer.svg"
 import { toggleIsModalOpen, setIsMove } from "../../store/actions";
 import timerNight from "../../img/script-night/timer-night.svg"
 import Modal from "../../components/Modal/Modal";
-import ModalScriptAddTimeout from "../../components/ModalScriptAddTimeout/ModalScriptAddTimeout";
 
 
 import classNames from "classnames";
@@ -28,21 +27,26 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
     {value: "timer", title: "Задержка", ico: timer, icoNight: timerNight},
   ]);
 
+  //const [delayValue, setDelayValue] = useState(delayStart);
+  // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
+  // const [delayView, setDelayView] = useState(delayValue === 0 ? 0 : 2);
+  // const delayRef = useRef(null);
+
   const dispatch = useDispatch();
 
   const handleModalClose = () => {
     onClose();
   };
-  const [isAddTimeOutOpen, setIsAddTimeOutOpen] = useState(false);
+
 
   const handleImport = () => {
     dispatch(setIsMove(true));
     dispatch(toggleIsModalOpen());
   };
-
-  const handleDelay = () => {
-    setIsAddTimeOutOpen(true);
-  };
+  //timeout input
+  const handleSetTimeOut = () => {
+    //setDelayView(1);
+  }
 
   return (
     <div
@@ -93,7 +97,12 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
                 >
                   <img src={isDay ? timer : timerNight} alt="Face" />
                   <div
-                    onClick={handleDelay}
+                    onClick={() => {
+                      //нарисовать див в верстке RobotScipt
+                      handleSetTimeOut();
+                      // закрыть модальное окно
+                      onClose();
+                    }}
                   >
                     Задержка
                   </div>
@@ -106,7 +115,6 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
       <Modal
         onMoveImport={onMoveImport}
       ></Modal>
-      <ModalScriptAddTimeout isOpen={isAddTimeOutOpen} onClose={() => {setIsAddTimeOutOpen(false); onClose()}}></ModalScriptAddTimeout>
     </div>
   );
 };

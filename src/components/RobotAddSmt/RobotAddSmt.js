@@ -18,9 +18,9 @@ const RobotAddSmt = ({ word, pharsa, handlePhrasaChange, mimic, mimicName, handl
   const importMimic = useSelector((state) => state.importMimic);
   const mimics = useSelector((state) => state.mimics);
   //получать мимику при первом рендеринге
-  console.log(mimics)
+  //console.log(mimics)
   const [importMimicName, setImportMimicName] = useState(mimic ? mimics.filter((item) => item.id == mimic).name : null);
-  console.log(importMimic)
+  //console.log(importMimic)
   const dispatch = useDispatch();
   const inputRef = useRef();
   const handleClick = (e) => {

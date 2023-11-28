@@ -85,7 +85,8 @@ const MovesItem = ({
   const [neckDeg, setNeck] = useState(neck);
   const [headDeg, setHead] = useState(head);
   const [phraseData, setPhrase] = useState(phrase);
-  const [mimicData, setMimic] = useState(mimic.id ?? null);
+  console.log(mimic); //с сервера приходит айди мимики
+  const [mimicData, setMimicData] = useState(mimic ?? null);
   const [inputValue, setInputValue] = useState(name);
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [activeRobotPart, setActiveRobotPart] = useState(null);
@@ -132,20 +133,20 @@ const MovesItem = ({
       delay: delayValue,
       order: order,
       move: moveId,
-      mimic: mimicData,
+      mimic: mimic,
     });
   };
   //изменение карточки позы при выборе\изменении мимики
-  const handleMimicChange = (id) => {
+  const handleMimicChange = (mimicId) => {
     //e.preventDefault();
     //dispatch(setIsMove(false));
     //dispatch(toggleIsModalOpen());
 
     //setMimic(id);
-    console.log(id, importMimic, mimicData, 'before save')
+    console.log(id, importMimic, mimic, 'before save')
     //setImportMimicName(text);
     saveFunc({
-      id: id,
+      id: id, // id позы
       name: inputValue,
       l1: parseInt(l1Deg),
       l2: parseInt(l2Deg),
@@ -161,7 +162,8 @@ const MovesItem = ({
       delay: delayValue,
       order: order,
       move: moveId,
-      mimic: importMimic ? importMimic.id : mimic.id,
+      // mimic: importMimic ? importMimic.id : mimic,
+      mimic: mimicId,
     });
   dispatch(setImportMimic(null))
   }
@@ -265,12 +267,12 @@ const MovesItem = ({
       delay: delayValue,
       order: order,
       move: moveId,
-      mimic: mimicData,
+      mimic: mimic,
     });
   };
   useEffect(() => {
     //setMimic(importMimic ? importMimic.id : mimicData)
-    console.log("before save 2", mimicData)
+    console.log("before save 2", mimic)
     saveFunc({
       id: id,
       name: inputValue,
@@ -288,10 +290,10 @@ const MovesItem = ({
       delay: delayValue,
       order: order,
       move: moveId,
-      mimic: mimicData,
+      mimic: mimic,
     });
     //dispatch(setImportMimic(null));
-  }, [delayValue, inputValue, mimicData, importMimic]);
+  }, [delayValue, inputValue, importMimic]);
   /*useEffect(() => {
     if (mimicData) {
       const findMimic = mimics.filter((item) => item.id == mimicData.id);
@@ -713,30 +715,10 @@ const MovesItem = ({
           </div>
         </div>
         <div className="movesitem__footer">
-          {/*mimicData ? (
-            <button
-              className={classnames("robotaddsmt", {
-                "robotaddsmt--night": !isDay,
-                "robotaddsmt--day": isDay,
-              })}
-              onClick={handleMimicOpen}
-            >
-              <EmotionIco />
-              <h3
-                className={classnames("robotaddsmt__text", {
-                  "robotaddsmt__text--night": !isDay,
-                  "robotaddsmt__text--day": isDay,
-                })}
-              >
-                {mimicData}
-                {importMimicName}
-              </h3>
-            </button>
-          ) :  (          )*/}
           <RobotAddSmt
             word={"мимику"}
             mimic={mimicData}
-            mimicName={mimic.name ?? null}
+            mimicName={mimic?.name ?? null}
             handleMimicChange={handleMimicChange} //изменение мимики
           ></RobotAddSmt>
           <RobotAddSmt
