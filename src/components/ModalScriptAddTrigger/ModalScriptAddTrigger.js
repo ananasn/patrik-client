@@ -30,7 +30,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
   const [filteredItems, setFilteredItems] = useState([
     {value: "time", title: "Время", ico: clock, icoNight: clockNight, triggerServer: {
       "name": "Время",
-      "trigger_type": 0,
+      "trigger_type": 3,
       "busy": true,
       "phrase": "string",
       "face_encoding": "string",
@@ -44,7 +44,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
     }},
     {value: "play", title: "Запуск системы", ico: power, icoNight: powerNight, triggerServer: {
       "name": "Запуск системы",
-      "trigger_type": 1,
+      "trigger_type": 4,
       "busy": true,
       "phrase": "string",
       "face_encoding": "string",
@@ -58,7 +58,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
     }},
     {value: "face", title: "Лицо", ico: face, icoNight: faceNight, triggerServer: {
       "name": "Лицо",
-      "trigger_type": 2,
+      "trigger_type": 1,
       "busy": true,
       "phrase": "string",
       "face_encoding": "string",
@@ -72,7 +72,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
     }},
     {value: "sign", title: "Жест", ico: sign, icoNight: signNight, triggerServer: {
       "name": "Жест",
-      "trigger_type": 3,
+      "trigger_type": 2,
       "busy": true,
       "phrase": "string",
       "face_encoding": "string",
@@ -86,7 +86,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
     }},
     {value: "phrase", title: "Фраза", ico: phrase, icoNight: phraseNight, triggerServer: {
       "name": "Фраза",
-      "trigger_type": 4,
+      "trigger_type": 0,
       "busy": true,
       "phrase": "string",
       "face_encoding": "string",

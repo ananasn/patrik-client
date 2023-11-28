@@ -277,11 +277,11 @@ const RobotScript = () => {
                     <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
                   </button>
                 </div>
-                {item.triggerServer.trigger_type === 0 && <div>Для времени див</div>}
-                {item.triggerServer.trigger_type === 1 && <div>Для Запуск системы див</div>}
-                {item.triggerServer.trigger_type === 2 && <div>Для Лицо див</div>}
-                {item.triggerServer.trigger_type === 3 && <div>Для Жест див</div>}
-                {item.triggerServer.trigger_type === 4 && <div>Для Фраза див</div>}
+                {item.triggerServer.trigger_type === 0 && <div>Для Фраза див</div>}
+                {item.triggerServer.trigger_type === 1 && <div>Для Лицо див</div>}
+                {item.triggerServer.trigger_type === 2 && <div>Для Жест див</div>}
+                {item.triggerServer.trigger_type === 3 && <div>Для времени див</div>}
+                {item.triggerServer.trigger_type === 4 && <div>Для Запуск системы див</div>}
                 <button
                   className={classNames("robot-script-add__btnILi", {
                     "robot-script-add__btnIli--day": isDay,

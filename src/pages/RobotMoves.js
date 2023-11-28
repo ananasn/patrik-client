@@ -114,10 +114,10 @@ const RobotMoves = () => {
   const saveFunc = (obj) => {
     const res = items.map((item) => {
       console.log(item, item.mimic.id)
-      //const idMim = item.mimic.id;
-      //console.log(idMim)
-      //item.mimic = {idMim};
-      //item[mimic] = id
+      const id = item.mimic.id;
+      console.log(id)
+      item.mimic = {id}; //передать число!!!
+      // item[mimic] = id
       if (item.id === obj.id) {
         return obj;
       } else {
@@ -125,7 +125,7 @@ const RobotMoves = () => {
       }
     });
     setItems(res);
-    console.log(res);
+    //console.log(res);
   };
   const addPoseHandler = () => { // для кнопки "создать pose"
     const i = codeGenerator() + 1;
@@ -149,7 +149,7 @@ const RobotMoves = () => {
       "id": i,
       "mimic": null
     }])
-    console.log(items)
+    //console.log(items)
   }
   const handleDragDrop = (results) => {
     //console.log("drag drop event accured", results);
