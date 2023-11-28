@@ -27,6 +27,11 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
     {value: "timer", title: "Задержка", ico: timer, icoNight: timerNight},
   ]);
 
+  //const [delayValue, setDelayValue] = useState(delayStart);
+  // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
+  // const [delayView, setDelayView] = useState(delayValue === 0 ? 0 : 2);
+  // const delayRef = useRef(null);
+
   const dispatch = useDispatch();
 
   const handleModalClose = () => {
@@ -38,7 +43,10 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
     dispatch(setIsMove(true));
     dispatch(toggleIsModalOpen());
   };
-
+  //timeout input
+  const handleSetTimeOut = () => {
+    //setDelayView(1);
+  }
 
   return (
     <div
@@ -88,7 +96,14 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
                   })}
                 >
                   <img src={isDay ? timer : timerNight} alt="Face" />
-                  <div>
+                  <div
+                    onClick={() => {
+                      //нарисовать див в верстке RobotScipt
+                      handleSetTimeOut();
+                      // закрыть модальное окно
+                      onClose();
+                    }}
+                  >
                     Задержка
                   </div>
                 </li>

@@ -263,25 +263,248 @@ const RobotScript = () => {
           <div className="robot-script__add-col-trigger">
             {filteredItems.map((item) =>
               <div className="robot-script__add-col-trigger-items">
-                <div className="robot-script__add-col-trigger-name">
-                  <div
-                    className={classNames("robot-script__add-col-trigger-name-inner", {
-                      "robot-script__add-col-trigger-name-inner--day": isDay,
-                      "robot-script__add-col-trigger-name-inner--night": !isDay,
-                    })}
-                  >
-                    <img src={isDay ? item.ico : item.icoNight} alt="Face" />
-                    {item.triggerServer.name}
+                <div
+                  className={classNames("robot-script__add-col-trigger-item", {
+                    "robot-script__add-col-trigger-item--day": isDay,
+                    "robot-script__add-col-trigger-item--night": !isDay,
+                  })}
+                >
+                  <div className="robot-script__add-col-trigger-name">
+                    <div
+                      className={classNames("robot-script__add-col-trigger-name-inner", {
+                        "robot-script__add-col-trigger-name-inner--day": isDay,
+                        "robot-script__add-col-trigger-name-inner--night": !isDay,
+                      })}
+                    >
+                      <img src={isDay ? item.ico : item.icoNight} alt="Face" />
+                      {item.triggerServer.name}
+                      {item.triggerServer.trigger_type === 3 && <div>12:15</div>}
+                    </div>
+                    <button className="robot-script__btnDlt" onClick={() => deleteTrigger(item)}>
+                      <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
+                    </button>
                   </div>
-                  <button className="robot-script__btnDlt" onClick={() => deleteTrigger(item)}>
-                    <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
-                  </button>
+                  {/* Для Фраза див */}
+                  {item.triggerServer.trigger_type === 0 &&
+                    <div>
+                      <input
+                        placeholder="Введите текст для фразы"
+                        className={classNames("robot-script__inputPhrase", {
+                          "robot-script__inputPhrase--night": !isDay,
+                          "robot-script__inputPhrase--day": isDay,
+                        })}
+                        // onKeyDown={(e) => handleSubmit(e)}
+                        type="text"
+                        ref={inputRef}
+                      />
+                      <div>Повторно срабатывать</div>
+                      <div>
+                        <button
+                          className={classNames("robot-script-add__btnRepeat", {
+                            "robot-script-add__btnRepeat--day": isDay,
+                            "robot-script-add__btnRepeat--night": !isDay,
+                          })}
+                        >
+                          каждый раз
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeat", {
+                            "robot-script-add__btnRepeat--day": isDay,
+                            "robot-script-add__btnRepeat--night": !isDay,
+                          })}
+                        >
+                          через время
+                        </button>
+                      </div>
+                    </div>
+                  }
+                   {/* Для Лицо див */}
+                  {item.triggerServer.trigger_type === 1 &&
+                    <div>
+                      <div>Повторно срабатывать</div>
+                      <div>
+                        <button
+                          className={classNames("robot-script-add__btnRepeat", {
+                            "robot-script-add__btnRepeat--day": isDay,
+                            "robot-script-add__btnRepeat--night": !isDay,
+                          })}
+                        >
+                          каждый раз
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeat", {
+                            "robot-script-add__btnRepeat--day": isDay,
+                            "robot-script-add__btnRepeat--night": !isDay,
+                          })}
+                        >
+                          через время
+                        </button>
+                      </div>
+                    </div>
+                  }
+                  {/* Для Жест див */}
+                  {item.triggerServer.trigger_type === 2 &&
+                    <div>
+                      <div>Повторно срабатывать</div>
+                      <div>
+                        <button
+                          className={classNames("robot-script-add__btnRepeat", {
+                            "robot-script-add__btnRepeat--day": isDay,
+                            "robot-script-add__btnRepeat--night": !isDay,
+                          })}
+                        >
+                          каждый раз
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeat", {
+                            "robot-script-add__btnRepeat--day": isDay,
+                            "robot-script-add__btnRepeat--night": !isDay,
+                          })}
+                        >
+                          через время
+                        </button>
+                      </div>
+                    </div>
+                  }
+                  {/* Для времени див */}
+                  {item.triggerServer.trigger_type === 3 &&
+                    <div>
+                      <div>Повторять после выполнения:</div>
+                      <button
+                        className={classNames("robot-script-add__btnNotRepeat", {
+                          "robot-script-add__btnNotRepeat--day": isDay,
+                          "robot-script-add__btnNotRepeat--night": !isDay,
+                        })}
+                      >
+                        не повторять/5 раз, каждые 3000 минут
+                      </button>
+                      <div>Повторять по дням недели:</div>
+                      <div>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Пн
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Вт
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Ср
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Чт
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Пт
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Сб
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Вс
+                        </button>
+                      </div>
+                  </div>
+                  }
+
+                  {/* Для Запуск системы див */}
+                  {item.triggerServer.trigger_type === 4 &&
+                    <div>
+                      <div>Повторять</div>
+                      <div>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Пн
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Вт
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Ср
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Чт
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Пт
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Сб
+                        </button>
+                        <button
+                          className={classNames("robot-script-add__btnRepeatTime", {
+                            "robot-script-add__btnRepeatTime--day": isDay,
+                            "robot-script-add__btnRepeatTime--night": !isDay,
+                          })}
+                        >
+                          Вс
+                        </button>
+                      </div>
+                    </div>
+                  }
                 </div>
-                {item.triggerServer.trigger_type === 0 && <div>Для Фраза див</div>}
-                {item.triggerServer.trigger_type === 1 && <div>Для Лицо див</div>}
-                {item.triggerServer.trigger_type === 2 && <div>Для Жест див</div>}
-                {item.triggerServer.trigger_type === 3 && <div>Для времени див</div>}
-                {item.triggerServer.trigger_type === 4 && <div>Для Запуск системы див</div>}
                 <button
                   className={classNames("robot-script-add__btnILi", {
                     "robot-script-add__btnIli--day": isDay,
