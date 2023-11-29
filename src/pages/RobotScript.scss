@@ -233,12 +233,13 @@
     padding: 16px 26px;
     text-align: center;
     margin-top: 8px;
+    margin-bottom: 8px;
     outline: none;
     border-radius: 8px;
     cursor: pointer;
     transition: 0.3s all;
     &:hover {
-      transform: scale(1.05);
+      transform: scale(1.03);
     }
     &--day {
       border: 2px dashed $btns-day;
@@ -305,6 +306,28 @@
     padding: 16px;
     background-color: #D1D8EF;
   }
+    //стили для задерки (поправить)
+    .delay__container {
+      position: relative;
+      &--day {
+        stroke: $btns-day;
+
+      }
+      &--night {
+        stroke: $btns-night;
+      }
+    }
+    .delay {
+      padding: 19px 16px;
+    }
+    .delete-btn{
+      //justify-self: right;
+      text-align: right;
+      position: absolute;
+      top: 22px;
+      right: 16px;
+      cursor: pointer;
+    }
 }
 
 @media(max-width: 1280px) {
