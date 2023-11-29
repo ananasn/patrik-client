@@ -295,7 +295,7 @@ const MovesItem = ({
       mimic: mimic,
     });
     //dispatch(setImportMimic(null));
-  }, [delayValue, inputValue, importMimic]);
+  }, [delayValue, inputValue, importMimic, mimic]);
   /*useEffect(() => {
     if (mimicData) {
       const findMimic = mimics.filter((item) => item.id == mimicData.id);
