@@ -82,9 +82,12 @@
   }
 
   &__list {
-    margin: 0px;
+    margin: 0 0 0 5px;
     padding: 0px;
     overflow-y: auto;
+    align-items: start;
+    display: flex;
+    flex-direction: column;
   }
 }
 

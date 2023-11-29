@@ -295,7 +295,7 @@ const MovesItem = ({
       mimic: mimic,
     });
     //dispatch(setImportMimic(null));
-  }, [delayValue, inputValue, importMimic]);
+  }, [delayValue, inputValue, importMimic, mimic]);
   /*useEffect(() => {
     if (mimicData) {
       const findMimic = mimics.filter((item) => item.id == mimicData.id);
@@ -724,8 +724,13 @@ const MovesItem = ({
             handleMimicChange={handleMimicChange} //изменение мимики
           ></RobotAddSmt> */}
           <button
+            className={classnames("movesitem-add__btn", {
+              "movesitem-add__btn--day": isDay,
+              "movesitem-add__btn--night": !isDay,
+            })}
            onClick={() => onModalPoseMimicOpen(card)} //card - поза с сервера
           >
+            <PlusIco />
             {mimicName ?? 'Добавить мимику'}
           </button>
           <RobotAddSmt
