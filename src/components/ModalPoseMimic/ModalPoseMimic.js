@@ -15,39 +15,32 @@ import classNames from "classnames";
 
 import "./ModalPoseMimic.scss";
 
-const ModalPoseMimic = ({onMoveImport}) => {
+const ModalPoseMimic = ({onMoveImport, isOpen, onClose, onMimicSelect}) => {
   const isMove = useSelector((state) => state.isMove);
   const isDay = useSelector((state) => state.isDay);
-  const isModalOpen = useSelector((state) => state.isModalOpen);
+  // const isModalOpen = useSelector((state) => state.isModalOpen);
   const dispatch = useDispatch();
+  const moves = useSelector((state) => state.moves);
+  const mimics = useSelector((state) => state.mimics);
+  const [filteredItems, setFilteredItems] = useState([]);
+
   const { request, loading } = useHttp();
   useEffect(() => {
-    if (isMove === true) {
-      const fetchData = async () => {
-        const response = await request("http://localhost:8000/api/move/");
-        const data = await response;
-        dispatch(setMoves(data));
-      };
-      fetchData();
-    } else {
       const fetchData = async () => {
         const response = await request("http://localhost:8000/api/mimic/");
         const data = await response;
         dispatch(setMimics(data));
+        setFilteredItems(data);
       };
       fetchData();
-    }
-  }, [isModalOpen]);
-  const moves = useSelector((state) => state.moves);
-  const mimics = useSelector((state) => state.mimics);
-  const [filteredItems, setFilteredItems] = useState([]);
-  useEffect(() => {
-    if (isMove === true) {
-      setFilteredItems(moves);
-    } else {
-      setFilteredItems(mimics);
-    }
-  }, [moves, mimics, isMove]);
+  }, []);
+  // useEffect(() => {
+  //   if (isMove === true) {
+  //     setFilteredItems(moves);
+  //   } else {
+  //     setFilteredItems(mimics);
+  //   }
+  // }, [moves, mimics, isMove]);
   const handleSearch = (searchTerm) => {
     if (isMove === true) {
       const filtered = moves.filter((item) =>
@@ -61,13 +54,13 @@ const ModalPoseMimic = ({onMoveImport}) => {
       setFilteredItems(filtered);
     }
   };
-  const handleModalClose = () => {
-    dispatch(toggleIsModalOpen());
-  };
+  // const handleModalClose = () => {
+  //   dispatch(toggleIsModalOpen());
+  // };
   return (
     <div
       className={classNames("modalPoseMimic", {
-        "modalPoseMimic--open": isModalOpen,
+        "modalPoseMimic--open": isOpen,
       })}
     >
       <div
@@ -81,7 +74,7 @@ const ModalPoseMimic = ({onMoveImport}) => {
             <h2 className="modalPoseMimic__title">
               Выбор мимики
             </h2>
-            <button onClick={handleModalClose} className="modalPoseMimic__close">
+            <button onClick={onClose} className="modalPoseMimic__close">
               <img src={isDay ? closeDay : closeNight} alt="Close" />
             </button>
           </div>
@@ -94,14 +87,71 @@ const ModalPoseMimic = ({onMoveImport}) => {
             {loading ? (
               <h2>Идёт загрузка данных</h2>
             ) : (
-              filteredItems.map((item, id) => {
+              filteredItems.map((mimic, id) => {
                     return (
-                      <ListMimics
-                        text={item.name}
-                        id={item.id}
-                        key={id}
-                        isModal={true}
-                      ></ListMimics>
+                      // <ListMimics
+                      //   text={item.name}
+                      //   id={item.id}
+                      //   key={id}
+                      //   isModal={true}
+                      // ></ListMimics>
+                      <div
+                        onClick={() => onMimicSelect(mimic)} //mimic которая на сервере
+                        key={mimic.id}
+                      >
+                        {mimic.name}
+                      </div>
+                      // <li
+                      //   className={classnames("mimics__item", {
+                      //     mimics__item_day: isDay,
+                      //     mimics__item_night: !isDay,
+                      //   })}
+                      // >
+                      //   <p className="mimics__text">{text}</p>
+                      //   <div className="mimics__btns">
+                      //     {isScene && (
+                      //       <button
+                      //         className={classnames("mimics__btn", {
+                      //           mimics__btn_off_day: isDay,
+                      //           mimics__btn_off_night: !isDay,
+                      //         })}
+                      //       ></button>
+                      //     )}
+                      //     {isModal ? (
+                      //       <button
+                      //         className={classnames("mimics__btn", {
+                      //           mimics__btn_import_day: isDay,
+                      //           mimics__btn_import_night: !isDay,
+                      //         })}
+                      //         onClick={handleImportMimicData}
+                      //       ></button>
+                      //     ) : (
+                      //       <>
+                      //         <button
+                      //           className={classnames("mimics__btn", {
+                      //             mimics__btn_delete_day: isDay,
+                      //             mimics__btn_delete_night: !isDay,
+                      //           })}
+                      //           onClick={handleDelete}
+                      //         ></button>
+                      //         <Link
+                      //           className={classnames("mimics__btn", {
+                      //             mimics__btn_settings_day: isDay,
+                      //             mimics__btn_settings_night: !isDay,
+                      //           })}
+                      //           to={`/emotions/emotion/${id}`}
+                      //         ></Link>
+                      //       </>
+                      //     )}
+                      //     <button
+                      //       className={classnames("mimics__btn", {
+                      //         mimics__btn_play_day: isDay,
+                      //         mimics__btn_play_night: !isDay,
+                      //       })}
+                      //       onClick={handlePlay}
+                      //     ></button>
+                      //   </div>
+                      // </li>
                     );
               })
             )}

@@ -73,6 +73,8 @@ const MovesItem = ({
   order,
   index,
   delay,
+  onModalPoseMimicOpen,
+  mimicName,
 }) => {
   const [l1Deg, setL1] = useState(l1);
   const [l2Deg, setL2] = useState(l2);
@@ -715,12 +717,17 @@ const MovesItem = ({
           </div>
         </div>
         <div className="movesitem__footer">
-          <RobotAddSmt
+          {/* <RobotAddSmt
             word={"мимику"}
             mimic={mimicData}
             mimicName={mimic?.name ?? null}
             handleMimicChange={handleMimicChange} //изменение мимики
-          ></RobotAddSmt>
+          ></RobotAddSmt> */}
+          <button
+           onClick={() => onModalPoseMimicOpen(card)} //card - поза с сервера
+          >
+            {mimicName ?? 'Добавить мимику'}
+          </button>
           <RobotAddSmt
             pharsa={phraseData}
             handlePhrasaChange={handlePhrasaChange}
