@@ -44,6 +44,7 @@ const RobotEmotion = () => {
     const fetchData = async () => {
       const response = await request(`http://localhost:8000/api/mimic/${mimicId}`);
       const data = await response;
+      console.log(mimicId, data);
       setInputValue(data.name);
     };
     // при редактировании мимики так делать

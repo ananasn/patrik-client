@@ -92,6 +92,7 @@
     cursor: pointer;
     width: 32px;
     height: 32px;
+    margin-right: 16px;
   }
 
   &__list {
@@ -129,7 +130,6 @@
   &__add-col-importedMoves {
     display: flex;
     flex-direction: column;
-    gap: 8px;
     font-family: Inter;
     font-size: 24px;
     font-style: normal;
@@ -142,11 +142,12 @@
     }
     &-move {
       display: flex;
-      width: 320px;
+      //width: 320px;
       height: 64px;
-      justify-content: center;
+      // justify-content: center;
       align-items: center;
       border-radius: 8px;
+      justify-content: space-between;
       //width: 100%;
       img {
         width: 32px;
@@ -155,16 +156,17 @@
       &-text {
         display: flex;
         gap: 8px;
+        padding-left: 16px;
       }
       &--day {
         color: $btns-day;
         background: $bars-day;
-        border: 1px solid $bars-day;
+        //border: 1px solid $bars-day;
       }
       &--night {
         color: $btns-night;
         background: $bars-night;
-        border: 1px solid $bars-night;
+        //border: 1px solid $bars-night;
       }
     }
   }
@@ -173,8 +175,9 @@
     flex-direction: column;
     &-name {
       display: flex;
-      margin: 0 16px 0;
+      margin: 0 0 0 16px;
       justify-content: space-between;
+      padding-top: 16px;
 
       &-inner {
         display: flex;
@@ -197,6 +200,26 @@
         }
       }
     }
+    &-items {
+      &:last-child {
+        .robot-script-add__btnILi {
+          display: none;
+        }
+      }
+    }
+    &-item {
+      border-radius: 8px;
+      &--day {
+        //color: $btns-day;
+        background: $bars-day;
+        //border: 1px solid $bars-day;
+      }
+      &--night {
+        // color: $btns-night;
+        background: $bars-night;
+        //border: 1px solid $bars-night;
+      }
+    }
   }
   &-add__btn {
     display: flex;
@@ -205,7 +228,8 @@
     justify-items: center;
     justify-content: center;
     font-size: 24px;
-    width: 319px;
+    // width: 319px;
+    width: 100%;
     padding: 16px 26px;
     text-align: center;
     margin-top: 8px;
@@ -253,18 +277,33 @@
     &--day {
       border: 1px solid $bars-day;
       border-radius: 32px;
-      margin-bottom: 8px;
+      margin: 8px 0 8px 0;
+      padding: 8px 16px;
       //background: rgba(30, 133, 255, 0.10);
       background-color: $bars-day;
       color: $btns-day;
+      width: -webkit-fill-available;
     }
     &--night {
       border: 1px solid $robot-move-night;
       border-radius: 32px;
-      margin-bottom: 8px;
+      margin: 8px 0 8px 0;
+      padding: 8px 16px;
       background-color: rgba(222, 248, 252, 0.10);
       color: $btns-night;
+      width: -webkit-fill-available;
     }
+  }
+
+  &-add__btnRepeatTime {
+    border-radius: 24px;
+    padding: 7px 7px 6px 5px;
+  }
+
+  &__inputPhrase {
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #D1D8EF;
   }
 }
 
@@ -376,7 +415,7 @@
       padding: 0px;
     }
     &-add__btn {
-      width: 290px;
+      //width: 290px;
       padding: 16px 8px 16px 10px;
     }
   }

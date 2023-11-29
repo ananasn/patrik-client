@@ -71,9 +71,11 @@ const RobotMoves = () => {
       //const result = await data.filter((item) => item.move == moveId);
       setItems(data);
       //setAllMove(data);
-      console.log(data);
+      //console.log(data);
     };
-    fetchData();
+    if (moveId) {
+      fetchData();
+    }
   }, []);
   const inputRef = useRef(null);
   const dispatch = useDispatch();
@@ -113,19 +115,24 @@ const RobotMoves = () => {
   }
   const saveFunc = (obj) => {
     const res = items.map((item) => {
-      console.log(item, item.mimic.id)
-      //const idMim = item.mimic.id;
-      //console.log(idMim)
-      //item.mimic = {idMim};
-      //item[mimic] = id
+      console.warn(item, item.mimic) // item.mimic - и есть число - айди мимики
+      //const id = item.mimic;
+      //console.log(id)
+      //item.mimic = id; //передать число!!!
+      // item[mimic] = id
       if (item.id === obj.id) {
+        // сюда приходит карточка которую мы поменяли
         return obj;
       } else {
+        // сюда приходят карточки из бэка которые мы не меняли
+        const id = item.mimic.id;
+        // item.mimic = {id};
+        console.log("item.mimic.id", item.mimic.id);
         return item;
       }
     });
     setItems(res);
-    console.log(res);
+    //console.log(res);
   };
   const addPoseHandler = () => { // для кнопки "создать pose"
     const i = codeGenerator() + 1;
@@ -149,7 +156,7 @@ const RobotMoves = () => {
       "id": i,
       "mimic": null
     }])
-    console.log(items)
+    //console.log(items)
   }
   const handleDragDrop = (results) => {
     //console.log("drag drop event accured", results);
