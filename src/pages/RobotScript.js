@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import ModalScriptAddTrigger from "../components/ModalScriptAddTrigger/ModalScriptAddTrigger";
 import ModalScriptAddMove from "../components/ModalScriptAddMove/ModalScriptAddMove";
-import ScriptItem from "../components/ScriptItem/ScriptItem";
+//import ScriptItem from "../components/ScriptItem/ScriptItem";
 
 import back from "../img/icons/menu-day/back-day.svg";
 import backNight from "../img/icons/menu-night/back-night.svg";
@@ -23,6 +23,10 @@ import scriptMove from "../img/script-day/scriptMove.svg";
 import scriptMoveNight from "../img/script-night/scriptMove-night.svg";
 import deleteItem from "../img/movesItem/delete-day.svg";
 import deleteItemNight from "../img/movesItem/delete-night.svg";
+import timerDay from "../img/timer/timer-day.svg";
+import timerNight from "../img/timer/timer-night.svg";
+
+import {ReactComponent as CloseItemIco} from '../img/close.svg';
 
 import "./RobotScript.scss";
 
@@ -41,6 +45,10 @@ const RobotScript = () => {
   const [triggers, setTriggers] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [buttonText, setButtonText] = useState('или');
+  const [delayValue, setDelayValue] = useState(0); //delay из бека
+  // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
+  const [delayView, setDelayView] = useState(delayValue === 0 ? 0 : 2);
+  const delayRef = useRef(null);
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
@@ -167,7 +175,7 @@ const RobotScript = () => {
   const onBtnIliTextChange = () => {
     setButtonText(buttonText === 'или' ? 'и' : 'или');
   }
-
+//todo: реализовать одну ф-ю вместо трех
   const deleteMove = (move) => {
     let index = moves.indexOf(move);
     setMoves([...moves.slice(0, index), ...moves.slice(index + 1)]);
@@ -177,6 +185,12 @@ const RobotScript = () => {
     console.log("triger delete");
     let index = filteredItems.indexOf(item);
     setFilteredItems([...filteredItems.slice(0, index), ...filteredItems.slice(index + 1)]);
+  }
+
+  //удалить задержку
+  const handleDelete = () => {
+    setDelayView(0);
+    setDelayValue(0);
   }
 
   return (
@@ -235,8 +249,8 @@ const RobotScript = () => {
           </button>
         </div>
       </div>
-      <div className="robot-script__list">
-      <ul className="robot-script__reorder">
+      {/*<div className="robot-script__list">
+        <ul className="robot-script__reorder">
           {items &&
             items.map((item) => {
               return (
@@ -254,7 +268,7 @@ const RobotScript = () => {
               );
             })}
         </ul>
-      </div>
+          </div>*/}
       <div className="robot-script__control">
         <div className="robot-script__add-col">
           <div className="robot-script__add-col-title">
@@ -554,6 +568,50 @@ const RobotScript = () => {
               </button>
             </div>)}
           </div>
+          <div className="robot-script__add-col-importedDelayWrapper">
+            {/* Задержка */}
+            { delayView === 0 && <span></span>}
+            <div className="mimicitem__controller">
+              {delayView === 1 && <input
+                className={classNames("controler__value", {
+                  "controler__value--day": isDay,
+                  "controler__value--night": !isDay,
+                })}
+                ref={delayRef}
+                value={delayValue}
+                onBlur={ function(){
+                  setDelayView(2);
+                }}
+                onInput={() => setDelayValue(delayRef.current.value) }
+              />}
+            </div>
+
+            {delayView === 2 &&
+              <div
+                className={classNames("delay__container", {
+                  "delay__container--day": isDay,
+                  "delay__container--night": !isDay,
+                })}
+              >
+                <div
+                  className={classNames("delay mimicitem-add__last", {
+                    "mimicitem-add__last--day": isDay,
+                    "mimicitem-add__last--night": !isDay,
+                  })}
+                  onClick={() => setDelayView(1)}
+                >
+                  <img src={isDay ? timerDay : timerNight} alt="" />
+                  {delayValue} мс
+                  <img src={isDay ? pen : penNight} alt="" />
+                </div>
+                <span
+                  className="delete-btn"
+                  onClick={handleDelete}
+                >
+                  <CloseItemIco />
+                </span>
+              </div>}
+          </div>
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,
@@ -574,6 +632,7 @@ const RobotScript = () => {
           isOpen={isModalScriptAddMoveOpen}
           onClose={onModalScriptClose}
           onMoveImport={onMoveImport}
+          setDelayView={setDelayView}
       ></ModalScriptAddMove>
     </div>
   );

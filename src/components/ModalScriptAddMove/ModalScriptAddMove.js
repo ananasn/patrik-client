@@ -18,7 +18,7 @@ import classNames from "classnames";
 
 import "./ModalScriptAddMove.scss";
 
-const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMoveImport}) => {
+const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMoveImport, setDelayView}) => {
   const isDay = useSelector((state) => state.isDay);
 
   const { request, loading } = useHttp();
@@ -45,7 +45,10 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
   };
   //timeout input
   const handleSetTimeOut = () => {
-    //setDelayView(1);
+    // закрыть модальное окно
+    onClose();
+    //нарисовать див в верстке RobotScipt
+    setDelayView(1);
   }
 
   return (
@@ -97,12 +100,7 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
                 >
                   <img src={isDay ? timer : timerNight} alt="Face" />
                   <div
-                    onClick={() => {
-                      //нарисовать див в верстке RobotScipt
-                      handleSetTimeOut();
-                      // закрыть модальное окно
-                      onClose();
-                    }}
+                    onClick={handleSetTimeOut}
                   >
                     Задержка
                   </div>
