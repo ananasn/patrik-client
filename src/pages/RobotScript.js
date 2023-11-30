@@ -83,17 +83,17 @@ const RobotScript = () => {
     inputRef.current.focus();
   };
 
-  const saveFunc = (obj) => {
-    const res = items.map((item) => {
-      if (item.id === obj.id) {
-        return obj;
-      } else {
-        return item;
-      }
-    });
-    setItems(res);
-    console.log(obj); //данные для put запроса (mimic)
-  };
+  // const saveFunc = (obj) => {
+  //   const res = items.map((item) => {
+  //     if (item.id === obj.id) {
+  //       return obj;
+  //     } else {
+  //       return item;
+  //     }
+  //   });
+  //   setItems(res);
+  //   console.log(obj); //данные для put запроса (mimic)
+  // };
 
   const addScriptHandler = () => { // для кнопки "создать cсценарий"
     setItems([...items, {

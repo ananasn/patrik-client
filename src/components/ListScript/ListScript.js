@@ -1,8 +1,9 @@
 import classnames from "classnames";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+import { useHttp } from "../../hooks/http.hook";
 import "./ListScript.scss";
+import { useState } from "react";
 
 const ListScript = ({
   text,
@@ -13,13 +14,29 @@ const ListScript = ({
   deleteScript
 }) => {
   const isDay = useSelector((state) => state.isDay);
+  const { request, loading } = useHttp();
+  //active приходит с сервера в списке скриптов
+  const [power, setPower] = useState(active);
+
   const handleDelete = () => {
     deleteScript(id);
     //console.log(id)
   }
   const handlePlay = async () => {
     await fetch(`http://localhost:8000/api/run_script/${id}/`, {method:"POST"});
-    //console.log(id, "run");
+    // console.log(id, "run script");
+  }
+
+  const handlePower = async () => {
+    const res = await request(`http://localhost:8000/api/activate_script/${id}/`, "post",
+      JSON.stringify({
+        active: !power,
+      }));
+    console.log(id, "run power");
+    setPower(!power);
+  }
+  if (loading) {
+    return <h1 className="loading-text" style={{ textAlign: "center" }}>Идёт загрузка...</h1>;
   }
   return (
     <li
@@ -51,9 +68,10 @@ const ListScript = ({
               className={classnames("script__btn", {
                 script__btn_power_day: isDay,
                 script__btn_power_night: !isDay,
-                script__btn_power_disabled: active == false,
-                script__btn_power_disabled_night: !isDay & active == false,
+                script__btn_power_disabled: power == false,
+                script__btn_power_disabled_night: !isDay & power == false,
               })}
+              onClick={handlePower}
             ></button>
             <button
               className={classnames("script__btn", {
