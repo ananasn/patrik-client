@@ -18,7 +18,7 @@ import classNames from "classnames";
 
 import "./ModalScriptAddMove.scss";
 
-const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMoveImport, setDelayView}) => {
+const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMoveImport, setDelayView, onDelayAdd}) => {
   const isDay = useSelector((state) => state.isDay);
 
   const { request, loading } = useHttp();
@@ -49,6 +49,7 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
     onClose();
     //нарисовать див в верстке RobotScipt
     setDelayView(1);
+    onDelayAdd();
   }
 
   return (

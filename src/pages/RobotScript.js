@@ -30,6 +30,7 @@ import {ReactComponent as CloseItemIco} from '../img/close.svg';
 
 import "./RobotScript.scss";
 
+
 // страница создания и редактирования мимик; где карточки
 const RobotScript = () => {
   const isDay = useSelector((state) => state.isDay);
@@ -49,6 +50,8 @@ const RobotScript = () => {
   // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
   const [delayView, setDelayView] = useState(delayValue === 0 ? 0 : 2);
   const delayRef = useRef(null);
+  //константа для колонки с действиями
+  const [expressions, setExpressions] = useState([]);
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
@@ -61,6 +64,23 @@ const RobotScript = () => {
           //console.log(data)
           //setThisScript(data);
           setInputValue(data.name);
+          setExpressions([
+            {
+              "operation": 2,
+              "delay": 1000,
+              "move": 0
+            },
+            {
+              "operation": 1,
+              "delay": 100,
+              "move": 0
+            },
+            {
+              "operation": 1,
+              "delay": 0,
+              "move": 4
+            }
+          ]);
         };
         fetchData();
       } else {
@@ -83,30 +103,30 @@ const RobotScript = () => {
     inputRef.current.focus();
   };
 
-  const saveFunc = (obj) => {
-    const res = items.map((item) => {
-      if (item.id === obj.id) {
-        return obj;
-      } else {
-        return item;
-      }
-    });
-    setItems(res);
-    console.log(obj); //данные для put запроса (mimic)
-  };
+  // const saveFunc = (obj) => {
+  //   const res = items.map((item) => {
+  //     if (item.id === obj.id) {
+  //       return obj;
+  //     } else {
+  //       return item;
+  //     }
+  //   });
+  //   setItems(res);
+  //   console.log(obj); //данные для put запроса (mimic)
+  // };
 
-  const addScriptHandler = () => { // для кнопки "создать cсценарий"
-    setItems([...items, {
-      "name": "test", //имя
-      "active": true,
-      "triggers": [ //массив id тригерров
-        1
-      ],
-      "move": [ //массив id движений
-        1
-      ]
-    }])
-  }
+  // const addScriptHandler = () => { // для кнопки "создать cсценарий"
+  //   setItems([...items, {
+  //     "name": "test", //имя
+  //     "active": true,
+  //     "triggers": [ //массив id тригерров
+  //       1
+  //     ],
+  //     "move": [ //массив id движений
+  //       1
+  //     ]
+  //   }])
+  // }
   const saveHandler = () => { // доделать if на put запрос - при редактировании (или пут или пост)
     items.forEach(async(item) => {
       //console.log(item);
@@ -169,6 +189,19 @@ const RobotScript = () => {
       id: moveId,
       text: moveText,
     }]);
+    setExpressions([...expressions, {
+      move: moveId,
+      delay: 0,
+      operation: 1,
+    }]);
+  }
+
+  const onDelayAdd = () => {
+    setExpressions([...expressions, {
+      move: 0,
+      delay: 100,
+      operation: 1,
+    }]);
   }
 
   //меняем текст на кнопке ИЛИ\И по клику
@@ -189,8 +222,8 @@ const RobotScript = () => {
 
   //удалить задержку
   const handleDelete = () => {
-    setDelayView(0);
-    setDelayValue(0);
+    // setDelayView(0);
+    // setDelayValue(0);
   }
 
   return (
@@ -544,7 +577,45 @@ const RobotScript = () => {
             То:
           </div>
           <div className="robot-script__add-col-importedMovesWraper">
-            {moves.map((move) => <div className="robot-script__add-col-importedMoves">
+            {expressions.map((expression) => <div>
+              {expression.move !== 0 && <div>moveId: {expression.move}</div>}
+              {expression.delay !== 0 && <div className="delay__wraper">
+                <div
+                  className={classNames("delay__container", {
+                    "delay__container--day": isDay,
+                    "delay__container--night": !isDay,
+                  })}
+                >
+                  <div
+                    className={classNames("delay mimicitem-add__last", {
+                      "mimicitem-add__last--day": isDay,
+                      "mimicitem-add__last--night": !isDay,
+                    })}
+                    onClick={(e) => e.target.closest(".delay__wraper").classList.add("delay--editable")}
+                  >
+                    <img src={isDay ? timerDay : timerNight} alt="" />
+                    {expression.delay} мс
+                    <img src={isDay ? pen : penNight} alt="" />
+                  </div>
+                  <span
+                    className="delete-btn"
+                    onClick={handleDelete}
+                  >
+                    <CloseItemIco />
+                  </span>
+                </div>
+              </div>}
+              <div
+                onClick={() => {
+                  expression.operation = (expression.operation === 1) ? 2 : 1;
+                  setExpressions([...expressions]);
+                }}
+              >
+                operation: {expression.operation}
+              </div>
+              <hr />
+            </div>)}
+            {/* {moves.map((move) => <div className="robot-script__add-col-importedMoves">
               <div className={classNames("robot-script__add-col-importedMoves-move", {
                 "robot-script__add-col-importedMoves-move--day": isDay,
                 "robot-script__add-col-importedMoves-move--night": !isDay,
@@ -566,10 +637,9 @@ const RobotScript = () => {
               >
                 {buttonText}
               </button>
-            </div>)}
+            </div>)} */}
           </div>
-          <div className="robot-script__add-col-importedDelayWrapper">
-            {/* Задержка */}
+          {/* <div className="robot-script__add-col-importedDelayWrapper">
             { delayView === 0 && <span></span>}
             <div className="mimicitem__controller">
               {delayView === 1 && <input
@@ -611,7 +681,7 @@ const RobotScript = () => {
                   <CloseItemIco />
                 </span>
               </div>}
-          </div>
+          </div> */}
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,
@@ -633,6 +703,7 @@ const RobotScript = () => {
           onClose={onModalScriptClose}
           onMoveImport={onMoveImport}
           setDelayView={setDelayView}
+          onDelayAdd={onDelayAdd}
       ></ModalScriptAddMove>
     </div>
   );
