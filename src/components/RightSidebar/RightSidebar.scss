@@ -3,6 +3,7 @@
 .right-sidebar {
   flex: 1;
   max-width: 400px;
+  min-height: 100vh;
   &_day {
     background-color: $bars-day;
     color: $font-day;

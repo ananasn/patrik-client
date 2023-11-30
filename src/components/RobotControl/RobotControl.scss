@@ -6,6 +6,7 @@
   &__modal-control {
     position: relative;
     transition: 0.5s all;
+    display: none;
     visibility: hidden;
     opacity: 0;
     background-color: $bars-day;
@@ -14,7 +15,7 @@
     margin: 0 auto;
     right: 0px;
     padding: 65px 0 65px 30px;
-    display: flex;
+    //display: flex;
     flex-direction: column;
     align-content: center;
     justify-items: center;
@@ -45,11 +46,13 @@
   }
 
   &__modal-control--active {
+    display: flex;
     visibility: visible;
     opacity: 1;
     position: absolute;
     bottom: 36%;
     left: 0;
+    z-index: 15;
 
     @media(max-width: 850px) {
       bottom: 0;
