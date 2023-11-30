@@ -309,6 +309,7 @@
     //стили для задерки (поправить)
     .delay__container {
       position: relative;
+      margin-top: 8px;
       &--day {
         stroke: $btns-day;
 
@@ -318,7 +319,8 @@
       }
     }
     .delay {
-      padding: 19px 16px;
+      padding: 16px 0 16px 16px;
+      border-radius: 8px;
     }
     .delete-btn{
       //justify-self: right;
