@@ -1,17 +1,18 @@
 @import "../../utils/variables";
 .robot {
   &__form {
-    margin-top: 63px;
     display: flex;
     align-items: center;
     justify-items: center;
     justify-content: center;
     position: relative;
+    z-index: 7;
+
   }
 
   &__input-day {
     width: 100%;
-    margin: 0 40px;
+    margin: 20px 40px;
     border: 0px;
     padding: 20px 55px 20px 32px;
     border-radius: 32px;
@@ -24,7 +25,7 @@
   }
   &__input-night {
     width: 100%;
-    margin: 0 40px;
+    margin: 20px 40px;
     border: 0px;
     padding: 20px 55px 20px 32px;
     border-radius: 32px;
@@ -38,7 +39,7 @@
   &__send {
     position: absolute;
     right: 60px;
-    top: 14px;
+    top: 34px;
     z-index: 9;
     background-color: transparent;
     border: 0px;
@@ -47,5 +48,35 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+  }
+}
+
+@media(max-width: 850px) {
+  .robot {
+    &__form {
+      position: fixed;
+      left: 0;
+      bottom: 125px;
+      width: 100%;
+      margin-top: 63px;
+    }
+  }
+}
+
+@media(max-width: 650px) {
+  .robot {
+    &__form {
+      bottom: 97px;
+      z-index: 7;
+    }
+    &__input-day {
+      margin: 20px 16px;
+    }
+    &__input-night {
+      margin: 20px 16px;
+    }
+    &__send {
+      right: 32px;
+    }
   }
 }
