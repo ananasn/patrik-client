@@ -47,7 +47,7 @@ import robotArmNightActive from "../../img/robot-moves-night/robot-arm-night-act
 import robotHandNightActive from "../../img/robot-moves-night/robot-hand-night-active.svg";
 
 import {ReactComponent as PlusIco } from "../../img/plus.svg";
-//import {ReactComponent as EmotionIco} from "../../img/icons/menu-day/mim.svg";
+import {ReactComponent as EmotionIco} from "../../img/icons/menu-day/mim.svg";
 
 import "./MovesItem.scss";
 import { Draggable } from "react-beautiful-dnd";
@@ -717,12 +717,6 @@ const MovesItem = ({
           </div>
         </div>
         <div className="movesitem__footer">
-          {/* <RobotAddSmt
-            word={"мимику"}
-            mimic={mimicData}
-            mimicName={mimic?.name ?? null}
-            handleMimicChange={handleMimicChange} //изменение мимики
-          ></RobotAddSmt> */}
           <button
             className={classnames("movesitem-add__btn", {
               "movesitem-add__btn--day": isDay,
@@ -730,8 +724,8 @@ const MovesItem = ({
             })}
            onClick={() => onModalPoseMimicOpen(card)} //card - поза с сервера
           >
-            <PlusIco />
-            {mimicName ?? 'Добавить мимику'}
+
+            {mimicName ? <><EmotionIco />{mimicName}</> : <><PlusIco />Добавить мимику</>}
           </button>
           <RobotAddSmt
             pharsa={phraseData}
