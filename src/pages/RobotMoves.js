@@ -130,7 +130,7 @@ const RobotMoves = () => {
         if (typeof id == "number") {
 
         } else {
-          item.mimic = item.mimic?.id;
+          // item.mimic = item.mimic?.id;
         }
 
         console.log("item.mimic", item.mimic);
@@ -191,7 +191,7 @@ const RobotMoves = () => {
     JSON.stringify({
       id: moveId,
       name: inputValue,
-      poses: items
+      poses: items.map(pose => ({...pose, mimic: pose.mimic.id})),
     }));
     console.log("Сохранение движения");
     dispatch(setImportMove(null));
@@ -245,7 +245,7 @@ const RobotMoves = () => {
   //срабатывает при выборе мимики в модальном окне
   const onMimicSelect = (mimic) => {
     console.log("mimic, poseInModal", mimic, poseInModal);
-    saveFunc({...poseInModal, mimic: mimic.id});
+    saveFunc({...poseInModal, mimic: mimic});
     setIsModalPoseMimicOpen(false);
   }
   return (
@@ -336,7 +336,7 @@ const RobotMoves = () => {
                         delay={item.delay}
                         phrase={item.phrase}
                         mimic={item.mimic}
-                        mimicName={mimics.find(mimicServer => mimicServer.id == item.mimic)?.name}
+                        // mimicName={mimics.find(mimicServer => mimicServer.id == item.mimic)?.name}
                         saveFunc={saveFunc}
                         deletePose={deletePose}
                         order={item.id}

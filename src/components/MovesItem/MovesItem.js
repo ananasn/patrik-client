@@ -769,7 +769,7 @@ const MovesItem = ({
             })}
            onClick={() => onModalPoseMimicOpen(card)} //card - поза с сервера
           >
-            {mimicName ? <><EmotionIco />{mimicName}</> : <><PlusIco />Добавить мимику</>}
+            {mimic?.name ? <><EmotionIco />{mimic.name}</> : <><PlusIco />Добавить мимику</>}
           </button>
           <RobotAddSmt
             pharsa={phraseData}

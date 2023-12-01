@@ -47,11 +47,13 @@ const RobotScript = () => {
   const [filteredItems, setFilteredItems] = useState([]);
   const [buttonText, setButtonText] = useState('или');
   const [delayValue, setDelayValue] = useState(0); //delay из бека
+  const [script, setScript] = useState({});
   // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
   const [delayView, setDelayView] = useState(delayValue === 0 ? 0 : 2);
   const delayRef = useRef(null);
   //константа для колонки с действиями
   const [expressions, setExpressions] = useState([]);
+  // const moves = useSelector((state) => state.moves);
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
@@ -61,32 +63,23 @@ const RobotScript = () => {
         const fetchData = async () => {
           const response = await request(`http://localhost:8000/api/script/${scriptId}`);// получить сценарий по id
           const data = await response;
-          //console.log(data)
+          console.log(data)
           //setThisScript(data);
           setInputValue(data.name);
-          setExpressions([
-            {
-              "operation": 2,
-              "delay": 1000,
-              "move": 0
-            },
-            {
-              "operation": 1,
-              "delay": 100,
-              "move": 0
-            },
-            {
-              "operation": 1,
-              "delay": 0,
-              "move": 4
-            }
-          ]);
+          setExpressions(data.expressions);
+          setScript(data);
         };
         fetchData();
       } else {
         setInputValue("Новый сценарий");
       }
+      (async () => {
+        const response = await request("http://localhost:8000/api/move/");
+        const data = await response;
+        setMoves(data);
+      })();
     }, [])
+    // console.log(moves);
 
   const inputRef = useRef(null);
   //const dispatch = useDispatch();
@@ -168,27 +161,48 @@ const RobotScript = () => {
     //console.log(scriptId, "run");
   }
 
-  //запрос на сохранение/перезапись сценария
+  //запрос на сохранение/перезапись сценария на сервер
   const handleSaveScript = async () => {
 
-    // const res = await request("http://localhost:8000/api/save_mimic_items/", "post",
-    //   JSON.stringify({
-    //     id: scriptId,
-    //     name: inputValue,
-    //     mimic_items: items
-    //   }));
-    //console.log(res);
-    //console.log("navigate to /script")
-    navigate(-1);
+    const res = await request("http://localhost:8000/api/save_script/", "post",
+      // JSON.stringify({
+      //   "id": 0,
+      //   "expressions": expressions,
+      //   "name": "string",
+      //   "active": true,
+      //   "triggers": [
+      //     0
+      //   ]
+      // }));
+      // JSON.stringify(script));
+      JSON.stringify({
+        "id": 0,
+        "expressions": [
+          {
+            "operation": 1,
+            "delay": 0,
+            "move": 0
+          }
+        ],
+        "name": "string",
+        "active": true,
+        "triggers": [
+          0
+        ]
+      }));
+
+    console.log(res);
+    // console.log("navigate to /script")
+    // navigate(-1);
   }
   // срабатывает когда нажали импорт в попапе с движением
   const onMoveImport = (moveId, moveText) => {
     console.log("onMoveImport", moveId, moveText);
     onModalScriptClose();
-    setMoves([...moves, {
-      id: moveId,
-      text: moveText,
-    }]);
+    // setMoves([...moves, {
+    //   id: moveId,
+    //   text: moveText,
+    // }]);
     setExpressions([...expressions, {
       move: moveId,
       delay: 0,
@@ -208,11 +222,6 @@ const RobotScript = () => {
   const onBtnIliTextChange = () => {
     setButtonText(buttonText === 'или' ? 'и' : 'или');
   }
-//todo: реализовать одну ф-ю вместо трех
-  const deleteMove = (move) => {
-    let index = moves.indexOf(move);
-    setMoves([...moves.slice(0, index), ...moves.slice(index + 1)]);
-  }
 
   const deleteTrigger = (item) => {
     console.log("triger delete");
@@ -220,10 +229,11 @@ const RobotScript = () => {
     setFilteredItems([...filteredItems.slice(0, index), ...filteredItems.slice(index + 1)]);
   }
 
-  //удалить задержку
-  const handleDelete = () => {
-    // setDelayView(0);
-    // setDelayValue(0);
+  const deleteExpression = (expression) => {
+    let index = expressions.indexOf(expression);
+    //console.log("delete expression", expression);
+    expressions.splice(index, 1);
+    setExpressions([...expressions]);
   }
 
   return (
@@ -577,111 +587,111 @@ const RobotScript = () => {
             То:
           </div>
           <div className="robot-script__add-col-importedMovesWraper">
-            {expressions.map((expression) => <div>
-              {expression.move !== 0 && <div>moveId: {expression.move}</div>}
-              {expression.delay !== 0 && <div className="delay__wraper">
-                <div
-                  className={classNames("delay__container", {
-                    "delay__container--day": isDay,
-                    "delay__container--night": !isDay,
-                  })}
-                >
-                  <div
-                    className={classNames("delay mimicitem-add__last", {
-                      "mimicitem-add__last--day": isDay,
-                      "mimicitem-add__last--night": !isDay,
-                    })}
-                    onClick={(e) => e.target.closest(".delay__wraper").classList.add("delay--editable")}
-                  >
-                    <img src={isDay ? timerDay : timerNight} alt="" />
-                    {expression.delay} мс
-                    <img src={isDay ? pen : penNight} alt="" />
+            {expressions.map((expression, index) => {
+              const expressionPrev = expressions[index - 1];
+              const expressionNext = expressions[index + 1];
+              let roundTopClass = "";
+              let roundBottomClass = "";
+              // если пред. нет, то скругляем сверху
+              if (!expressionPrev) {
+                roundTopClass = "expression__line--roundTop";
+              }
+              // если в предыдущем ИЛИ то скругляем сверху
+              if (expressionPrev?.operation === 1) {
+                roundTopClass = "expression__line--roundTop";
+              }
+              // если след. ИЛИ, то скругляем снизу
+              if (expressionNext?.operation === 1) {
+                roundBottomClass = "expression__line--roundBottom";
+              }
+              // если след. нет, то скругляем снизу
+              if (!expressionNext) {
+                roundBottomClass = "expression__line--roundBottom";
+              }
+              console.log(roundTopClass, roundBottomClass, index, expressions, expressionPrev, expressionNext);
+              return <div className="expression" key={expression.id}>
+                {expression.move !== 0 &&  <div className="robot-script__add-col-importedMoves">
+                  <div className={`expression__line ${roundTopClass} ${roundBottomClass}`}></div>
+                  <div className={classNames("robot-script__add-col-importedMoves-move", {
+                    "robot-script__add-col-importedMoves-move--day": isDay,
+                    "robot-script__add-col-importedMoves-move--night": !isDay,
+                  })}>
+                    <div className="robot-script__add-col-importedMoves-move-text">
+                      <img src={isDay ? scriptMove : scriptMoveNight} alt="Face" />
+                      {moves.find(move => move.id === expression.move)?.name}
+                    </div>
+                    <button className="robot-script__btnDlt"onClick={() => deleteExpression(expression)}>
+                      <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
+                    </button>
                   </div>
-                  <span
-                    className="delete-btn"
-                    onClick={handleDelete}
-                  >
-                    <CloseItemIco />
-                  </span>
-                </div>
-              </div>}
-              <div
-                onClick={() => {
-                  expression.operation = (expression.operation === 1) ? 2 : 1;
-                  setExpressions([...expressions]);
-                }}
-              >
-                operation: {expression.operation}
-              </div>
-              <hr />
-            </div>)}
-            {/* {moves.map((move) => <div className="robot-script__add-col-importedMoves">
-              <div className={classNames("robot-script__add-col-importedMoves-move", {
-                "robot-script__add-col-importedMoves-move--day": isDay,
-                "robot-script__add-col-importedMoves-move--night": !isDay,
-              })}>
-                <div className="robot-script__add-col-importedMoves-move-text">
-                  <img src={isDay ? scriptMove : scriptMoveNight} alt="Face" />
-                  {move.text}
-                </div>
-                <button className="robot-script__btnDlt"onClick={() => deleteMove(move)}>
-                  <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
-                </button>
-              </div>
-              <button
-                className={classNames("robot-script-add__btnILi", {
-                  "robot-script-add__btnIli--day": isDay,
-                  "robot-script-add__btnIli--night": !isDay,
-                })}
-                onClick={onBtnIliTextChange}
-              >
-                {buttonText}
-              </button>
-            </div>)} */}
-          </div>
-          {/* <div className="robot-script__add-col-importedDelayWrapper">
-            { delayView === 0 && <span></span>}
-            <div className="mimicitem__controller">
-              {delayView === 1 && <input
-                className={classNames("controler__value", {
-                  "controler__value--day": isDay,
-                  "controler__value--night": !isDay,
-                })}
-                ref={delayRef}
-                value={delayValue}
-                onBlur={ function(){
-                  setDelayView(2);
-                }}
-                onInput={() => setDelayValue(delayRef.current.value) }
-              />}
-            </div>
+                </div>}
 
-            {delayView === 2 &&
-              <div
-                className={classNames("delay__container", {
-                  "delay__container--day": isDay,
-                  "delay__container--night": !isDay,
-                })}
-              >
+                {/* задержка */}
+                {expression.delay !== 0 && <div
+                    className={classNames("delay__container delay__wraper", {
+                      "delay__container--day": isDay,
+                      "delay__container--night": !isDay,
+                    })}
+                  >
+                    <div className={`expression__line ${roundTopClass} ${roundBottomClass}`}></div>
+                    <div
+                      className={classNames("delay mimicitem-add__last", {
+                        "mimicitem-add__last--day": isDay,
+                        "mimicitem-add__last--night": !isDay,
+                      })}
+                      onClick={(e) => {
+                        const delayWraper = e.target.closest(".delay__wraper");
+                        delayWraper.classList.add("delay--editable");
+                        const delayInput = delayWraper.querySelector(".delay__input");
+                        delayInput.focus();
+                      }}
+                    >
+                      <img src={isDay ? timerDay : timerNight} alt="" />
+                      <input
+                        className={classNames("controler__value delay__input", {
+                          "controler__value--day": isDay,
+                          "controler__value--night": !isDay,
+                        })}
+                        defaultValue={expression.delay}
+                        type="number"
+                        onBlur={ function(e){
+                          expression.delay = e.target.value;
+                          setExpressions([...expressions]);
+                          e.target.closest(".delay__wraper").classList.remove("delay--editable");
+                        }}
+                      />
+                      <span className="delay__value">{expression.delay}</span> мс
+                      <img src={isDay ? pen : penNight} alt="" />
+                    </div>
+                    <span
+                      className="delete-btn"
+                      onClick={() => deleteExpression(expression)}
+                    >
+                      <CloseItemIco />
+                    </span>
+                  </div>}
+                {/* кнопка и/или */}
                 <div
-                  className={classNames("delay mimicitem-add__last", {
-                    "mimicitem-add__last--day": isDay,
-                    "mimicitem-add__last--night": !isDay,
-                  })}
-                  onClick={() => setDelayView(1)}
+                  className="operation"
+                  onClick={() => {
+                    expression.operation = (expression.operation === 1) ? 2 : 1;
+                    setExpressions([...expressions]);
+                  }}
                 >
-                  <img src={isDay ? timerDay : timerNight} alt="" />
-                  {delayValue} мс
-                  <img src={isDay ? pen : penNight} alt="" />
+                  <div className={`expression__line${expression.operation === 1 ? " expression__line--hidden" : ""} ${roundTopClass} ${roundBottomClass}`}></div>
+                  <button
+                    className={classNames("robot-script-add__btnILi", {
+                      "robot-script-add__btnIli--day": isDay,
+                      "robot-script-add__btnIli--night": !isDay,
+                    })}
+                    onClick={onBtnIliTextChange}
+                  >
+                    {expression.operation === 1 ? "или" : "и"}
+                  </button>
                 </div>
-                <span
-                  className="delete-btn"
-                  onClick={handleDelete}
-                >
-                  <CloseItemIco />
-                </span>
-              </div>}
-          </div> */}
+              </div>
+            })}
+          </div>
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,
