@@ -307,30 +307,46 @@
     background-color: #D1D8EF;
     width: 84%;
   }
-    //стили для задерки (поправить)
-    .delay__container {
-      position: relative;
-      margin-top: 8px;
-      &--day {
-        stroke: $btns-day;
+  //стили для задерки (поправить)
+  .delay__container {
+    position: relative;
+    margin-top: 8px;
+    &--day {
+      stroke: $btns-day;
 
+    }
+    &--night {
+      stroke: $btns-night;
+    }
+  }
+  .delay {
+    padding: 16px 0 16px 16px;
+    border-radius: 8px;
+    &__input {
+      display: none;
+    }
+    &--editable {
+      .delay__value {
+        display: none;
       }
-      &--night {
-        stroke: $btns-night;
+      .delay__input {
+        display: inline;
       }
     }
-    .delay {
-      padding: 16px 0 16px 16px;
-      border-radius: 8px;
+  }
+  .delete-btn{
+    //justify-self: right;
+    text-align: right;
+    position: absolute;
+    top: 22px;
+    right: 16px;
+    cursor: pointer;
+  }
+  .expression:last-child {
+    .operation {
+      display: none;
     }
-    .delete-btn{
-      //justify-self: right;
-      text-align: right;
-      position: absolute;
-      top: 22px;
-      right: 16px;
-      cursor: pointer;
-    }
+  }
 }
 
 @media(max-width: 1280px) {
