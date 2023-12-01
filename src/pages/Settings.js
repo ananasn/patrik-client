@@ -28,7 +28,7 @@ const Settings = () => {
   const isDay = useSelector((state) => state.isDay);
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("Патрик 78");
-  const [buttonText, setButtonText] = useState('Темная тема');
+  const [buttonText, setButtonText] = useState(isDay ? 'Темная тема' : 'Светлая тема');
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const isTablet = useMediaQuery({
