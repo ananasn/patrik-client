@@ -678,7 +678,7 @@ const RobotScript = () => {
                     setExpressions([...expressions]);
                   }}
                 >
-                  <div className={`expression__line${expression.operation == 1 ? " expression__line--hidden" : ""} ${roundTopClass} ${roundBottomClass}`}></div>
+                  <div className={`expression__line${expression.operation === 1 ? " expression__line--hidden" : ""} ${roundTopClass} ${roundBottomClass}`}></div>
                   <button
                     className={classNames("robot-script-add__btnILi", {
                       "robot-script-add__btnIli--day": isDay,
@@ -689,7 +689,6 @@ const RobotScript = () => {
                     {expression.operation === 1 ? "или" : "и"}
                   </button>
                 </div>
-                <hr />
               </div>
             })}
           </div>
