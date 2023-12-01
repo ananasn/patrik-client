@@ -15,8 +15,8 @@ const RobotControl = ({bottom}) => {
   const itemClass = `robot__modal-control ${
     activeRobotPart ? `robot__modal-control--active` : ""
   }`;
-  console.log(activeRobotPart, itemClass);
-  console.log('передать значение', bottom)
+  //console.log(activeRobotPart, itemClass);
+  //console.log('передать значение', bottom)
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
@@ -24,7 +24,7 @@ const RobotControl = ({bottom}) => {
     query: "(max-width: 650px)",
   });
   const bottomStyle = !isTablet & !isMobile & !(activeRobotPart === "neck") ? bottom : null;
-  console.log('применить стили только для пк', bottomStyle)
+  //console.log('применить стили только для пк', bottomStyle)
   const horizontalInput =
     activeRobotPart === "neck" && isDay ? (
       <>
