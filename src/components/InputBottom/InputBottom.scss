@@ -5,7 +5,7 @@
     align-items: center;
     justify-items: center;
     justify-content: center;
-    position: static;
+    position: relative;
     z-index: 7;
 
   }
@@ -54,9 +54,9 @@
 @media(max-width: 850px) {
   .robot {
     &__form {
-      position: fixed;
-      left: 0;
-      bottom: 125px;
+      //position: absolute;
+      //left: 0;
+      //bottom: 25px;
       width: 100%;
       margin-top: 63px;
     }
@@ -66,7 +66,7 @@
 @media(max-width: 650px) {
   .robot {
     &__form {
-      bottom: 97px;
+      //bottom: 125px;
       z-index: 7;
     }
     &__input-day {
