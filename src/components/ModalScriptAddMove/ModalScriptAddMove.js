@@ -27,11 +27,6 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
     {value: "timer", title: "Задержка", ico: timer, icoNight: timerNight},
   ]);
 
-  //const [delayValue, setDelayValue] = useState(delayStart);
-  // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
-  // const [delayView, setDelayView] = useState(delayValue === 0 ? 0 : 2);
-  // const delayRef = useRef(null);
-
   const dispatch = useDispatch();
 
   const handleModalClose = () => {

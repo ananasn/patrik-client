@@ -143,6 +143,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
                       // закрыть модальное окно
                       onClose();
                     }}
+                    key={id}
                   >
                     <img src={isDay ? item.ico : item.icoNight} alt="Face" />
                     <div>{item.title}</div>

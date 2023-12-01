@@ -129,17 +129,17 @@
   }
   &__add-col-importedMoves {
     display: flex;
-    flex-direction: column;
+    //flex-direction: column;
     font-family: Inter;
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    &:last-child {
-      .robot-script-add__btnILi {
-        display: none;
-      }
-    }
+    // &:last-child {
+    //   .robot-script-add__btnILi {
+    //     display: none;
+    //   }
+    // }
     &-move {
       display: flex;
       //width: 320px;
@@ -310,6 +310,7 @@
   //стили для задерки (поправить)
   .delay__container {
     position: relative;
+    display: flex;
     margin-top: 8px;
     &--day {
       stroke: $btns-day;
@@ -341,6 +342,27 @@
     top: 22px;
     right: 16px;
     cursor: pointer;
+  }
+  .expression {
+    &__line {
+      height: 64px;
+      background-color: red;
+      width: 10px;
+      &--hidden {
+        background: transparent;
+      }
+      &--roundTop {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+      &--roundBottom {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+    }
+    .operation {
+      display: flex;
+    }
   }
   .expression:last-child {
     .operation {
