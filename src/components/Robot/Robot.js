@@ -25,10 +25,16 @@ import robotHandNight from "../../img/robot-night/robot-hand-night.svg";
 import robotNeckDayActive from "../../img/robot-day/neck-day-active.svg";
 import robotArmDayActive from "../../img/robot-day/arm-day-active.svg";
 import robotHandDayActive from "../../img/robot-day/hand-day-active.svg";
+import robotLeftShoulderActive from "../../img/robot-day/robot-left-shoulder-active.svg";
+import robotRightShoulderActive from "../../img/robot-day/robot-right-shoulder-active.svg";
+
 
 import robotNeckNightActive from "../../img/robot-night/robot-neck-night-active.svg";
 import robotArmNightActive from "../../img/robot-night/robot-arm-night-active.svg";
 import robotHandNightActive from "../../img/robot-night/robot-hand-night-active.svg";
+import robotLeftShoulderNightActive from "../../img/robot-night/robot-left-shoulder-night-active.svg";
+import robotRightShoulderNightActive from "../../img/robot-night/robot-right-shoulder-night-active.svg";
+
 
 import { resetActiveFlags, setRobotPart } from "../../store/actions";
 import InputBottom from "../InputBottom/InputBottom";
@@ -93,14 +99,8 @@ const Robot = () => {
               <img
                 alt="левое предплечье робота"
                 className="robot__arm-item"
-                src={activeRobotPart === "l1" ? robotArmDayActive : robotArm}
-                onClick={(e) => handleRobotPartChoice(e, "l1")}
-              />
-              <img
-                alt="левое предплечье робота"
-                className="robot__arm-item"
-                src={activeRobotPart === "l2" ? robotArmDayActive : robotArm}
-                onClick={(e) => handleRobotPartChoice(e, "l2")}
+                src={activeRobotPart === "l4" ? robotArmDayActive : robotArm}
+                onClick={(e) => handleRobotPartChoice(e, "l4")}
               />
               <img
                 alt="левое предплечье робота"
@@ -109,10 +109,16 @@ const Robot = () => {
                 onClick={(e) => handleRobotPartChoice(e, "l3")}
               />
               <img
+                alt="левое предплечье робота"
+                className="robot__arm-item"
+                src={activeRobotPart === "l2" ? robotArmDayActive : robotArm}
+                onClick={(e) => handleRobotPartChoice(e, "l2")}
+              />
+              <img
                 alt="левая рука робота"
                 className="robot__arm-item"
-                src={activeRobotPart === "l4" ? robotHandDayActive : robotHand}
-                onClick={(e) => handleRobotPartChoice(e, "l4")}
+                src={activeRobotPart === "l1" ? robotHandDayActive : robotHand}
+                onClick={(e) => handleRobotPartChoice(e, "l1")}
               />
             </div>
             <div className="robot__torso">
@@ -129,26 +135,26 @@ const Robot = () => {
               <img
                 alt="левое плечо робота"
                 className="robot__left-shoulder"
-                src={robotLeftShoulder}
+                src={
+                  activeRobotPart === "l5" ? robotLeftShoulderActive : robotLeftShoulder
+                }
+                onClick={(e) => handleRobotPartChoice(e, "l5")}
               />
               <img
                 alt="правое плечо робота"
                 className="robot__right-shoulder"
-                src={robotRightShoulder}
+                src={
+                  activeRobotPart === "r5" ? robotRightShoulderActive : robotRightShoulder
+                }
+                onClick={(e) => handleRobotPartChoice(e, "r5")}
               />
             </div>
             <div className="robot__arm">
               <img
                 alt="правое предплечье робота"
                 className="robot__arm-item"
-                src={activeRobotPart === "r1" ? robotArmDayActive : robotArm}
-                onClick={(e) => handleRobotPartChoice(e, "r1")}
-              />
-              <img
-                alt="правое предплечье робота"
-                className="robot__arm-item"
-                src={activeRobotPart === "r2" ? robotArmDayActive : robotArm}
-                onClick={(e) => handleRobotPartChoice(e, "r2")}
+                src={activeRobotPart === "r4" ? robotArmDayActive : robotArm}
+                onClick={(e) => handleRobotPartChoice(e, "r4")}
               />
               <img
                 alt="правое предплечье робота"
@@ -157,10 +163,16 @@ const Robot = () => {
                 onClick={(e) => handleRobotPartChoice(e, "r3")}
               />
               <img
+                alt="правое предплечье робота"
+                className="robot__arm-item"
+                src={activeRobotPart === "r2" ? robotArmDayActive : robotArm}
+                onClick={(e) => handleRobotPartChoice(e, "r2")}
+              />
+              <img
                 alt="правая рука робота"
                 className="robot__arm-item"
-                src={activeRobotPart === "r4" ? robotHandDayActive : robotHand}
-                onClick={(e) => handleRobotPartChoice(e, "r4")}
+                src={activeRobotPart === "r1" ? robotHandDayActive : robotHand}
+                onClick={(e) => handleRobotPartChoice(e, "r1")}
               />
             </div>
           </div>
@@ -193,17 +205,9 @@ const Robot = () => {
                 alt="левое предплечье робота"
                 className="robot__arm-item"
                 src={
-                  activeRobotPart === "l1" ? robotArmNightActive : robotArmNight
+                  activeRobotPart === "l4" ? robotArmNightActive : robotArmNight
                 }
-                onClick={(e) => handleRobotPartChoice(e, "l1")}
-              />
-              <img
-                alt="левое предплечье робота"
-                className="robot__arm-item"
-                src={
-                  activeRobotPart === "l2" ? robotArmNightActive : robotArmNight
-                }
-                onClick={(e) => handleRobotPartChoice(e, "l2")}
+                onClick={(e) => handleRobotPartChoice(e, "l4")}
               />
               <img
                 alt="левое предплечье робота"
@@ -214,14 +218,22 @@ const Robot = () => {
                 onClick={(e) => handleRobotPartChoice(e, "l3")}
               />
               <img
+                alt="левое предплечье робота"
+                className="robot__arm-item"
+                src={
+                  activeRobotPart === "l2" ? robotArmNightActive : robotArmNight
+                }
+                onClick={(e) => handleRobotPartChoice(e, "l2")}
+              />
+              <img
                 alt="левая рука робота"
                 className="robot__arm-item"
                 src={
-                  activeRobotPart === "l4"
+                  activeRobotPart === "l1"
                     ? robotHandNightActive
                     : robotHandNight
                 }
-                onClick={(e) => handleRobotPartChoice(e, "l4")}
+                onClick={(e) => handleRobotPartChoice(e, "l1")}
               />
             </div>
             <div className="robot__torso">
@@ -238,12 +250,18 @@ const Robot = () => {
               <img
                 alt="левое плечо робота"
                 className="robot__left-shoulder"
-                src={robotLeftShoulderNight}
+                src={
+                  activeRobotPart === "l5" ? robotLeftShoulderNightActive : robotLeftShoulderNight
+                }
+                onClick={(e) => handleRobotPartChoice(e, "l5")}
               />
               <img
                 alt="правое плечо робота"
                 className="robot__right-shoulder"
-                src={robotRightShoulderNight}
+                src={
+                  activeRobotPart === "r5" ? robotRightShoulderNightActive : robotRightShoulderNight
+                }
+                onClick={(e) => handleRobotPartChoice(e, "r5")}
               />
             </div>
             <div className="robot__arm">
@@ -251,17 +269,9 @@ const Robot = () => {
                 alt="правое предплечье робота"
                 className="robot__arm-item"
                 src={
-                  activeRobotPart === "r1" ? robotArmNightActive : robotArmNight
+                  activeRobotPart === "r4" ? robotArmNightActive : robotArmNight
                 }
-                onClick={(e) => handleRobotPartChoice(e, "r1")}
-              />
-              <img
-                alt="правое предплечье робота"
-                className="robot__arm-item"
-                src={
-                  activeRobotPart === "r2" ? robotArmNightActive : robotArmNight
-                }
-                onClick={(e) => handleRobotPartChoice(e, "r2")}
+                onClick={(e) => handleRobotPartChoice(e, "r4")}
               />
               <img
                 alt="правое предплечье робота"
@@ -272,14 +282,22 @@ const Robot = () => {
                 onClick={(e) => handleRobotPartChoice(e, "r3")}
               />
               <img
+                alt="правое предплечье робота"
+                className="robot__arm-item"
+                src={
+                  activeRobotPart === "r2" ? robotArmNightActive : robotArmNight
+                }
+                onClick={(e) => handleRobotPartChoice(e, "r2")}
+              />
+              <img
                 alt="правая рука робота"
                 className="robot__arm-item"
                 src={
-                  activeRobotPart === "r4"
+                  activeRobotPart === "r1"
                     ? robotHandNightActive
                     : robotHandNight
                 }
-                onClick={(e) => handleRobotPartChoice(e, "r4")}
+                onClick={(e) => handleRobotPartChoice(e, "r1")}
               />
             </div>
           </div>

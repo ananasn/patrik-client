@@ -464,17 +464,9 @@ const MovesItem = ({
                       alt="правое предплечье робота"
                       className="movesitem__arm-item"
                       src={
-                        activeRobotPart === "r1" ? robotArmDayActive : robotArm
+                        activeRobotPart === "r4" ? robotArmDayActive : robotArm
                       }
-                      onClick={() => handleRobotPartChoice("r1")}
-                    />
-                    <img
-                      alt="правое предплечье робота"
-                      className="movesitem__arm-item"
-                      src={
-                        activeRobotPart === "r2" ? robotArmDayActive : robotArm
-                      }
-                      onClick={() => handleRobotPartChoice("r2")}
+                      onClick={() => handleRobotPartChoice("r4")}
                     />
                     <img
                       alt="правое предплечье робота"
@@ -485,12 +477,20 @@ const MovesItem = ({
                       onClick={() => handleRobotPartChoice("r3")}
                     />
                     <img
+                      alt="правое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "r2" ? robotArmDayActive : robotArm
+                      }
+                      onClick={() => handleRobotPartChoice("r2")}
+                    />
+                    <img
                       alt="правая рука робота"
                       className="movesitem__arm-item"
                       src={
-                        activeRobotPart === "r4" ? robotHandDayActive : robotHand
+                        activeRobotPart === "r1" ? robotHandDayActive : robotHand
                       }
-                      onClick={() => handleRobotPartChoice("r4")}
+                      onClick={() => handleRobotPartChoice("r1")}
                     />
                   </div>
                 </div>
