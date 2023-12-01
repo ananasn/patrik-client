@@ -107,13 +107,13 @@
     align-items: center;
   }
   &__face {
-    max-width: 240px;
+    max-width: 259px;
     //max-height: 144px;
   }
 
   &__neck {
     //max-width: 95px;
-    max-height: 22px;
+    max-height: 34px;
     margin: 8px 0;
     transition: 0.5s all;
 
@@ -167,7 +167,7 @@
     }
   }
 
-  &__left-shoulder {
+  &__left_shoulder {
     display: flex;
     flex-direction: column;
     max-width: 83px;
@@ -177,7 +177,7 @@
     left: -42px;
   }
 
-  &__right-shoulder {
+  &__right_shoulder {
     display: flex;
     flex-direction: column;
     max-width: 83px;
@@ -267,12 +267,12 @@
       max-height: 304px;
     }
 
-    &__left-shoulder {
+    &__left_shoulder {
       max-width: 69px;
       max-height: 52px;
     }
 
-    &__right-shoulder {
+    &__right_shoulder {
       max-width: 69px;
       max-height: 52px;
     }

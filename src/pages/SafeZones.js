@@ -13,6 +13,8 @@ import {ReactComponent as RobotNeckIco} from "../img/robot/robot-neck.svg";
 import {ReactComponent as RobotArmIco} from "../img/robot/robot-arm.svg";
 import {ReactComponent as RobotLogoIco} from "../img/robot/robot-logo.svg";
 import {ReactComponent as RobotBodyIco} from "../img/robot/robot-body.svg";
+import {ReactComponent as RobotLeftShoulderIco} from "../img/robot/robot-left-shoulder.svg";
+import {ReactComponent as RobotRightShoulderIco} from "../img/robot/robot-right-shoulder.svg";
 
 
 import rightLeft from "../img/robot-control-day/right-left.svg";
@@ -51,6 +53,9 @@ const SafeZones = () => {
         case "l4":
           setActiveRobotPartName("левой руки 4");
           break;
+        case "l5":
+          setActiveRobotPartName("левой руки 5");
+          break;
         case "r1":
           setActiveRobotPartName("правой руки 1");
           break;
@@ -62,6 +67,9 @@ const SafeZones = () => {
           break;
         case "r4":
           setActiveRobotPartName("правой руки 4");
+          break;
+        case "r5":
+          setActiveRobotPartName("правой руки 5");
           break;
         default:
           setActiveRobotPartName(null);
@@ -178,21 +186,10 @@ const SafeZones = () => {
                         className={classnames("safezones__armitem", {
                           safezones__armitem_day: isDay,
                           safezones__armitem_night: !isDay,
-                          active_robot_part_day: activeRobotPart === "l1" & isDay,
-                          active_robot_part_night: activeRobotPart === "l1" & !isDay,
+                          active_robot_part_day: activeRobotPart === "l4" & isDay,
+                          active_robot_part_night: activeRobotPart === "l4" & !isDay,
                         })}
-                        onClick={() => handleRobotPartChoice("l1")}
-                      >
-                        <RobotArmIco />
-                      </span>
-                      <span
-                        className={classnames("safezones__armitem", {
-                          safezones__armitem_day: isDay,
-                          safezones__armitem_night: !isDay,
-                          active_robot_part_day: activeRobotPart === "l2" & isDay,
-                          active_robot_part_night: activeRobotPart === "l2" & !isDay,
-                        })}
-                        onClick={() => handleRobotPartChoice("l2")}
+                        onClick={() => handleRobotPartChoice("l4")}
                       >
                         <RobotArmIco />
                       </span>
@@ -211,10 +208,21 @@ const SafeZones = () => {
                         className={classnames("safezones__armitem", {
                           safezones__armitem_day: isDay,
                           safezones__armitem_night: !isDay,
-                          active_robot_part_day: activeRobotPart === "l4" & isDay,
-                          active_robot_part_night: activeRobotPart === "l4" & !isDay,
+                          active_robot_part_day: activeRobotPart === "l2" & isDay,
+                          active_robot_part_night: activeRobotPart === "l2" & !isDay,
                         })}
-                        onClick={() => handleRobotPartChoice("l4")}
+                        onClick={() => handleRobotPartChoice("l2")}
+                      >
+                        <RobotArmIco />
+                      </span>
+                      <span
+                        className={classnames("safezones__armitem", {
+                          safezones__armitem_day: isDay,
+                          safezones__armitem_night: !isDay,
+                          active_robot_part_day: activeRobotPart === "l1" & isDay,
+                          active_robot_part_night: activeRobotPart === "l1" & !isDay,
+                        })}
+                        onClick={() => handleRobotPartChoice("l1")}
                       >
                         <RobotArmIco />
                       </span>
@@ -236,121 +244,76 @@ const SafeZones = () => {
                       >
                         <RobotBodyIco />
                       </span>
-
+                      <span
+                        className={classnames("safezones__left_shoulder", {
+                          safezones__left_shoulder_day: isDay,
+                          safezones__left_shoulder_night: !isDay,
+                          active_robot_part_day: activeRobotPart === "l5" & isDay,
+                          active_robot_part_night: activeRobotPart === "l5" & !isDay,
+                        })}
+                        onClick={() => handleRobotPartChoice("l5")}
+                      >
+                        <RobotLeftShoulderIco />
+                      </span>
+                      <span
+                        className={classnames("safezones__right_shoulder", {
+                          safezones__right_shoulder_day: isDay,
+                          safezones__right_shoulder_night: !isDay,
+                          active_robot_part_day: activeRobotPart === "r5" & isDay,
+                          active_robot_part_night: activeRobotPart === "r5" & !isDay,
+                        })}
+                        onClick={() => handleRobotPartChoice("r5")}
+                      >
+                        <RobotRightShoulderIco />
+                      </span>
+                    </div>
+                    <div className="safezones__arm">
+                      <span
+                        className={classnames("safezones__armitem", {
+                          safezones__armitem_day: isDay,
+                          safezones__armitem_night: !isDay,
+                          active_robot_part_day: activeRobotPart === "r4" & isDay,
+                          active_robot_part_night: activeRobotPart === "r4" & !isDay,
+                        })}
+                        onClick={() => handleRobotPartChoice("r4")}
+                      >
+                        <RobotArmIco />
+                      </span>
+                      <span
+                        className={classnames("safezones__armitem", {
+                          safezones__armitem_day: isDay,
+                          safezones__armitem_night: !isDay,
+                          active_robot_part_day: activeRobotPart === "r3" & isDay,
+                          active_robot_part_night: activeRobotPart === "r3" & !isDay,
+                        })}
+                        onClick={() => handleRobotPartChoice("r3")}
+                      >
+                        <RobotArmIco />
+                      </span>
+                      <span
+                        className={classnames("safezones__armitem", {
+                          safezones__armitem_day: isDay,
+                          safezones__armitem_night: !isDay,
+                          active_robot_part_day: activeRobotPart === "r2" & isDay,
+                          active_robot_part_night: activeRobotPart === "r2" & !isDay,
+                        })}
+                        onClick={() => handleRobotPartChoice("r2")}
+                      >
+                        <RobotArmIco />
+                      </span>
+                      <span
+                        className={classnames("safezones__armitem", {
+                          safezones__armitem_day: isDay,
+                          safezones__armitem_night: !isDay,
+                          active_robot_part_day: activeRobotPart === "r1" & isDay,
+                          active_robot_part_night: activeRobotPart === "r1" & !isDay,
+                        })}
+                        onClick={() => handleRobotPartChoice("r1")}
+                      >
+                        <RobotArmIco />
+                      </span>
                     </div>
                   </div>
-                  {/*isDay ? (
-                    <>
-                      <div className="movesitem__head">
-                        <img
-                          alt="лицо робота"
-                          className="movesitem__face"
-                          src={robotFace}
-                          //onClick={() => handleRobotPartChoice("neck")}
-                        />
-                        <img
-                          alt="шея робота"
-                          className="movesitem__neck"
-                          src={
-                            activeRobotPart === "neck" ? robotNeckDayActive : robotNeck
-                          }
-                          //onClick={() => handleRobotPartChoice("neck")}
-                        />
-                      </div>
-                      <div className="movesitem__body">
-                        <div className="movesitem__arm">
-                          <img
-                            alt="левое предплечье робота"
-                            className="movesitem__arm-item"
-                            src={
-                              activeRobotPart === "l1" ? robotArmDayActive : robotArm
-                            }
-                            //onClick={() => handleRobotPartChoice("l1")}
-                          />
-                          <img
-                            alt="левое предплечье робота"
-                            className="movesitem__arm-item"
-                            src={
-                              activeRobotPart === "l2" ? robotArmDayActive : robotArm
-                            }
-                            //onClick={() => handleRobotPartChoice("l2")}
-                          />
-                          <img
-                            alt="левое предплечье робота"
-                            className="movesitem__arm-item"
-                            src={
-                              activeRobotPart === "l3" ? robotArmDayActive : robotArm
-                            }
-                            //onClick={() => handleRobotPartChoice("l3")}
-                          />
-                          <img
-                            alt="левая рука робота"
-                            className="movesitem__arm-item"
-                            src={
-                              activeRobotPart === "l4" ? robotHandDayActive : robotHand
-                            }
-                            //onClick={() => handleRobotPartChoice("l4")}
-                          />
-                        </div>
-                        <div className="movesitem__torso">
-                          <img
-                            alt="логотип робота"
-                            className="movesitem__logo"
-                            src={robotLogo}
-                          />
-                          <img
-                            alt="тело робота"
-                            className="movesitem__breast"
-                            src={robotBody}
-                          />
-                          <img
-                            alt="левое плечо робота"
-                            className="movesitem__left-shoulder"
-                            src={robotLeftShoulder}
-                          />
-                          <img
-                            alt="правое плечо робота"
-                            className="movesitem__right-shoulder"
-                            src={robotRightShoulder}
-                          />
-                        </div>
-                        <div className="movesitem__arm">
-                          <img
-                            alt="правое предплечье робота"
-                            className="movesitem__arm-item"
-                            src={
-                              activeRobotPart === "r1" ? robotArmDayActive : robotArm
-                            }
-                            onClick={() => handleRobotPartChoice("r1")}
-                          />
-                          <img
-                            alt="правое предплечье робота"
-                            className="movesitem__arm-item"
-                            src={
-                              activeRobotPart === "r2" ? robotArmDayActive : robotArm
-                            }
-                            onClick={() => handleRobotPartChoice("r2")}
-                          />
-                          <img
-                            alt="правое предплечье робота"
-                            className="movesitem__arm-item"
-                            src={
-                              activeRobotPart === "r3" ? robotArmDayActive : robotArm
-                            }
-                            onClick={() => handleRobotPartChoice("r3")}
-                          />
-                          <img
-                            alt="правая рука робота"
-                            className="movesitem__arm-item"
-                            src={
-                              activeRobotPart === "r4" ? robotHandDayActive : robotHand
-                            }
-                            onClick={() => handleRobotPartChoice("r4")}
-                          />
-                        </div>
-                      </div>
-                    </>
-                          ) : null*/}
                 </div>
                 {/*<div className="movesitem__control">
                   <h2 className="movesitem__control-name">
