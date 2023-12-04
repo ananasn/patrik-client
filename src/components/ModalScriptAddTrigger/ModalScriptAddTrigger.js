@@ -39,7 +39,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
       "time": "string",
       "startup": true,
       "week": 0,
-      "period": 1,
+      "period": 0,
       "number": 0
     }},
     {value: "play", title: "Запуск системы", ico: power, icoNight: powerNight, triggerServer: {
@@ -53,7 +53,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
       "time": "string",
       "startup": true,
       "week": 0,
-      "period": 1,
+      "period": 0,
       "number": 0
     }},
     {value: "face", title: "Лицо", ico: face, icoNight: faceNight, triggerServer: {
@@ -67,7 +67,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
       "time": "string",
       "startup": true,
       "week": 0,
-      "period": 1,
+      "period": 0,
       "number": 0
     }},
     {value: "sign", title: "Жест", ico: sign, icoNight: signNight, triggerServer: {
@@ -81,7 +81,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
       "time": "string",
       "startup": true,
       "week": 0,
-      "period": 1,
+      "period": 0,
       "number": 0
     }},
     {value: "phrase", title: "Фраза", ico: phrase, icoNight: phraseNight, triggerServer: {
@@ -95,7 +95,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
       "time": "string",
       "startup": true,
       "week": 0,
-      "period": 1,
+      "period": 0,
       "number": 0
     }},
   ]);
