@@ -16,6 +16,7 @@ import Scenarios from "../../pages/Scenarios";
 import RobotScript from "../../pages/RobotScript";
 import Update from "../../pages/Update";
 import SafeZones from "../../pages/SafeZones";
+import Recognition from "../../pages/Recognition";
 
 const Main = () => {
   // const isDay = useSelector((state) => state.isDay);
@@ -35,7 +36,7 @@ const Main = () => {
           <Route path="/script/:scriptId" element={<RobotScript></RobotScript>} />
           <Route path="/new-script" element={<RobotScript></RobotScript>} />
           <Route path="/dialog" element={<Home />} />
-          <Route path="/motion-recognition" element={<h1>motion</h1>} />
+          <Route path="/recognition" element={<Recognition />} />
           <Route path="/moves" element={<Moves />} />
           <Route path="/emotions" element={<Emotions></Emotions>} />
           <Route path="/moves/move" element={<RobotMoves></RobotMoves>} />

@@ -25,8 +25,11 @@ const initialState = {
   activePoseList: [],
   mimics: [],
   scripts: [],
+  triggers: [],
+  recognitions: [],
   importMimic: null,
   importMove: null,
+  importRecognition: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -40,6 +43,16 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         mimics: action.payload,
+      };
+    case "SET_TRIGGERS":
+      return {
+        ...state,
+        triggers: action.payload,
+      };
+    case "SET_RECOGNITIONS":
+      return {
+        ...state,
+        recognitions: action.payload,
       };
     case "ACTIVE_ROBOT_PART":
       return {
@@ -120,6 +133,11 @@ const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           importMove: action.payload,
+        };
+      case "SET_IMPORT_RECOGNITION":
+        return {
+          ...state,
+          importRecognition: action.payload,
         };
       case "SET_UPDATE":
         return {

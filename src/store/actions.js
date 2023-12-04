@@ -14,6 +14,18 @@ export const setMoves = (payload) => {
     payload,
   };
 };
+export const setTriggers = (payload) => {
+  return {
+    type: "SET_TRIGGERS",
+    payload,
+  };
+};
+export const setRecognitions = (payload) => {
+  return {
+    type: "SET_RECOGNITIONS",
+    payload,
+  };
+};
 export const toggleIsDialogPopupOpen = () => ({
   type: "TOGGLE_IS_DIALOG_POPUP_OPEN",
 });
@@ -65,6 +77,11 @@ export const setImportMimic = (payload) => ({
 
 export const setImportMove = (payload) => ({
   type: "SET_IMPORT_MOVE",
+  payload,
+});
+
+export const setImportRecognition = (payload) => ({
+  type: "SET_IMPORT_RECOGNITION",
   payload,
 });
 
