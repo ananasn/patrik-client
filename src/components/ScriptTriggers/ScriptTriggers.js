@@ -203,6 +203,9 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                         let arr = item.triggerServer.week.split('');
                         arr[index] = arr[index] == "0" ? "1" : "0";
                         let str = arr.reverse().join('');
+
+                        let weekAsNumber = parseInt(str, 2)
+                        console.log(weekAsNumber);
                         item.triggerServer.week = str;
                         setFilteredItems([...filteredItems]);
                       }}
