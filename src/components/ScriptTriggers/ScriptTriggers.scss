@@ -183,6 +183,51 @@
   }
 }
 
+.robot-script__add-col-trigger{
+  display: flex;
+  flex-direction: column;
+  &-name {
+    display: flex;
+    margin: 0 0 0 16px;
+    justify-content: space-between;
+    padding-top: 16px;
+
+    &-inner {
+      display: flex;
+      gap: 8px;
+      font-family: Inter;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      img {
+        width: 32px;
+        height: 32px;
+      }
+      &--day {
+        color: $btns-day;
+      }
+
+      &--night {
+        color: $btns-night;
+      }
+    }
+  }
+  &-items {
+    &:last-child {
+      .robot-script-add__btnILi {
+        display: none;
+      }
+    }
+  }
+}
+
+.robot-script-add__btnRepeatTime--week-checked {
+  // border-radius: 24px;
+  // padding: 7px 7px 6px 5px;
+  background: $btns-day;
+}
+
 @media(max-width: 1320px) {
   .script-item {
     padding: 24px;

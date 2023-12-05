@@ -7,8 +7,8 @@ import plus from "../../img/plus-day.svg";
 import plusNight from "../../img/plus-night.svg";
 import deleteItem from "../../img/movesItem/delete-day.svg";
 import deleteItemNight from "../../img/movesItem/delete-night.svg";
-import ModalAddWeekPeriod from "../../components/ModalAddWeekPeriod/ModalAddWeekPeriod";
-
+import ModalAddNumberPeriod from "../../components/ModalAddNumberPeriod/ModalAddNumberPeriod";
+import { numberTimes } from "../../utils/utils";
 import "./ScriptTriggers.scss";
 
 
@@ -17,10 +17,19 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
   const { request } = useHttp();
 
   const [inputValue, setInputValue] = useState();
-  const [isOpenWeekPeriod, setIsOpenWeekPeriod] = useState(false);
-  const [weekDefaultModal, setWeekDefaultModal] = useState(0);
-  const [periodDefaultModal, setPeriodDefaultModal] = useState(0);
-
+  const [isOpenNumberPeriod, setIsOpenNumberPeriod] = useState(false);
+  // const [NumberDefaultModal, setNumberDefaultModal] = useState(0);
+  // const [periodDefaultModal, setPeriodDefaultModal] = useState(0);
+  const [triggerInModal, setTriggerInModal] = useState(0);
+  const [week, setWeek] = useState([
+    {title: "Пн", value: false},
+    {title: "Вт", value: false},
+    {title: "Ср", value: false},
+    {title: "Чт", value: false},
+    {title: "Пт", value: false},
+    {title: "Сб", value: false},
+    {title: "Вс", value: false},
+  ]);
   // useEffect(() => {
   //   const getTriggers = async () => {
   //     const response = await request(`http://localhost:8000/api/trigger/`);
@@ -30,11 +39,19 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
   //   getTriggers();
   // }, [])
 
-  const onWeekPeriodClose = () => {
-    setIsOpenWeekPeriod(false);
+  const onNumberPeriodClose = (number, period) => {
+    if (number === "") {
+      number = 0;
+    }
+    if (period === "") {
+      period = 0;
+    }
+    setIsOpenNumberPeriod(false);
+    triggerInModal.triggerServer.number = parseFloat(number);
+    triggerInModal.triggerServer.period = parseFloat(period);
+    setFilteredItems([...filteredItems]);
+    setTriggerInModal(null);
   }
-
-
 
   return (
     <div className="robot-script__add-col-trigger">
@@ -163,71 +180,37 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                     "robot-script-add__btnNotRepeat--night": !isDay,
                   })}
                   onClick={() => {
-                    setWeekDefaultModal(item.triggerServer.week);
-                    setPeriodDefaultModal(item.triggerServer.period);
-                    setIsOpenWeekPeriod(true);
+                    // setNumberDefaultModal(item.triggerServer.number);
+                    // setPeriodDefaultModal(item.triggerServer.period);
+                    setTriggerInModal(item);
+                    setIsOpenNumberPeriod(true);
                   }}
                 >
-                  не повторять
+                  {(item.triggerServer.number == 0 && item.triggerServer.period == 0) ?
+                    "не повторять" :
+                    `${item.triggerServer.number} ${numberTimes(item.triggerServer.number)}, каждые ${item.triggerServer.period} минут`}
                 </button>
                 <div>Повторять по дням недели:</div>
                 <div>
-                  <button
-                    className={classNames("robot-script-add__btnRepeatTime", {
-                      "robot-script-add__btnRepeatTime--day": isDay,
-                      "robot-script-add__btnRepeatTime--night": !isDay,
-                    })}
-                  >
-                    Пн
-                  </button>
-                  <button
-                    className={classNames("robot-script-add__btnRepeatTime", {
-                      "robot-script-add__btnRepeatTime--day": isDay,
-                      "robot-script-add__btnRepeatTime--night": !isDay,
-                    })}
-                  >
-                    Вт
-                  </button>
-                  <button
-                    className={classNames("robot-script-add__btnRepeatTime", {
-                      "robot-script-add__btnRepeatTime--day": isDay,
-                      "robot-script-add__btnRepeatTime--night": !isDay,
-                    })}
-                  >
-                    Ср
-                  </button>
-                  <button
-                    className={classNames("robot-script-add__btnRepeatTime", {
-                      "robot-script-add__btnRepeatTime--day": isDay,
-                      "robot-script-add__btnRepeatTime--night": !isDay,
-                    })}
-                  >
-                    Чт
-                  </button>
-                  <button
-                    className={classNames("robot-script-add__btnRepeatTime", {
-                      "robot-script-add__btnRepeatTime--day": isDay,
-                      "robot-script-add__btnRepeatTime--night": !isDay,
-                    })}
-                  >
-                    Пт
-                  </button>
-                  <button
-                    className={classNames("robot-script-add__btnRepeatTime", {
-                      "robot-script-add__btnRepeatTime--day": isDay,
-                      "robot-script-add__btnRepeatTime--night": !isDay,
-                    })}
-                  >
-                    Сб
-                  </button>
-                  <button
-                    className={classNames("robot-script-add__btnRepeatTime", {
-                      "robot-script-add__btnRepeatTime--day": isDay,
-                      "robot-script-add__btnRepeatTime--night": !isDay,
-                    })}
-                  >
-                    Вс
-                  </button>
+                  {week.map((day, index) =>
+                    <button
+                      className={classNames("robot-script-add__btnRepeatTime", {
+                        "robot-script-add__btnRepeatTime--day": isDay,
+                        "robot-script-add__btnRepeatTime--night": !isDay,
+                        "robot-script-add__btnRepeatTime--week-checked": item.triggerServer.week[index] == 1,
+                      })}
+                      onClick={() => {
+                        let arr = item.triggerServer.week.split('');
+                        arr[index] = arr[index] == "0" ? "1" : "0";
+                        let str = arr.reverse().join('');
+                        item.triggerServer.week = str;
+                        setFilteredItems([...filteredItems]);
+                      }}
+                    >
+                      {day.title}
+                      {item.triggerServer.week}
+                    </button>
+                  )}
                 </div>
             </div>
             }
@@ -306,12 +289,13 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
             или
           </button>
         </div>)}
-        <ModalAddWeekPeriod
-          isOpenWeekPeriod={isOpenWeekPeriod}
-          onWeekPeriodClose={onWeekPeriodClose}
-          weekDefaultModal={weekDefaultModal}
-          periodDefaultModal={periodDefaultModal}
-        ></ModalAddWeekPeriod>
+        <ModalAddNumberPeriod
+          isOpenNumberPeriod={isOpenNumberPeriod}
+          onNumberPeriodClose={onNumberPeriodClose}
+          // NumberDefaultModal={NumberDefaultModal}
+          // periodDefaultModal={periodDefaultModal}
+          triggerInModal={triggerInModal}
+        ></ModalAddNumberPeriod>
     </div>
   );
 };

@@ -38,7 +38,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
       "gesture_landmarks": "string",
       "time": "string",
       "startup": true,
-      "week": 0,
+      "week": "0000000",
       "period": 0,
       "number": 0
     }},
