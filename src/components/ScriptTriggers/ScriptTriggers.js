@@ -95,10 +95,10 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                   //   }}
                   // />
                   <input
-                    type="date"
-                    // name="date"
-                    // onFocus={this.type='date'}
-                    // onBlur={!this?.value ? this.type='text' : this.type='date'}
+                    type="text"
+                    name="time"
+                    onFocus={(e) => e.target.type='time'}
+                    onBlur={(e) => (!e.target.value) ? (e.target.type='text') : (e.target.type='time')}
                     value={item.triggerServer.time}
                     onInput={(e) => {
                       console.log(e.target.value);
@@ -121,9 +121,7 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                     "robot-script__inputPhrase--night": !isDay,
                     "robot-script__inputPhrase--day": isDay,
                   })}
-                  // onKeyDown={(e) => handleSubmit(e)}
                   type="text"
-                  // ref={inputRef}
                   value={item.triggerServer.phrase}
                   onInput={(e) => {
                     item.triggerServer.phrase = e.target.value;
@@ -218,8 +216,6 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                     "robot-script-add__btnNotRepeat--night": !isDay,
                   })}
                   onClick={() => {
-                    // setNumberDefaultModal(item.triggerServer.number);
-                    // setPeriodDefaultModal(item.triggerServer.period);
                     setTriggerInModal(item);
                     setIsOpenNumberPeriod(true);
                   }}
@@ -241,8 +237,6 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                         let arr = item.triggerServer.week.split('');
                         arr[6-index] = arr[6-index] == "0" ? "1" : "0";
                         let str = arr.join('');
-                        // let weekAsNumber = parseInt(str, 2);
-                        // console.log(weekAsNumber);
                         item.triggerServer.week = str;
                         setFilteredItems([...filteredItems]);
                       }}
@@ -332,8 +326,6 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
         <ModalAddNumberPeriod
           isOpenNumberPeriod={isOpenNumberPeriod}
           onNumberPeriodClose={onNumberPeriodClose}
-          // NumberDefaultModal={NumberDefaultModal}
-          // periodDefaultModal={periodDefaultModal}
           triggerInModal={triggerInModal}
         ></ModalAddNumberPeriod>
          <ModalCommon
