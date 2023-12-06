@@ -242,7 +242,7 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       }}
                     >
                       {day.title}
-                      {item.triggerServer.week}
+                      {/* {item.triggerServer.week} */}
                     </button>
                   )}
                 </div>
