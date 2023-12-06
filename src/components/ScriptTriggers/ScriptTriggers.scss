@@ -228,6 +228,10 @@
   background: $btns-day;
 }
 
+.robot-script-add__btnRepeat--startup-checked {
+  background: $btns-day;
+}
+
 @media(max-width: 1320px) {
   .script-item {
     padding: 24px;

@@ -8,6 +8,7 @@ import plusNight from "../../img/plus-night.svg";
 import deleteItem from "../../img/movesItem/delete-day.svg";
 import deleteItemNight from "../../img/movesItem/delete-night.svg";
 import ModalAddNumberPeriod from "../../components/ModalAddNumberPeriod/ModalAddNumberPeriod";
+import ModalCommon from "../../components/ModalCommon/ModalCommon";
 import { numberTimes } from "../../utils/utils";
 import "./ScriptTriggers.scss";
 
@@ -30,6 +31,8 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
     {title: "Сб", value: false},
     {title: "Вс", value: false},
   ]);
+
+  const [isOpenTime, setIsOpenTime] = useState(false);
   // useEffect(() => {
   //   const getTriggers = async () => {
   //     const response = await request(`http://localhost:8000/api/trigger/`);
@@ -53,6 +56,15 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
     setTriggerInModal(null);
   }
 
+  const onTimeClose = () => {
+
+    setIsOpenTime(false);
+    setFilteredItems([...filteredItems]);
+    setTriggerInModal(null);
+  }
+
+
+
   return (
     <div className="robot-script__add-col-trigger">
       {filteredItems.map((item) =>
@@ -73,8 +85,20 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                 <img src={isDay ? item.ico : item.icoNight} alt="Face" />
                 {item.triggerServer.name}
                 {item.triggerServer.trigger_type === 3 &&
+                  // <input
+                  //   type="time"
+                  //   value={item.triggerServer.time}
+                  //   onInput={(e) => {
+                  //     console.log(e.target.value);
+                  //     item.triggerServer.time = e.target.value;
+                  //     setFilteredItems([...filteredItems]);
+                  //   }}
+                  // />
                   <input
-                    type="time"
+                    type="date"
+                    // name="date"
+                    // onFocus={this.type='date'}
+                    // onBlur={!this?.value ? this.type='text' : this.type='date'}
                     value={item.triggerServer.time}
                     onInput={(e) => {
                       console.log(e.target.value);
@@ -99,7 +123,12 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                   })}
                   // onKeyDown={(e) => handleSubmit(e)}
                   type="text"
-                  //ref={inputRef}
+                  // ref={inputRef}
+                  value={item.triggerServer.phrase}
+                  onInput={(e) => {
+                    item.triggerServer.phrase = e.target.value;
+                    setFilteredItems([...filteredItems]);
+                  }}
                 />
                 <div>Повторно срабатывать</div>
                 <div>
@@ -107,7 +136,12 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                     className={classNames("robot-script-add__btnRepeat", {
                       "robot-script-add__btnRepeat--day": isDay,
                       "robot-script-add__btnRepeat--night": !isDay,
+                      "robot-script-add__btnRepeat--startup-checked": item.triggerServer.startup ? true : false,
                     })}
+                    onClick={() => {
+                      item.triggerServer.startup = item.triggerServer.startup === true ? false : true;
+                      setFilteredItems([...filteredItems]);
+                    }}
                   >
                     каждый раз
                   </button>
@@ -116,6 +150,10 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       "robot-script-add__btnRepeat--day": isDay,
                       "robot-script-add__btnRepeat--night": !isDay,
                     })}
+                    onClick={() => {
+                      setTriggerInModal(item);
+                      setIsOpenTime(true);
+                    }}
                   >
                     через время
                   </button>
@@ -197,15 +235,14 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       className={classNames("robot-script-add__btnRepeatTime", {
                         "robot-script-add__btnRepeatTime--day": isDay,
                         "robot-script-add__btnRepeatTime--night": !isDay,
-                        "robot-script-add__btnRepeatTime--week-checked": item.triggerServer.week[index] == 1,
+                        "robot-script-add__btnRepeatTime--week-checked": item.triggerServer.week[6-index] == 1,
                       })}
                       onClick={() => {
                         let arr = item.triggerServer.week.split('');
-                        arr[index] = arr[index] == "0" ? "1" : "0";
-                        let str = arr.reverse().join('');
-
-                        let weekAsNumber = parseInt(str, 2)
-                        console.log(weekAsNumber);
+                        arr[6-index] = arr[6-index] == "0" ? "1" : "0";
+                        let str = arr.join('');
+                        // let weekAsNumber = parseInt(str, 2);
+                        // console.log(weekAsNumber);
                         item.triggerServer.week = str;
                         setFilteredItems([...filteredItems]);
                       }}
@@ -299,6 +336,43 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
           // periodDefaultModal={periodDefaultModal}
           triggerInModal={triggerInModal}
         ></ModalAddNumberPeriod>
+         <ModalCommon
+          isOpen={isOpenTime}
+          onClose={onTimeClose}
+          // triggerInModal={triggerInModal}
+          title="Повторно срабатывать"
+          content = {
+            <>
+              <input
+                defaultValue={triggerInModal?.triggerServer?.number}
+                // ref={inputNumberRef}
+                type="number"
+                min={0}
+                // onInput={e => setNumberValue(e.target.value)}
+              />
+              <input
+                defaultValue={triggerInModal?.triggerServer?.period}
+                // ref={inputPeriodRef}
+                type="number"
+                min={0}
+              />
+               <input
+                defaultValue={triggerInModal?.triggerServer?.number}
+                // ref={inputNumberRef}
+                type="number"
+                min={0}
+                // onInput={e => setNumberValue(e.target.value)}
+              />
+              <input
+                defaultValue={triggerInModal?.triggerServer?.period}
+                // ref={inputPeriodRef}
+                type="number"
+                min={0}
+              />
+              <button onClick={() => onTimeClose()}>Применить</button>
+            </>
+          }
+        ></ModalCommon>
     </div>
   );
 };

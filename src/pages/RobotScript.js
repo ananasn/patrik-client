@@ -133,7 +133,12 @@ const RobotScript = () => {
 
   //запрос на сохранение/перезапись сценария на сервер
   const handleSaveScript = async () => {
-
+    const serverData = filteredItems.map(item => {
+      item.triggerServer.week = parseInt(item.triggerServer.week, 2);
+      return item.triggerServer;
+    });
+    console.log(serverData);
+    return;
     const res = await request("http://localhost:8000/api/save_script/", "post",
       // JSON.stringify({
       //   "id": 0,

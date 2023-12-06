@@ -93,7 +93,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, easingStart}) 
       "face": "string",
       "gesture_landmarks": "string",
       "time": "string",
-      "startup": true,
+      "startup": false,
       "week": 0,
       "period": 0,
       "number": 0
