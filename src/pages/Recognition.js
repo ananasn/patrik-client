@@ -6,7 +6,7 @@ import { useMediaQuery } from "react-responsive";
 import { useHttp } from "../hooks/http.hook";
 import back from "../img/icons/menu-day/back-day.svg";
 import backNight from "../img/icons/menu-night/back-night.svg";
-import { setRecognitions, setTriggers } from "../store/actions";
+import { setRecognitions, setTriggers, toggleIsAddRecognitionModalOpen } from "../store/actions";
 import { API_PATH } from "../api/index";
 
 import ModalScriptAddRecognition from "../components/ModalScriptAddRecognition/ModalScriptAddRecognition";
@@ -20,7 +20,8 @@ const Recognition = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { request, loading, error, clearError } = useHttp();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const isModalAddRecognitionOpen = useSelector((state) => state.isModalAddRecognitionOpen);
+  //const [isModalOpen, setIsModalOpen] = useState(false);
   const goBack = () => {
     navigate(-1);
   };
@@ -29,11 +30,13 @@ const Recognition = () => {
   });
 
   const handleClick = () => {
-    setIsModalOpen(true);
+    dispatch(toggleIsAddRecognitionModalOpen());
+    //setIsModalOpen(true);
   }
 
   const onModalClose = () => {
-    setIsModalOpen(false);
+    dispatch(toggleIsAddRecognitionModalOpen());
+    //setIsModalOpen(false);
   }
 
   useEffect(() => {
@@ -116,7 +119,7 @@ const Recognition = () => {
         </ul>
       </div>
       <ModalScriptAddRecognition
-        isOpen={isModalOpen}
+        isOpen={isModalAddRecognitionOpen}
         onClose={onModalClose}
       />
     </div>

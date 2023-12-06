@@ -1,6 +1,11 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+//import { useState } from "react";
 import classNames from "classnames";
 import { useHttp } from "../../hooks/http.hook";
+import { toggleIsRecognitionStartModalOpen } from '../../store/actions';
+
+import Portal from '../Portal';
+import ModalRecognitionStart from '../ModalRecognitionStart/ModalRecognitionStart';
 
 import {ReactComponent as CloseItemIco} from '../../img/close.svg';
 import {ReactComponent as RecognitionIco} from "../../img/icons/menu-day/recognition.svg";
@@ -11,15 +16,27 @@ import "./ModalScriptAddRecognition.scss";
 const ModalScriptAddRecognition = ({ isOpen, onClose, item}) => {
   const isDay = useSelector((state) => state.isDay);
   const { request, loading } = useHttp();
+  const dispatch = useDispatch();
+  const isModalRecognitionStartOpen = useSelector((state) => state.isModalRecognitionStartOpen);
 
   const handleModalClose = () => {
     onClose();
   };
+
+  const onModalClose = () => {
+    dispatch(toggleIsRecognitionStartModalOpen());
+  }
   const handleSighRecognition = () => {
-    console.log("распознать жест")
+    console.log("распознать жест");
+    //setIsModalRecognitionStartOpen(true);
+    dispatch(toggleIsRecognitionStartModalOpen());
+    onClose();
   }
   const handleFaceRecognition = () => {
-    console.log("распознать лицо")
+    console.log("распознать лицо");
+    //setIsModalRecognitionStartOpen(true);
+    dispatch(toggleIsRecognitionStartModalOpen());
+    onClose();
   }
 
   return (
@@ -55,10 +72,10 @@ const ModalScriptAddRecognition = ({ isOpen, onClose, item}) => {
                     "modal-script-add-recognition__item--day": isDay,
                     "modal-script-add-recognition__item--night": !isDay,
                   })}
+                  onClick={handleSighRecognition}
                 >
                   <RecognitionSignIco />
                   <div
-                    onClick={handleSighRecognition}
                   >
                     Распознать жест
                   </div>
@@ -68,10 +85,10 @@ const ModalScriptAddRecognition = ({ isOpen, onClose, item}) => {
                     "modal-script-add-recognition__item--day": isDay,
                     "modal-script-add-recognition__item--night": !isDay,
                   })}
+                  onClick={handleFaceRecognition}
                 >
                   <RecognitionIco />
                   <div
-                    onClick={handleFaceRecognition}
                   >
                     Распознать лицо
                   </div>
@@ -81,6 +98,12 @@ const ModalScriptAddRecognition = ({ isOpen, onClose, item}) => {
           </ul>
         </div>
       </div>
+      <Portal>
+        <ModalRecognitionStart
+          isOpen={isModalRecognitionStartOpen}
+          onClose={onModalClose}
+         />
+      </Portal>
     </div>
   );
 };
