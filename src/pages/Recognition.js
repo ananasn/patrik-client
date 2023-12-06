@@ -9,6 +9,8 @@ import backNight from "../img/icons/menu-night/back-night.svg";
 import { setRecognitions, setTriggers } from "../store/actions";
 import { API_PATH } from "../api/index";
 
+import ModalScriptAddRecognition from "../components/ModalScriptAddRecognition/ModalScriptAddRecognition";
+
 import "./Recognition.scss";
 import SearchBar from "../components/SearchBar/SearchBar";
 import ListRecognitions from "../components/ListRecognitions/ListRecognitions";
@@ -18,12 +20,22 @@ const Recognition = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { request, loading, error, clearError } = useHttp();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const goBack = () => {
     navigate(-1);
   };
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
+
+  const handleClick = () => {
+    setIsModalOpen(true);
+  }
+
+  const onModalClose = () => {
+    setIsModalOpen(false);
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await request(`${API_PATH}api/trigger/`);
@@ -64,45 +76,49 @@ const Recognition = () => {
     return <h1 className="loading-text" style={{ textAlign: "center" }}>Идёт загрузка...</h1>;
   }
   return (
-    <div className="recognation">
+    <div className="recognition">
       <div
-        className={classnames("recognation__header", {
-          recognation__header_day: isDay,
-          recognation__header_night: !isDay,
+        className={classnames("recognition__header", {
+          recognition__header_day: isDay,
+          recognition__header_night: !isDay,
         })}
       >
         <button
           onClick={goBack}
-          className={classnames("recognation__back-btn", {
-            "recognation__back-btn_day": isDay,
-            "recognation__back-btn_night": !isDay,
+          className={classnames("recognition__back-btn", {
+            "recognition__back-btn_day": isDay,
+            "recognition__back-btn_night": !isDay,
           })}
         >
           <img
-            className="recognation__back-btn-img"
+            className="recognition__back-btn-img"
             alt="Back"
             src={isDay ? back : backNight}
           />
           Распознавание
         </button>
         <button
-          //to="/recognations/new-recognation"
-          className={classnames("recognation__new-move-btn", {
-            "recognation__new-move-btn_day": isDay,
-            "recognation__new-move-btn_night": !isDay,
+          className={classnames("recognition__new-move-btn", {
+            "recognition__new-move-btn_day": isDay,
+            "recognition__new-move-btn_night": !isDay,
           })}
+          onClick={handleClick}
         >
           Распознать
         </button>
       </div>
-      <div className="recognation__content">
+      <div className="recognition__content">
         <SearchBar onSearch={handleSearch} />
-        <ul className="recognation__list">
+        <ul className="recognition__list">
           {filteredItems.map(({ name, id, trigger_type }) => (
             <ListRecognitions key={id} text={name} id={id} type={trigger_type} deleteRecognition={deleteRecognition} />
           ))}
         </ul>
       </div>
+      <ModalScriptAddRecognition
+        isOpen={isModalOpen}
+        onClose={onModalClose}
+      />
     </div>
   );
 };
