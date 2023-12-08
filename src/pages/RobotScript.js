@@ -119,7 +119,6 @@ const RobotScript = () => {
     }
     setTriggers([...triggers, triggerFromPopup.triggerServer]);
     setFilteredItems([...filteredItems, triggerFromPopup]);
-
   }
   const onModalScriptClose = () => {
     setIsModalScriptOpen(false);
@@ -133,38 +132,15 @@ const RobotScript = () => {
 
   //запрос на сохранение/перезапись сценария на сервер
   const handleSaveScript = async () => {
-    const serverData = filteredItems.map(item => {
+    const triggers = filteredItems.map(item => {
       item.triggerServer.week = parseInt(item.triggerServer.week, 2);
       return item.triggerServer;
     });
-    console.log(serverData);
-    return;
+    // console.log(triggers);
+
     const res = await request("http://localhost:8000/api/save_script/", "post",
-      // JSON.stringify({
-      //   "id": 0,
-      //   "expressions": expressions,
-      //   "name": "string",
-      //   "active": true,
-      //   "triggers": [
-      //     0
-      //   ]
-      // }));
-      // JSON.stringify(script));
-      JSON.stringify({
-        "id": 0,
-        "expressions": [
-          {
-            "operation": 1,
-            "delay": 0,
-            "move_id": 0
-          }
-        ],
-        "name": "string",
-        "active": true,
-        "triggers": [
-          0
-        ]
-      }));
+      JSON.stringify({...script, triggers: triggers, expressions: expressions})
+    );
 
     console.log(res);
     // console.log("navigate to /script")
