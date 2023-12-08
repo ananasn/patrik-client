@@ -15,8 +15,10 @@ const ListRecognitions = ({
   text,
   id,
   type,
+  onClick,
   //isScene = false,
   isModal = false,
+  isScript = false,
   deleteRecognition,
   getTitle,
 }) => {
@@ -50,6 +52,7 @@ const ListRecognitions = ({
           recognition__item_day: isDay,
           recognition__item_night: !isDay,
         })}
+        onClick={onClick}
       >
         <div className="recognition__name_container">
           <span className="recognition__ico">
@@ -75,6 +78,8 @@ const ListRecognitions = ({
               onClick={handleImportRecognitionData}
             ></button>
           ) : (
+            // в модальном окне в скриптах не показывать кнопки
+            !isScript &&
             <>
               <button
                 className={classnames("recognition__btn", {
