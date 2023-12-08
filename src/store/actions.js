@@ -29,6 +29,9 @@ export const setRecognitions = (payload) => {
 export const toggleIsDialogPopupOpen = () => ({
   type: "TOGGLE_IS_DIALOG_POPUP_OPEN",
 });
+export const toggleIsRecognitionModalOpen = () => ({
+  type: "TOGGLE_IS_RECOGNITION_POPUP_OPEN",
+});
 export const toggleIsRecognitionStartModalOpen = () => ({
   type: "TOGGLE_IS_RECOGNITION_START_POPUP_OPEN",
 });
