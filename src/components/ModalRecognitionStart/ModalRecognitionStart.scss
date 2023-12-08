@@ -1,0 +1,191 @@
+@import "../../utils/variables";
+
+.modal-recognition-start {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s all;
+
+  &--open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+    //height: 40vw;
+    //height: 226px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 24px;
+    padding: 24px 32px;
+
+    &--day {
+      background-color: $main-bg-day;
+      color: #101420;
+      stroke: $btns-day;
+    }
+
+    &--night {
+      background-color: $main-bg-night;
+      color: white;
+      stroke: $btns-night;
+    }
+  }
+
+  &__header {
+    &-top {
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__top-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__title {
+    margin: 0px;
+    padding: 0px;
+    font-size: 32px;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  &__body {
+    margin-top: 16px;
+  }
+
+  &__back {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+
+    &--day {
+      fill: $btns-day;
+    }
+    &--night {
+      fill: $btns-night;
+    }
+  }
+
+  &__close {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+
+  &__description {
+    margin: 0;
+    padding-bottom: 24px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: normal;
+    text-align: center;
+  }
+
+  &__container {
+    width: 100%;
+    height: 400px;
+  }
+
+  &-btn {
+    width: 100%;
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s all;
+    &:hover {
+      transform: scale(1.05);
+    }
+    &_day {
+      background-color: $btns-day;
+      color: #ffffff;
+    }
+    &_night {
+      background-color: $btns-night;
+      color: #101420;
+    }
+  }
+
+
+}
+
+@media(max-width:1380px) {
+  .modal-recognition-start {
+    &__title {
+      font-size: 24px;
+    }
+  }
+}
+
+@media(max-width:860px) {
+  .modal-recognition-start {
+    &__inner {
+      width: 60%;
+      //height: 42%;
+    }
+    &__description {
+      font-size: 16px;
+    }
+    &__title {
+      font-size: 24px;
+    }
+  }
+}
+
+@media(max-width:640px) {
+  .modal-recognition-start {
+    &__inner {
+      width: 82%;
+      //height: 82%;
+      //height: 36%;
+    }
+    &__container {
+      height: 200px;
+    }
+  }
+}
+
+@media(max-width:430px) {
+  .modal-recognition-start {
+    &__inner {
+      width: 78%;
+    }
+  }
+
+}

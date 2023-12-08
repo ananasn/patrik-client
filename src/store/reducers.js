@@ -20,6 +20,9 @@ const initialState = {
   isModalOpen: false,
   isModalAnimationOpen: false,
   isModalScriptOpen: false,
+  isModalAddRecognitionOpen: false,
+  isModalRecognitionStartOpen: false,
+  isModalRecognitionOpen: false,
   isMove: true,
   moves: [],
   activePoseList: [],
@@ -73,6 +76,21 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         isDialogPopupOpen: !state.isDialogPopupOpen,
+      };
+    case "TOGGLE_IS_RECOGNITION_POPUP_OPEN":
+      return {
+        ...state,
+        isModalRecognitionOpen: !state.isModalRecognitionOpen,
+      };
+    case "TOGGLE_IS_RECOGNITION_START_POPUP_OPEN":
+      return {
+        ...state,
+        isModalRecognitionStartOpen: !state.isModalRecognitionStartOpen,
+      };
+    case "TOGGLE_IS_ADD_RECOGNITION_OPEN":
+      return {
+        ...state,
+        isModalAddRecognitionOpen: !state.isModalAddRecognitionOpen,
       };
     case "TOGGLE_IS_MODAL_OPEN":
       return {
