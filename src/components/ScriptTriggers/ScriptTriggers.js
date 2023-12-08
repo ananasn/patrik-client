@@ -85,20 +85,8 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                 <img src={isDay ? item.ico : item.icoNight} alt="Face" />
                 {item.triggerServer.name}
                 {item.triggerServer.trigger_type === 3 &&
-                  // <input
-                  //   type="time"
-                  //   value={item.triggerServer.time}
-                  //   onInput={(e) => {
-                  //     console.log(e.target.value);
-                  //     item.triggerServer.time = e.target.value;
-                  //     setFilteredItems([...filteredItems]);
-                  //   }}
-                  // />
                   <input
-                    type="text"
-                    name="time"
-                    onFocus={(e) => e.target.type='time'}
-                    onBlur={(e) => (!e.target.value) ? (e.target.type='text') : (e.target.type='time')}
+                    type="time"
                     value={item.triggerServer.time}
                     onInput={(e) => {
                       console.log(e.target.value);
@@ -106,6 +94,18 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       setFilteredItems([...filteredItems]);
                     }}
                   />
+                  // <input
+                  //   type="text"
+                  //   name="time"
+                  //   onFocus={(e) => e.target.type='time'}
+                  //   onBlur={(e) => (!e.target.value) ? (e.target.type='text') : (e.target.type='time')}
+                  //   value={item.triggerServer.time}
+                  //   onInput={(e) => {
+                  //     console.log(e.target.value);
+                  //     item.triggerServer.time = e.target.value;
+                  //     setFilteredItems([...filteredItems]);
+                  //   }}
+                  // />
                 }
               </div>
               <button className="robot-script__btnDlt" onClick={() => deleteTrigger(item)}>
