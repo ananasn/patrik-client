@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classnames from "classnames";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { useHttp } from "../hooks/http.hook";
 import back from "../img/icons/menu-day/back-day.svg";
 import backNight from "../img/icons/menu-night/back-night.svg";
-import { setRecognitions, setTriggers, toggleIsAddRecognitionModalOpen, toggleIsRecognitionModalOpen } from "../store/actions";
+import { setRecognitions, setTriggers, toggleIsAddRecognitionModalOpen } from "../store/actions";
 import { API_PATH } from "../api/index";
 
 import ModalScriptAddRecognition from "../components/ModalScriptAddRecognition/ModalScriptAddRecognition";
-import Portal from '../components/Portal';
-import ModalRecognition from '../components/ModalRecognition/ModalRecognition';
+//import Portal from '../components/Portal';
 
 import "./Recognition.scss";
 import SearchBar from "../components/SearchBar/SearchBar";
@@ -23,8 +22,6 @@ const Recognition = () => {
   const dispatch = useDispatch();
   const { request, loading, error, clearError } = useHttp();
   const isModalAddRecognitionOpen = useSelector((state) => state.isModalAddRecognitionOpen);
-  const isModalRecognitionOpen = useSelector((state) => state.isModalRecognitionOpen);
-  const [titleModalRecognition, setTitleModalRecognition] = useState({});
   //const [isModalOpen, setIsModalOpen] = useState(false);
   const goBack = () => {
     navigate(-1);
@@ -67,10 +64,6 @@ const Recognition = () => {
       dispatch(setMimics(data));
     };
     fetchData();*/
-  }
-
-  const getTitleModalRecognition = (type, text) => {
-    setTitleModalRecognition({type: type, text: text});
   }
 
   const [filteredItems, setFilteredItems] = useState(recognitions);
@@ -122,7 +115,7 @@ const Recognition = () => {
         <SearchBar onSearch={handleSearch} />
         <ul className="recognition__list">
           {filteredItems.map(({ name, id, trigger_type }) => (
-            <ListRecognitions key={id} text={name} id={id} type={trigger_type} deleteRecognition={deleteRecognition} getTitle={getTitleModalRecognition}/>
+            <ListRecognitions key={id} text={name} id={id} type={trigger_type} deleteRecognition={deleteRecognition} />
           ))}
         </ul>
       </div>
@@ -130,14 +123,6 @@ const Recognition = () => {
         isOpen={isModalAddRecognitionOpen}
         onClose={onModalClose}
       />
-      {/*<Portal>
-        <ModalRecognition
-          type={titleModalRecognition.type}
-          text={titleModalRecognition.text}
-          isOpen={isModalRecognitionOpen}
-          onClose={dispatch(toggleIsRecognitionModalOpen())}
-        />
-          </Portal>*/}
     </div>
   );
 };
