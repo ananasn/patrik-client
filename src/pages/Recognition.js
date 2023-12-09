@@ -44,9 +44,9 @@ const Recognition = () => {
     const fetchData = async () => {
       const response = await request(`${API_PATH}api/trigger/`);
       const data = await response;
-      dispatch(setTriggers(data));
+      //dispatch(setTriggers(data));
       const res = data.filter((item) => item.trigger_type == 1 || item.trigger_type == 2);
-      console.log(data)
+      //console.log(data)
       console.log(res)
       dispatch(setRecognitions(res));
     };
@@ -56,6 +56,9 @@ const Recognition = () => {
 
   const deleteRecognition = async (id) => {
     await fetch(`${API_PATH}api/trigger/${id}/`, {method:"DELETE"});
+
+    const res = recognitions.filter((item) => item.id !== id);
+    dispatch(setRecognitions(res));
 
     /*const fetchData = async () => {
       const response = await request(`${API_PATH}api/trigger/`);
