@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-//import { useState } from "react";
+import { useState } from "react";
 import classNames from "classnames";
 import { useHttp } from "../../hooks/http.hook";
 import { toggleIsRecognitionStartModalOpen } from '../../store/actions';
@@ -18,6 +18,7 @@ const ModalScriptAddRecognition = ({ isOpen, onClose, item}) => {
   const { request, loading } = useHttp();
   const dispatch = useDispatch();
   const isModalRecognitionStartOpen = useSelector((state) => state.isModalRecognitionStartOpen);
+  const [recognitionType, setRecognitionType] = useState();
 
   const handleModalClose = () => {
     onClose();
@@ -28,12 +29,15 @@ const ModalScriptAddRecognition = ({ isOpen, onClose, item}) => {
   }
   const handleSighRecognition = () => {
     console.log("распознать жест");
+    setRecognitionType(1);
+
     //setIsModalRecognitionStartOpen(true);
     dispatch(toggleIsRecognitionStartModalOpen());
     onClose();
   }
   const handleFaceRecognition = () => {
     console.log("распознать лицо");
+    setRecognitionType(2);
     //setIsModalRecognitionStartOpen(true);
     dispatch(toggleIsRecognitionStartModalOpen());
     onClose();
@@ -102,6 +106,7 @@ const ModalScriptAddRecognition = ({ isOpen, onClose, item}) => {
         <ModalRecognitionStart
           isOpen={isModalRecognitionStartOpen}
           onClose={onModalClose}
+          type={recognitionType}
          />
       </Portal>
     </div>

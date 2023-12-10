@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames";
 import { useHttp } from "../../hooks/http.hook";
 import { toggleIsRecognitionStartModalOpen } from "../../store/actions";
+import { API_PATH } from "../../api/index";
 
 import {ReactComponent as CloseItemIco} from '../../img/close.svg';
 //import { ReactComponent as BackIco } from "../../img/icons/menu-day/back.svg";
@@ -15,6 +16,7 @@ const ModalRecognitionName = ({ isOpen, onClose, type}) => {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState(type == 1 ? 'Введите название жеста' : 'Введите имя');
   const inputRef = useRef(null);
+  const [helperText, setHelperText] = useState("");
 
   const handleModalClose = () => {
     onClose();
@@ -31,7 +33,14 @@ const ModalRecognitionName = ({ isOpen, onClose, type}) => {
     console.log('сохранить имя жеста или мимики');
 
   }
-  const onRecognitionNameInput = () => {
+  const onRecognitionNameInput = async () => {
+    const resInput = await request(`${API_PATH}api/is_script_unique/`, "post",
+    JSON.stringify({
+      name: inputRef.current.value,
+    }));
+    //console.log(resInput)
+    //console.log(resInput.unique)
+    (resInput.unique == false) ? setHelperText("Такое имя уже существует") : setHelperText("");
     setInputValue(inputRef.current.value);
     console.log(inputValue);
   }
@@ -72,9 +81,6 @@ const ModalRecognitionName = ({ isOpen, onClose, type}) => {
           </div>
         </div>
         <div className="modal-recognition-name__body">
-            {loading ? (
-              <h2>Идёт загрузка данных</h2>
-            ) : (
               <form
                 onSubmit={(e) => e.preventDefault()} // сабмит происходит при нажатии на enter
                 className="modal-recognition-name__form"
@@ -102,9 +108,8 @@ const ModalRecognitionName = ({ isOpen, onClose, type}) => {
                   >
                   </label>
                 </div>
-                {/*<div className="modal-recognition-name__name-helper-text">{helperText}</div>*/}
+                <div className="modal-recognition-name__name-helper-text">{helperText}</div>
               </form>
-            )}
           <button
             className={classNames("modal-recognition-name-btn", {
               "modal-recognition-name-btn_day": isDay,

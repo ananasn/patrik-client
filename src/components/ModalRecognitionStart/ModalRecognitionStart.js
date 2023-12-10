@@ -12,7 +12,7 @@ import { ReactComponent as BackIco } from "../../img/icons/menu-day/back.svg";
 
 import "./ModalRecognitionStart.scss";
 
-const ModalRecognitionStart = ({ isOpen, onClose}) => {
+const ModalRecognitionStart = ({ isOpen, onClose, type}) => {
   const isDay = useSelector((state) => state.isDay);
   const { request, loading } = useHttp();
   const dispatch = useDispatch();
@@ -92,6 +92,7 @@ const ModalRecognitionStart = ({ isOpen, onClose}) => {
       <Portal>
         <ModalRecognitionName
           isOpen={isModalRecognitionNameOpen}
+          type={type}
           onClose={onModalClose}
          />
       </Portal>

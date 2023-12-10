@@ -136,6 +136,14 @@
     }
   }
 
+  &__name-helper-text {
+    height: 20px;
+    padding-bottom: 6px;
+    font-size: 12px;
+    font-weight: 300;
+    color: red;
+  }
+
   &-btn {
     width: 100%;
     display: flex;
