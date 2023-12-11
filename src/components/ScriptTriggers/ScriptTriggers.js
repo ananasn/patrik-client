@@ -89,7 +89,12 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                   {item.triggerServer.name}
                   {item.triggerServer.trigger_type === 3 &&
                     <input
-                      type="time"
+                      className={classNames("robot-script__add-col-trigger-inputTime", {
+                        "robot-script__add-col-trigger-inputTime--day": isDay,
+                        "robot-script__add-col-trigger-inputTime--night": !isDay,
+                      })}
+                      // type="time"
+                      type="text"
                       value={item.triggerServer.time}
                       onInput={(e) => {
                         console.log(e.target.value);
@@ -131,7 +136,7 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       setFilteredItems([...filteredItems]);
                     }}
                   />
-                  <div>Повторно срабатывать</div>
+                  {/* <div>Повторно срабатывать</div>
                   <div>
                     <button
                       className={classNames("robot-script-add__btnRepeat", {
@@ -158,7 +163,7 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                     >
                       через время
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               }
               {/* Для Лицо див */}
@@ -238,7 +243,7 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
               {/* Для времени див */}
               {item.triggerServer.trigger_type === 3 &&
                 <div>
-                  <div>Повторять после выполнения:</div>
+                  <div className="robot-script__triggerTimeText">Повторять после выполнения:</div>
                   <button
                     className={classNames("robot-script-add__btnNotRepeat", {
                       "robot-script-add__btnNotRepeat--day": isDay,

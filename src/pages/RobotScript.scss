@@ -349,8 +349,14 @@
   }
   .expression {
     &__line {
-      background-color: #D1D8EF;
+      background-color: $robot-day;
       width: 10px;
+      // &--day {
+      //   background-color: $robot-day;
+      // }
+      // &--night {
+      //   background-color: $robot-move-night;
+      // }
       &--hidden {
         background: transparent;
       }

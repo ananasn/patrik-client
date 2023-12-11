@@ -192,6 +192,8 @@
       margin: 0 0 0 16px;
       justify-content: space-between;
       padding-top: 16px;
+      align-items: center;
+      margin-bottom: 8px;
 
       &-inner {
         display: flex;
@@ -201,6 +203,7 @@
         font-style: normal;
         font-weight: 500;
         line-height: normal;
+        align-items: center;
         img {
           width: 32px;
           height: 32px;
@@ -217,6 +220,69 @@
     &-items:last-child {
       &-add__btnILi {
         display: none;
+      }
+    }
+    &-inputTime {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 40px;
+      width: 24%;
+      font-family: Inter;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      margin-left: 8px;
+      &--day {
+        color: $btns-day;
+        background-color: $move-add-smt-day;
+      }
+
+      &--night {
+        color: $btns-night;
+        background-color: $move-add-smt-night;
+      }
+    }
+  }
+
+  &__triggerTimeText {
+    width: 209px;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: left;
+    // margin-left: 19px;
+  }
+
+  // display: flex;
+  //   flex-direction: column;
+  //   justify-content: left;
+  //   align-items: start;
+  //   margin-left: 12px;
+
+  &-add {
+    &__btnNotRepeat {
+      font-family: Inter;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      border-radius: 24px;
+      border: none;
+      padding: 8px 12px;
+      width: 263px;
+      height: 38px;
+      // margin: 8px 0 12px -20px;
+      &--day {
+        color: $main-bg-day;
+        background-color: $btns-day;
+      }
+
+      &--night {
+        color: $main-bg-night;
+        background-color: $btns-night;
       }
     }
   }

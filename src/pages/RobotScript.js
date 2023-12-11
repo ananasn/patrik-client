@@ -322,6 +322,11 @@ const RobotScript = () => {
                     })}
                   >
                     <div className={`expression__line ${roundTopClass} ${roundBottomClass}`}></div>
+                    {/* <div
+                      className={classNames(`expression__line ${roundTopClass} ${roundBottomClass}`, {
+                      "expression__line--day": isDay,
+                      "expression__line--night": !isDay,
+                    })}></div> */}
                     <div
                       className={classNames("delay mimicitem-add__last", {
                         "mimicitem-add__last--day": isDay,
