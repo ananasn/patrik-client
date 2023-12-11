@@ -11,6 +11,7 @@ import {ReactComponent as BackIco} from "../img/icons/menu-day/back.svg";
 import {ReactComponent as RobotFaceIco} from "../img/robot/robot-face.svg";
 import {ReactComponent as RobotNeckIco} from "../img/robot/robot-neck.svg";
 import {ReactComponent as RobotArmIco} from "../img/robot/robot-arm.svg";
+import {ReactComponent as RobotHand} from "../img/robot/robot-hand.svg";
 import {ReactComponent as RobotLogoIco} from "../img/robot/robot-logo.svg";
 import {ReactComponent as RobotBodyIco} from "../img/robot/robot-body.svg";
 import {ReactComponent as RobotLeftShoulderIco} from "../img/robot/robot-left-shoulder.svg";
@@ -209,7 +210,7 @@ const SafeZones = () => {
                   <div className="safezones__body">
                     <div className="safezones__arm">
                       <span
-                        className={classnames("safezones__armitem", {
+                        className={classnames("safezones__arm-item", {
                           safezones__armitem_day: isDay,
                           safezones__armitem_night: !isDay,
                           active_robot_part_day: activeRobotPart === "l4" & isDay,
@@ -220,7 +221,7 @@ const SafeZones = () => {
                         <RobotArmIco />
                       </span>
                       <span
-                        className={classnames("safezones__armitem", {
+                        className={classnames("safezones__arm-item", {
                           safezones__armitem_day: isDay,
                           safezones__armitem_night: !isDay,
                           active_robot_part_day: activeRobotPart === "l3" & isDay,
@@ -231,7 +232,7 @@ const SafeZones = () => {
                         <RobotArmIco />
                       </span>
                       <span
-                        className={classnames("safezones__armitem", {
+                        className={classnames("safezones__arm-item", {
                           safezones__armitem_day: isDay,
                           safezones__armitem_night: !isDay,
                           active_robot_part_day: activeRobotPart === "l2" & isDay,
@@ -242,7 +243,7 @@ const SafeZones = () => {
                         <RobotArmIco />
                       </span>
                       <span
-                        className={classnames("safezones__armitem", {
+                        className={classnames("safezones__hand-item", {
                           safezones__armitem_day: isDay,
                           safezones__armitem_night: !isDay,
                           active_robot_part_day: activeRobotPart === "l1" & isDay,
@@ -250,7 +251,7 @@ const SafeZones = () => {
                         })}
                         onClick={() => handleRobotPartChoice("l1")}
                       >
-                        <RobotArmIco />
+                        <RobotHand />
                       </span>
                     </div>
                     <div className="safezones__torso">
@@ -295,7 +296,7 @@ const SafeZones = () => {
                     </div>
                     <div className="safezones__arm">
                       <span
-                        className={classnames("safezones__armitem", {
+                        className={classnames("safezones__arm-item", {
                           safezones__armitem_day: isDay,
                           safezones__armitem_night: !isDay,
                           active_robot_part_day: activeRobotPart === "r4" & isDay,
@@ -306,7 +307,7 @@ const SafeZones = () => {
                         <RobotArmIco />
                       </span>
                       <span
-                        className={classnames("safezones__armitem", {
+                        className={classnames("safezones__arm-item", {
                           safezones__armitem_day: isDay,
                           safezones__armitem_night: !isDay,
                           active_robot_part_day: activeRobotPart === "r3" & isDay,
@@ -317,7 +318,7 @@ const SafeZones = () => {
                         <RobotArmIco />
                       </span>
                       <span
-                        className={classnames("safezones__armitem", {
+                        className={classnames("safezones__arm-item", {
                           safezones__armitem_day: isDay,
                           safezones__armitem_night: !isDay,
                           active_robot_part_day: activeRobotPart === "r2" & isDay,
@@ -328,7 +329,7 @@ const SafeZones = () => {
                         <RobotArmIco />
                       </span>
                       <span
-                        className={classnames("safezones__armitem", {
+                        className={classnames("safezones__hand-item", {
                           safezones__armitem_day: isDay,
                           safezones__armitem_night: !isDay,
                           active_robot_part_day: activeRobotPart === "r1" & isDay,
@@ -336,7 +337,7 @@ const SafeZones = () => {
                         })}
                         onClick={() => handleRobotPartChoice("r1")}
                       >
-                        <RobotArmIco />
+                        <RobotHand />
                       </span>
                     </div>
                   </div>

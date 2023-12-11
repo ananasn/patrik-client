@@ -108,15 +108,21 @@
     align-items: center;
   }
   &__face {
-    max-width: 259px;
-    //max-height: 144px;
+    max-width: 166px;
+    max-height: 155px;
+    svg {
+      width: 166px;
+    }
   }
 
   &__neck {
-    //max-width: 95px;
-    max-height: 34px;
-    margin: 8px 0;
+    max-width: 95px;
+    max-height: 22px;
+    //margin: 8px 0;
     transition: 0.5s all;
+    svg {
+      width: 95px;
+    }
 
     &:hover {
       cursor: pointer;
@@ -200,6 +206,26 @@
     transition: 0.5s all;
     width: 48px;
     height: 71px;
+    svg {
+      width: 48px;
+      height: 71px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+    }
+  }
+
+  &__hand-item {
+    margin-bottom: 4px;
+    transition: 0.5s all;
+    width: 48px;
+    height: 48px;
+    svg {
+      width: 48px;
+      height: 48px;
+    }
 
     &:hover {
       cursor: pointer;
