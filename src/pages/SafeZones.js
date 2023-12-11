@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classnames from "classnames";
 
-import Controler from "../components/Controler/Controler";
+import ControlerTwoRange from "../components/ControlerTwoRange/ControlerTwoRange";
 
 import {ReactComponent as BackIco} from "../img/icons/menu-day/back.svg";
 
@@ -28,10 +28,24 @@ const SafeZones = () => {
     const goBack = () => {
     navigate(-1);
   };
+  const [l1_maxDeg, setL1_max] = useState(180);
+  const [l1_minDeg, setL1_min] = useState(0);
+  //const [l2Deg, setL2] = useState(0);
+  //const [l3Deg, setL3] = useState(l3);
+  //const [l4Deg, setL4] = useState(l4);
+  const [r1_maxDeg, setR1_max] = useState(180);
+  const [r1_minDeg, setR1_min] = useState(0);
+  //const [r2Deg, setR2] = useState(r2);
+  //const [r3Deg, setR3] = useState(r3);
+  //const [r4Deg, setR4] = useState(r4);
+  //const [neckDeg, setNeck] = useState(neck);
+  //const [headDeg, setHead] = useState(head);
   const [activeRobotPart, setActiveRobotPart] = useState(null);
   const [activeRobotPartName, setActiveRobotPartName] = useState(null);
+  const [isReady, setIsReady] = useState(false);
 
   const handleRobotPartChoice = (robotPart) => {
+
     if (activeRobotPart === robotPart) {
       setActiveRobotPart(null);
       setActiveRobotPartName(null);
@@ -39,10 +53,10 @@ const SafeZones = () => {
       setActiveRobotPart(robotPart);
       switch (robotPart) {
         case "neck":
-          setActiveRobotPartName("шеи");
+          setActiveRobotPartName("Шея");
           break;
         case "l1":
-          setActiveRobotPartName("левой руки 1");
+          setActiveRobotPartName("Левая рука 1");
           break;
         case "l2":
           setActiveRobotPartName("левой руки 2");
@@ -57,7 +71,7 @@ const SafeZones = () => {
           setActiveRobotPartName("левой руки 5");
           break;
         case "r1":
-          setActiveRobotPartName("правой руки 1");
+          setActiveRobotPartName("Правая рука 1");
           break;
         case "r2":
           setActiveRobotPartName("правой руки 2");
@@ -76,29 +90,34 @@ const SafeZones = () => {
           break;
       }
     }
+    setIsReady(false);
   };
-  const changeControlState = (robotPart, e) => {
-    /*if (robotPart === "r1") {
-      setR1(e);
+  const changeControlState = (robotPart, minValue, maxValue) => {
+    if (robotPart === "r1") {
+      setR1_max(maxValue);
+      setR1_min(minValue);
+      console.log(maxValue, "-", minValue)
     } else if (robotPart === "r2") {
-      setR2(e);
+      //setR2(e);
     } else if (robotPart === "r3") {
-      setR3(e);
+      //setR3(e);
     } else if (robotPart === "r4") {
-      setR4(e);
-    } else if (robotPart === "l1") {
-      setL1(e);
+      //setR4(e);
+    } else if (robotPart === "l1_max") {
+      //setL1_max(maxValue);
+    } else if (robotPart === "l1_min") {
+      //setL1_min(minValue);
     } else if (robotPart === "l2") {
-      setL2(e);
+      //setL2(e);
     } else if (robotPart === "l3") {
-      setL3(e);
+      //setL3(e);
     } else if (robotPart === "l4") {
-      setL4(e);
+      //setL4(e);
     } else if (robotPart === "neck") {
-      setNeck(e);
+      //setNeck(e);
     } else if (robotPart === "head") {
-      setHead(e);
-    }*/
+      //setHead(e);
+    }
     /*saveFunc({
       id: id,
       name: inputValue,
@@ -119,7 +138,14 @@ const SafeZones = () => {
       mimic: mimicData,
     });*/
   };
-  console.log(activeRobotPart === "neck" & isDay, activeRobotPart === "neck", isDay)
+
+  const handleClick = () => {
+    setIsReady(true);
+  };
+  useEffect(() => {
+    setR1_max(r1_maxDeg);
+    setR1_min(r1_minDeg);
+  }, [r1_maxDeg, r1_minDeg])
   return (
     <div className="safezones__wrapper">
       <div
@@ -315,6 +341,52 @@ const SafeZones = () => {
                     </div>
                   </div>
                 </div>
+                {isReady ? (
+                  <div className="safezones__control">
+                    <h2 className="safezones__control-name">
+                      Конечность настроена
+                    </h2>
+                    <p className="safezones__control-description">При необходимости выберите следующую конечность для настройки</p>
+                  </div>
+                ) : (
+                  <div
+                    className={classnames("safezones__control", {
+                      "safezones__control_day": isDay,
+                      "safezones__control_night": !isDay,
+                    })}
+                  >
+                    <h2 className="safezones__control-path-name">
+                      {activeRobotPartName
+                        ? `${activeRobotPartName}`
+                        : "Выберите конечность робота для настройки"}
+                    </h2>
+                    <p className="safezones__control-description">
+                      {activeRobotPartName
+                        ? "Установите максимально допустимые значения для левой и правой стороны"
+                        : ""}
+                    </p>
+                    <div className="safezones__controller">
+                      {activeRobotPart === "r1" ? (
+                        <ControlerTwoRange
+                          maxValue={180}
+                          minValue={0}
+                          //initialValue={r1Deg}
+                          id={"horizontal"}
+                          onChange={({maxValue, minValue}) => changeControlState("r1", minValue, maxValue)}
+                        ></ControlerTwoRange>
+                      ) : null}
+                    </div>
+                    {activeRobotPartName ? (
+                      <button
+                        className={classnames("safezones__ready-btn", {
+                          "safezones__ready-btn_day": isDay,
+                          "safezones__ready-btn_night": !isDay,
+                        })}
+                        onClick={handleClick}
+                      >Готово</button>
+                    ) : null}
+                  </div>
+                )}
                 {/*<div className="movesitem__control">
                   <h2 className="movesitem__control-name">
                     {activeRobotPartName
