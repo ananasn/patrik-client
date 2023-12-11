@@ -241,12 +241,13 @@
   }
   //controllers
   &__control {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     max-width: 436px;
-    height: 300px;
+    min-height: 310px;
     padding: 30px 16px;
     border-radius: 16px;
     text-align: center;
@@ -272,12 +273,13 @@
     line-height: normal;
   }
   &__control-description {
+    margin: 9px 0;
     font-size: 16px;
     font-weight: 500;
     line-height: normal;
   }
   &__controller {
-    margin: 14px 0;
+    margin: 10px 0;
     width: 100%;
     height: 80px;
   }

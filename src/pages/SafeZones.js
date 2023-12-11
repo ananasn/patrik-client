@@ -36,7 +36,8 @@ const SafeZones = () => {
   //const [l4Deg, setL4] = useState(l4);
   const [r1_maxDeg, setR1_max] = useState(180);
   const [r1_minDeg, setR1_min] = useState(0);
-  //const [r2Deg, setR2] = useState(r2);
+  const [r2_maxDeg, setR2_max] = useState(180);
+  const [r2_minDeg, setR2_min] = useState(0);
   //const [r3Deg, setR3] = useState(r3);
   //const [r4Deg, setR4] = useState(r4);
   //const [neckDeg, setNeck] = useState(neck);
@@ -60,31 +61,31 @@ const SafeZones = () => {
           setActiveRobotPartName("Левая рука 1");
           break;
         case "l2":
-          setActiveRobotPartName("левой руки 2");
+          setActiveRobotPartName("Левая рука 2");
           break;
         case "l3":
-          setActiveRobotPartName("левой руки 3");
+          setActiveRobotPartName("Левая рука 3");
           break;
         case "l4":
-          setActiveRobotPartName("левой руки 4");
+          setActiveRobotPartName("Левая рука 4");
           break;
         case "l5":
-          setActiveRobotPartName("левой руки 5");
+          setActiveRobotPartName("Левая рука 5");
           break;
         case "r1":
           setActiveRobotPartName("Правая рука 1");
           break;
         case "r2":
-          setActiveRobotPartName("правой руки 2");
+          setActiveRobotPartName("Правая рука 2");
           break;
         case "r3":
-          setActiveRobotPartName("правой руки 3");
+          setActiveRobotPartName("Правая рука 3");
           break;
         case "r4":
-          setActiveRobotPartName("правой руки 4");
+          setActiveRobotPartName("Правая рука 4");
           break;
         case "r5":
-          setActiveRobotPartName("правой руки 5");
+          setActiveRobotPartName("Правая рука 5");
           break;
         default:
           setActiveRobotPartName(null);
@@ -97,19 +98,19 @@ const SafeZones = () => {
     if (robotPart === "r1") {
       setR1_max(maxValue);
       setR1_min(minValue);
-      console.log(maxValue, "-", minValue)
     } else if (robotPart === "r2") {
-      //setR2(e);
+      setR2_max(maxValue);
+      setR2_min(minValue);
     } else if (robotPart === "r3") {
       //setR3(e);
     } else if (robotPart === "r4") {
       //setR4(e);
-    } else if (robotPart === "l1_max") {
-      //setL1_max(maxValue);
-    } else if (robotPart === "l1_min") {
-      //setL1_min(minValue);
+    } else if (robotPart === "l1") {
+      setL1_max(maxValue);
+      setL1_min(minValue);
     } else if (robotPart === "l2") {
-      //setL2(e);
+      //setL2_max(maxValue);
+      //setL2_min(minValue);
     } else if (robotPart === "l3") {
       //setL3(e);
     } else if (robotPart === "l4") {
@@ -356,36 +357,56 @@ const SafeZones = () => {
                       "safezones__control_night": !isDay,
                     })}
                   >
-                    <h2 className="safezones__control-path-name">
-                      {activeRobotPartName
-                        ? `${activeRobotPartName}`
-                        : "Выберите конечность робота для настройки"}
-                    </h2>
-                    <p className="safezones__control-description">
-                      {activeRobotPartName
-                        ? "Установите максимально допустимые значения для левой и правой стороны"
-                        : ""}
-                    </p>
-                    <div className="safezones__controller">
-                      {activeRobotPart === "r1" ? (
-                        <ControlerTwoRange
-                          maxValue={180}
-                          minValue={0}
-                          //initialValue={r1Deg}
-                          id={"horizontal"}
-                          onChange={({maxValue, minValue}) => changeControlState("r1", minValue, maxValue)}
-                        ></ControlerTwoRange>
-                      ) : null}
-                    </div>
                     {activeRobotPartName ? (
-                      <button
-                        className={classnames("safezones__ready-btn", {
-                          "safezones__ready-btn_day": isDay,
-                          "safezones__ready-btn_night": !isDay,
-                        })}
-                        onClick={handleClick}
-                      >Готово</button>
-                    ) : null}
+                      <>
+                        <h2 className="safezones__control-path-name">
+                          {activeRobotPartName}
+                        </h2>
+                        <p className="safezones__control-description">
+                          Установите максимально допустимые значения для левой и правой стороны
+                        </p>
+                        <div className="safezones__controller">
+                          {activeRobotPart === "r1" ? (
+                            <ControlerTwoRange
+                              maxValue={180}
+                              minValue={0}
+                              //initialValue={r1Deg}
+                              id={"horizontal"}
+                              onChange={({maxValue, minValue}) => changeControlState("r1", minValue, maxValue)}
+                            ></ControlerTwoRange>
+                          ) : null}
+                          {activeRobotPart === "r2" ? (
+                            <ControlerTwoRange
+                              maxValue={180}
+                              minValue={0}
+                              //initialValue={r1Deg}
+                              id={"horizontal"}
+                              onChange={({maxValue, minValue}) => changeControlState("r2", minValue, maxValue)}
+                            ></ControlerTwoRange>
+                          ) : null}
+                          {activeRobotPart === "l1" ? (
+                            <ControlerTwoRange
+                              maxValue={180}
+                              minValue={0}
+                              //initialValue={r1Deg}
+                              id={"horizontal"}
+                              onChange={({maxValue, minValue}) => changeControlState("l1", minValue, maxValue)}
+                            ></ControlerTwoRange>
+                          ) : null}
+                        </div>
+                        <button
+                          className={classnames("safezones__ready-btn", {
+                            "safezones__ready-btn_day": isDay,
+                            "safezones__ready-btn_night": !isDay,
+                          })}
+                          onClick={handleClick}
+                        >Готово</button>
+                      </>
+                     ) : (
+                      <h2 className="safezones__control-name">
+                        Выберите конечность робота для настройки
+                      </h2>
+                    )}
                   </div>
                 )}
                 {/*<div className="movesitem__control">

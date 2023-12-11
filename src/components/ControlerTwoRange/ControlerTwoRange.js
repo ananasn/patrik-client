@@ -112,40 +112,6 @@ const ControlerTwoRange = ({ imgSrc, initialValue, maxValue, minValue, text, id,
             >{maxVal}</div>
           </div>
         </div>
-        <div>
-          {/*<input
-            type="number"
-            onChange={(event) => {
-              //const value = Math.min(Number(event.target.value), maxVal - 1);
-              setMinVal(event.target.value);
-              minValRef.current = event.target.value;
-            }}
-            value={minValue}
-            min={minValue}
-            max={maxValue}
-            required
-            className={classNames("controler__value inputWidth", {
-              "controler__value--day": isDay,
-              "controler__value--night": !isDay,
-            })}
-          />
-          <input
-            type="number"
-            onChange={(event) => {
-              //const value = Math.max(Number(event.target.value), minVal + 1);
-              setMaxVal(event.target.value);
-              maxValRef.current = event.target.value;
-            }}
-            value={maxValue}
-            min={minValue}
-            max={maxValue}
-            required
-            className={classNames("controler__value inputWidth", {
-              "controler__value--day": isDay,
-              "controler__value--night": !isDay,
-            })}
-          />*/}
-        </div>
       </div>
     </div>
   );
