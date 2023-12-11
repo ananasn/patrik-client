@@ -53,7 +53,7 @@
   &__title {
     margin: 0px;
     padding: 0px;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 700;
     text-align: left;
   }
@@ -107,6 +107,21 @@
       &:hover {
         background: lighten($bars-night, 2);
       }
+    }
+  }
+
+  &__applyBtn {
+    border: none;
+      // padding: 7px 5px 6px 5px !important;
+      // border-radius: 24px;
+    &--day {
+      color: $font-night;
+      background-color: $btns-day;
+    }
+
+    &--night {
+      color: $font-day;
+      background-color: $btns-night;
     }
   }
 }

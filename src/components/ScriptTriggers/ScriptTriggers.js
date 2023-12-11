@@ -242,7 +242,7 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
               }
               {/* Для времени див */}
               {item.triggerServer.trigger_type === 3 &&
-                <div>
+                <div className="robot-script__triggerWrapper">
                   <div className="robot-script__triggerTimeText">Повторять после выполнения:</div>
                   <button
                     className={classNames("robot-script-add__btnNotRepeat", {
@@ -258,14 +258,15 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       "не повторять" :
                       `${item.triggerServer.number} ${numberTimes(item.triggerServer.number)}, каждые ${item.triggerServer.period} минут`}
                   </button>
-                  <div>Повторять по дням недели:</div>
-                  <div>
+                  <div className="robot-script__triggerTimeText">Повторять по дням недели:</div>
+                  <div className="robot-script__triggerTimeDays">
                     {week.map((day, index) =>
                       <button
                         className={classNames("robot-script-add__btnRepeatTime", {
                           "robot-script-add__btnRepeatTime--day": isDay,
                           "robot-script-add__btnRepeatTime--night": !isDay,
-                          "robot-script-add__btnRepeatTime--week-checked": item.triggerServer.week[6-index] == 1,
+                          "robot-script-add__btnRepeatTime--week-checked--day": item.triggerServer.week[6-index] == 1,
+                          "robot-script-add__btnRepeatTime--week-checked--night": item.triggerServer.week[6-index] == 1,
                         })}
                         onClick={() => {
                           let arr = item.triggerServer.week.split('');

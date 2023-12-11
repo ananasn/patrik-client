@@ -193,7 +193,7 @@
       justify-content: space-between;
       padding-top: 16px;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 8px !important;
 
       &-inner {
         display: flex;
@@ -226,7 +226,7 @@
       padding: 8px 12px;
       border: none;
       border-radius: 40px;
-      width: 24%;
+      width: 27%;
       font-family: Inter;
       font-size: 24px;
       font-style: normal;
@@ -246,21 +246,34 @@
   }
 
   &__triggerTimeText {
-    width: 209px;
+    // width: 209px;
     font-family: Inter;
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     text-align: left;
-    // margin-left: 19px;
   }
 
-  // display: flex;
-  //   flex-direction: column;
-  //   justify-content: left;
-  //   align-items: start;
-  //   margin-left: 12px;
+  &__triggerTimeDays {
+    margin: 8px 0 24px 0;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    font-size: 17px;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &__triggerWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: start;
+    margin-left: 19px;
+  }
+
 
   &-add {
     &__btnNotRepeat {
@@ -272,9 +285,8 @@
       border-radius: 24px;
       border: none;
       padding: 8px 12px;
-      width: 263px;
       height: 38px;
-      // margin: 8px 0 12px -20px;
+      margin: 8px 0 12px;
       &--day {
         color: $main-bg-day;
         background-color: $btns-day;
@@ -285,12 +297,33 @@
         background-color: $btns-night;
       }
     }
+    &__btnRepeatTime {
+      border: none;
+      padding: 7px 5px 6px 5px !important;
+      border-radius: 24px;
+      &--day {
+        color: $btns-day;
+        background-color: $move-add-smt-day;
+      }
+
+      &--night {
+        color: $btns-night;
+        background-color: $move-add-smt-night;
+      }
+    }
   }
 
   &-add__btnRepeatTime--week-checked {
-    // border-radius: 24px;
-    // padding: 7px 7px 6px 5px;
-    background: $btns-day;
+    // background: $btns-day;
+    // color: $font-night;
+    &--day {
+      background: $btns-day !important;
+      color: $font-night !important;
+    }
+    &--night {
+      color: $font-day;
+      background-color: $btns-night;
+    }
   }
 
   &-add__btnRepeat--startup-checked {

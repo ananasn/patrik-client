@@ -55,7 +55,8 @@ const ModalAddNumberPeriod = ({ isOpenNumberPeriod, onNumberPeriodClose, trigger
                     min={0}
                     onInput={e => setNumberValue(e.target.value)}
                   />
-                  <span>{numberTimes(inputNumberRef?.current?.value)} через каждые</span>
+                  {/* <span>{numberTimes(inputNumberRef?.current?.value)} через каждые</span> */}
+                  <span>часов</span>
 
                   <input
                     defaultValue={triggerInModal?.triggerServer?.period}
@@ -65,7 +66,14 @@ const ModalAddNumberPeriod = ({ isOpenNumberPeriod, onNumberPeriodClose, trigger
                   />
                   <span>минут</span>
         </div>
-        <button onClick={() => onNumberPeriodClose(inputNumberRef.current.value, inputPeriodRef.current.value)}>Применить</button>
+        <button
+          className={classNames("modal-script-add-move__applyBtn", {
+            "modal-script-add-move__applyBtn--day": isDay,
+            "modal-script-add-move__applyBtn--night": !isDay,
+          })}
+          onClick={() => onNumberPeriodClose(inputNumberRef.current.value, inputPeriodRef.current.value)}>
+            Применить
+        </button>
       </div>
     </div>
   );
