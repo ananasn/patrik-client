@@ -1,17 +1,22 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames";
 import { useHttp } from "../../hooks/http.hook";
 import { toggleIsAddRecognitionModalOpen } from "../../store/actions";
+
+import Portal from '../Portal';
+import ModalRecognitionName from '../ModalRecognitionName/ModalRecognitionName';
 
 import {ReactComponent as CloseItemIco} from '../../img/close.svg';
 import { ReactComponent as BackIco } from "../../img/icons/menu-day/back.svg";
 
 import "./ModalRecognitionStart.scss";
 
-const ModalRecognitionStart = ({ isOpen, onClose}) => {
+const ModalRecognitionStart = ({ isOpen, onClose, type}) => {
   const isDay = useSelector((state) => state.isDay);
   const { request, loading } = useHttp();
   const dispatch = useDispatch();
+  const [isModalRecognitionNameOpen, setIsModalRecognitionNameOpen] = useState(false);
 
   const handleModalClose = () => {
     onClose();
@@ -24,6 +29,11 @@ const ModalRecognitionStart = ({ isOpen, onClose}) => {
 
   const handleClick = () => {
     onClose();
+    setIsModalRecognitionNameOpen(true);
+  }
+
+  const onModalClose = () => {
+    setIsModalRecognitionNameOpen(false);
   }
 
   return (
@@ -79,6 +89,13 @@ const ModalRecognitionStart = ({ isOpen, onClose}) => {
           </button>
         </div>
       </div>
+      <Portal>
+        <ModalRecognitionName
+          isOpen={isModalRecognitionNameOpen}
+          type={type}
+          onClose={onModalClose}
+         />
+      </Portal>
     </div>
   );
 };

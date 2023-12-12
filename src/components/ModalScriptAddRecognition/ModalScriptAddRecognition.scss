@@ -126,6 +126,9 @@
     &__inner {
       width: 60%;
     }
+    &__title {
+      font-size: 24px;
+    }
   }
 }
 
@@ -133,8 +136,8 @@
   .modal-script-add-recognition {
     &__inner {
       width: 82%;
-      //height: 82%;
-      height: 42%;
+      padding: 12px 16px;
+      //height: 42%;
     }
   }
 }

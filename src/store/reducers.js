@@ -7,7 +7,7 @@ const initialState = {
   isCallModalOpen: false,
   isDay: getTheme(),
   update: {
-    isUpdate: false,
+    isUpdate: true,
     updateVersion: "версия 3.33.9",
   },
   dialog: {

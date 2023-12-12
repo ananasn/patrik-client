@@ -106,6 +106,13 @@
     margin-right: 40px;
     left: 0;
     bottom: 120px;
+    z-index: 20;
+    &_day {
+      background: #F4F5F9;
+    }
+    &_night {
+      background-color: #1F2432;
+    }
   }
   .updatemessage__title {
     margin: 20px 0;

@@ -20,12 +20,11 @@ const ListRecognitions = ({
   isModal = false,
   isScript = false,
   deleteRecognition,
-  getTitle,
 }) => {
   const dispatch = useDispatch();
   const isDay = useSelector((state) => state.isDay);
-  const isModalRecognitionOpen = useSelector((state) => state.isModalRecognitionOpen);
-  const [title, setTitle] = useState({});
+  //const isModalRecognitionOpen = useSelector((state) => state.isModalRecognitionOpen);
+  const [isModalRecognitionOpen, setIsModalRecognitionOpen] = useState(false);
 
   const handleDelete = () => {
     deleteRecognition(id);
@@ -33,16 +32,18 @@ const ListRecognitions = ({
   }
   const handleRecognitionClick = () => {
     console.log("Нажали на сущ триггер", id, type, text);
-    getTitle(type, text);
-    dispatch(toggleIsRecognitionModalOpen());
+    setIsModalRecognitionOpen(!isModalRecognitionOpen);
+    //dispatch(toggleIsRecognitionModalOpen());
   }
   const onModalClose = () => {
-    dispatch(toggleIsRecognitionModalOpen());
+    setIsModalRecognitionOpen(!isModalRecognitionOpen);
+    //dispatch(toggleIsRecognitionModalOpen());
   }
   const handleImportRecognitionData = () => {
     dispatch(setImportRecognition({id: id, text: text, type: type}))
     console.log(id, text, "add import ");
-    dispatch(toggleIsModalOpen());
+    setIsModalRecognitionOpen(!isModalRecognitionOpen);
+    //dispatch(toggleIsModalOpen());
     console.log(id, text, "add import  data");
   }
   return (
@@ -99,14 +100,14 @@ const ListRecognitions = ({
           )}
         </div>
       </li>
-      {/*<Portal>
+      <Portal>
         <ModalRecognition
-          type={title?.type}
-          text={title?.text}
+          type={type}
+          text={text}
           isOpen={isModalRecognitionOpen}
           onClose={onModalClose}
         />
-              </Portal>*/}
+      </Portal>
     </>
   );
 };
