@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import ModalScriptAddTrigger from "../components/ModalScriptAddTrigger/ModalScriptAddTrigger";
 import ModalScriptAddMove from "../components/ModalScriptAddMove/ModalScriptAddMove";
-import ScriptItem from "../components/ScriptItem/ScriptItem";
+import ScriptTriggers from "../components/ScriptTriggers/ScriptTriggers";
 
 import back from "../img/icons/menu-day/back-day.svg";
 import backNight from "../img/icons/menu-night/back-night.svg";
@@ -23,8 +23,13 @@ import scriptMove from "../img/script-day/scriptMove.svg";
 import scriptMoveNight from "../img/script-night/scriptMove-night.svg";
 import deleteItem from "../img/movesItem/delete-day.svg";
 import deleteItemNight from "../img/movesItem/delete-night.svg";
+import timerDay from "../img/timer/timer-day.svg";
+import timerNight from "../img/timer/timer-night.svg";
+
+import {ReactComponent as CloseItemIco} from '../img/close.svg';
 
 import "./RobotScript.scss";
+
 
 // страница создания и редактирования мимик; где карточки
 const RobotScript = () => {
@@ -41,6 +46,14 @@ const RobotScript = () => {
   const [triggers, setTriggers] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [buttonText, setButtonText] = useState('или');
+  const [delayValue, setDelayValue] = useState(0); //delay из бека
+  const [script, setScript] = useState({});
+  // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
+  const [delayView, setDelayView] = useState(delayValue === 0 ? 0 : 2);
+  const delayRef = useRef(null);
+  //константа для колонки с действиями
+  const [expressions, setExpressions] = useState([]);
+  // const moves = useSelector((state) => state.moves);
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
@@ -50,15 +63,23 @@ const RobotScript = () => {
         const fetchData = async () => {
           const response = await request(`http://localhost:8000/api/script/${scriptId}`);// получить сценарий по id
           const data = await response;
-          //console.log(data)
+          console.log(data)
           //setThisScript(data);
           setInputValue(data.name);
+          setExpressions(data.expressions);
+          setScript(data);
         };
         fetchData();
       } else {
         setInputValue("Новый сценарий");
       }
+      (async () => {
+        const response = await request("http://localhost:8000/api/move/");
+        const data = await response;
+        setMoves(data);
+      })();
     }, [])
+    // console.log(moves);
 
   const inputRef = useRef(null);
   //const dispatch = useDispatch();
@@ -75,48 +96,6 @@ const RobotScript = () => {
     inputRef.current.focus();
   };
 
-  const saveFunc = (obj) => {
-    const res = items.map((item) => {
-      if (item.id === obj.id) {
-        return obj;
-      } else {
-        return item;
-      }
-    });
-    setItems(res);
-    console.log(obj); //данные для put запроса (mimic)
-  };
-
-  const addScriptHandler = () => { // для кнопки "создать cсценарий"
-    setItems([...items, {
-      "name": "test", //имя
-      "active": true,
-      "triggers": [ //массив id тригерров
-        1
-      ],
-      "move": [ //массив id движений
-        1
-      ]
-    }])
-  }
-  const saveHandler = () => { // доделать if на put запрос - при редактировании (или пут или пост)
-    items.forEach(async(item) => {
-      //console.log(item);
-      // если есть id то редактирование
-      if (item.id) {
-        const itemId = item.id;
-        delete item.id;
-        await request(`http://localhost:8000/api/script/${itemId}/`, "put",
-        JSON.stringify(item));
-      }
-      // создание
-      else {
-        await request("http://localhost:8000/api/script/", "post",
-        JSON.stringify(item));
-      }
-    })
-  }
-
   const addScriptItemHandler = () => {
     setIsModalScriptOpen(true);
   }
@@ -125,10 +104,21 @@ const RobotScript = () => {
   }
   // срабатывает, когда в попапе выбираем тригеры(условия)
   const onTriggerSelect = (triggerFromPopup) => {
-    //console.log(triggerFromPopup);
+    console.log(triggerFromPopup);
+    if (triggerFromPopup.triggerServer.trigger_type == 3) {
+      const nowTime = new Date();
+      let hours = nowTime.getHours();
+      let minutes = nowTime.getMinutes();
+      if (hours <= 9) {
+        hours = `0${hours}`;
+      }
+      if (minutes <= 9) {
+        minutes = `0${minutes}`;
+      }
+      triggerFromPopup.triggerServer.time = `${hours}:${minutes}`
+    }
     setTriggers([...triggers, triggerFromPopup.triggerServer]);
     setFilteredItems([...filteredItems, triggerFromPopup]);
-
   }
   const onModalScriptClose = () => {
     setIsModalScriptOpen(false);
@@ -140,26 +130,42 @@ const RobotScript = () => {
     //console.log(scriptId, "run");
   }
 
-  //запрос на сохранение/перезапись сценария
+  //запрос на сохранение/перезапись сценария на сервер
   const handleSaveScript = async () => {
+    const triggers = filteredItems.map(item => {
+      item.triggerServer.week = parseInt(item.triggerServer.week, 2);
+      return item.triggerServer;
+    });
+    // console.log(triggers);
 
-    // const res = await request("http://localhost:8000/api/save_mimic_items/", "post",
-    //   JSON.stringify({
-    //     id: scriptId,
-    //     name: inputValue,
-    //     mimic_items: items
-    //   }));
-    //console.log(res);
-    //console.log("navigate to /script")
-    navigate(-1);
+    const res = await request("http://localhost:8000/api/save_script/", "post",
+      JSON.stringify({...script, triggers: triggers, expressions: expressions})
+    );
+
+    console.log(res);
+    // console.log("navigate to /script")
+    // navigate(-1);
   }
   // срабатывает когда нажали импорт в попапе с движением
   const onMoveImport = (moveId, moveText) => {
     console.log("onMoveImport", moveId, moveText);
     onModalScriptClose();
-    setMoves([...moves, {
-      id: moveId,
-      text: moveText,
+    // setMoves([...moves, {
+    //   id: moveId,
+    //   text: moveText,
+    // }]);
+    setExpressions([...expressions, {
+      move_id: moveId,
+      delay: null,
+      operation: 1,
+    }]);
+  }
+
+  const onDelayAdd = () => {
+    setExpressions([...expressions, {
+      move_id: null,
+      delay: 100,
+      operation: 1,
     }]);
   }
 
@@ -168,15 +174,17 @@ const RobotScript = () => {
     setButtonText(buttonText === 'или' ? 'и' : 'или');
   }
 
-  const deleteMove = (move) => {
-    let index = moves.indexOf(move);
-    setMoves([...moves.slice(0, index), ...moves.slice(index + 1)]);
-  }
-
   const deleteTrigger = (item) => {
     console.log("triger delete");
     let index = filteredItems.indexOf(item);
     setFilteredItems([...filteredItems.slice(0, index), ...filteredItems.slice(index + 1)]);
+  }
+
+  const deleteExpression = (expression) => {
+    let index = expressions.indexOf(expression);
+    //console.log("delete expression", expression);
+    expressions.splice(index, 1);
+    setExpressions([...expressions]);
   }
 
   return (
@@ -235,286 +243,17 @@ const RobotScript = () => {
           </button>
         </div>
       </div>
-      <div className="robot-script__list">
-      <ul className="robot-script__reorder">
-          {items &&
-            items.map((item) => {
-              return (
-                <ScriptItem
-                  card={item}
-                  scriptId={item.id}
-                  key={item.id}
-                  name={item.name}
-                  active={item.active}
-                  triggers={item.triggers}
-                  move={item.move}
-                  saveFunc={saveFunc}
-                  //deleteScriptItem={deleteScriptItem}
-                ></ScriptItem>
-              );
-            })}
-        </ul>
-      </div>
       <div className="robot-script__control">
         <div className="robot-script__add-col">
           <div className="robot-script__add-col-title">
             Если:
           </div>
-          <div className="robot-script__add-col-trigger">
-            {filteredItems.map((item) =>
-              <div className="robot-script__add-col-trigger-items">
-                <div
-                  className={classNames("robot-script__add-col-trigger-item", {
-                    "robot-script__add-col-trigger-item--day": isDay,
-                    "robot-script__add-col-trigger-item--night": !isDay,
-                  })}
-                >
-                  <div className="robot-script__add-col-trigger-name">
-                    <div
-                      className={classNames("robot-script__add-col-trigger-name-inner", {
-                        "robot-script__add-col-trigger-name-inner--day": isDay,
-                        "robot-script__add-col-trigger-name-inner--night": !isDay,
-                      })}
-                    >
-                      <img src={isDay ? item.ico : item.icoNight} alt="Face" />
-                      {item.triggerServer.name}
-                      {item.triggerServer.trigger_type === 3 && <div>12:15</div>}
-                    </div>
-                    <button className="robot-script__btnDlt" onClick={() => deleteTrigger(item)}>
-                      <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
-                    </button>
-                  </div>
-                  {/* Для Фраза див */}
-                  {item.triggerServer.trigger_type === 0 &&
-                    <div>
-                      <input
-                        placeholder="Введите текст для фразы"
-                        className={classNames("robot-script__inputPhrase", {
-                          "robot-script__inputPhrase--night": !isDay,
-                          "robot-script__inputPhrase--day": isDay,
-                        })}
-                        // onKeyDown={(e) => handleSubmit(e)}
-                        type="text"
-                        ref={inputRef}
-                      />
-                      <div>Повторно срабатывать</div>
-                      <div>
-                        <button
-                          className={classNames("robot-script-add__btnRepeat", {
-                            "robot-script-add__btnRepeat--day": isDay,
-                            "robot-script-add__btnRepeat--night": !isDay,
-                          })}
-                        >
-                          каждый раз
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeat", {
-                            "robot-script-add__btnRepeat--day": isDay,
-                            "robot-script-add__btnRepeat--night": !isDay,
-                          })}
-                        >
-                          через время
-                        </button>
-                      </div>
-                    </div>
-                  }
-                   {/* Для Лицо див */}
-                  {item.triggerServer.trigger_type === 1 &&
-                    <div>
-                      <div>Повторно срабатывать</div>
-                      <div>
-                        <button
-                          className={classNames("robot-script-add__btnRepeat", {
-                            "robot-script-add__btnRepeat--day": isDay,
-                            "robot-script-add__btnRepeat--night": !isDay,
-                          })}
-                        >
-                          каждый раз
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeat", {
-                            "robot-script-add__btnRepeat--day": isDay,
-                            "robot-script-add__btnRepeat--night": !isDay,
-                          })}
-                        >
-                          через время
-                        </button>
-                      </div>
-                    </div>
-                  }
-                  {/* Для Жест див */}
-                  {item.triggerServer.trigger_type === 2 &&
-                    <div>
-                      <div>Повторно срабатывать</div>
-                      <div>
-                        <button
-                          className={classNames("robot-script-add__btnRepeat", {
-                            "robot-script-add__btnRepeat--day": isDay,
-                            "robot-script-add__btnRepeat--night": !isDay,
-                          })}
-                        >
-                          каждый раз
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeat", {
-                            "robot-script-add__btnRepeat--day": isDay,
-                            "robot-script-add__btnRepeat--night": !isDay,
-                          })}
-                        >
-                          через время
-                        </button>
-                      </div>
-                    </div>
-                  }
-                  {/* Для времени див */}
-                  {item.triggerServer.trigger_type === 3 &&
-                    <div>
-                      <div>Повторять после выполнения:</div>
-                      <button
-                        className={classNames("robot-script-add__btnNotRepeat", {
-                          "robot-script-add__btnNotRepeat--day": isDay,
-                          "robot-script-add__btnNotRepeat--night": !isDay,
-                        })}
-                      >
-                        не повторять/5 раз, каждые 3000 минут
-                      </button>
-                      <div>Повторять по дням недели:</div>
-                      <div>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Пн
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Вт
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Ср
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Чт
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Пт
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Сб
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Вс
-                        </button>
-                      </div>
-                  </div>
-                  }
+          <ScriptTriggers
+            filteredItems={filteredItems}
+            setFilteredItems={setFilteredItems}
+            deleteTrigger={deleteTrigger}
+          ></ScriptTriggers>
 
-                  {/* Для Запуск системы див */}
-                  {item.triggerServer.trigger_type === 4 &&
-                    <div>
-                      <div>Повторять</div>
-                      <div>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Пн
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Вт
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Ср
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Чт
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Пт
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Сб
-                        </button>
-                        <button
-                          className={classNames("robot-script-add__btnRepeatTime", {
-                            "robot-script-add__btnRepeatTime--day": isDay,
-                            "robot-script-add__btnRepeatTime--night": !isDay,
-                          })}
-                        >
-                          Вс
-                        </button>
-                      </div>
-                    </div>
-                  }
-                </div>
-                <button
-                  className={classNames("robot-script-add__btnILi", {
-                    "robot-script-add__btnIli--day": isDay,
-                    "robot-script-add__btnIli--night": !isDay,
-                  })}
-                >
-                  или
-                </button>
-              </div>)}
-          </div>
           <button
             className={classNames("robot-script-add__btn", {
               "robot-script-add__btn--day": isDay,
@@ -530,29 +269,116 @@ const RobotScript = () => {
             То:
           </div>
           <div className="robot-script__add-col-importedMovesWraper">
-            {moves.map((move) => <div className="robot-script__add-col-importedMoves">
-              <div className={classNames("robot-script__add-col-importedMoves-move", {
-                "robot-script__add-col-importedMoves-move--day": isDay,
-                "robot-script__add-col-importedMoves-move--night": !isDay,
-              })}>
-                <div className="robot-script__add-col-importedMoves-move-text">
-                  <img src={isDay ? scriptMove : scriptMoveNight} alt="Face" />
-                  {move.text}
+            {expressions.map((expression, index) => {
+              const expressionPrev = expressions[index - 1];
+              const expressionNext = expressions[index + 1];
+              let roundTopClass = "";
+              let roundBottomClass = "";
+
+              // если пред. нет, то скругляем сверху
+              if (!expressionPrev) {
+                roundTopClass = "expression__line--roundTop";
+              }
+              // если в предыдущем ИЛИ то скругляем сверху
+              if (expressionPrev?.operation === 1) {
+                roundTopClass = "expression__line--roundTop";
+                // roundBottomClass = "expression__line--roundBottom";
+              }
+              // если текущий ИЛИ, то скругляем снизу
+              if (expression?.operation === 1) {
+                roundBottomClass = "expression__line--roundBottom";
+              //  roundTopClass = "expression__line--roundTop";
+              }
+              // если след. нет, то скругляем снизу
+              if (!expressionNext) {
+                roundBottomClass = "expression__line--roundBottom";
+              }
+
+              // console.log(roundTopClass, roundBottomClass, index, expressions, expressionPrev, expressionNext);
+              return <div className="expression" key={expression.id}>
+                {expression.move_id &&  <div className="robot-script__add-col-importedMoves">
+                  <div className={`expression__line ${roundTopClass} ${roundBottomClass}`}></div>
+                  <div className={classNames("robot-script__add-col-importedMoves-move", {
+                    "robot-script__add-col-importedMoves-move--day": isDay,
+                    "robot-script__add-col-importedMoves-move--night": !isDay,
+                  })}>
+                    <div className="robot-script__add-col-importedMoves-move-text">
+                      <img src={isDay ? scriptMove : scriptMoveNight} alt="Face" />
+                      {moves.find(move => move.id === expression.move_id)?.name}
+                      {/* {JSON.stringify(expression)}
+                      {expression.move} */}
+                    </div>
+                    <button className="robot-script__btnDlt"onClick={() => deleteExpression(expression)}>
+                      <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
+                    </button>
+                  </div>
+                </div>}
+
+                {/* задержка */}
+                {expression.delay && <div
+                    className={classNames("delay__container delay__wraper", {
+                      "delay__container--day": isDay,
+                      "delay__container--night": !isDay,
+                    })}
+                  >
+                    <div className={`expression__line ${roundTopClass} ${roundBottomClass}`}></div>
+                    <div
+                      className={classNames("delay mimicitem-add__last", {
+                        "mimicitem-add__last--day": isDay,
+                        "mimicitem-add__last--night": !isDay,
+                      })}
+                      onClick={(e) => {
+                        const delayWraper = e.target.closest(".delay__wraper");
+                        delayWraper.classList.add("delay--editable");
+                        const delayInput = delayWraper.querySelector(".delay__input");
+                        delayInput.focus();
+                      }}
+                    >
+                      <img src={isDay ? timerDay : timerNight} alt="" />
+                      <input
+                        className={classNames("controler__value delay__input", {
+                          "controler__value--day": isDay,
+                          "controler__value--night": !isDay,
+                        })}
+                        defaultValue={expression.delay}
+                        type="number"
+                        onBlur={ function(e){
+                          expression.delay = e.target.value;
+                          setExpressions([...expressions]);
+                          e.target.closest(".delay__wraper").classList.remove("delay--editable");
+                        }}
+                      />
+                      <span className="delay__value">{expression.delay}</span> мс
+                      <img src={isDay ? pen : penNight} alt="" />
+                    </div>
+                    <span
+                      className="delete-btn"
+                      onClick={() => deleteExpression(expression)}
+                    >
+                      <CloseItemIco />
+                    </span>
+                  </div>}
+                {/* кнопка и/или */}
+                <div
+                  className="operation"
+                  onClick={() => {
+                    expression.operation = (expression.operation === 1) ? 2 : 1;
+                    setExpressions([...expressions]);
+                  }}
+                >
+                  <div className={`expression__line${expression.operation === 1 ? " expression__line--hidden" : ""}`}></div>
+                  <button
+                    className={classNames("robot-script-add__btnILi", {
+                      "robot-script-add__btnIli--day": isDay,
+                      "robot-script-add__btnIli--night": !isDay,
+                    })}
+                    onClick={onBtnIliTextChange}
+                  >
+                    {expression.operation === 1 ? "или" : "и"}
+                  </button>
                 </div>
-                <button className="robot-script__btnDlt"onClick={() => deleteMove(move)}>
-                  <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
-                </button>
               </div>
-              <button
-                className={classNames("robot-script-add__btnILi", {
-                  "robot-script-add__btnIli--day": isDay,
-                  "robot-script-add__btnIli--night": !isDay,
-                })}
-                onClick={onBtnIliTextChange}
-              >
-                {buttonText}
-              </button>
-            </div>)}
+            })}
           </div>
           <button
             className={classNames("robot-script-add__btn", {
@@ -574,6 +400,8 @@ const RobotScript = () => {
           isOpen={isModalScriptAddMoveOpen}
           onClose={onModalScriptClose}
           onMoveImport={onMoveImport}
+          setDelayView={setDelayView}
+          onDelayAdd={onDelayAdd}
       ></ModalScriptAddMove>
     </div>
   );

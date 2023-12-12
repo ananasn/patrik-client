@@ -1,0 +1,130 @@
+@import "../../utils/variables";
+
+.recognition__item {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 16px;
+  align-items: center;
+  // width: 296px;
+  height: 35px;
+  border-radius: 8px;
+  padding: 16px 32px 16px 32px;
+  justify-content: space-between;
+
+  &_day {
+    background: $bars-day;
+    fill: $btns-day;
+    stroke: $btns-day;
+  }
+
+  &_night {
+    background: $bars-night;
+    fill: $btns-night;
+    stroke: $btns-night;
+  }
+
+  .recognition__btns {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    // justify-items: center;
+    justify-content: flex-end;
+    gap: 24px;
+  }
+
+  .recognition__name_container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .recognition__ico {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+  }
+
+  .recognition__text {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 240px;
+    text-align: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .recognition__btn {
+    background: transparent;
+    border: none;
+    width: 32px;
+    height: 32px;
+    margin-left: 0px;
+    padding: 0px;
+    cursor: pointer;
+    text-decoration: none;
+    background-position: center center;
+    background-size: cover;
+    display: inline-block;
+    transition: 0.3s all;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &_import_day {
+      background-image: url("../../img/import/import-day.svg");
+    }
+
+    &_import_night {
+      background-image: url("../../img/import/import-night.svg");
+    }
+
+    &_delete_day {
+      background-image: url("../../img/delete-day.svg");
+    }
+
+    &_delete_night {
+      background-image: url("../../img/delete-night.svg");
+    }
+
+    &_settings_day {
+      background-image: url("../../img/settings-day.svg");
+    }
+
+    &_settings_night {
+      background-image: url("../../img/settings-night.svg");
+    }
+  }
+}
+
+@media(max-width:650px) {
+  .recognition__item {
+    padding: 16px;
+
+    .recognition__ico {
+      width: 32px;
+    }
+    .recognition__text {
+      font-size: 16px;
+      width: 140px;
+    }
+  }
+}
+
+@media(max-width:430px) {
+  .recognition__item {
+    .recognition__btn {
+      width: 24px;
+      height: 24px;
+    }
+    .recognition__text {
+      width: 120px;
+    }
+  }
+}

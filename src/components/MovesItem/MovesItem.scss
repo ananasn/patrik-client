@@ -211,6 +211,7 @@
     max-height: 63px;
     align-items: center;
     position: absolute;
+    top: -0.5px;
     left: -42px;
 
   }
@@ -222,6 +223,7 @@
     max-height: 63px;
     align-items: center;
     position: absolute;
+    top: -0.5px;
     right: -42px;
   }
 
@@ -285,11 +287,13 @@
       background-color: $move-add-smt-day;
       color: $btns-day;
       fill: $btns-day;
+      stroke: $btns-day;
     }
     &--night {
       background-color: $move-add-smt-night;
       color: $btns-night;
       fill: $btns-night;
+      stroke: $btns-night;
     }
     img {
       max-width: 32px;

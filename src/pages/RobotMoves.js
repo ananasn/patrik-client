@@ -4,7 +4,7 @@ import { useHttp } from "../hooks/http.hook";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch} from "react-redux";
-import { toggleIsModalOpen, setIsMove, setImportMove } from "../store/actions";
+import { toggleIsModalOpen, setIsMove, setImportMove, setMimics } from "../store/actions";
 import MovesItem from "../components/MovesItem/MovesItem";
 import {codeGenerator} from "../utils/utils";
 //import DelayTimer from "../components/DelayTimer/DelayTimer";
@@ -24,6 +24,7 @@ import importNight from "../img/import/import-night.svg";
 
 import "./RobotMoves.scss";
 import Modal from "../components/Modal/Modal";
+import ModalPoseMimic from "../components/ModalPoseMimic/ModalPoseMimic";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 const RobotMoves = () => {
@@ -34,6 +35,10 @@ const RobotMoves = () => {
   const [helperText, setHelperText] = useState("");
   const [items, setItems] = useState([]);
   const [allMove, setAllMove] = useState([]);
+  const [isModalPoseMimicOpen, setIsModalPoseMimicOpen] = useState(false);
+  //поза для которой открыто модальное окно
+  const [poseInModal, setPoseInModal] = useState(null);
+  const [mimics, setMimics] = useState([]);
 
     // получаем имя движения и id
     useEffect(() => {
@@ -77,6 +82,18 @@ const RobotMoves = () => {
       fetchData();
     }
   }, []);
+  //получение списка мимик
+  useEffect(() => {
+      const fetchData = async () => {
+        const response = await request("http://localhost:8000/api/mimic/");
+        const data = await response;
+        setMimics(data);
+        // dispatch(setMimics(data));
+        // setFilteredItems(data);
+      };
+      fetchData();
+  }, []);
+
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -97,47 +114,35 @@ const RobotMoves = () => {
     dispatch(setIsMove(true));
     dispatch(toggleIsModalOpen());
   };
-  const deletePose = async (poseId) => {
-    await fetch(`http://localhost:8000/api/pose/${poseId}/`, {method:"DELETE"});
-
-    const fetchData = async () => {
-      const response = await request("http://localhost:8000/api/pose/");
-      const data = await response;
-      const result = await data.filter((item) => item.move == moveId );
-      setItems(result);
-    };
-    fetchData();
-  }
-
   const handlePlay = async () => {
     await fetch(`http://localhost:8000/api/run_mimic/${moveId}/`, {method:"POST"});
     console.log(moveId, "run");
   }
   const saveFunc = (obj) => {
+    console.log(obj);
     const res = items.map((item) => {
-      console.warn(item, item.mimic) // item.mimic - и есть число - айди мимики
-      //const id = item.mimic;
-      //console.log(id)
-      //item.mimic = id; //передать число!!!
-      // item[mimic] = id
       if (item.id === obj.id) {
         // сюда приходит карточка которую мы поменяли
         return obj;
       } else {
         // сюда приходят карточки из бэка которые мы не меняли
-        const id = item.mimic.id;
-        // item.mimic = {id};
-        console.log("item.mimic.id", item.mimic.id);
+        const id = item.mimic;
+        if (typeof id == "number") {
+
+        } else {
+          // item.mimic = item.mimic?.id;
+        }
+
+        console.log("item.mimic", item.mimic);
         return item;
       }
     });
     setItems(res);
-    //console.log(res);
   };
   const addPoseHandler = () => { // для кнопки "создать pose"
     const i = codeGenerator() + 1;
     setItems([...items, {
-      "name": `Поза ${i}`,
+      "name": `Новая поза`,
       "l1": 0,
       "l2": 0,
       "l3": 0,
@@ -180,26 +185,32 @@ const RobotMoves = () => {
   }
   //запрос на сохранение/перезапись имени и всех карточек движения(поз)
   const handleSaveMove = async () => {
-    /*console.log(importMove, 'добавляем движ при сохранении', importMove.id);
-    if (importMove) {
-      const importItems = allMove.filter((item) => item.move == importMove.id);
-      console.log(allMove, allMove.move, importItems, importItems.poses);
-      console.log([...items, ...importItems]); //соединяем два массива
-      setItems([...items, ...importItems]);
-      //setItems(items.slice())
-    }*/
      setItems(items.slice()) // чтобы стейт обновился нужен новый массив
     console.log(items);
     const res = await request("http://localhost:8000/api/save_poses/", "post",
     JSON.stringify({
       id: moveId,
       name: inputValue,
-      poses: items
+      poses: items.map(pose => ({...pose, mimic: pose.mimic.id})),
     }));
     console.log("Сохранение движения");
     dispatch(setImportMove(null));
     navigate(-1);
   }
+  const deletePose = async (poseId) => {
+    const filtered = items.filter(item => item.id !== poseId);
+    setItems(filtered);
+    //console.log(items, 'delete array', filtered)
+    const res = await request("http://localhost:8000/api/save_poses/", "post",
+    JSON.stringify({
+      id: moveId,
+      name: inputValue,
+      poses: filtered
+    }));
+  };
+  /*useEffect(() => {
+    setItems(items);
+  }, [items])*/
   const onMoveNameInput = async () => {
     //console.log(inputRef.current.value)
     //const newValue = inputRef.current.value;
@@ -225,6 +236,18 @@ const RobotMoves = () => {
       //setItems(items.slice())
     }
   }, [importMove]);
+  //pose -поза с сервера объект;
+  // срабатывает при клике на добавить мимику
+  const onModalPoseMimicOpen = (pose) => {
+    setPoseInModal(pose);
+    setIsModalPoseMimicOpen(true);
+  }
+  //срабатывает при выборе мимики в модальном окне
+  const onMimicSelect = (mimic) => {
+    console.log("mimic, poseInModal", mimic, poseInModal);
+    saveFunc({...poseInModal, mimic: mimic});
+    setIsModalPoseMimicOpen(false);
+  }
   return (
     <div className="robotmoves">
       <div
@@ -302,19 +325,23 @@ const RobotMoves = () => {
                         l2={item.l2}
                         l3={item.l3}
                         l4={item.l4}
+                        l5={item.l5}
                         r1={item.r1}
                         r2={item.r2}
                         r3={item.r3}
                         r4={item.r4}
+                        r5={item.r5}
                         neck={item.neck}
                         head={item.head}
                         delay={item.delay}
                         phrase={item.phrase}
                         mimic={item.mimic}
+                        // mimicName={mimics.find(mimicServer => mimicServer.id == item.mimic)?.name}
                         saveFunc={saveFunc}
                         deletePose={deletePose}
                         order={item.id}
                         index={index}
+                        onModalPoseMimicOpen={onModalPoseMimicOpen}
                       ></MovesItem>
                     );
                    })
@@ -362,6 +389,7 @@ const RobotMoves = () => {
         </div>
       </div>
       <Modal></Modal>
+      <ModalPoseMimic isOpen={isModalPoseMimicOpen} onClose={() => {setIsModalPoseMimicOpen(false); setPoseInModal(null)}} onMimicSelect={onMimicSelect}></ModalPoseMimic>
     </div>
   );
 };

@@ -16,7 +16,7 @@ const Profile = () => {
           className={`${isDay ? "profile__link_day" : "profile__link_night"}`}
           to="/"
         >
-          Patrick 78
+          Patrick
         </Link>
       </li>
     </ul>

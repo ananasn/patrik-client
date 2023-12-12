@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import classnames from "classnames";
 import Controler from "../Controler/Controler";
 import RobotAddSmt from "../RobotAddSmt/RobotAddSmt";
-import { toggleIsModalOpen, setIsMove, setImportMimic, } from "../../store/actions";
+//import { toggleIsModalOpen, setIsMove, setImportMimic, } from "../../store/actions";
 
 import pen from "../../img/pen-day.svg";
 import penNight from "../../img/pen-night.svg";
@@ -38,6 +38,9 @@ import robotHandNight from "../../img/robot-moves-night/robot-hand-night.svg";
 import robotNeckDayActive from "../../img/robot-day/neck-day-active.svg";
 import robotArmDayActive from "../../img/robot-day/arm-day-active.svg";
 import robotHandDayActive from "../../img/robot-day/hand-day-active.svg";
+import robotLeftShoulderActive from "../../img/robot-day/robot-left-shoulder-active.svg";
+import robotRightShoulderActive from "../../img/robot-day/robot-right-shoulder-active.svg";
+
 
 import timerDay from "../../img/timer/timer-day.svg";
 import timerNight from "../../img/timer/timer-night.svg";
@@ -45,12 +48,19 @@ import timerNight from "../../img/timer/timer-night.svg";
 import robotNeckNightActive from "../../img/robot-moves-night/robot-neck-night-active.svg";
 import robotArmNightActive from "../../img/robot-moves-night/robot-arm-night-active.svg";
 import robotHandNightActive from "../../img/robot-moves-night/robot-hand-night-active.svg";
+import robotLeftShoulderNightActive from "../../img/robot-night/robot-left-shoulder-night-active.svg";
+import robotRightShoulderNightActive from "../../img/robot-night/robot-right-shoulder-night-active.svg";
 
 import {ReactComponent as PlusIco } from "../../img/plus.svg";
-//import {ReactComponent as EmotionIco} from "../../img/icons/menu-day/mim.svg";
+import {ReactComponent as EmotionIco} from "../../img/icons/menu-day/mim.svg";
 
 import "./MovesItem.scss";
 import { Draggable } from "react-beautiful-dnd";
+
+let start = 0;
+const generateControllerCode = (function (){
+  return () => ++start;
+}());
 
 const MovesItem = ({
   card,
@@ -59,10 +69,12 @@ const MovesItem = ({
   l2,
   l3,
   l4,
+  l5,
   r1,
   r2,
   r3,
   r4,
+  r5,
   neck,
   head,
   name,
@@ -73,20 +85,25 @@ const MovesItem = ({
   order,
   index,
   delay,
+  onModalPoseMimicOpen,
+  mimicName,
+  deletePose
 }) => {
   const [l1Deg, setL1] = useState(l1);
   const [l2Deg, setL2] = useState(l2);
   const [l3Deg, setL3] = useState(l3);
   const [l4Deg, setL4] = useState(l4);
+  const [l5Deg, setL5] = useState(l5);
   const [r1Deg, setR1] = useState(r1);
   const [r2Deg, setR2] = useState(r2);
   const [r3Deg, setR3] = useState(r3);
   const [r4Deg, setR4] = useState(r4);
+  const [r5Deg, setR5] = useState(r5);
   const [neckDeg, setNeck] = useState(neck);
   const [headDeg, setHead] = useState(head);
   const [phraseData, setPhrase] = useState(phrase);
-  console.log(mimic); //с сервера приходит айди мимики
-  const [mimicData, setMimicData] = useState(mimic ?? null);
+  //console.log(mimic); //с сервера приходит айди мимики
+  //const [mimicData, setMimicData] = useState(mimic ?? null);
   const [inputValue, setInputValue] = useState(name);
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [activeRobotPart, setActiveRobotPart] = useState(null);
@@ -94,12 +111,7 @@ const MovesItem = ({
   const [showItem, setShowItem] = useState(true);
   const inputRef = useRef(null);
   const isDay = useSelector((state) => state.isDay);
-  //const mimics = useSelector((state) => state.mimics);
-  //const [importMimicName, setImportMimicName] = useState(null);
   const importMimic = useSelector((state) => state.importMimic);
-  const dispatch = useDispatch();
-  //console.log(importMimic);
-
 
   const [delayValue, setDelayValue] = useState(delay);
   // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
@@ -109,7 +121,7 @@ const MovesItem = ({
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const newValue = e.target.movename.value;
-    console.log(newValue);
+    //console.log(newValue);
     setInputValue(newValue);
     setIsReadOnly(true);
     inputRef.current.blur();
@@ -123,12 +135,14 @@ const MovesItem = ({
       l2: parseInt(l2Deg),
       l3: parseInt(l3Deg),
       l4: parseInt(l4Deg),
+      l5: parseInt(l5Deg),
       neck: parseInt(neckDeg),
       head: parseInt(headDeg),
       r1: parseInt(r1Deg),
       r2: parseInt(r2Deg),
       r3: parseInt(r3Deg),
       r4: parseInt(r4Deg),
+      r5: parseInt(r5Deg),
       phrase: newPhrase,
       delay: delayValue,
       order: order,
@@ -137,7 +151,7 @@ const MovesItem = ({
     });
   };
   //изменение карточки позы при выборе\изменении мимики
-  const handleMimicChange = (mimicId) => {
+  /*const handleMimicChange = (mimicId) => {
     //e.preventDefault();
     //dispatch(setIsMove(false));
     //dispatch(toggleIsModalOpen());
@@ -166,7 +180,7 @@ const MovesItem = ({
       mimic: mimicId,
     });
   dispatch(setImportMimic(null))
-  }
+  }*/
   const handleRobotPartChoice = (robotPart) => {
     if (activeRobotPart === robotPart) {
       setActiveRobotPart(null);
@@ -189,6 +203,9 @@ const MovesItem = ({
         case "l4":
           setActiveRobotPartName("левой руки 4");
           break;
+        case "l5":
+          setActiveRobotPartName("левой руки 5");
+          break;
         case "r1":
           setActiveRobotPartName("правой руки 1");
           break;
@@ -200,6 +217,9 @@ const MovesItem = ({
           break;
         case "r4":
           setActiveRobotPartName("правой руки 4");
+          break;
+        case "r5":
+          setActiveRobotPartName("правой руки 5");
           break;
         default:
           setActiveRobotPartName(null);
@@ -215,19 +235,9 @@ const MovesItem = ({
     e.preventDefault();
     setShowItem(!showItem);
   };
-  /*const dragStartHandler = (e, card) => {
-    e.preventDefault();
-    console.log(card);
-  };
-  const dragLeaveHandler = (e) => {};
-  const dragEndHandler = (e) => {};
-  const dragOverHandler = (e) => {
-    e.preventDefault();
-  };
-  const dropHandler = (e, card) => {
-    e.preventDefault();
-    console.log(card);
-  };*/
+  const handlePoseDelete = () => {
+    deletePose(id);
+  }
   const changeControlState = (robotPart, e) => {
     if (robotPart === "r1") {
       setR1(e);
@@ -237,6 +247,8 @@ const MovesItem = ({
       setR3(e);
     } else if (robotPart === "r4") {
       setR4(e);
+    } else if (robotPart === "r5") {
+      setR5(e);
     } else if (robotPart === "l1") {
       setL1(e);
     } else if (robotPart === "l2") {
@@ -245,6 +257,8 @@ const MovesItem = ({
       setL3(e);
     } else if (robotPart === "l4") {
       setL4(e);
+    } else if (robotPart === "l5") {
+      setL5(e);
     } else if (robotPart === "neck") {
       setNeck(e);
     } else if (robotPart === "head") {
@@ -257,12 +271,14 @@ const MovesItem = ({
       l2: parseInt(l2Deg),
       l3: parseInt(l3Deg),
       l4: parseInt(l4Deg),
+      l5: parseInt(l5Deg),
       neck: parseInt(neckDeg),
       head: parseInt(headDeg),
       r1: parseInt(r1Deg),
       r2: parseInt(r2Deg),
       r3: parseInt(r3Deg),
       r4: parseInt(r4Deg),
+      r5: parseInt(r5Deg),
       phrase: phraseData,
       delay: delayValue,
       order: order,
@@ -271,7 +287,6 @@ const MovesItem = ({
     });
   };
   useEffect(() => {
-    //setMimic(importMimic ? importMimic.id : mimicData)
     console.log("before save 2", mimic)
     saveFunc({
       id: id,
@@ -280,27 +295,22 @@ const MovesItem = ({
       l2: parseInt(l2Deg),
       l3: parseInt(l3Deg),
       l4: parseInt(l4Deg),
+      l5: parseInt(l5Deg),
       neck: parseInt(neckDeg),
       head: parseInt(headDeg),
       r1: parseInt(r1Deg),
       r2: parseInt(r2Deg),
       r3: parseInt(r3Deg),
       r4: parseInt(r4Deg),
+      r5: parseInt(r5Deg),
       phrase: phraseData,
       delay: delayValue,
       order: order,
       move: moveId,
       mimic: mimic,
     });
-    //dispatch(setImportMimic(null));
-  }, [delayValue, inputValue, importMimic]);
-  /*useEffect(() => {
-    if (mimicData) {
-      const findMimic = mimics.filter((item) => item.id == mimicData.id);
-      setImportMimicName(findMimic.text);
-      console.log(importMimicName);
-    }
-  }, [mimicData])*/
+
+  }, [delayValue, inputValue, importMimic, mimic]);
   return (
     <Draggable draggableId={order.toString()} index={index}>
       {(provided) => (
@@ -352,16 +362,11 @@ const MovesItem = ({
             </button>
             <div
               draggable={true}
-              //onDragStart={(e) => dragStartHandler(e, card)}
-              //onDragLeave={(e) => dragLeaveHandler(e)}
-              //onDragEnd={(e) => dragEndHandler(e)}
-              //onDragOver={(e) => dragOverHandler(e)}
-              //onDrop={(e) => dropHandler(e, card)}
               className="movesitem__btn-draggable"
             >
               <img src={isDay ? dots : dotsNight} alt="More" />
             </div>
-            <button className="movesitem__btn">
+            <button onClick={handlePoseDelete} className="movesitem__btn">
               <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
             </button>
           </div>
@@ -397,17 +402,9 @@ const MovesItem = ({
                       alt="левое предплечье робота"
                       className="movesitem__arm-item"
                       src={
-                        activeRobotPart === "l1" ? robotArmDayActive : robotArm
+                        activeRobotPart === "l4" ? robotArmDayActive : robotArm
                       }
-                      onClick={() => handleRobotPartChoice("l1")}
-                    />
-                    <img
-                      alt="левое предплечье робота"
-                      className="movesitem__arm-item"
-                      src={
-                        activeRobotPart === "l2" ? robotArmDayActive : robotArm
-                      }
-                      onClick={() => handleRobotPartChoice("l2")}
+                      onClick={() => handleRobotPartChoice("l4")}
                     />
                     <img
                       alt="левое предплечье робота"
@@ -418,12 +415,20 @@ const MovesItem = ({
                       onClick={() => handleRobotPartChoice("l3")}
                     />
                     <img
+                      alt="левое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "l2" ? robotArmDayActive : robotArm
+                      }
+                      onClick={() => handleRobotPartChoice("l2")}
+                    />
+                    <img
                       alt="левая рука робота"
                       className="movesitem__arm-item"
                       src={
-                        activeRobotPart === "l4" ? robotHandDayActive : robotHand
+                        activeRobotPart === "l1" ? robotHandDayActive : robotHand
                       }
-                      onClick={() => handleRobotPartChoice("l4")}
+                      onClick={() => handleRobotPartChoice("l1")}
                     />
                   </div>
                   <div className="movesitem__torso">
@@ -440,12 +445,18 @@ const MovesItem = ({
                     <img
                       alt="левое плечо робота"
                       className="movesitem__left-shoulder"
-                      src={robotLeftShoulder}
+                      src={
+                        activeRobotPart === "l5" ? robotLeftShoulderActive : robotLeftShoulder
+                      }
+                      onClick={() => handleRobotPartChoice("l5")}
                     />
                     <img
                       alt="правое плечо робота"
                       className="movesitem__right-shoulder"
-                      src={robotRightShoulder}
+                      src={
+                        activeRobotPart === "r5" ? robotRightShoulderActive : robotRightShoulder
+                      }
+                      onClick={() => handleRobotPartChoice("r5")}
                     />
                   </div>
                   <div className="movesitem__arm">
@@ -453,17 +464,9 @@ const MovesItem = ({
                       alt="правое предплечье робота"
                       className="movesitem__arm-item"
                       src={
-                        activeRobotPart === "r1" ? robotArmDayActive : robotArm
+                        activeRobotPart === "r4" ? robotArmDayActive : robotArm
                       }
-                      onClick={() => handleRobotPartChoice("r1")}
-                    />
-                    <img
-                      alt="правое предплечье робота"
-                      className="movesitem__arm-item"
-                      src={
-                        activeRobotPart === "r2" ? robotArmDayActive : robotArm
-                      }
-                      onClick={() => handleRobotPartChoice("r2")}
+                      onClick={() => handleRobotPartChoice("r4")}
                     />
                     <img
                       alt="правое предплечье робота"
@@ -474,12 +477,20 @@ const MovesItem = ({
                       onClick={() => handleRobotPartChoice("r3")}
                     />
                     <img
+                      alt="правое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "r2" ? robotArmDayActive : robotArm
+                      }
+                      onClick={() => handleRobotPartChoice("r2")}
+                    />
+                    <img
                       alt="правая рука робота"
                       className="movesitem__arm-item"
                       src={
-                        activeRobotPart === "r4" ? robotHandDayActive : robotHand
+                        activeRobotPart === "r1" ? robotHandDayActive : robotHand
                       }
-                      onClick={() => handleRobotPartChoice("r4")}
+                      onClick={() => handleRobotPartChoice("r1")}
                     />
                   </div>
                 </div>
@@ -509,21 +520,11 @@ const MovesItem = ({
                       alt="левое предплечье робота"
                       className="movesitem__arm-item"
                       src={
-                        activeRobotPart === "l1"
+                        activeRobotPart === "l4"
                           ? robotArmNightActive
                           : robotArmNight
                       }
-                      onClick={() => handleRobotPartChoice("l1")}
-                    />
-                    <img
-                      alt="левое предплечье робота"
-                      className="movesitem__arm-item"
-                      src={
-                        activeRobotPart === "l2"
-                          ? robotArmNightActive
-                          : robotArmNight
-                      }
-                      onClick={() => handleRobotPartChoice("l2")}
+                      onClick={() => handleRobotPartChoice("l4")}
                     />
                     <img
                       alt="левое предплечье робота"
@@ -536,14 +537,24 @@ const MovesItem = ({
                       onClick={() => handleRobotPartChoice("l3")}
                     />
                     <img
+                      alt="левое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "l2"
+                          ? robotArmNightActive
+                          : robotArmNight
+                      }
+                      onClick={() => handleRobotPartChoice("l2")}
+                    />
+                    <img
                       alt="левая рука робота"
                       className="movesitem__arm-item"
                       src={
-                        activeRobotPart === "l4"
+                        activeRobotPart === "l1"
                           ? robotHandNightActive
                           : robotHandNight
                       }
-                      onClick={() => handleRobotPartChoice("l4")}
+                      onClick={() => handleRobotPartChoice("l1")}
                     />
                   </div>
                   <div className="movesitem__torso">
@@ -560,12 +571,18 @@ const MovesItem = ({
                     <img
                       alt="левое плечо робота"
                       className="movesitem__left-shoulder"
-                      src={robotLeftShoulderNight}
+                      src={
+                        activeRobotPart === "l5" ? robotLeftShoulderNightActive : robotLeftShoulderNight
+                      }
+                      onClick={() => handleRobotPartChoice("l5")}
                     />
                     <img
                       alt="правое плечо робота"
                       className="movesitem__right-shoulder"
-                      src={robotRightShoulderNight}
+                      src={
+                        activeRobotPart === "r5" ? robotRightShoulderNightActive : robotRightShoulderNight
+                      }
+                      onClick={() => handleRobotPartChoice("r5")}
                     />
                   </div>
                   <div className="movesitem__arm">
@@ -573,21 +590,11 @@ const MovesItem = ({
                       alt="правое предплечье робота"
                       className="movesitem__arm-item"
                       src={
-                        activeRobotPart === "r1"
+                        activeRobotPart === "r4"
                           ? robotArmNightActive
                           : robotArmNight
                       }
-                      onClick={() => handleRobotPartChoice("r1")}
-                    />
-                    <img
-                      alt="правое предплечье робота"
-                      className="movesitem__arm-item"
-                      src={
-                        activeRobotPart === "r2"
-                          ? robotArmNightActive
-                          : robotArmNight
-                      }
-                      onClick={() => handleRobotPartChoice("r2")}
+                      onClick={() => handleRobotPartChoice("r4")}
                     />
                     <img
                       alt="правое предплечье робота"
@@ -600,14 +607,24 @@ const MovesItem = ({
                       onClick={() => handleRobotPartChoice("r3")}
                     />
                     <img
+                      alt="правое предплечье робота"
+                      className="movesitem__arm-item"
+                      src={
+                        activeRobotPart === "r2"
+                          ? robotArmNightActive
+                          : robotArmNight
+                      }
+                      onClick={() => handleRobotPartChoice("r2")}
+                    />
+                    <img
                       alt="правая рука робота"
                       className="movesitem__arm-item"
                       src={
-                        activeRobotPart === "r4"
+                        activeRobotPart === "r1"
                           ? robotHandNightActive
                           : robotHandNight
                       }
-                      onClick={() => handleRobotPartChoice("r4")}
+                      onClick={() => handleRobotPartChoice("r1")}
                     />
                   </div>
                 </div>
@@ -626,7 +643,8 @@ const MovesItem = ({
                   maxValue={360}
                   imgSrc={isDay ? rightLeft : rightLeftNight}
                   initialValue={r1Deg}
-                  id={"horizontal"}
+                  id={"r1" + (id || generateControllerCode())}
+                  //id={"horizontal"}
                   onChange={(e) => changeControlState("r1", e)}
                 ></Controler>
               ) : null}
@@ -635,7 +653,8 @@ const MovesItem = ({
                   maxValue={360}
                   imgSrc={isDay ? rightLeft : rightLeftNight}
                   initialValue={r2Deg}
-                  id={"horizontal"}
+                  //id={"horizontal"}
+                  id={"r2" + (id || generateControllerCode())}
                   onChange={(e) => changeControlState("r2", e)}
                 ></Controler>
               ) : null}
@@ -644,7 +663,8 @@ const MovesItem = ({
                   maxValue={360}
                   imgSrc={isDay ? rightLeft : rightLeftNight}
                   initialValue={r3Deg}
-                  id={"horizontal"}
+                  //id={"horizontal"}
+                  id={"r3" + (id || generateControllerCode())}
                   onChange={(e) => changeControlState("r3", e)}
                 ></Controler>
               ) : null}
@@ -653,8 +673,19 @@ const MovesItem = ({
                   maxValue={360}
                   imgSrc={isDay ? rightLeft : rightLeftNight}
                   initialValue={r4Deg}
-                  id={"horizontal"}
+                  //id={"horizontal"}
+                  id={"r4" + (id || generateControllerCode())}
                   onChange={(e) => changeControlState("r4", e)}
+                ></Controler>
+              ) : null}
+              {activeRobotPart === "r5" ? (
+                <Controler
+                  maxValue={360}
+                  imgSrc={isDay ? rightLeft : rightLeftNight}
+                  initialValue={r5Deg}
+                  //id={"horizontal"}
+                  id={"r5" + (id || generateControllerCode())}
+                  onChange={(e) => changeControlState("r5", e)}
                 ></Controler>
               ) : null}
               {activeRobotPart === "l1" ? (
@@ -662,7 +693,8 @@ const MovesItem = ({
                   maxValue={360}
                   imgSrc={isDay ? rightLeft : rightLeftNight}
                   initialValue={l1Deg}
-                  id={"horizontal"}
+                  //id={"horizontal"}
+                  id={"l1" + (id || generateControllerCode())}
                   onChange={(e) => changeControlState("l1", e)}
                 ></Controler>
               ) : null}
@@ -671,7 +703,8 @@ const MovesItem = ({
                   maxValue={360}
                   imgSrc={isDay ? rightLeft : rightLeftNight}
                   initialValue={l2Deg}
-                  id={"horizontal"}
+                  //id={"horizontal"}
+                  id={"l2" + (id || generateControllerCode())}
                   onChange={(e) => changeControlState("l2", e)}
                 ></Controler>
               ) : null}
@@ -680,7 +713,8 @@ const MovesItem = ({
                   maxValue={360}
                   imgSrc={isDay ? rightLeft : rightLeftNight}
                   initialValue={l3Deg}
-                  id={"horizontal"}
+                  //id={"horizontal"}
+                  id={"l3" + (id || generateControllerCode())}
                   onChange={(e) => changeControlState("l3", e)}
                 ></Controler>
               ) : null}
@@ -689,8 +723,19 @@ const MovesItem = ({
                   maxValue={360}
                   imgSrc={isDay ? rightLeft : rightLeftNight}
                   initialValue={l4Deg}
-                  id={"horizontal"}
+                  //id={"horizontal"}
+                  id={"l4" + (id || generateControllerCode())}
                   onChange={(e) => changeControlState("l4", e)}
+                ></Controler>
+              ) : null}
+              {activeRobotPart === "l5" ? (
+                <Controler
+                  maxValue={360}
+                  imgSrc={isDay ? rightLeft : rightLeftNight}
+                  initialValue={l5Deg}
+                  //id={"horizontal"}
+                  id={"l5" + (id || generateControllerCode())}
+                  onChange={(e) => changeControlState("l5", e)}
                 ></Controler>
               ) : null}
               {activeRobotPart === "neck" ? (
@@ -699,14 +744,16 @@ const MovesItem = ({
                     maxValue={360}
                     imgSrc={isDay ? rightLeft : rightLeftNight}
                     initialValue={neckDeg}
-                    id={"horizontal"}
+                    //id={"horizontal"}
+                    id={"neck" + (id || generateControllerCode())}
                     onChange={(e) => changeControlState("neck", e)}
                   ></Controler>
                   <Controler
                     maxValue={360}
                     imgSrc={isDay ? rightLeft : rightLeftNight}
                     initialValue={headDeg}
-                    id={"vertical"}
+                    //id={"vertical"}
+                    id={"head" + (id || generateControllerCode())}
                     onChange={(e) => changeControlState("head", e)}
                   ></Controler>
                 </>
@@ -715,12 +762,15 @@ const MovesItem = ({
           </div>
         </div>
         <div className="movesitem__footer">
-          <RobotAddSmt
-            word={"мимику"}
-            mimic={mimicData}
-            mimicName={mimic?.name ?? null}
-            handleMimicChange={handleMimicChange} //изменение мимики
-          ></RobotAddSmt>
+          <button
+            className={classnames("movesitem-add__btn", {
+              "movesitem-add__btn--day": isDay,
+              "movesitem-add__btn--night": !isDay,
+            })}
+           onClick={() => onModalPoseMimicOpen(card)} //card - поза с сервера
+          >
+            {mimic?.name ? <><EmotionIco />{mimic.name}</> : <><PlusIco />Добавить мимику</>}
+          </button>
           <RobotAddSmt
             pharsa={phraseData}
             handlePhrasaChange={handlePhrasaChange}

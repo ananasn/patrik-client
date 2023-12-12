@@ -1,0 +1,129 @@
+@import "../../utils/variables";
+
+.modalPoseMimic {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s all;
+
+  &--open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+    height: 40vw;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 24px;
+    padding: 16px;
+
+    &--day {
+      background-color: $main-bg-day;
+    }
+
+    &--night {
+      background-color: $main-bg-night;
+    }
+  }
+
+  &__header {
+    &-top {
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__title {
+    margin: 0px;
+    padding: 0px;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  &__body {
+    margin-top: 16px;
+    overflow-y: scroll;
+    /*-ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+    overflow-x: none;
+
+    &::-webkit-scrollbar {
+      width: 0 !important;
+      height: 0;
+      display: none !important;
+      background: transparent;
+    }*/
+  }
+
+  &__close {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__list {
+    margin: 0 0 0 5px;
+    padding: 0px;
+    overflow-y: auto;
+    align-items: start;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media(max-width:860px) {
+  .modalPoseMimic {
+    &__inner {
+      width: 60%;
+      height: 40%;
+    }
+  }
+}
+
+@media(max-width:640px) {
+  .modalPoseMimic {
+    &__inner {
+      width: 82%;
+      //height: 90%;
+    }
+  }
+}
+
+@media(max-width:430px) {
+  .modalPoseMimic {
+    &__inner {
+      width: 78%;
+      height: 78%;
+    }
+  }
+}
+
+@media(max-width:350px) {
+  .modalPoseMimic {
+    &__inner {
+      width: 84%;
+      height: 84%;
+      padding: 16px;
+    }
+  }
+}

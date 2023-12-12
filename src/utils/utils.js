@@ -12,3 +12,18 @@ export const getTheme = () => {
   return false;
 }
 
+//для склонения слова раз\раза
+export const numberTimes = (number) => {
+  if (number == null) {
+    return "раз";
+  }
+
+  number = number.toString();
+
+  if (2 <= number[number.length-1] && number[number.length-1] <= 4) {
+    return "раза";
+  } else {
+    return "раз";
+  }
+}
+

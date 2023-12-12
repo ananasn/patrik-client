@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHttp } from "../../hooks/http.hook";
-import ListItem from "../ListItem/ListItem";
+//import ListItem from "../ListItem/ListItem";
 
 import closeDay from "../../img/movesItem/delete-day.svg";
 import closeNight from "../../img/movesItem/delete-night.svg";
@@ -18,7 +18,7 @@ import classNames from "classnames";
 
 import "./ModalScriptAddMove.scss";
 
-const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMoveImport}) => {
+const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMoveImport, setDelayView, onDelayAdd}) => {
   const isDay = useSelector((state) => state.isDay);
 
   const { request, loading } = useHttp();
@@ -26,11 +26,6 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
     {value: "scriptMove", title: "Движение", ico: scriptMove, icoNight: scriptMoveNight},
     {value: "timer", title: "Задержка", ico: timer, icoNight: timerNight},
   ]);
-
-  //const [delayValue, setDelayValue] = useState(delayStart);
-  // 0 - кнопка Добавить задержку 1 - инпут 2 - значение без инпута
-  // const [delayView, setDelayView] = useState(delayValue === 0 ? 0 : 2);
-  // const delayRef = useRef(null);
 
   const dispatch = useDispatch();
 
@@ -45,7 +40,11 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
   };
   //timeout input
   const handleSetTimeOut = () => {
-    //setDelayView(1);
+    // закрыть модальное окно
+    onClose();
+    //нарисовать див в верстке RobotScipt
+    setDelayView(1);
+    onDelayAdd();
   }
 
   return (
@@ -97,12 +96,7 @@ const ModalScriptAddMove = ({onScriptChange, isOpen, onClose, easingStart, onMov
                 >
                   <img src={isDay ? timer : timerNight} alt="Face" />
                   <div
-                    onClick={() => {
-                      //нарисовать див в верстке RobotScipt
-                      handleSetTimeOut();
-                      // закрыть модальное окно
-                      onClose();
-                    }}
+                    onClick={handleSetTimeOut}
                   >
                     Задержка
                   </div>

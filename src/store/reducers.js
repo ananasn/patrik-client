@@ -20,13 +20,19 @@ const initialState = {
   isModalOpen: false,
   isModalAnimationOpen: false,
   isModalScriptOpen: false,
+  isModalAddRecognitionOpen: false,
+  isModalRecognitionStartOpen: false,
+  isModalRecognitionOpen: false,
   isMove: true,
   moves: [],
   activePoseList: [],
   mimics: [],
   scripts: [],
+  triggers: [],
+  recognitions: [],
   importMimic: null,
   importMove: null,
+  importRecognition: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -40,6 +46,16 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         mimics: action.payload,
+      };
+    case "SET_TRIGGERS":
+      return {
+        ...state,
+        triggers: action.payload,
+      };
+    case "SET_RECOGNITIONS":
+      return {
+        ...state,
+        recognitions: action.payload,
       };
     case "ACTIVE_ROBOT_PART":
       return {
@@ -60,6 +76,21 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         isDialogPopupOpen: !state.isDialogPopupOpen,
+      };
+    case "TOGGLE_IS_RECOGNITION_POPUP_OPEN":
+      return {
+        ...state,
+        isModalRecognitionOpen: !state.isModalRecognitionOpen,
+      };
+    case "TOGGLE_IS_RECOGNITION_START_POPUP_OPEN":
+      return {
+        ...state,
+        isModalRecognitionStartOpen: !state.isModalRecognitionStartOpen,
+      };
+    case "TOGGLE_IS_ADD_RECOGNITION_OPEN":
+      return {
+        ...state,
+        isModalAddRecognitionOpen: !state.isModalAddRecognitionOpen,
       };
     case "TOGGLE_IS_MODAL_OPEN":
       return {
@@ -120,6 +151,11 @@ const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           importMove: action.payload,
+        };
+      case "SET_IMPORT_RECOGNITION":
+        return {
+          ...state,
+          importRecognition: action.payload,
         };
       case "SET_UPDATE":
         return {
