@@ -16,11 +16,6 @@ import {ReactComponent as RobotLogoIco} from "../img/robot/robot-logo.svg";
 import {ReactComponent as RobotBodyIco} from "../img/robot/robot-body.svg";
 import {ReactComponent as RobotLeftShoulderIco} from "../img/robot/robot-left-shoulder.svg";
 import {ReactComponent as RobotRightShoulderIco} from "../img/robot/robot-right-shoulder.svg";
-//control
-import rightLeft from "../img/robot-control-day/right-left.svg";
-import topBottom from "../img/robot-control-day/top-bottom.svg";
-import rightLeftNight from "../img/robot-control-night/right-left.svg";
-import topBottomNight from "../img/robot-control-night/top-bottom.svg";
 
 import './SafeZones.scss';
 
@@ -405,14 +400,20 @@ const SafeZones = () => {
                       <>
                         <div className="safezones__control-header">
                           { activeRobotPart === "neck" & isNeck ?
-                            <span>B</span> :
-                            <span>A</span>
+                            <BackIco
+                              onClick={() => setIsNeck(false)}
+                            />
+                           :
+                            <BackIco
+                              className="safezones__btn-forward"
+                              onClick={() => setIsNeck(true)}
+                            />
                           }
                           <h2 className="safezones__control-path-name">
                             {activeRobotPartName}
                           </h2>
                           { activeRobotPart === "neck" ?
-                            <div>
+                            <div className="safezones__control-path-number">
                               <span>{isNeck ? 1 : 2}</span>
                               <span>/</span>
                               <span>2</span>
@@ -525,15 +526,16 @@ const SafeZones = () => {
                                   id={"horizontal"}
                                   onChange={({maxValue, minValue}) => changeControlState("neck", minValue, maxValue)}
                                 ></ControlerTwoRange>
-                                :
-                              <ControlerTwoRange
-                                maxValue={safeZone.max}
-                                minValue={safeZone.min}
-                                //imgSrc={isDay ? topBottom : topBottomNight}
-                                //initialValue={headDeg}
-                                id={"vertical"}
-                                onChange={({maxValue, minValue}) => changeControlState("head", minValue, maxValue)}
-                              ></ControlerTwoRange>
+                                : null }
+                              {isNeck ? null :
+                                <ControlerTwoRange
+                                  maxValue={safeZone.max}
+                                  minValue={safeZone.min}
+                                  //imgSrc={isDay ? topBottom : topBottomNight}
+                                  //initialValue={headDeg}
+                                  id={"vertical"}
+                                  onChange={({maxValue, minValue}) => changeControlState("head", minValue, maxValue)}
+                                ></ControlerTwoRange>
                               }
                             </>
                           ) : null}
