@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classnames from "classnames";
-
 import ControlerTwoRange from "../components/ControlerTwoRange/ControlerTwoRange";
-
+import { settingsPut } from "../api";
 import {ReactComponent as BackIco} from "../img/icons/menu-day/back.svg";
 
 //robot
@@ -55,6 +54,7 @@ const SafeZones = () => {
   const [activeRobotPartName, setActiveRobotPartName] = useState(null);
   const [isReady, setIsReady] = useState(false);
   const [isNeck, setIsNeck] = useState(true);
+  const [data, setData] = useState();
 
   const handleRobotPartChoice = (robotPart) => {
 
@@ -109,6 +109,7 @@ const SafeZones = () => {
       case "neck":
         setNeck_max(maxValue);
         setNeck_min(minValue);
+        ;
         break;
       case "l1":
         setL1_max(maxValue);
@@ -134,6 +135,7 @@ const SafeZones = () => {
         setR1_max(maxValue);
         setR1_min(minValue);
         console.log(maxValue, minValue);
+        setData({r1_max: maxValue, r1_min: minValue});
         break;
       case "r2":
         setR2_max(maxValue);
@@ -175,13 +177,20 @@ const SafeZones = () => {
     });*/
   };
 
+  //const timer = data && setInterval(() => {settingsPut(data)}, 500);
+
   const handleClick = () => {
     setIsReady(true);
   };
   /*useEffect(() => {
-    setR1_max(r1_maxDeg);
-    setR1_min(r1_minDeg);
-  }, [r1_maxDeg, r1_minDeg])*/
+    if (data) {
+      const timer = setInterval(() => {settingsPut(data)}, 500);
+      //timer;
+      return () => {
+       clearInterval(timer);
+      };
+    }
+  }, [data]);*/
   return (
     <div className="safezones__wrapper">
       <div
@@ -403,12 +412,13 @@ const SafeZones = () => {
                             <BackIco
                               onClick={() => setIsNeck(false)}
                             />
-                           :
+                           : null}
+                           { activeRobotPart === "neck" & !isNeck ?
                             <BackIco
                               className="safezones__btn-forward"
                               onClick={() => setIsNeck(true)}
                             />
-                          }
+                            : null}
                           <h2 className="safezones__control-path-name">
                             {activeRobotPartName}
                           </h2>
