@@ -5,6 +5,11 @@ export const triggersGet = async() =>{
   return  await response.json();
 }
 
+export const getVolume = async() => {
+  const response = await fetch(`${API_PATH}api/volume/`);
+  return  await response.json();
+}
+
 export const settingsPut = async(data) =>{
   await fetch(`${API_PATH}/api/endstops/1/`, {method:"PUT"},
   JSON.stringify(data));

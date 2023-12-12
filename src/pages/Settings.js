@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import classnames from "classnames";
 import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
+import { useHttp } from "../hooks/http.hook";
 import Controler from "../components/Controler/Controler";
 import back from "../img/icons/menu-day/back-day.svg";
 import backNight from "../img/icons/menu-night/back-night.svg";
@@ -19,12 +20,15 @@ import themeDay from "../img/settings-day/themeDay.svg";
 import themeNight from "../img/settings-night/themeNight.svg";
 import volumeIco from "../img/settings-day/volume.svg";
 import volumeNightIco from "../img/settings-night/volumeNight.svg";
+//import { getVolume } from "../api/index";
+import { API_PATH } from "../api/index";
 import "./Settings.scss";
 import { toggleDay } from "../store/actions";
 
 
 const Settings = () => {
-  const [volume, setVolume] = useState("1234");
+  const { request, loading, error, clearError } = useHttp();
+  const [volume, setVolume] = useState("0");
   const isDay = useSelector((state) => state.isDay);
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("Патрик 78");
@@ -34,12 +38,6 @@ const Settings = () => {
   const isTablet = useMediaQuery({
     query: "(max-width: 850px)",
   });
-  // const isMobile = useMediaQuery({
-  //   query: "(max-width: 650px)",
-  // });
-  // const isPc = useMediaQuery({
-  //   query: "(max-width: 1285px)",
-  // });
   const goBack = () => {
     navigate(-1);
   };
@@ -68,6 +66,31 @@ const Settings = () => {
   const onInputSettings = (e) => {
     setInputValue(e.target.value);
   }
+  const handleChange = async (e) => {
+    setVolume(e);
+    //console.log( e, "изменить громкость")
+    const res = await request(`${API_PATH}api/set_volume/`, "post",
+    JSON.stringify({
+      volume: Number(e)
+    }));
+    //console.log("сохранить громкость")
+  }
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await request(`${API_PATH}api/volume/`);
+      const data = await response;
+      setVolume(data.volume?.toString());
+    };
+    fetchData();
+  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await request(`${API_PATH}api/volume/`);
+      const data = await response;
+      setVolume(data.volume?.toString());
+    };
+    fetchData();
+  }, [request, volume]);
 
   return (
     <div className="settings__wrapper">
@@ -202,11 +225,11 @@ const Settings = () => {
             }))}>Громкость динамика</div>
             <div className="settings__content_dinamic_controler" >
               <Controler
-                  maxValue={3000}
+                  maxValue={1000}
                   imgSrc={isDay ? volumeIco : volumeNightIco}
                   initialValue={volume}
                   id={"volume"}
-                  onChange={(e) => setVolume(e)}
+                  onChange={(e) => handleChange(e)}
               ></Controler>
             </div>
           </div>
