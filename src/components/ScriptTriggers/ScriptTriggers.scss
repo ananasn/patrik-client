@@ -316,11 +316,11 @@
   &-add__btnRepeatTime--week-checked {
     // background: $btns-day;
     // color: $font-night;
-    &--day {
-      background: $btns-day !important;
-      color: $font-night !important;
+    &.robot-script-add__btnRepeatTime--day {
+      background: $btns-day;
+      color: $font-night;
     }
-    &--night {
+    &.robot-script-add__btnRepeatTime--night {
       color: $font-day;
       background-color: $btns-night;
     }

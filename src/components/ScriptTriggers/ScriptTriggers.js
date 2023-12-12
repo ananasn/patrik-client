@@ -10,10 +10,11 @@ import deleteItemNight from "../../img/movesItem/delete-night.svg";
 import ModalAddNumberPeriod from "../../components/ModalAddNumberPeriod/ModalAddNumberPeriod";
 import ModalCommon from "../../components/ModalCommon/ModalCommon";
 import { numberTimes } from "../../utils/utils";
+import {ReactComponent as RecognitionSignIco} from "../../img/script/sign.svg";
 import "./ScriptTriggers.scss";
 
 
-const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
+const ScriptTriggers = ({ deleteTrigger, triggers, setTriggers }) => {
   const isDay = useSelector((state) => state.isDay);
   const { request } = useHttp();
 
@@ -53,24 +54,24 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
       period = 0;
     }
     setIsOpenNumberPeriod(false);
-    triggerInModal.triggerServer.number = parseFloat(number);
-    triggerInModal.triggerServer.period = parseFloat(period);
-    setFilteredItems([...filteredItems]);
+    triggerInModal.number = parseFloat(number);
+    triggerInModal.period = parseFloat(period);
+    setTriggers([...triggers]);
     setTriggerInModal(null);
   }
 
   const onTimeClose = () => {
-    triggerInModal.triggerServer.period = +hourRecognise * 60 + +minuteRecognise;
-    triggerInModal.triggerServer.startup = false;
+    triggerInModal.period = +hourRecognise * 60 + +minuteRecognise;
+    triggerInModal.startup = false;
     setIsOpenTime(false);
-    setFilteredItems([...filteredItems]);
+    setTriggers([...triggers]);
     setTriggerInModal(null);
   }
 
   return (
     <div className="robot-script__add-col-trigger">
       <div className="robot-script__add-col-trigger--wrapper">
-        {filteredItems.map((item) =>
+        {triggers.map((trigger) =>
           <div className="robot-script__add-col-trigger-items">
             <div
               className={classNames("robot-script__add-col-trigger-item", {
@@ -85,9 +86,11 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                     "robot-script__add-col-trigger-name-inner--night": !isDay,
                   })}
                 >
-                  <img src={isDay ? item.ico : item.icoNight} alt="Face" />
-                  {item.triggerServer.name}
-                  {item.triggerServer.trigger_type === 3 &&
+                  {/* <img src={isDay ? trigger.ico : trigger.icoNight} alt="Face" /> */}
+                  {trigger.trigger_type}
+                  {trigger.trigger_type === 2 && <RecognitionSignIco className="test"/>}
+                  {trigger.name}
+                  {trigger.trigger_type === 3 &&
                     <input
                       className={classNames("robot-script__add-col-trigger-inputTime", {
                         "robot-script__add-col-trigger-inputTime--day": isDay,
@@ -95,11 +98,11 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       })}
                       // type="time"
                       type="text"
-                      value={item.triggerServer.time}
+                      value={trigger.time}
                       onInput={(e) => {
                         console.log(e.target.value);
-                        item.triggerServer.time = e.target.value;
-                        setFilteredItems([...filteredItems]);
+                        trigger.time = e.target.value;
+                        setTriggers([...triggers]);
                       }}
                     />
                     // <input
@@ -107,21 +110,21 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                     //   name="time"
                     //   onFocus={(e) => e.target.type='time'}
                     //   onBlur={(e) => (!e.target.value) ? (e.target.type='text') : (e.target.type='time')}
-                    //   value={item.triggerServer.time}
+                    //   value={trigger.time}
                     //   onInput={(e) => {
                     //     console.log(e.target.value);
-                    //     item.triggerServer.time = e.target.value;
-                    //     setFilteredItems([...filteredItems]);
+                    //     trigger.time = e.target.value;
+                    //     setTriggers([...triggers]);
                     //   }}
                     // />
                   }
                 </div>
-                <button className="robot-script__btnDlt" onClick={() => deleteTrigger(item)}>
+                <button className="robot-script__btnDlt" onClick={() => deleteTrigger(trigger)}>
                   <img src={isDay ? deleteItem : deleteItemNight} alt="Delete" />
                 </button>
               </div>
               {/* Для Фраза див */}
-              {item.triggerServer.trigger_type === 0 &&
+              {trigger.trigger_type === 0 &&
                 <div>
                   <input
                     placeholder="Введите текст для фразы"
@@ -130,10 +133,10 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       "robot-script__inputPhrase--day": isDay,
                     })}
                     type="text"
-                    value={item.triggerServer.phrase}
+                    value={trigger.phrase}
                     onInput={(e) => {
-                      item.triggerServer.phrase = e.target.value;
-                      setFilteredItems([...filteredItems]);
+                      trigger.phrase = e.target.value;
+                      setTriggers([...triggers]);
                     }}
                   />
                   {/* <div>Повторно срабатывать</div>
@@ -142,11 +145,11 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       className={classNames("robot-script-add__btnRepeat", {
                         "robot-script-add__btnRepeat--day": isDay,
                         "robot-script-add__btnRepeat--night": !isDay,
-                        "robot-script-add__btnRepeat--startup-checked": item.triggerServer.startup ? true : false,
+                        "robot-script-add__btnRepeat--startup-checked": trigger.startup ? true : false,
                       })}
                       onClick={() => {
-                        item.triggerServer.startup = item.triggerServer.startup === true ? false : true;
-                        setFilteredItems([...filteredItems]);
+                        trigger.startup = trigger.startup === true ? false : true;
+                        setTriggers([...triggers]);
                       }}
                     >
                       каждый раз
@@ -167,7 +170,7 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                 </div>
               }
               {/* Для Лицо див */}
-              {item.triggerServer.trigger_type === 1 &&
+              {trigger.trigger_type === 1 &&
                 <div>
                   <div>Повторно срабатывать</div>
                   <div>
@@ -175,11 +178,11 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       className={classNames("robot-script-add__btnRepeat", {
                         "robot-script-add__btnRepeat--day": isDay,
                         "robot-script-add__btnRepeat--night": !isDay,
-                        "robot-script-add__btnRepeat--startup-checked": item.triggerServer.startup ? true : false,
+                        "robot-script-add__btnRepeat--startup-checked": trigger.startup ? true : false,
                       })}
                       onClick={() => {
-                        item.triggerServer.startup = item.triggerServer.startup === true ? false : true;
-                        setFilteredItems([...filteredItems]);
+                        trigger.startup = trigger.startup === true ? false : true;
+                        setTriggers([...triggers]);
                       }}
                     >
                       каждый раз
@@ -188,14 +191,14 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       className={classNames("robot-script-add__btnRepeat", {
                         "robot-script-add__btnRepeat--day": isDay,
                         "robot-script-add__btnRepeat--night": !isDay,
-                        "robot-script-add__btnRepeat--startup-checked": !item.triggerServer.startup ? true : false,
+                        "robot-script-add__btnRepeat--startup-checked": !trigger.startup ? true : false,
                       })}
                       onClick={() => {
-                        setTriggerInModal(item);
+                        setTriggerInModal(trigger);
                         setIsOpenTime(true);
-                        setMinuteRecognise(item.triggerServer.period % 60);
-                        setHourRecognise(Math.floor(item.triggerServer.period / 60));
-                        console.log(item.triggerServer.period);
+                        setMinuteRecognise(trigger.period % 60);
+                        setHourRecognise(Math.floor(trigger.period / 60));
+                        console.log(trigger.period);
                       }}
                     >
                       через время
@@ -204,7 +207,7 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                 </div>
               }
               {/* Для Жест див */}
-              {item.triggerServer.trigger_type === 2 &&
+              {trigger.trigger_type === 2 &&
                 <div>
                   <div>Повторно срабатывать</div>
                   <div>
@@ -212,11 +215,11 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       className={classNames("robot-script-add__btnRepeat", {
                         "robot-script-add__btnRepeat--day": isDay,
                         "robot-script-add__btnRepeat--night": !isDay,
-                        "robot-script-add__btnRepeat--startup-checked": item.triggerServer.startup ? true : false,
+                        "robot-script-add__btnRepeat--startup-checked": trigger.startup ? true : false,
                       })}
                       onClick={() => {
-                        item.triggerServer.startup = item.triggerServer.startup === true ? false : true;
-                        setFilteredItems([...filteredItems]);
+                        trigger.startup = trigger.startup === true ? false : true;
+                        setTriggers([...triggers]);
                       }}
                     >
                       каждый раз
@@ -225,14 +228,14 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       className={classNames("robot-script-add__btnRepeat", {
                         "robot-script-add__btnRepeat--day": isDay,
                         "robot-script-add__btnRepeat--night": !isDay,
-                        "robot-script-add__btnRepeat--startup-checked": !item.triggerServer.startup ? true : false,
+                        "robot-script-add__btnRepeat--startup-checked": !trigger.startup ? true : false,
                       })}
                       onClick={() => {
-                        setTriggerInModal(item);
+                        setTriggerInModal(trigger);
                         setIsOpenTime(true);
-                        setMinuteRecognise(item.triggerServer.period % 60);
-                        setHourRecognise(Math.floor(item.triggerServer.period / 60));
-                        console.log(item.triggerServer.period);
+                        setMinuteRecognise(trigger.period % 60);
+                        setHourRecognise(Math.floor(trigger.period / 60));
+                        console.log(trigger.period);
                       }}
                     >
                       через время
@@ -241,7 +244,7 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                 </div>
               }
               {/* Для времени див */}
-              {item.triggerServer.trigger_type === 3 &&
+              {trigger.trigger_type === 3 &&
                 <div className="robot-script__triggerWrapper">
                   <div className="robot-script__triggerTimeText">Повторять после выполнения:</div>
                   <button
@@ -250,13 +253,13 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                       "robot-script-add__btnNotRepeat--night": !isDay,
                     })}
                     onClick={() => {
-                      setTriggerInModal(item);
+                      setTriggerInModal(trigger);
                       setIsOpenNumberPeriod(true);
                     }}
                   >
-                    {(item.triggerServer.number == 0 && item.triggerServer.period == 0) ?
+                    {(trigger.number == 0 && trigger.period == 0) ?
                       "не повторять" :
-                      `${item.triggerServer.number} ${numberTimes(item.triggerServer.number)}, каждые ${item.triggerServer.period} минут`}
+                      `${trigger.number} ${numberTimes(trigger.number)}, каждые ${trigger.period} минут`}
                   </button>
                   <div className="robot-script__triggerTimeText">Повторять по дням недели:</div>
                   <div className="robot-script__triggerTimeDays">
@@ -265,19 +268,18 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                         className={classNames("robot-script-add__btnRepeatTime", {
                           "robot-script-add__btnRepeatTime--day": isDay,
                           "robot-script-add__btnRepeatTime--night": !isDay,
-                          "robot-script-add__btnRepeatTime--week-checked--day": item.triggerServer.week[6-index] == 1,
-                          "robot-script-add__btnRepeatTime--week-checked--night": item.triggerServer.week[6-index] == 1,
+                          "robot-script-add__btnRepeatTime--week-checked": trigger.week[6-index] == 1,
                         })}
                         onClick={() => {
-                          let arr = item.triggerServer.week.split('');
+                          let arr = trigger.week.split('');
                           arr[6-index] = arr[6-index] == "0" ? "1" : "0";
                           let str = arr.join('');
-                          item.triggerServer.week = str;
-                          setFilteredItems([...filteredItems]);
+                          trigger.week = str;
+                          setTriggers([...triggers]);
                         }}
                       >
                         {day.title}
-                        {/* {item.triggerServer.week} */}
+                        {/* {trigger.week} */}
                       </button>
                     )}
                   </div>
@@ -285,7 +287,7 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
               }
 
               {/* Для Запуск системы див */}
-              {item.triggerServer.trigger_type === 4 &&
+              {trigger.trigger_type === 4 &&
                 <div>
                   <div>Повторять:</div>
                   <div>
@@ -294,18 +296,18 @@ const ScriptTriggers = ({ filteredItems, deleteTrigger, setFilteredItems }) => {
                         className={classNames("robot-script-add__btnRepeatTime", {
                           "robot-script-add__btnRepeatTime--day": isDay,
                           "robot-script-add__btnRepeatTime--night": !isDay,
-                          "robot-script-add__btnRepeatTime--week-checked": item.triggerServer.week[6-index] == 1,
+                          "robot-script-add__btnRepeatTime--week-checked": trigger.week[6-index] == 1,
                         })}
                         onClick={() => {
-                          let arr = item.triggerServer.week.split('');
+                          let arr = trigger.week.split('');
                           arr[6-index] = arr[6-index] == "0" ? "1" : "0";
                           let str = arr.join('');
-                          item.triggerServer.week = str;
-                          setFilteredItems([...filteredItems]);
+                          trigger.week = str;
+                          setTriggers([...triggers]);
                         }}
                       >
                         {day.title}
-                        {/* {item.triggerServer.week} */}
+                        {/* {trigger.week} */}
                       </button>
                     )}
                   </div>

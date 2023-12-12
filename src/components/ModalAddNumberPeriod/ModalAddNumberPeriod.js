@@ -48,23 +48,49 @@ const ModalAddNumberPeriod = ({ isOpenNumberPeriod, onNumberPeriodClose, trigger
           </div>
         </div>
         <div className="modal-script-add-move__body">
-                  <input
-                    defaultValue={triggerInModal?.triggerServer?.number}
-                    ref={inputNumberRef}
-                    type="number"
-                    min={0}
-                    onInput={e => setNumberValue(e.target.value)}
-                  />
-                  {/* <span>{numberTimes(inputNumberRef?.current?.value)} через каждые</span> */}
-                  <span>часов</span>
-
-                  <input
-                    defaultValue={triggerInModal?.triggerServer?.period}
-                    ref={inputPeriodRef}
-                    type="number"
-                    min={0}
-                  />
-                  <span>минут</span>
+          <div className="modal-script-add-move__numberPeriodWrapper--text">Через:</div>
+          <div className="modal-script-add-move__numberPeriodWrapper">
+            <label
+              className={classNames("modal-script-add-move__labelNumberPeriod", {
+                "modal-script-add-move__labelNumberPeriod--day": isDay,
+                "modal-script-add-move__labelNumberPeriod--night": !isDay,
+              })}
+            >
+              <input
+                className={classNames("modal-script-add-move__numberPeriodWrapper--inputNumberPeriod", {
+                  "modal-script-add-move__numberPeriodWrapper--inputNumberPeriod--day": isDay,
+                  "modal-script-add-move__numberPeriodWrapper--inputNumberPeriod--night": !isDay,
+                })}
+                defaultValue={triggerInModal?.triggerServer?.number}
+                ref={inputNumberRef}
+                type="number"
+                min={0}
+                placeholder="0"
+                onInput={e => setNumberValue(e.target.value)}
+              />
+              {/* <span>{numberTimes(inputNumberRef?.current?.value)} через каждые</span> */}
+              <div className="modal-script-add-move__numberPeriodWrapper--hours">часов</div>
+            </label>
+            <label
+              className={classNames("modal-script-add-move__labelNumberPeriod", {
+                "modal-script-add-move__labelNumberPeriod--day": isDay,
+                "modal-script-add-move__labelNumberPeriod--night": !isDay,
+              })}
+            >
+              <input
+                className={classNames("modal-script-add-move__numberPeriodWrapper--inputNumberPeriod", {
+                  "modal-script-add-move__numberPeriodWrapper--inputNumberPeriod--day": isDay,
+                  "modal-script-add-move__numberPeriodWrapper--inputNumberPeriod--night": !isDay,
+                })}
+                defaultValue={triggerInModal?.triggerServer?.period}
+                ref={inputPeriodRef}
+                type="number"
+                min={0}
+                placeholder="0"
+              />
+              <div className="modal-script-add-move__numberPeriodWrapper--minutes">минут</div>
+            </label>
+          </div>
         </div>
         <button
           className={classNames("modal-script-add-move__applyBtn", {

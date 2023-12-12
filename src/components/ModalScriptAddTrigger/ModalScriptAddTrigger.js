@@ -32,15 +32,16 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, setTriggerInMo
   const [triggers, setTriggers] = useState([]);
   const [filteredItems, setFilteredItems] = useState([
     {value: "time", title: "Время", ico: clock, icoNight: clockNight, triggerServer: {
+      // + Date.now()
       "name": "Время",
       "trigger_type": 3,
-      "busy": true,
+      "busy": false,
       "phrase": "string",
       "face_encoding": "string",
       "face": "string",
       "gesture_landmarks": "string",
-      "time": "string",
-      "startup": true,
+      "time": "12:15",
+      "startup": false,
       "week": "0000000",
       "period": 0,
       "number": 0
@@ -53,7 +54,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, setTriggerInMo
       "face_encoding": "string",
       "face": "string",
       "gesture_landmarks": "string",
-      "time": "string",
+      "time": "12:15",
       "startup": true,
       "week": "0000000",
       "period": 0,
@@ -69,7 +70,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, setTriggerInMo
       "gesture_landmarks": "string",
       "time": "string",
       "startup": true,
-      "week": 0,
+      "week": "0000000",
       "period": 1000,
       "number": 0
     }},
@@ -83,7 +84,7 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, setTriggerInMo
       "gesture_landmarks": "string",
       "time": "string",
       "startup": true,
-      "week": 0,
+      "week": "0000000",
       "period": 1000,
       "number": 0
     }},
@@ -95,9 +96,9 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, setTriggerInMo
       "face_encoding": "string",
       "face": "string",
       "gesture_landmarks": "string",
-      "time": "string",
+      "time": "12:15",
       "startup": false,
-      "week": 0,
+      "week": "0000000",
       "period": 0,
       "number": 0
     }},
@@ -167,7 +168,10 @@ const ModalScriptAddTrigger = ({onTriggerSelect, isOpen, onClose, setTriggerInMo
                         setTriggers(triggersServer);
                         return;
                       }
-                      onTriggerSelect(item);
+                      const trigger = {...item, triggerServer: {...item.triggerServer}};
+                      trigger.triggerServer.name += Math.random().toFixed(2).slice(2);
+                      // console.log(trigger);
+                      onTriggerSelect(trigger);
                       // закрыть модальное окно
                       onClose();
                     }}

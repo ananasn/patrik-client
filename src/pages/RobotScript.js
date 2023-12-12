@@ -44,7 +44,7 @@ const RobotScript = () => {
   const dispatch = useDispatch();
   const [moves, setMoves] = useState([]);
   const [triggers, setTriggers] = useState([]);
-  const [filteredItems, setFilteredItems] = useState([]);
+  // const [filteredItems, setFilteredItems] = useState([]);
   const [buttonText, setButtonText] = useState('или');
   const [delayValue, setDelayValue] = useState(0); //delay из бека
   const [script, setScript] = useState({});
@@ -58,27 +58,36 @@ const RobotScript = () => {
     query: "(max-width: 850px)",
   });
 
-    useEffect(() => {
-      if (scriptId) {
-        const fetchData = async () => {
-          const response = await request(`http://localhost:8000/api/script/${scriptId}`);// получить сценарий по id
-          const data = await response;
-          console.log(data)
-          //setThisScript(data);
-          setInputValue(data.name);
-          setExpressions(data.expressions);
-          setScript(data);
-        };
-        fetchData();
-      } else {
-        setInputValue("Новый сценарий");
+  const fetchData = async () => {
+    const response = await request(`http://localhost:8000/api/script/${scriptId}`);// получить сценарий по id
+    const data = await response;
+    console.log(data)
+    //setThisScript(data);
+    setInputValue(data.name);
+    setExpressions(data.expressions);
+    data.triggers.forEach(trigger => {
+      trigger.week = trigger.week.toString(2);
+      trigger.time = trigger.time.slice(0, 5);
+      if (trigger.period === null) {
+        trigger.period = 0;
       }
-      (async () => {
-        const response = await request("http://localhost:8000/api/move/");
-        const data = await response;
-        setMoves(data);
-      })();
-    }, [])
+    });
+    setTriggers(data.triggers);
+    setScript(data);
+  };
+
+  useEffect(() => {
+    if (scriptId) {
+      fetchData();
+    } else {
+      setInputValue("Новый сценарий");
+    }
+    (async () => {
+      const response = await request("http://localhost:8000/api/move/");
+      const data = await response;
+      setMoves(data);
+    })();
+  }, [])
     // console.log(moves);
 
   const inputRef = useRef(null);
@@ -118,7 +127,7 @@ const RobotScript = () => {
       triggerFromPopup.triggerServer.time = `${hours}:${minutes}`
     }
     setTriggers([...triggers, triggerFromPopup.triggerServer]);
-    setFilteredItems([...filteredItems, triggerFromPopup]);
+    // setFilteredItems([...filteredItems, triggerFromPopup]);
   }
   const onModalScriptClose = () => {
     setIsModalScriptOpen(false);
@@ -132,16 +141,31 @@ const RobotScript = () => {
 
   //запрос на сохранение/перезапись сценария на сервер
   const handleSaveScript = async () => {
-    const triggers = filteredItems.map(item => {
-      item.triggerServer.week = parseInt(item.triggerServer.week, 2);
-      return item.triggerServer;
+    const triggersServer = triggers.map(item => {
+      // item.triggerServer.week = parseInt(item.triggerServer.week, 2);
+      // return item.triggerServer;
+      const trigger = {
+        ...item,
+        week: parseInt(item.week, 2),
+      };
+      //если период не выбран то удаляем его - потому что 0 на сервере не сохраняется
+      if (trigger.period === 0) {
+        delete trigger.period;
+      }
+      return trigger;
     });
     // console.log(triggers);
-
+    //TODO: loading
     const res = await request("http://localhost:8000/api/save_script/", "post",
-      JSON.stringify({...script, triggers: triggers, expressions: expressions})
+      JSON.stringify({
+        id: script.id,
+        active: script.active,
+        name: script.name,
+        triggers: triggersServer,
+        expressions: expressions,
+      })
     );
-
+    await fetchData();
     console.log(res);
     // console.log("navigate to /script")
     // navigate(-1);
@@ -163,7 +187,7 @@ const RobotScript = () => {
 
   const onDelayAdd = () => {
     setExpressions([...expressions, {
-      move_id: null,
+      // move_id: null,
       delay: 100,
       operation: 1,
     }]);
@@ -175,9 +199,9 @@ const RobotScript = () => {
   }
 
   const deleteTrigger = (item) => {
-    console.log("triger delete");
-    let index = filteredItems.indexOf(item);
-    setFilteredItems([...filteredItems.slice(0, index), ...filteredItems.slice(index + 1)]);
+    console.log("triger delete", item, triggers);
+    let index = triggers.indexOf(item);
+    setTriggers([...triggers.slice(0, index), ...triggers.slice(index + 1)]);
   }
 
   const deleteExpression = (expression) => {
@@ -249,8 +273,8 @@ const RobotScript = () => {
             Если:
           </div>
           <ScriptTriggers
-            filteredItems={filteredItems}
-            setFilteredItems={setFilteredItems}
+            triggers={triggers}
+            setTriggers={setTriggers}
             deleteTrigger={deleteTrigger}
           ></ScriptTriggers>
 
@@ -297,7 +321,7 @@ const RobotScript = () => {
               // console.log(roundTopClass, roundBottomClass, index, expressions, expressionPrev, expressionNext);
               return <div className="expression" key={expression.id}>
                 {expression.move_id &&  <div className="robot-script__add-col-importedMoves">
-                  <div className={`expression__line ${roundTopClass} ${roundBottomClass}`}></div>
+                  <div className={`expression__line ${roundTopClass} ${roundBottomClass} ${isDay ? "expression__line--day" : "expression__line--night"}`}></div>
                   <div className={classNames("robot-script__add-col-importedMoves-move", {
                     "robot-script__add-col-importedMoves-move--day": isDay,
                     "robot-script__add-col-importedMoves-move--night": !isDay,

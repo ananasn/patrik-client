@@ -349,14 +349,14 @@
   }
   .expression {
     &__line {
-      background-color: $robot-day;
+      // background-color: $robot-day;
       width: 10px;
-      // &--day {
-      //   background-color: $robot-day;
-      // }
-      // &--night {
-      //   background-color: $robot-move-night;
-      // }
+      &--day {
+        background-color: $robot-day;
+      }
+      &--night {
+        background-color: $robot-move-night;
+      }
       &--hidden {
         background: transparent;
       }
