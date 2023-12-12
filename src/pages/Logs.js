@@ -62,7 +62,6 @@ const Logs = () => {
     const fetchData = async () => {
       const response = await request(`${API_PATH}api/log/`);
       const data = await response;
-      console.log(data);
       setLogs(data.logs);
     };
     fetchData();
