@@ -261,6 +261,11 @@
       color: #ffffff;
     }
   }
+  &__control-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
   &__control-name {
     font-size: 24px;
     font-weight: 700;
@@ -271,6 +276,15 @@
     font-size: 32px;
     font-weight: 700;
     line-height: normal;
+  }
+  &__control-path-number {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: normal;
+    color: $robot-logo-day;
+    &_active {
+      color: #1F2432;
+    }
   }
   &__control-description {
     margin: 9px 0;

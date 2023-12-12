@@ -16,12 +16,15 @@ import {ReactComponent as RobotLogoIco} from "../img/robot/robot-logo.svg";
 import {ReactComponent as RobotBodyIco} from "../img/robot/robot-body.svg";
 import {ReactComponent as RobotLeftShoulderIco} from "../img/robot/robot-left-shoulder.svg";
 import {ReactComponent as RobotRightShoulderIco} from "../img/robot/robot-right-shoulder.svg";
-
-
+//control
 import rightLeft from "../img/robot-control-day/right-left.svg";
+import topBottom from "../img/robot-control-day/top-bottom.svg";
 import rightLeftNight from "../img/robot-control-night/right-left.svg";
+import topBottomNight from "../img/robot-control-night/top-bottom.svg";
 
 import './SafeZones.scss';
+
+const safeZone = {min: 0, max: 1000};
 
 const SafeZones = () => {
   const isDay = useSelector((state) => state.isDay);
@@ -29,22 +32,34 @@ const SafeZones = () => {
     const goBack = () => {
     navigate(-1);
   };
-  const [l1_maxDeg, setL1_max] = useState(180);
-  const [l1_minDeg, setL1_min] = useState(0);
-  //const [l2Deg, setL2] = useState(0);
-  //const [l3Deg, setL3] = useState(l3);
-  //const [l4Deg, setL4] = useState(l4);
-  const [r1_maxDeg, setR1_max] = useState(180);
-  const [r1_minDeg, setR1_min] = useState(0);
-  const [r2_maxDeg, setR2_max] = useState(180);
-  const [r2_minDeg, setR2_min] = useState(0);
-  //const [r3Deg, setR3] = useState(r3);
-  //const [r4Deg, setR4] = useState(r4);
-  //const [neckDeg, setNeck] = useState(neck);
-  //const [headDeg, setHead] = useState(head);
+  const [l1_maxDeg, setL1_max] = useState();
+  const [l1_minDeg, setL1_min] = useState();
+  const [l2_maxDeg, setL2_max] = useState();
+  const [l2_minDeg, setL2_min] = useState();
+  const [l3_maxDeg, setL3_max] = useState();
+  const [l3_minDeg, setL3_min] = useState();
+  const [l4_maxDeg, setL4_max] = useState();
+  const [l4_minDeg, setL4_min] = useState();
+  const [l5_maxDeg, setL5_max] = useState();
+  const [l5_minDeg, setL5_min] = useState();
+  const [r1_maxDeg, setR1_max] = useState();
+  const [r1_minDeg, setR1_min] = useState();
+  const [r2_maxDeg, setR2_max] = useState();
+  const [r2_minDeg, setR2_min] = useState();
+  const [r3_maxDeg, setR3_max] = useState();
+  const [r3_minDeg, setR3_min] = useState();
+  const [r4_maxDeg, setR4_max] = useState();
+  const [r4_minDeg, setR4_min] = useState();
+  const [r5_maxDeg, setR5_max] = useState();
+  const [r5_minDeg, setR5_min] = useState();
+  const [neck_maxDeg, setNeck_max] = useState();
+  const [neck_minDeg, setNeck_min] = useState();
+  const [head_maxDeg, setHead_max] = useState();
+  const [headDeg_max, setHead_min] = useState();
   const [activeRobotPart, setActiveRobotPart] = useState(null);
   const [activeRobotPartName, setActiveRobotPartName] = useState(null);
   const [isReady, setIsReady] = useState(false);
+  const [isNeck, setIsNeck] = useState(true);
 
   const handleRobotPartChoice = (robotPart) => {
 
@@ -95,30 +110,54 @@ const SafeZones = () => {
     setIsReady(false);
   };
   const changeControlState = (robotPart, minValue, maxValue) => {
-    if (robotPart === "r1") {
-      setR1_max(maxValue);
-      setR1_min(minValue);
-    } else if (robotPart === "r2") {
-      setR2_max(maxValue);
-      setR2_min(minValue);
-    } else if (robotPart === "r3") {
-      //setR3(e);
-    } else if (robotPart === "r4") {
-      //setR4(e);
-    } else if (robotPart === "l1") {
-      setL1_max(maxValue);
-      setL1_min(minValue);
-    } else if (robotPart === "l2") {
-      //setL2_max(maxValue);
-      //setL2_min(minValue);
-    } else if (robotPart === "l3") {
-      //setL3(e);
-    } else if (robotPart === "l4") {
-      //setL4(e);
-    } else if (robotPart === "neck") {
-      //setNeck(e);
-    } else if (robotPart === "head") {
-      //setHead(e);
+    switch (robotPart) {
+      case "neck":
+        setNeck_max(maxValue);
+        setNeck_min(minValue);
+        break;
+      case "l1":
+        setL1_max(maxValue);
+        setL1_min(minValue);
+        break;
+      case "l2":
+        setL2_max(maxValue);
+        setL2_min(minValue);
+        break;
+      case "l3":
+        setL3_max(maxValue);
+        setL3_min(minValue);
+        break;
+      case "l4":
+        setL4_max(maxValue);
+        setL4_min(minValue);
+        break;
+      case "l5":
+        setL5_max(maxValue);
+        setL5_min(minValue);
+        break;
+      case "r1":
+        setR1_max(maxValue);
+        setR1_min(minValue);
+        console.log(maxValue, minValue);
+        break;
+      case "r2":
+        setR2_max(maxValue);
+        setR2_min(minValue);
+        break;
+      case "r3":
+        setR3_max(maxValue);
+        setR3_min(minValue);
+        break;
+      case "r4":
+        setR4_max(maxValue);
+        setR4_min(minValue);
+        break;
+      case "r5":
+        setR5_max(maxValue);
+        setR5_min(minValue);
+        break;
+      default:
+        break;
     }
     /*saveFunc({
       id: id,
@@ -144,10 +183,10 @@ const SafeZones = () => {
   const handleClick = () => {
     setIsReady(true);
   };
-  useEffect(() => {
+  /*useEffect(() => {
     setR1_max(r1_maxDeg);
     setR1_min(r1_minDeg);
-  }, [r1_maxDeg, r1_minDeg])
+  }, [r1_maxDeg, r1_minDeg])*/
   return (
     <div className="safezones__wrapper">
       <div
@@ -344,7 +383,12 @@ const SafeZones = () => {
                   </div>
                 </div>
                 {isReady ? (
-                  <div className="safezones__control">
+                  <div
+                    className={classnames("safezones__control", {
+                      "safezones__control_day": isDay,
+                      "safezones__control_night": !isDay,
+                    })}
+                  >
                     <h2 className="safezones__control-name">
                       Конечность настроена
                     </h2>
@@ -359,17 +403,31 @@ const SafeZones = () => {
                   >
                     {activeRobotPartName ? (
                       <>
-                        <h2 className="safezones__control-path-name">
-                          {activeRobotPartName}
-                        </h2>
+                        <div className="safezones__control-header">
+                          { activeRobotPart === "neck" & isNeck ?
+                            <span>B</span> :
+                            <span>A</span>
+                          }
+                          <h2 className="safezones__control-path-name">
+                            {activeRobotPartName}
+                          </h2>
+                          { activeRobotPart === "neck" ?
+                            <div>
+                              <span>{isNeck ? 1 : 2}</span>
+                              <span>/</span>
+                              <span>2</span>
+                            </div>
+                            : null
+                          }
+                        </div>
                         <p className="safezones__control-description">
                           Установите максимально допустимые значения для левой и правой стороны
                         </p>
                         <div className="safezones__controller">
                           {activeRobotPart === "r1" ? (
                             <ControlerTwoRange
-                              maxValue={180}
-                              minValue={0}
+                              maxValue={safeZone.max}
+                              minValue={safeZone.min}
                               //initialValue={r1Deg}
                               id={"horizontal"}
                               onChange={({maxValue, minValue}) => changeControlState("r1", minValue, maxValue)}
@@ -377,21 +435,107 @@ const SafeZones = () => {
                           ) : null}
                           {activeRobotPart === "r2" ? (
                             <ControlerTwoRange
-                              maxValue={180}
-                              minValue={0}
+                              maxValue={safeZone.max}
+                              minValue={safeZone.min}
                               //initialValue={r1Deg}
                               id={"horizontal"}
                               onChange={({maxValue, minValue}) => changeControlState("r2", minValue, maxValue)}
                             ></ControlerTwoRange>
                           ) : null}
+                          {activeRobotPart === "r3" ? (
+                            <ControlerTwoRange
+                              maxValue={safeZone.max}
+                              minValue={safeZone.min}
+                              //initialValue={r1Deg}
+                              id={"horizontal"}
+                              onChange={({maxValue, minValue}) => changeControlState("r3", minValue, maxValue)}
+                            ></ControlerTwoRange>
+                          ) : null}
+                          {activeRobotPart === "r4" ? (
+                            <ControlerTwoRange
+                              maxValue={safeZone.max}
+                              minValue={safeZone.min}
+                              //initialValue={r1Deg}
+                              id={"horizontal"}
+                              onChange={({maxValue, minValue}) => changeControlState("r4", minValue, maxValue)}
+                            ></ControlerTwoRange>
+                          ) : null}
+                          {activeRobotPart === "r5" ? (
+                            <ControlerTwoRange
+                              maxValue={safeZone.max}
+                              minValue={safeZone.min}
+                              //initialValue={r1Deg}
+                              id={"horizontal"}
+                              onChange={({maxValue, minValue}) => changeControlState("r5", minValue, maxValue)}
+                            ></ControlerTwoRange>
+                          ) : null}
                           {activeRobotPart === "l1" ? (
                             <ControlerTwoRange
-                              maxValue={180}
-                              minValue={0}
+                              maxValue={safeZone.max}
+                              minValue={safeZone.min}
                               //initialValue={r1Deg}
                               id={"horizontal"}
                               onChange={({maxValue, minValue}) => changeControlState("l1", minValue, maxValue)}
                             ></ControlerTwoRange>
+                          ) : null}
+                          {activeRobotPart === "l2" ? (
+                            <ControlerTwoRange
+                              maxValue={safeZone.max}
+                              minValue={safeZone.min}
+                              //initialValue={r1Deg}
+                              id={"horizontal"}
+                              onChange={({maxValue, minValue}) => changeControlState("l2", minValue, maxValue)}
+                            ></ControlerTwoRange>
+                          ) : null}
+                          {activeRobotPart === "l3" ? (
+                            <ControlerTwoRange
+                              maxValue={safeZone.max}
+                              minValue={safeZone.min}
+                              //initialValue={r1Deg}
+                              id={"horizontal"}
+                              onChange={({maxValue, minValue}) => changeControlState("l3", minValue, maxValue)}
+                            ></ControlerTwoRange>
+                          ) : null}
+                          {activeRobotPart === "l4" ? (
+                            <ControlerTwoRange
+                              maxValue={safeZone.max}
+                              minValue={safeZone.min}
+                              //initialValue={r1Deg}
+                              id={"horizontal"}
+                              onChange={({maxValue, minValue}) => changeControlState("l4", minValue, maxValue)}
+                            ></ControlerTwoRange>
+                          ) : null}
+                          {activeRobotPart === "l5" ? (
+                            <ControlerTwoRange
+                              maxValue={safeZone.max}
+                              minValue={safeZone.min}
+                              //initialValue={r1Deg}
+                              id={"horizontal"}
+                              onChange={({maxValue, minValue}) => changeControlState("l5", minValue, maxValue)}
+                            ></ControlerTwoRange>
+                          ) : null}
+                          {activeRobotPart === "neck" ? (
+                            <>
+                              {isNeck ?
+                                <ControlerTwoRange
+                                  maxValue={safeZone.max}
+                                  minValue={safeZone.min}
+                                  //imgSrc={isDay ? rightLeft : rightLeftNight}
+                                  //initialValue={neckDeg}
+                                  id={"horizontal"}
+                                  onChange={({maxValue, minValue}) => changeControlState("neck", minValue, maxValue)}
+                                ></ControlerTwoRange>
+                                :
+                              <ControlerTwoRange
+                                maxValue={safeZone.max}
+                                minValue={safeZone.min}
+                                //imgSrc={isDay ? topBottom : topBottomNight}
+                                //initialValue={headDeg}
+                                id={"vertical"}
+                                onChange={({maxValue, minValue}) => changeControlState("head", minValue, maxValue)}
+                              ></ControlerTwoRange>
+                              }
+                            </>
                           ) : null}
                         </div>
                         <button
@@ -409,105 +553,6 @@ const SafeZones = () => {
                     )}
                   </div>
                 )}
-                {/*<div className="movesitem__control">
-                  <h2 className="movesitem__control-name">
-                    {activeRobotPartName
-                      ? `Позиция ${activeRobotPartName}`
-                      : "Выберите конечность робота для настройки"}
-                  </h2>
-                  <div className="movesitem__controller">
-                    {activeRobotPart === "r1" ? (
-                      <Controler
-                        maxValue={360}
-                        imgSrc={isDay ? rightLeft : rightLeftNight}
-                        initialValue={r1Deg}
-                        id={"horizontal"}
-                        onChange={(e) => changeControlState("r1", e)}
-                      ></Controler>
-                    ) : null}
-                    {activeRobotPart === "r2" ? (
-                      <Controler
-                        maxValue={360}
-                        imgSrc={isDay ? rightLeft : rightLeftNight}
-                        initialValue={r2Deg}
-                        id={"horizontal"}
-                        onChange={(e) => changeControlState("r2", e)}
-                      ></Controler>
-                    ) : null}
-                    {activeRobotPart === "r3" ? (
-                      <Controler
-                        maxValue={360}
-                        imgSrc={isDay ? rightLeft : rightLeftNight}
-                        initialValue={r3Deg}
-                        id={"horizontal"}
-                        onChange={(e) => changeControlState("r3", e)}
-                      ></Controler>
-                    ) : null}
-                    {activeRobotPart === "r4" ? (
-                      <Controler
-                        maxValue={360}
-                        imgSrc={isDay ? rightLeft : rightLeftNight}
-                        initialValue={r4Deg}
-                        id={"horizontal"}
-                        onChange={(e) => changeControlState("r4", e)}
-                      ></Controler>
-                    ) : null}
-                    {activeRobotPart === "l1" ? (
-                      <Controler
-                        maxValue={360}
-                        imgSrc={isDay ? rightLeft : rightLeftNight}
-                        initialValue={l1Deg}
-                        id={"horizontal"}
-                        onChange={(e) => changeControlState("l1", e)}
-                      ></Controler>
-                    ) : null}
-                    {activeRobotPart === "l2" ? (
-                      <Controler
-                        maxValue={360}
-                        imgSrc={isDay ? rightLeft : rightLeftNight}
-                        initialValue={l2Deg}
-                        id={"horizontal"}
-                        onChange={(e) => changeControlState("l2", e)}
-                      ></Controler>
-                    ) : null}
-                    {activeRobotPart === "l3" ? (
-                      <Controler
-                        maxValue={360}
-                        imgSrc={isDay ? rightLeft : rightLeftNight}
-                        initialValue={l3Deg}
-                        id={"horizontal"}
-                        onChange={(e) => changeControlState("l3", e)}
-                      ></Controler>
-                    ) : null}
-                    {activeRobotPart === "l4" ? (
-                      <Controler
-                        maxValue={360}
-                        imgSrc={isDay ? rightLeft : rightLeftNight}
-                        initialValue={l4Deg}
-                        id={"horizontal"}
-                        onChange={(e) => changeControlState("l4", e)}
-                      ></Controler>
-                    ) : null}
-                    {activeRobotPart === "neck" ? (
-                      <>
-                        <Controler
-                          maxValue={360}
-                          imgSrc={isDay ? rightLeft : rightLeftNight}
-                          initialValue={neckDeg}
-                          id={"horizontal"}
-                          onChange={(e) => changeControlState("neck", e)}
-                        ></Controler>
-                        <Controler
-                          maxValue={360}
-                          imgSrc={isDay ? rightLeft : rightLeftNight}
-                          initialValue={headDeg}
-                          id={"vertical"}
-                          onChange={(e) => changeControlState("head", e)}
-                        ></Controler>
-                      </>
-                    ) : null}
-                  </div>
-                    </div>*/}
               </div>
             </div>
           </div>
